@@ -1,0 +1,8 @@
+# Importing data
+
+In this chapter, we will see how to import several omics datasets into R, and how to combine them into a MultiDataSet object (from the `MultiDataSet` package) that contains the omics datasets along with their associated features and samples metadata.
+
+## The _targets.R script
+
+As we are starting the analysis, the `_targets.R` script should look like this:
+

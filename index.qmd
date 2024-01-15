@@ -1,5 +1,17 @@
 # Preface {.unnumbered}
 
+-   What is moiraine
+
+-   How the manual works
+
+```{r}
+#| child: "_setup.qmd"
+```
+
+```{r loading-packages}
+library(targets)
+```
+
 This is a Quarto book.
 
 To learn more about Quarto books visit <https://quarto.org/docs/books>.
@@ -7,3 +19,17 @@ To learn more about Quarto books visit <https://quarto.org/docs/books>.
 ```{r}
 1 + 1
 ```
+
+A targets chunck:
+
+```{targets}
+tar_target(a, 2+2)
+```
+
+```{file}
+"something"
+```
+
+## Other things to add in intro
+
+**Note:** Throughout the package and vignettes, we refer to the different biological entities measured in a given dataset (e.g. genes, transcripts, metabolic compounds, etc) as features.

@@ -4,27 +4,41 @@
     "href": "index.html",
     "title": "The moiraine R package user manual",
     "section": "",
-    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.\n\n1 + 1\n\n[1] 2"
+    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.\nA targets chunck:"
+  },
+  {
+    "objectID": "index.html#other-things-to-add-in-intro",
+    "href": "index.html#other-things-to-add-in-intro",
+    "title": "The moiraine R package user manual",
+    "section": "Other things to add in intro",
+    "text": "Other things to add in intro\nNote: Throughout the package and vignettes, we refer to the different biological entities measured in a given dataset (e.g. genes, transcripts, metabolic compounds, etc) as features."
   },
   {
     "objectID": "intro.html",
     "href": "intro.html",
     "title": "\n1  Introduction\n",
     "section": "",
-    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\nc(1 + 1)\n\n[1] 2\n\n\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\nc(1 + 1)\n#> [1] 2\n\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
   },
   {
-    "objectID": "summary.html",
-    "href": "summary.html",
-    "title": "\n2  Summary\n",
+    "objectID": "example_dataset.html",
+    "href": "example_dataset.html",
+    "title": "2  The example dataset",
     "section": "",
-    "text": "In summary, this book has no content whatsoever.\n\n1 + 1\n\n[1] 2"
+    "text": "The dataset that is used as example in this manual comes from Li et al. (2022). In this paper, the authors investigate the molecular mechanisms of bovine respiratory disease (BRD) in beef cattle, using multi-omics data. They collected genomics, transcriptomics and metabolomics measurements on blood samples obtained from both healthy and infected animals. They performed a genome-wide association study (GWAS) to identify genomic variants associated with BRD incidence, as well as a differential expression (DE) analysis on both the transcriptomics and metabolomics datasets to identify genes and metabolites whose expression or abundance differed between the two animal groups. They also performed an expression quantitative trait loci (eQTL) analysis to highlight associations between genomic variants and differentially expressed genes. The datasets analysed in this article are publicly available. In this chapter, we detail the content of each dataset, and how they were obtained and processed to use for this manual.\n\n\n\n\nLi, Jiyuan, Robert Mukiibi, Janelle Jiminez, Zhiquan Wang, Everestus C. Akanno, Edouard Timsit, and Graham S. Plastow. 2022. “Applying Multi-Omics Data to Study the Genetic Background of Bovine Respiratory Disease Infection in Feedlot Crossbred Cattle.” Frontiers in Genetics 13. https://www.frontiersin.org/articles/10.3389/fgene.2022.1046192."
+  },
+  {
+    "objectID": "data_import.html#the-_targets.r-script",
+    "href": "data_import.html#the-_targets.r-script",
+    "title": "3  Importing data",
+    "section": "3.1 The _targets.R script",
+    "text": "3.1 The _targets.R script\nAs we are starting the analysis, the _targets.R script should look like this:"
   },
   {
     "objectID": "references.html",
     "href": "references.html",
     "title": "References",
     "section": "",
-    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.\n\n\nLi, Jiyuan, Robert Mukiibi, Janelle Jiminez, Zhiquan Wang, Everestus C.\nAkanno, Edouard Timsit, and Graham S. Plastow. 2022. “Applying\nMulti-Omics Data to Study the Genetic Background of Bovine Respiratory\nDisease Infection in Feedlot Crossbred Cattle.” Frontiers in\nGenetics 13. https://www.frontiersin.org/articles/10.3389/fgene.2022.1046192."
   }
 ]

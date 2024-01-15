@@ -8,14 +8,17 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - summary.qmd
+    - example_dataset.qmd
+    - part: "Data preparation"
+      chapters:
+      - data_import.qmd
     - references.qmd
 
 bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme: [cosmo, custom.scss]
     code-link: true
 
 editor: visual

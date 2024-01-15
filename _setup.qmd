@@ -1,0 +1,56 @@
+```{r knit-setup}
+#| include: false
+#| eval: true
+
+
+knitr::knit_engines$set(
+  target = knitr::knit_engines$get("R"),
+  file = knitr::knit_engines$get("R")
+)
+
+knitr::opts_hooks$set(
+  engine = function(options) {
+    if (options$engine == "targets") {
+      options$class.source <- c(options$class.source, "targets-chunk")
+      options$class.output <- c(options$class.output, "targets-chunk")
+    }
+    
+    if (options$engine == "file") {
+      options$class.source <- c(options$class.source, "file-chunk")
+      options$class.output <- c(options$class.output, "file-chunk")
+    }
+    
+    return(options)
+  },
+
+  eval = function(options) {
+    if (options$engine %in% c("targets", "file")) {
+      options$eval <- FALSE
+    }
+    return(options)
+  }
+)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width = 8
+)
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis",
+  ggplot2.discrete.colour = function() {
+    ggplot2::scale_colour_brewer(
+      palette = "Paired", 
+      na.value = "grey"
+    )
+  } ,
+  ggplot2.discrete.fill = function() {
+    ggplot2::scale_fill_brewer(
+      palette = "Paired",
+      na.value = "grey"
+    )
+  } 
+)
+```
