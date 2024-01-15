@@ -1,0 +1,7 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+data_geno|stem|6c35052b46564eaa|2f6d6fac438e0c68|8846e09db8d257d5|-676849289||t19737.0760777314s|c999686471cd2bf1|1616600|rds|local|vector|||1.47||
+data_metabo|stem|d373e47b182755db|91ad6cfa4064ca3b|a8b88e2a622ece40|-1296975954||t19737.0760063898s|6044e0195a090f92|19248|rds|local|vector|||1.715||
+data_transcripto|stem|3f48590934bb1333|5d10bc167155482a|69f2986da2408dad|196911606||t19737.076051425s|a0d23620354f1de9|6494110|rds|local|vector|||1.74||
+dataset_file_geno|stem|af97a53623d6e7de|1268a5820b487f6c|ef46db3751d8e999|1960638429|/home/hrpoab/R/x86_64-pc-linux-gnu-library/4.2/moiraine/extdata/genomics_dataset.csv|t19737.0751429907s|20566495b664ffb4|6850822|file|local|vector|||0||
+dataset_file_metabo|stem|175ac2cf6405fbad|3f7f2365183f9943|ef46db3751d8e999|1190506623|/home/hrpoab/R/x86_64-pc-linux-gnu-library/4.2/moiraine/extdata/metabolomics_dataset.csv|t19737.0751431532s|c4e0ec1268286261|35815|file|local|vector|||0||
+dataset_file_transcripto|stem|71a95dd921de2179|55d2b8e9ea46b8a5|ef46db3751d8e999|-658525691|/home/hrpoab/R/x86_64-pc-linux-gnu-library/4.2/moiraine/extdata/transcriptomics_dataset.csv|t19737.0751437994s|92b17bfefe92cde3|10702704|file|local|vector|||0.001||
