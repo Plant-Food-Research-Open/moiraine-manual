@@ -1,10 +1,10 @@
 project:
   type: book
+  output-dir: docs
 
 book:
-  title: "moiraine-manual"
-  author: "Jane Doe"
-  date: "15/01/2024"
+  title: "The moiraine R package user manual"
+  author: "Olivia Angelin-Bonnet"
   chapters:
     - index.qmd
     - intro.qmd
@@ -16,8 +16,7 @@ bibliography: references.bib
 format:
   html:
     theme: cosmo
-  pdf:
-    documentclass: scrreprt
+    code-link: true
 
 editor: visual
 
