@@ -12,6 +12,7 @@ book:
     - part: "Data preparation"
       chapters:
       - data_import.qmd
+      - inspecting_multidataset.qmd
     - references.qmd
 
 bibliography: references.bib

@@ -1,8 +1,18 @@
 # Preface {.unnumbered}
 
--   What is moiraine
+Quick blurb around multi-omics integration. There are many tools available to perform multi-omics integration, and a lot are implemented as R packages. These tools differ conceptually (in terms of required data input, assumptions, questions they answer) but also at a practical level in terms of input data format, parameters, etc and output format. That makes it time-consuming to apply different tools to a same multi-omics dataset, and to compare the results.
 
--   How the manual works
+## The moiraine package
+
+The moiraine package aims at alleviating this by providing a framework to easily and consistently apply different integration tools to a same dataset. It also facilitates the comparison of results with consistent formatting of integration output and visualisations.
+
+In addition, in an effort to make these computations reproducible, moiraine heavily relies on targets for the creating of reproducible pipelines.
+
+## About this manual
+
+In this manual, we are showcasing the functionalities of the moiraine package by presenting an in-depth walk-through example of multi-omics integration analysis. This will not only talk about the how in terms of R functions etc, but also talk about the integration methods and how to use them.
+
+Here, say that we heavily recommend to be familiar with targets (teaching targets it out of the scope of this manual, and we refer to the excellent targets manual).
 
 ```{r}
 #| child: "_setup.qmd"
@@ -30,6 +40,4 @@ tar_target(a, 2+2)
 "something"
 ```
 
-## Other things to add in intro
-
-**Note:** Throughout the package and vignettes, we refer to the different biological entities measured in a given dataset (e.g. genes, transcripts, metabolic compounds, etc) as features.
+## 

@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>The moiraine R package user manual - 3&nbsp; Importing data</title>
 <style>
 code{white-space: pre-wrap;}
@@ -20,8 +17,89 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
-
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -30,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./inspecting_multidataset.html" rel="next">
 <link href="./example_dataset.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -40,8 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -60,28 +137,19 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
-
-
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
       <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The moiraine R package user manual</a> 
     </div>
@@ -93,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
@@ -115,38 +183,61 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data_import.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
     </ul>
-    </div>
-</nav>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-_targets.r-script" id="toc-the-_targets.r-script" class="nav-link active" data-scroll-target="#the-_targets.r-script"><span class="toc-section-number">3.1</span>  The _targets.R script</a></li>
+<li><a href="#the-example-dataset-files" id="toc-the-example-dataset-files" class="nav-link active" data-scroll-target="#the-example-dataset-files"><span class="toc-section-number">3.1</span>  The example dataset files</a></li>
+  <li>
+<a href="#importing-the-datasets" id="toc-importing-the-datasets" class="nav-link" data-scroll-target="#importing-the-datasets"><span class="toc-section-number">3.2</span>  Importing the datasets</a>
+  <ul class="collapse">
+<li><a href="#sec-import-dataset-manual" id="toc-sec-import-dataset-manual" class="nav-link" data-scroll-target="#sec-import-dataset-manual"><span class="toc-section-number">3.2.1</span>  Manually</a></li>
+  <li><a href="#using-a-target-factory-function" id="toc-using-a-target-factory-function" class="nav-link" data-scroll-target="#using-a-target-factory-function"><span class="toc-section-number">3.2.2</span>  Using a target factory function</a></li>
   </ul>
-</nav>
+</li>
+  <li>
+<a href="#importing-the-features-metadata" id="toc-importing-the-features-metadata" class="nav-link" data-scroll-target="#importing-the-features-metadata"><span class="toc-section-number">3.3</span>  Importing the features metadata</a>
+  <ul class="collapse">
+<li><a href="#sec-import-fmeta-manual" id="toc-sec-import-fmeta-manual" class="nav-link" data-scroll-target="#sec-import-fmeta-manual"><span class="toc-section-number">3.3.1</span>  Manually</a></li>
+  <li><a href="#using-a-target-factory-function-1" id="toc-using-a-target-factory-function-1" class="nav-link" data-scroll-target="#using-a-target-factory-function-1"><span class="toc-section-number">3.3.2</span>  Using a target factory function</a></li>
+  <li><a href="#importing-features-metadata-from-a-gtfgff-file" id="toc-importing-features-metadata-from-a-gtfgff-file" class="nav-link" data-scroll-target="#importing-features-metadata-from-a-gtfgff-file"><span class="toc-section-number">3.3.3</span>  Importing features metadata from a GTF/GFF file</a></li>
+  </ul>
+</li>
+  <li><a href="#importing-the-samples-metadata" id="toc-importing-the-samples-metadata" class="nav-link" data-scroll-target="#importing-the-samples-metadata"><span class="toc-section-number">3.4</span>  Importing the samples metadata</a></li>
+  <li>
+<a href="#creating-the-omics-sets" id="toc-creating-the-omics-sets" class="nav-link" data-scroll-target="#creating-the-omics-sets"><span class="toc-section-number">3.5</span>  Creating the omics sets</a>
+  <ul class="collapse">
+<li><a href="#creating-a-single-omics-set" id="toc-creating-a-single-omics-set" class="nav-link" data-scroll-target="#creating-a-single-omics-set"><span class="toc-section-number">3.5.1</span>  Creating a single omics set</a></li>
+  <li><a href="#using-a-target-factory-for-creating-omics-sets" id="toc-using-a-target-factory-for-creating-omics-sets" class="nav-link" data-scroll-target="#using-a-target-factory-for-creating-omics-sets"><span class="toc-section-number">3.5.2</span>  Using a target factory for creating omics sets</a></li>
+  </ul>
+</li>
+  <li><a href="#creating-the-multi-omics-set" id="toc-creating-the-multi-omics-set" class="nav-link" data-scroll-target="#creating-the-multi-omics-set"><span class="toc-section-number">3.6</span>  Creating the multi-omics set</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">3.7</span>  Recap – targets list</a></li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-importing-data" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></span></h1>
 </div>
 
 
@@ -159,18 +250,702 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header>
+</header><div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biobase">Biobase</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## for documentation</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The first step of the pipeline is to read in the different omics datasets and associated metadata. Once imported into R, they will be combined in a <code>MultiDataSet</code> object from the <a href="https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html"><code>MultiDataSet</code> package</a> (<span class="citation" data-cites="hernandez-ferrer2017">Hernandez-Ferrer et al. (<a href="references.html#ref-hernandez-ferrer2017" role="doc-biblioref">2017</a>)</span>) which will be used in the rest of the analysis pipeline.</p>
+<p>For each omics dataset, we need to import:</p>
+<ul>
+<li>the dataset itself (i.e.&nbsp;the matrix of omics measurements);</li>
+</ul>
+<!-- --><ul>
+<li><p>the features metadata, i.e.&nbsp;information about the features measured in the dataset;</p></li>
+<li><p>the samples metadata, i.e.&nbsp;information about the samples measured in the dataset.</p></li>
+</ul>
+<p>Typically, omics datasets as well as associated metadata are stored in <code>csv</code> files, although there are some other file formats that <code>moiraine</code> can read, and we will see examples of this in the following sections.</p>
+<section id="the-example-dataset-files" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="the-example-dataset-files">
+<span class="header-section-number">3.1</span> The example dataset files</h2>
+<p>The dataset analysed this manual is presented in <a href="example_dataset.html"><span>Chapter&nbsp;2</span></a>. The associated files that we will use here are:</p>
+<ul>
+<li>
+<p>Genomics data:</p>
+<ul>
+<li><p><code>genomics_dataset.csv</code>: contains the genomic variants’ dosage, with genomic variants as rows and samples as columns.</p></li>
+<li><p><code>genomics_features_info.csv</code>: contains information about the genomic variants (chromosome, genomic position, etc, as well as the results of a GWAS analysis).</p></li>
+</ul>
+</li>
+<li>
+<p>Transcriptomics data:</p>
+<ul>
+<li><p><code>transcriptomics_dataset.csv</code>: contains the raw read counts for the measured genes – rows correspond to transcripts, and columns to samples.</p></li>
+<li><p><code>bos_taurus_gene_model.gff3</code>: the genome annotation file used to map the transcriptomics reads to gene models.</p></li>
+<li><p><code>transcriptomics_de_results.csv</code>: the results of a differential expression analysis run on the transcriptomics dataset to compare healthy and diseased animals.</p></li>
+<li><p><code>transcriptomics_go_annotation.csv</code>: contains the correspondence between genes and GO terms in a long format (one row per gene/GO term pair).</p></li>
+</ul>
+</li>
+<li>
+<p>Metabolomics data:</p>
+<ul>
+<li><p><code>metabolomics_dataset.csv</code>: contains the area peak values – rows correspond to samples, and columns to compounds.</p></li>
+<li><p><code>metabolomics_features_info.csv</code>: contains information about the compounds (such as mass, retention time, and formula and name if the compounds has been identified) as well as the results of a differential expression analysis run on the metabolomics dataset to compare healthy and diseased animals.</p></li>
+</ul>
+</li>
+<li><p>Samples information: stored in the <code>samples_info.csv</code> file, in which each row corresponds to a sample.</p></li>
+</ul>
+<p>Each of these files is available through the <code>moiraine</code> package, and can be retrieved via <code>system.file("extdata/genomics_dataset.csv", package = "moiraine")</code>.</p>
+</section><section id="importing-the-datasets" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="importing-the-datasets">
+<span class="header-section-number">3.2</span> Importing the datasets</h2>
+<p>We will show how to import the datasets, first manually, and then in an automated way (using a target factory function).</p>
+<section id="sec-import-dataset-manual" class="level3" data-number="3.2.1"><h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-import-dataset-manual">
+<span class="header-section-number">3.2.1</span> Manually</h3>
+<p>We can start by creating targets that track the different data files. This ensures that when a data file changes, the target is considered outdated and any analysis relying on this data file will be re-run (see <a href="https://books.ropensci.org/targets/data.html#external-files">here</a> for more information). For example, for the genomics dataset, we write:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">dataset_file_geno</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/genomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>  format <span class="op">=</span> <span class="st">"file"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The created target, called <code>dataset_file_geno</code>, takes as value the path to the file:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">dataset_file_geno</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/a0cb1ab1c9bfde027266aa5d81f33617/moiraine/extdata/genomics_dataset.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The next step is to import this dataset in R. We use the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function for that, rather than the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> or similar functions, as it ensures that the data is imported with the correct format for further use with the <code>moiraine</code> package. When importing a dataset, we need to specify the path to the file, as well as the name of the column in the csv file that contains the row names (through the <code>col_id</code> argument). In addition, we need to specify whether the features are represented in rows in the csv file, or in columns. This is done through the argument <code>features_as_rows</code>. For example, we can load the genomics dataset through:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">data_geno</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv</a></span><span class="op">(</span></span>
+<span>    <span class="va">dataset_file_geno</span>, </span>
+<span>    col_id <span class="op">=</span> <span class="st">"marker"</span>, </span>
+<span>    features_as_rows <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The function returns a matrix in which the rows correspond to the features measured, and the columns correspond to the samples:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">data_geno</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 23036   139</span></span>
+<span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">data_geno</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="co">#&gt;                             R21 Y3660 Y3243</span></span>
+<span><span class="co">#&gt; 1_41768691                    1     0     2</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694    2     2     2</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242   0     1     0</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345   1     2     2</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846   2     2     1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> uses <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> to read in the data. It accepts arguments that will be passed on to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>, which can be useful to control how the data file must be read, e.g.&nbsp;by specifying the columns’ type, or which characters must be considered as missing values.</p>
+</section><section id="using-a-target-factory-function" class="level3" data-number="3.2.2"><h3 data-number="3.2.2" class="anchored" data-anchor-id="using-a-target-factory-function">
+<span class="header-section-number">3.2.2</span> Using a target factory function</h3>
+<p>Creating a target to track the raw file and using the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function to read it can be a bit cumbersome if we want to import several datasets. Luckily, this process can be automated with the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv_factory.html">import_dataset_csv_factory()</a></code> function. It takes as an input a vector of files path, and for each file creates:</p>
+<ul>
+<li><p>a target named <code>dataset_file_XX</code> (<code>XX</code> explained below), which tracks the raw data file;</p></li>
+<li><p>a target named <code>data_XX</code>, which corresponds to the data matrix that has been imported through the <code>import_dataset_csv</code> function.</p></li>
+</ul>
+<p>For each file, we need to specify the name of the column giving the row names (argument <code>col_ids</code>), and whether the features are stored as rows or as columns (argument <code>features_as_rowss</code>). <em>Note that these arguments are the same as in the primary function <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code>, except that they have an additional ‘s’ at the end of their name. This will be the case for most of the target factory functions from the package.</em></p>
+<p>In addition, we have to provide a unique suffix which will be appended to the name of the targets created (i.e.&nbsp;the <code>XX</code> mentioned above) through the <code>target_name_suffixes</code> argument. This allows us to track which target corresponds to which dataset.</p>
+<p>So the following code (note that it is not within a <code><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target()</a></code> call):</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
+<span>  files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/genomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/transcriptomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/metabolomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  col_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"marker"</span>, <span class="st">"gene_id"</span>, <span class="st">"sample_id"</span><span class="op">)</span>,</span>
+<span>  features_as_rowss <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  target_name_suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"geno"</span>, <span class="st">"transcripto"</span>, <span class="st">"metabo"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>will create the following targets:</p>
+<ul>
+<li><p><code>dataset_file_geno</code>, <code>dataset_file_transcripto</code>, <code>dataset_file_metabo</code></p></li>
+<li><p><code>data_geno</code>, <code>data_metabo</code>, <code>data_transcripto</code></p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">data_geno</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 23036   139</span></span>
+<span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">data_transcripto</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 20335   143</span></span>
+<span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">data_metabo</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  55 139</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With this factory function, it is not possible to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>. If you want to control how the files are read, please use the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function directly instead, as shown in <a href="#sec-import-dataset-manual"><span>Section&nbsp;3.2.1</span></a>.</p>
+</section></section><section id="importing-the-features-metadata" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="importing-the-features-metadata">
+<span class="header-section-number">3.3</span> Importing the features metadata</h2>
+<p>Similarly to how we imported the datasets, there are two ways of importing features metadata: either manually, or using a target factory function. The two options are illustrated below.</p>
+<section id="sec-import-fmeta-manual" class="level3" data-number="3.3.1"><h3 data-number="3.3.1" class="anchored" data-anchor-id="sec-import-fmeta-manual">
+<span class="header-section-number">3.3.1</span> Manually</h3>
+<p>As shown in the previous section, we can start by creating a target that tracks the raw features metadata file, then read the file into R using the <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> function. It has the similar arguments as the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function, but returns a data-frame (rather than a matrix); and does not have the options to read a csv where the features are columns (they must be in rows):</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">fmetadata_file_geno</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/genomics_features_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>    format <span class="op">=</span> <span class="st">"file"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">fmetadata_geno</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
+<span>      <span class="va">fmetadata_file_geno</span>,</span>
+<span>      col_id <span class="op">=</span> <span class="st">"marker"</span>,</span>
+<span>      col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span> <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice that in the <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> call, we’ve added an argument (<code>col_types</code>) which will be passed on to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>. This is to ensure that the <code>chromosome</code> column will be read as character (even though the chromosomes are denoted with integers).</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">fmetadata_geno</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                                feature_id chromosome  position</span></span>
+<span><span class="co">#&gt; 1_41768691                                     1_41768691          1  42139849</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694     10-27008241-A-C-rs42918694         10  26971270</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242   10-37505419-T-C-rs136559242         10  37388728</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345   10-49904259-G-A-rs471723345          0         0</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846   1-109550832-G-A-rs209732846          1 108696486</span></span>
+<span><span class="co">#&gt; 11-104555023-A-G-rs109353933 11-104555023-A-G-rs109353933         11 104498929</span></span>
+<span><span class="co">#&gt;                              gen_train_score ref alt ilmn_strand</span></span>
+<span><span class="co">#&gt; 1_41768691                            0.6786   T   G         BOT</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694            0.8050   A   C         TOP</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242           0.7890   A   G         TOP</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345           0.7970   A   G         TOP</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846           0.8909   T   C         BOT</span></span>
+<span><span class="co">#&gt; 11-104555023-A-G-rs109353933          0.8673   T   C         BOT</span></span>
+<span><span class="co">#&gt;                              customer_strand norm_id qtl_type qtl_effect</span></span>
+<span><span class="co">#&gt; 1_41768691                               BOT       2     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694               TOP       1     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242              BOT       1     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345              TOP       2     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846              TOP       3     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt; 11-104555023-A-G-rs109353933             TOP       1     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt;                              p_value fdr</span></span>
+<span><span class="co">#&gt; 1_41768691                        NA  NA</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694        NA  NA</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242       NA  NA</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345       NA  NA</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846       NA  NA</span></span>
+<span><span class="co">#&gt; 11-104555023-A-G-rs109353933      NA  NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can see that in the data-frame of features metadata, the feature IDs are present both as row names and in the <code>feature_id</code> column. This makes it easier to subset the datasets later on.</p>
+</section><section id="using-a-target-factory-function-1" class="level3" data-number="3.3.2"><h3 data-number="3.3.2" class="anchored" data-anchor-id="using-a-target-factory-function-1">
+<span class="header-section-number">3.3.2</span> Using a target factory function</h3>
+<p>Alternatively, we can use a target factory function that automates the process when we have to read in several features metadata files. In our case, we have to do it for the genomics and metabolomics datasets only, as the transcriptomics dataset has a different features metadata format. However because we need to specify the column types for the genomics dataset, we will use the targets factory function to read in the metabolomics features metadata only. The arguments are almost the same as for <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv_factory.html">import_dataset_csv_factory()</a></code> (except for <code>features_as_rowss</code>):</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>  files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/metabolomics_features_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  col_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"feature_id"</span><span class="op">)</span>,</span>
+<span>  target_name_suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"metabo"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The targets created are:</p>
+<ul>
+<li><p><code>fmetadata_file_metabo</code></p></li>
+<li><p><code>fmetadata_metabo</code></p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">fmetadata_metabo</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           feature_id     hmdb_id                  name chemical_formula</span></span>
+<span><span class="co">#&gt; HMDB00001  HMDB00001 HMDB0000001     1-Methylhistidine        C7H11N3O2</span></span>
+<span><span class="co">#&gt; HMDB00008  HMDB00008 HMDB0000008 2-Hydroxybutyric acid           C4H8O3</span></span>
+<span><span class="co">#&gt; HMDB00357  HMDB00357 HMDB0000011 3-Hydroxybutyric acid           C4H8O3</span></span>
+<span><span class="co">#&gt; HMDB00042  HMDB00042 HMDB0000042           Acetic acid           C2H4O2</span></span>
+<span><span class="co">#&gt; HMDB00043  HMDB00043 HMDB0000043               Betaine         C5H12NO2</span></span>
+<span><span class="co">#&gt; HMDB00060  HMDB00060 HMDB0000060      Acetoacetic acid           C4H6O3</span></span>
+<span><span class="co">#&gt;           monisotopic_molecular_weight cas_registry_number</span></span>
+<span><span class="co">#&gt; HMDB00001                    169.08513            332-80-9</span></span>
+<span><span class="co">#&gt; HMDB00008                    104.04734           3347-90-8</span></span>
+<span><span class="co">#&gt; HMDB00357                    104.04734            625-72-9</span></span>
+<span><span class="co">#&gt; HMDB00042                     60.02113             64-19-7</span></span>
+<span><span class="co">#&gt; HMDB00043                    118.08680           6915-17-9</span></span>
+<span><span class="co">#&gt; HMDB00060                    102.03169            541-50-4</span></span>
+<span><span class="co">#&gt;                                smiles                    inchikey kegg_id</span></span>
+<span><span class="co">#&gt; HMDB00001 CN1C=NC(C[C@H](N)C(O)=O)=C1 BRMWTNUJHUMWMS-LURJTMIESA-N  C01152</span></span>
+<span><span class="co">#&gt; HMDB00008            CC[C@H](O)C(O)=O AFENDNXGAFYKQO-VKHMYHEASA-N  C05984</span></span>
+<span><span class="co">#&gt; HMDB00357           C[C@@H](O)CC(O)=O WHBMMWSBFZVSSR-GSVOUGTGSA-N  C01089</span></span>
+<span><span class="co">#&gt; HMDB00042                     CC(O)=O QTBSBXVTEAMEQO-UHFFFAOYSA-N  C00033</span></span>
+<span><span class="co">#&gt; HMDB00043          C[N+](C)(C)CC(O)=O KWIUHFFTVRNATP-UHFFFAOYSA-O    &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; HMDB00060               CC(=O)CC(O)=O WDJHALXBUFZDSR-UHFFFAOYSA-N  C00164</span></span>
+<span><span class="co">#&gt;                                    direct_parent                   super_class</span></span>
+<span><span class="co">#&gt; HMDB00001              Histidine and derivatives Organic acids and derivatives</span></span>
+<span><span class="co">#&gt; HMDB00008    Alpha hydroxy acids and derivatives Organic acids and derivatives</span></span>
+<span><span class="co">#&gt; HMDB00357     Beta hydroxy acids and derivatives Organic acids and derivatives</span></span>
+<span><span class="co">#&gt; HMDB00042                       Carboxylic acids Organic acids and derivatives</span></span>
+<span><span class="co">#&gt; HMDB00043                      Alpha amino acids Organic acids and derivatives</span></span>
+<span><span class="co">#&gt; HMDB00060 Short-chain keto acids and derivatives Organic acids and derivatives</span></span>
+<span><span class="co">#&gt;               t_value      p_value         padj de_signif     de_status</span></span>
+<span><span class="co">#&gt; HMDB00001  -0.5557020 5.797635e-01 6.784466e-01    Not DE        Not DE</span></span>
+<span><span class="co">#&gt; HMDB00008   0.2181562 8.276321e-01 8.925444e-01    Not DE        Not DE</span></span>
+<span><span class="co">#&gt; HMDB00357  -9.7388879 2.353250e-17 2.157146e-16        DE downregulated</span></span>
+<span><span class="co">#&gt; HMDB00042 -12.5323491 1.753101e-24 4.821028e-23        DE downregulated</span></span>
+<span><span class="co">#&gt; HMDB00043  -7.9073179 7.827088e-13 3.913544e-12        DE downregulated</span></span>
+<span><span class="co">#&gt; HMDB00060  -0.4369834 6.628164e-01 7.439776e-01    Not DE        Not DE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Again, the targets factory function does not allow to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> (if you need them, please use <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> directly as we have done in <a href="#sec-import-fmeta-manual"><span>Section&nbsp;3.3.1</span></a>).</p>
+</section><section id="importing-features-metadata-from-a-gtfgff-file" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="importing-features-metadata-from-a-gtfgff-file">
+<span class="header-section-number">3.3.3</span> Importing features metadata from a GTF/GFF file</h3>
+<p>The <code>moiraine</code> package can also extract features metadata from a genome annotation file (<code>.gtf</code> or <code>.gff</code>). We’ll demonstrate that for the transcriptomics dataset, for which information about the position and name of the transcripts can be found in the genome annotation used to map the reads. The function is called <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff.html">import_fmetadata_gff()</a></code> (it is also the function you would use to read in information from a <code>.gtf</code> file). The type of information to extract from the annotation file is specified through the <code>feature_type</code> argument, which can be either <code>'genes'</code> or <code>'transcripts'</code>. In addition, if the function does not extract certain fields from the annotation file, these can be explicitly called using the <code>add_fields</code> parameter.</p>
+<p>In this example, we want to extract information about the genes from the gtf file. We also want to make sure that the <code>Name</code> and <code>description</code>field are imported, as they give the name and description of the genes. To read in this information “manually”, we create the following targets:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">fmetadata_file_transcripto</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/bos_taurus_gene_model.gff3"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>    format <span class="op">=</span> <span class="st">"file"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">fmetadata_transcripto</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff.html">import_fmetadata_gff</a></span><span class="op">(</span></span>
+<span>      <span class="va">fmetadata_file_transcripto</span>,</span>
+<span>      feature_type <span class="op">=</span> <span class="st">"genes"</span>,</span>
+<span>      add_fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"description"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As for the other import functions, there exists a more succinct target factory version, called <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
+<span>  files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/bos_taurus_gene_model.gff3"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>  feature_types <span class="op">=</span> <span class="st">"genes"</span>,</span>
+<span>  add_fieldss <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"description"</span><span class="op">)</span>,</span>
+<span>  target_name_suffixes <span class="op">=</span> <span class="st">"transcripto"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This will create two targets: <code>fmetadata_file_transcripto</code> and <code>fmetadata_transcripto</code>.</p>
+<p>As with <code>import_fmetadata</code>, the function returns a data-frame of features information:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">fmetadata_transcripto</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                            feature_id chromosome    start      end  width</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000005 ENSBTAG00000000005         17 65389743 65505336 115594</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000008 ENSBTAG00000000008         29 32214439 32244810  30372</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000009 ENSBTAG00000000009         18 12338037 12342272   4236</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000010 ENSBTAG00000000010         21 34209956 34223394  13439</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000011 ENSBTAG00000000011          8  7950815  7971600  20786</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000012 ENSBTAG00000000012         20 33708626 33732944  24319</span></span>
+<span><span class="co">#&gt;                    strand  Name</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000005      +  GRK3</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000008      - KCNJ1</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000009      + FOXF1</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000010      +  UBL7</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000011      -   TDH</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000012      + TTC33</span></span>
+<span><span class="co">#&gt;                                                                                                       description</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000005                        G protein-coupled receptor kinase 3 [Source:VGNC Symbol;Acc:VGNC:53904]</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000008 potassium inwardly rectifying channel subfamily J member 1 [Source:VGNC Symbol;Acc:VGNC:30453]</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000009                                            forkhead box F1 [Source:VGNC Symbol;Acc:VGNC:29084]</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000010                                           ubiquitin like 7 [Source:VGNC Symbol;Acc:VGNC:50128]</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000011                                 L-threonine dehydrogenase [Source:VGNC Symbol;Acc:VGNC:108945]</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000012                         tetratricopeptide repeat domain 33 [Source:VGNC Symbol;Acc:VGNC:36471]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="importing-the-samples-metadata" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="importing-the-samples-metadata">
+<span class="header-section-number">3.4</span> Importing the samples metadata</h2>
+<p>As for importing datasets or features metadata, the <code><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv.html">import_smetadata_csv()</a></code> function reads in a csv file that contains information about the samples measured. Similarly to <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code>, this function assumes that the csv file contains samples as rows. In this example, we have one samples information file for all of our omics datasets, but it is possible to have one separate samples metadata csv file for each omics dataset (if there are some omics-specific information such as batch, technology specifications, etc).</p>
+<p>We can do this by manually creating the following targets:</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">smetadata_file_all</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/samples_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>    format <span class="op">=</span> <span class="st">"file"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">smetadata_all</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv.html">import_smetadata_csv</a></span><span class="op">(</span></span>
+<span>      <span class="va">smetadata_file_all</span>,</span>
+<span>      col_id <span class="op">=</span> <span class="st">"animal_id"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>which is equivalent to the (more succinct) command:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>  files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/samples_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>  col_ids <span class="op">=</span> <span class="st">"animal_id"</span>,</span>
+<span>  target_name_suffixes <span class="op">=</span> <span class="st">"all"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The latter command creates the targets <code>smetadata_file_all</code> and <code>smetadata_all</code>. <code>smetadata_all</code> stores the samples metadata imported as a data-frame:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">smetadata_all</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;          id feedlot gender  status day_on_feed rnaseq_batch geno_comp_1</span></span>
+<span><span class="co">#&gt; R21     R21      F1 female Control          31           B2    0.007853</span></span>
+<span><span class="co">#&gt; Y3660 Y3660      F1   male Control          19           B2    0.852220</span></span>
+<span><span class="co">#&gt; Y3243 Y3243      F1   male Control          16           B2    0.044171</span></span>
+<span><span class="co">#&gt; R5764 R5764      F2   male Control          46           B1    0.213094</span></span>
+<span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
+<span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
+<span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster</span></span>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3</span></span>
+<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2</span></span>
+<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3</span></span>
+<span><span class="co">#&gt; P4669    0.503471    0.107136                K3</span></span>
+<span><span class="co">#&gt; R5452    0.733992    0.000010                K3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that in the samples metadata data-frame, the sample IDs are present both as row names and in the <code>id</code> column. This makes it easier to subset the datasets later on.</p>
+<p>As for the other import functions, <code><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv.html">import_smetadata_csv()</a></code> accepts arguments that will be passed to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> in order to specify how the file should be read. The targets factory version does not have this option.</p>
+</section><section id="creating-the-omics-sets" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="creating-the-omics-sets">
+<span class="header-section-number">3.5</span> Creating the omics sets</h2>
+<p>Once each dataset and associated features and samples metadata have been imported, we need to combine them into omics sets. In practice, this means that for each omics dataset, we will create an R object that stores the actual dataset alongside its relevant metadata. <code>moiraine</code> relies on the <code>Biobase</code> containers derived from <code><a href="https://rdrr.io/pkg/Biobase/man/class.eSet.html">Biobase::eSet</a></code> to store the different omics datasets; for example, <code><a href="https://rdrr.io/pkg/Biobase/man/class.ExpressionSet.html">Biobase::ExpressionSet</a></code> objects are used to store transcriptomics measurements. Currently, <code>moiraine</code> support four types of omics containers:</p>
+<ul>
+<li><p>genomics containers, which are <code><a href="https://rdrr.io/pkg/Biobase/man/class.SnpSet.html">Biobase::SnpSet</a></code> objects. The particularity of this data type is that the features metadata data-frame must contain a column named <code>chromosome</code> and a column named <code>position</code>, which store the chromosome and genomic position within the chromosome (in base pairs) of a given genomic marker or variant.</p></li>
+<li><p>transcriptomics containers, which are <code><a href="https://rdrr.io/pkg/Biobase/man/class.ExpressionSet.html">Biobase::ExpressionSet</a></code> objects. The particularity of this data type is that the features metadata data-frame must contain the following columns: <code>chromosome</code>, <code>start</code>, <code>end</code>, giving the chromosome, start and end positions (in base pairs) of the genes or transcripts. Moreover, the values in <code>start</code> and <code>end</code> must be integers, and for each row the value in <code>end</code> must be higher than the value in <code>start</code>.</p></li>
+<li><p>metabolomics containers, which are <code>MetabolomeSet</code> objects (implemented within <code>moiraine</code>). There are no restrictions on the features metadata table for this type of containers.</p></li>
+<li><p>phenotype containers, which are <code>PhenotypeSet</code> objects (implemented within <code>moiraine</code>). There are no restrictions on the features metadata table for this type of containers.</p></li>
+</ul>
+<p>In practice, the nuances between these different containers are not very important, and the type of container used to store a particular dataset will have no impact on the downstream analysis apart from the name that will be given to the omics dataset. So in order to create a container for a transcriptomics dataset in the absence of features metadata, we have to create a dummy data-frame with the columns <code>chromosome</code>, <code>start</code> and <code>end</code> containing the values <code>ch1</code>, <code>1</code>, and <code>10</code> (for example) and use that as features metadata. Alternately, or for other omics data (e.g.&nbsp;proteomics), it is possible to use a <code>PhenotypeSet</code> object instead.</p>
+<section id="creating-a-single-omics-set" class="level3" data-number="3.5.1"><h3 data-number="3.5.1" class="anchored" data-anchor-id="creating-a-single-omics-set">
+<span class="header-section-number">3.5.1</span> Creating a single omics set</h3>
+<p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set()</a></code> provides a convenient wrapper to create such container objects from the imported datasets and metadata. It has two mandatory arguments: the dataset, which should be in the form of a matrix where the rows correspond to features and the columns to samples; and the type of omics data that the dataset represents (<code>'genomics'</code>, <code>'transcriptomics'</code>, <code>'metabolomics'</code> or <code>'phenomics'</code>). The latter determines which type of container will be generated. Optionally, a features metadata and/or a samples metadata data-frame can be passed on via the <code>features_metadata</code> and <code>samples_metadata</code> arguments, respectively. For example, let’s create a set for the genomics data:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">set_geno</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set</a></span><span class="op">(</span></span>
+<span>    <span class="va">data_geno</span>,</span>
+<span>    omics_type <span class="op">=</span> <span class="st">"genomics"</span>,</span>
+<span>    features_metadata <span class="op">=</span> <span class="va">fmetadata_geno</span>,</span>
+<span>    samples_metadata <span class="op">=</span> <span class="va">smetadata_all</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If executed, this command will return the following warning:</p>
+<div class="cell">
+<pre><code>#&gt; Warning: 5 samples in samples metadata not in dataset, will be removed from
+#&gt; metadata.</code></pre>
+</div>
+<p>This is because, when providing features and samples metadata information, the function makes sure that the feature or sample IDs present in the metadata tables match those used in the dataset. In our case, 5 sample IDs from the metadata data-frame are not present in the dataset. We can confirm that by comparing the column names of the genomics dataset to the row names of the samples metadata:</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sets.html">setdiff</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">smetadata_all</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">rownames</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">data_geno</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">colnames</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "P4744" "P4772" "R8953" "U5416" "R9909"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Rather than throwing an error, the function will add a row for each missing sample ID to the metadata data-frame, with a <code>NA</code> in every column, and will remove from the metadata data-frame any sample not present in the dataset. The same applies for features metadata.</p>
+<p>The resulting object is a <code>SnpSet</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">set_geno</span><span class="op">)</span></span>
+<span><span class="co">#&gt; SnpSet (storageMode: lockedEnvironment)</span></span>
+<span><span class="co">#&gt; assayData: 23036 features, 139 samples </span></span>
+<span><span class="co">#&gt;   element names: call, callProbability </span></span>
+<span><span class="co">#&gt; protocolData: none</span></span>
+<span><span class="co">#&gt; phenoData</span></span>
+<span><span class="co">#&gt;   rowNames: R21 Y3660 ... O5108 (139 total)</span></span>
+<span><span class="co">#&gt;   varLabels: id feedlot ... geno_comp_cluster (10 total)</span></span>
+<span><span class="co">#&gt;   varMetadata: labelDescription</span></span>
+<span><span class="co">#&gt; featureData</span></span>
+<span><span class="co">#&gt;   featureNames: 1_41768691 10-27008241-A-C-rs42918694 ... STAT5_13516_2</span></span>
+<span><span class="co">#&gt;     (23036 total)</span></span>
+<span><span class="co">#&gt;   fvarLabels: feature_id chromosome ... fdr (13 total)</span></span>
+<span><span class="co">#&gt;   fvarMetadata: labelDescription</span></span>
+<span><span class="co">#&gt; experimentData: use 'experimentData(object)'</span></span>
+<span><span class="co">#&gt; Annotation:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>which can be queried using specific methods from the <code>Biobase</code> package, e.g.:</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">set_geno</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">set_geno</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Features  Samples </span></span>
+<span><span class="co">#&gt;    23036      139</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/featureNames.html">featureNames</a></span><span class="op">(</span><span class="va">set_geno</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "1_41768691"                   "10-27008241-A-C-rs42918694"  </span></span>
+<span><span class="co">#&gt; [3] "10-37505419-T-C-rs136559242"  "10-49904259-G-A-rs471723345" </span></span>
+<span><span class="co">#&gt; [5] "1-109550832-G-A-rs209732846"  "11-104555023-A-G-rs109353933"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/featureNames.html">sampleNames</a></span><span class="op">(</span><span class="va">set_geno</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "R21"   "Y3660" "Y3243" "R5764" "P4669" "R5452"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/featureData.html">fData</a></span><span class="op">(</span><span class="va">set_geno</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co">## extracts features metadata</span></span>
+<span><span class="co">#&gt;                                                feature_id chromosome  position</span></span>
+<span><span class="co">#&gt; 1_41768691                                     1_41768691          1  42139849</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694     10-27008241-A-C-rs42918694         10  26971270</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242   10-37505419-T-C-rs136559242         10  37388728</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345   10-49904259-G-A-rs471723345          0         0</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846   1-109550832-G-A-rs209732846          1 108696486</span></span>
+<span><span class="co">#&gt; 11-104555023-A-G-rs109353933 11-104555023-A-G-rs109353933         11 104498929</span></span>
+<span><span class="co">#&gt;                              gen_train_score ref alt ilmn_strand</span></span>
+<span><span class="co">#&gt; 1_41768691                            0.6786   T   G         BOT</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694            0.8050   A   C         TOP</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242           0.7890   A   G         TOP</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345           0.7970   A   G         TOP</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846           0.8909   T   C         BOT</span></span>
+<span><span class="co">#&gt; 11-104555023-A-G-rs109353933          0.8673   T   C         BOT</span></span>
+<span><span class="co">#&gt;                              customer_strand norm_id qtl_type qtl_effect</span></span>
+<span><span class="co">#&gt; 1_41768691                               BOT       2     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694               TOP       1     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242              BOT       1     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345              TOP       2     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846              TOP       3     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt; 11-104555023-A-G-rs109353933             TOP       1     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt;                              p_value fdr</span></span>
+<span><span class="co">#&gt; 1_41768691                        NA  NA</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694        NA  NA</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242       NA  NA</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345       NA  NA</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846       NA  NA</span></span>
+<span><span class="co">#&gt; 11-104555023-A-G-rs109353933      NA  NA</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html">pData</a></span><span class="op">(</span><span class="va">set_geno</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co">## extracts samples metadata</span></span>
+<span><span class="co">#&gt;          id feedlot gender  status day_on_feed rnaseq_batch geno_comp_1</span></span>
+<span><span class="co">#&gt; R21     R21      F1 female Control          31           B2    0.007853</span></span>
+<span><span class="co">#&gt; Y3660 Y3660      F1   male Control          19           B2    0.852220</span></span>
+<span><span class="co">#&gt; Y3243 Y3243      F1   male Control          16           B2    0.044171</span></span>
+<span><span class="co">#&gt; R5764 R5764      F2   male Control          46           B1    0.213094</span></span>
+<span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
+<span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
+<span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster</span></span>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3</span></span>
+<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2</span></span>
+<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3</span></span>
+<span><span class="co">#&gt; P4669    0.503471    0.107136                K3</span></span>
+<span><span class="co">#&gt; R5452    0.733992    0.000010                K3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that these methods can also be applied to the other types of containers.</p>
+</section><section id="using-a-target-factory-for-creating-omics-sets" class="level3" data-number="3.5.2"><h3 data-number="3.5.2" class="anchored" data-anchor-id="using-a-target-factory-for-creating-omics-sets">
+<span class="header-section-number">3.5.2</span> Using a target factory for creating omics sets</h3>
+<p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory()</a></code> allows us to create several omics sets at once. It returns a list of targets, each storing one of the created omics set container. It takes as input arguments vectors that give for each omics set the arguments required by <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
+<span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">data_geno</span>, <span class="va">data_transcripto</span>, <span class="va">data_metabo</span><span class="op">)</span>,</span>
+<span>  omics_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"genomics"</span>, <span class="st">"transcriptomics"</span>, <span class="st">"metabolomics"</span><span class="op">)</span>,</span>
+<span>  features_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">fmetadata_geno</span>, <span class="va">fmetadata_transcripto</span>, <span class="va">fmetadata_metabo</span><span class="op">)</span>,</span>
+<span>  samples_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">smetadata_all</span>, <span class="va">smetadata_all</span>, <span class="va">smetadata_all</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Again, the warnings raised by the function originate from discrepancies between the datasets and associated metadata. It is always good practice to double-check manually to make sure that it is not due to a typo in the IDs or similar error.</p>
+<p>If one of the datasets has no associated features or samples metadata, use <code>NULL</code> in the corresponding input arguments, e.g.:</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
+<span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">data_geno</span>, <span class="va">data_transcripto</span>, <span class="va">data_metabo</span><span class="op">)</span>,</span>
+<span>  omics_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"genomics"</span>, <span class="st">"transcriptomics"</span>, <span class="st">"metabolomics"</span><span class="op">)</span>,</span>
+<span>  features_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">fmetadata_transcripto</span>, <span class="va">fmetadata_metabo</span><span class="op">)</span>,</span>
+<span>  samples_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">smetadata_all</span>, <span class="cn">NULL</span>, <span class="va">smetadata_all</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory()</a></code> function has a <code>target_name_suffixes</code> argument to customise the name of the created targets. However, if this argument is not provided, the function will attempt to read the suffixes to use from the name of the dataset targets. So in this case, it knows that the suffixes to use are <code>'geno'</code>, <code>'transcripto'</code> and <code>'metabo'</code>. Consequently, the function creates the following targets: <code>set_geno</code>, <code>set_transcripto</code>, <code>set_metabo</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">set_geno</span><span class="op">)</span></span>
+<span><span class="co">#&gt; SnpSet (storageMode: lockedEnvironment)</span></span>
+<span><span class="co">#&gt; assayData: 23036 features, 139 samples </span></span>
+<span><span class="co">#&gt;   element names: call, callProbability </span></span>
+<span><span class="co">#&gt; protocolData: none</span></span>
+<span><span class="co">#&gt; phenoData</span></span>
+<span><span class="co">#&gt;   rowNames: R21 Y3660 ... O5108 (139 total)</span></span>
+<span><span class="co">#&gt;   varLabels: id feedlot ... geno_comp_cluster (10 total)</span></span>
+<span><span class="co">#&gt;   varMetadata: labelDescription</span></span>
+<span><span class="co">#&gt; featureData</span></span>
+<span><span class="co">#&gt;   featureNames: 1_41768691 10-27008241-A-C-rs42918694 ... STAT5_13516_2</span></span>
+<span><span class="co">#&gt;     (23036 total)</span></span>
+<span><span class="co">#&gt;   fvarLabels: feature_id chromosome ... fdr (13 total)</span></span>
+<span><span class="co">#&gt;   fvarMetadata: labelDescription</span></span>
+<span><span class="co">#&gt; experimentData: use 'experimentData(object)'</span></span>
+<span><span class="co">#&gt; Annotation:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">set_transcripto</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ExpressionSet (storageMode: lockedEnvironment)</span></span>
+<span><span class="co">#&gt; assayData: 20335 features, 143 samples </span></span>
+<span><span class="co">#&gt;   element names: exprs </span></span>
+<span><span class="co">#&gt; protocolData: none</span></span>
+<span><span class="co">#&gt; phenoData</span></span>
+<span><span class="co">#&gt;   rowNames: R9497 R5969 ... Y9816 (143 total)</span></span>
+<span><span class="co">#&gt;   varLabels: id feedlot ... geno_comp_cluster (10 total)</span></span>
+<span><span class="co">#&gt;   varMetadata: labelDescription</span></span>
+<span><span class="co">#&gt; featureData</span></span>
+<span><span class="co">#&gt;   featureNames: ENSBTAG00000000005 ENSBTAG00000000008 ...</span></span>
+<span><span class="co">#&gt;     ENSBTAG00000055314 (20335 total)</span></span>
+<span><span class="co">#&gt;   fvarLabels: feature_id chromosome ... description (8 total)</span></span>
+<span><span class="co">#&gt;   fvarMetadata: labelDescription</span></span>
+<span><span class="co">#&gt; experimentData: use 'experimentData(object)'</span></span>
+<span><span class="co">#&gt; Annotation:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">set_metabo</span><span class="op">)</span></span>
+<span><span class="co">#&gt; MetabolomeSet (storageMode: lockedEnvironment)</span></span>
+<span><span class="co">#&gt; assayData: 55 features, 139 samples </span></span>
+<span><span class="co">#&gt;   element names: call </span></span>
+<span><span class="co">#&gt; protocolData: none</span></span>
+<span><span class="co">#&gt; phenoData</span></span>
+<span><span class="co">#&gt;   rowNames: R21 Y3660 ... U5416 (139 total)</span></span>
+<span><span class="co">#&gt;   varLabels: id feedlot ... geno_comp_cluster (10 total)</span></span>
+<span><span class="co">#&gt;   varMetadata: labelDescription</span></span>
+<span><span class="co">#&gt; featureData</span></span>
+<span><span class="co">#&gt;   featureNames: HMDB00001 HMDB00008 ... HMDB01881 (55 total)</span></span>
+<span><span class="co">#&gt;   fvarLabels: feature_id hmdb_id ... de_status (16 total)</span></span>
+<span><span class="co">#&gt;   fvarMetadata: labelDescription</span></span>
+<span><span class="co">#&gt; experimentData: use 'experimentData(object)'</span></span>
+<span><span class="co">#&gt; Annotation:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="creating-the-multi-omics-set" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="creating-the-multi-omics-set">
+<span class="header-section-number">3.6</span> Creating the multi-omics set</h2>
+<p>Finally, we can combine the different omics sets into one multi-omics set object. <code>moiraine</code> makes use of the <a href="https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html"><code>MultiDataSet</code> package</a> for that. <code>MultiDataSet</code> (<span class="citation" data-cites="hernandez-ferrer2017">Hernandez-Ferrer et al. (<a href="references.html#ref-hernandez-ferrer2017" role="doc-biblioref">2017</a>)</span>) implements a multi-omics data container that collects, in one R object, several omics datasets alongside their associated features and samples metadata. One of the main advantages of using a <code>MultiDataSet</code> container is that we can pass all of the information associated with a set of related omics datasets with only one R object. In addition, the <code>MultiDataSet</code> package implements a number of very useful functions. For example, it is possible to assess the samples that are common to several omics sets. This is particularly useful for data integration, as the <code>moiraine</code> package can automatically discard samples missing from one or more datasets prior to the integration step if needed. Note that sample matching between the different omics datasets is based on sample IDs, so they must be consistent between the different datasets.</p>
+<p>We will create the multi-omics set with the <code><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set()</a></code> function. It requires a list of the omics sets (that we created via either <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set()</a></code> or <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory()</a></code>) to include, and returns a <code>MultiDataSet::MultiDataSet-class</code> object.</p>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">set_geno</span>,</span>
+<span>         <span class="va">set_transcripto</span>,</span>
+<span>         <span class="va">set_metabo</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Object of class 'MultiDataSet'</span></span>
+<span><span class="co">#&gt;  . assayData: 3 elements</span></span>
+<span><span class="co">#&gt;     . snps: 23036 features, 139 samples </span></span>
+<span><span class="co">#&gt;     . rnaseq: 20335 features, 143 samples </span></span>
+<span><span class="co">#&gt;     . metabolome: 55 features, 139 samples </span></span>
+<span><span class="co">#&gt;  . featureData:</span></span>
+<span><span class="co">#&gt;     . snps: 23036 rows, 13 cols (feature_id, ..., p_value)</span></span>
+<span><span class="co">#&gt;     . rnaseq: 20335 rows, 8 cols (feature_id, ..., Name)</span></span>
+<span><span class="co">#&gt;     . metabolome: 55 rows, 16 cols (feature_id, ..., de_signif)</span></span>
+<span><span class="co">#&gt;  . rowRanges:</span></span>
+<span><span class="co">#&gt;     . snps: YES</span></span>
+<span><span class="co">#&gt;     . rnaseq: YES</span></span>
+<span><span class="co">#&gt;     . metabolome: NO</span></span>
+<span><span class="co">#&gt;  . phenoData:</span></span>
+<span><span class="co">#&gt;     . snps: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span>
+<span><span class="co">#&gt;     . rnaseq: 143 samples, 10 cols (id, ..., geno_comp_3)</span></span>
+<span><span class="co">#&gt;     . metabolome: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Within the <code>MultiDataSet</code> object, each omics set is assigned a name. The name depends first on the omics container type: a <code>SnpSet</code> set will be named <code>snps</code>, an <code>ExpressionSet</code> set will be named <code>rnaseq</code>, a <code>MetabolomeSet</code> will be named <code>metabolome</code> and a <code>PhenotypeSet</code> will be called <code>phenotypes</code>. If several sets of the same type are provided, they will be assigned unique names, e.g.&nbsp;<code>snps+1</code> and <code>snps+2</code> (the <code>+</code> symbol used as separator is set in the <code>MultiDataSet</code> package and cannot be changed). Alternatively, we can provide custom names for the datasets, using the <code>datasets_names</code> argument. These will be added to the type name (e.g.&nbsp;<code>snps+customname</code>). For example:</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set_with_names</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">set_geno</span>,</span>
+<span>         <span class="va">set_transcripto</span>,</span>
+<span>         <span class="va">set_metabo</span><span class="op">)</span>,</span>
+<span>    datasets_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CaptureSeq"</span>, <span class="st">"RNAseq"</span>, <span class="st">"LCMS"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>returns:</p>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set_with_names</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Object of class 'MultiDataSet'</span></span>
+<span><span class="co">#&gt;  . assayData: 3 elements</span></span>
+<span><span class="co">#&gt;     . snps+CaptureSeq: 23036 features, 139 samples </span></span>
+<span><span class="co">#&gt;     . rnaseq+RNAseq: 20335 features, 143 samples </span></span>
+<span><span class="co">#&gt;     . metabolome+LCMS: 55 features, 139 samples </span></span>
+<span><span class="co">#&gt;  . featureData:</span></span>
+<span><span class="co">#&gt;     . snps+CaptureSeq: 23036 rows, 13 cols (feature_id, ..., p_value)</span></span>
+<span><span class="co">#&gt;     . rnaseq+RNAseq: 20335 rows, 8 cols (feature_id, ..., Name)</span></span>
+<span><span class="co">#&gt;     . metabolome+LCMS: 55 rows, 16 cols (feature_id, ..., de_signif)</span></span>
+<span><span class="co">#&gt;  . rowRanges:</span></span>
+<span><span class="co">#&gt;     . snps+CaptureSeq: YES</span></span>
+<span><span class="co">#&gt;     . rnaseq+RNAseq: YES</span></span>
+<span><span class="co">#&gt;     . metabolome+LCMS: NO</span></span>
+<span><span class="co">#&gt;  . phenoData:</span></span>
+<span><span class="co">#&gt;     . snps+CaptureSeq: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span>
+<span><span class="co">#&gt;     . rnaseq+RNAseq: 143 samples, 10 cols (id, ..., geno_comp_3)</span></span>
+<span><span class="co">#&gt;     . metabolome+LCMS: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Importantly, the <code><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set()</a></code> function makes sure that samples metadata is consistent across the datasets for common samples. That is, if the same column (i.e.&nbsp;with the same name) is present in the samples metadata of several omics datasets, the values in this column must match for each sample present in all datasets. Otherwise, the function returns an error.</p>
+<p>In the following chapter on <a href="inspecting_multidataset.html">Inspecting the MultiDataSet object</a>, we will see how to handle the <code>MultiDataSet</code> object we just created. Alternatively, the <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/MultiDataSet/inst/doc/MultiDataSet.html">MultiDataSet package vignette</a> provides examples of constructing, querying and subsetting <code>MultiDataSet</code> objects.</p>
+</section><section id="recap-targets-list" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">3.7</span> Recap – targets list</h2>
+<p>For convenience, here is the list of targets that we created in this section:</p>
+<details><summary>
+Targets list for data import
+</summary><div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="co">## Data import using a target factory</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
+<span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/genomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/transcriptomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/metabolomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    col_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"marker"</span>, <span class="st">"gene_id"</span>, <span class="st">"sample_id"</span><span class="op">)</span>,</span>
+<span>    features_as_rowss <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>    target_name_suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"geno"</span>, <span class="st">"transcripto"</span>, <span class="st">"metabo"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Genomics features metadata file</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">fmetadata_file_geno</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/genomics_features_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>    format <span class="op">=</span> <span class="st">"file"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Genomics features metadata import</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">fmetadata_geno</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
+<span>      <span class="va">fmetadata_file_geno</span>,</span>
+<span>      col_id <span class="op">=</span> <span class="st">"marker"</span>,</span>
+<span>      col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span> <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="co">## Metabolomics features metadata import</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/metabolomics_features_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    col_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"feature_id"</span><span class="op">)</span>,</span>
+<span>    target_name_suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"metabo"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Transcriptomics features metadata import</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
+<span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/bos_taurus_gene_model.gff3"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>    feature_types <span class="op">=</span> <span class="st">"genes"</span>,</span>
+<span>    add_fieldss <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"description"</span><span class="op">)</span>,</span>
+<span>    target_name_suffixes <span class="op">=</span> <span class="st">"transcripto"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Samples metadata import</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/samples_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
+<span>    col_ids <span class="op">=</span> <span class="st">"animal_id"</span>,</span>
+<span>    target_name_suffixes <span class="op">=</span> <span class="st">"all"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Creating omics sets for each dataset</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
+<span>    datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">data_geno</span>, <span class="va">data_transcripto</span>, <span class="va">data_metabo</span><span class="op">)</span>,</span>
+<span>    omics_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"genomics"</span>, <span class="st">"transcriptomics"</span>, <span class="st">"metabolomics"</span><span class="op">)</span>,</span>
+<span>    features_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">fmetadata_geno</span>, <span class="va">fmetadata_transcripto</span>, <span class="va">fmetadata_metabo</span><span class="op">)</span>,</span>
+<span>    samples_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">smetadata_all</span>, <span class="va">smetadata_all</span>, <span class="va">smetadata_all</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Creating the MultiDataSet object</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mo_set</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">set_geno</span>,</span>
+<span>           <span class="va">set_transcripto</span>,</span>
+<span>           <span class="va">set_metabo</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
 
-<p>In this chapter, we will see how to import several omics datasets into R, and how to combine them into a MultiDataSet object (from the <code>MultiDataSet</code> package) that contains the omics datasets along with their associated features and samples metadata.</p>
-<section id="the-_targets.r-script" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="the-_targets.r-script"><span class="header-section-number">3.1</span> The _targets.R script</h2>
-<p>As we are starting the analysis, the <code>_targets.R</code> script should look like this:</p>
-
-
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-hernandez-ferrer2017" class="csl-entry" role="doc-biblioentry">
+Hernandez-Ferrer, Carles, Carlos Ruiz-Arenas, Alba Beltran-Gomila, and Juan R. González. 2017. <span>“MultiDataSet: An r Package for Encapsulating Multiple Data Sets with Application to Omic Data Integration.”</span> <em>BMC Bioinformatics</em> 18 (1): 36. <a href="https://doi.org/10.1186/s12859-016-1455-1">https://doi.org/10.1186/s12859-016-1455-1</a>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -302,16 +1077,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./example_dataset.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./inspecting_multidataset.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

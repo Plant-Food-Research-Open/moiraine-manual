@@ -1,8 +1,550 @@
-# Importing data
+# Importing data {#sec-importing-data}
 
-In this chapter, we will see how to import several omics datasets into R, and how to combine them into a MultiDataSet object (from the `MultiDataSet` package) that contains the omics datasets along with their associated features and samples metadata.
+```{r}
+#| child: "_setup.qmd"
+```
 
-## The _targets.R script
+```{r loading-packages}
+#| include: false
 
-As we are starting the analysis, the `_targets.R` script should look like this:
+library(targets)
+library(moiraine)
+library(Biobase)
+library(readr)
+```
 
+```{r setup-visible}
+#| eval: false
+
+library(targets)
+library(moiraine)
+library(Biobase)
+
+## for documentation
+library(readr)
+```
+
+The first step of the pipeline is to read in the different omics datasets and associated metadata. Once imported into R, they will be combined in a `MultiDataSet` object from the [`MultiDataSet` package](https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html) (@hernandez-ferrer2017) which will be used in the rest of the analysis pipeline.
+
+For each omics dataset, we need to import:
+
+-   the dataset itself (i.e. the matrix of omics measurements);
+
+```{=html}
+<!-- -->
+```
+-   the features metadata, i.e. information about the features measured in the dataset;
+
+-   the samples metadata, i.e. information about the samples measured in the dataset.
+
+Typically, omics datasets as well as associated metadata are stored in `csv` files, although there are some other file formats that `moiraine` can read, and we will see examples of this in the following sections.
+
+## The example dataset files
+
+The dataset analysed this manual is presented in @sec-dataset. The associated files that we will use here are:
+
+-   Genomics data:
+
+    -   `genomics_dataset.csv`: contains the genomic variants' dosage, with genomic variants as rows and samples as columns.
+
+    -   `genomics_features_info.csv`: contains information about the genomic variants (chromosome, genomic position, etc, as well as the results of a GWAS analysis).
+
+-   Transcriptomics data:
+
+    -   `transcriptomics_dataset.csv`: contains the raw read counts for the measured genes -- rows correspond to transcripts, and columns to samples.
+
+    -   `bos_taurus_gene_model.gff3`: the genome annotation file used to map the transcriptomics reads to gene models.
+
+    -   `transcriptomics_de_results.csv`: the results of a differential expression analysis run on the transcriptomics dataset to compare healthy and diseased animals.
+
+    -   `transcriptomics_go_annotation.csv`: contains the correspondence between genes and GO terms in a long format (one row per gene/GO term pair).
+
+-   Metabolomics data:
+
+    -   `metabolomics_dataset.csv`: contains the area peak values -- rows correspond to samples, and columns to compounds.
+
+    -   `metabolomics_features_info.csv`: contains information about the compounds (such as mass, retention time, and formula and name if the compounds has been identified) as well as the results of a differential expression analysis run on the metabolomics dataset to compare healthy and diseased animals.
+
+-   Samples information: stored in the `samples_info.csv` file, in which each row corresponds to a sample.
+
+Each of these files is available through the `moiraine` package, and can be retrieved via `system.file("extdata/genomics_dataset.csv", package = "moiraine")`.
+
+## Importing the datasets
+
+We will show how to import the datasets, first manually, and then in an automated way (using a target factory function).
+
+### Manually {#sec-import-dataset-manual}
+
+We can start by creating targets that track the different data files. This ensures that when a data file changes, the target is considered outdated and any analysis relying on this data file will be re-run (see [here](https://books.ropensci.org/targets/data.html#external-files) for more information). For example, for the genomics dataset, we write:
+
+```{targets genomics-dataset-file}
+tar_target(
+  dataset_file_geno,
+  system.file("extdata/genomics_dataset.csv", package = "moiraine"),
+  format = "file"
+)
+```
+
+The created target, called `dataset_file_geno`, takes as value the path to the file:
+
+```{r print-dataset-file-geno}
+tar_read(dataset_file_geno)
+```
+
+The next step is to import this dataset in R. We use the `import_dataset_csv()` function for that, rather than the `readr::read_csv()` or similar functions, as it ensures that the data is imported with the correct format for further use with the `moiraine` package. When importing a dataset, we need to specify the path to the file, as well as the name of the column in the csv file that contains the row names (through the `col_id` argument). In addition, we need to specify whether the features are represented in rows in the csv file, or in columns. This is done through the argument `features_as_rows`. For example, we can load the genomics dataset through:
+
+```{targets import-genomics-dataset}
+tar_target(
+  data_geno,
+  import_dataset_csv(
+    dataset_file_geno, 
+    col_id = "marker", 
+    features_as_rows = TRUE)
+)
+```
+
+The function returns a matrix in which the rows correspond to the features measured, and the columns correspond to the samples:
+
+```{r show-genomics-dataset}
+tar_read(data_geno) |> dim()
+tar_read(data_geno)[1:5, 1:3]
+```
+
+Note that `import_dataset_csv()` uses `readr::read_csv()` to read in the data. It accepts arguments that will be passed on to `read_csv()`, which can be useful to control how the data file must be read, e.g. by specifying the columns' type, or which characters must be considered as missing values.
+
+### Using a target factory function
+
+Creating a target to track the raw file and using the `import_dataset_csv()` function to read it can be a bit cumbersome if we want to import several datasets. Luckily, this process can be automated with the `import_dataset_csv_factory()` function. It takes as an input a vector of files path, and for each file creates:
+
+-   a target named `dataset_file_XX` (`XX` explained below), which tracks the raw data file;
+
+-   a target named `data_XX`, which corresponds to the data matrix that has been imported through the `import_dataset_csv` function.
+
+For each file, we need to specify the name of the column giving the row names (argument `col_ids`), and whether the features are stored as rows or as columns (argument `features_as_rowss`). *Note that these arguments are the same as in the primary function `import_dataset_csv()`, except that they have an additional 's' at the end of their name. This will be the case for most of the target factory functions from the package.*
+
+In addition, we have to provide a unique suffix which will be appended to the name of the targets created (i.e. the `XX` mentioned above) through the `target_name_suffixes` argument. This allows us to track which target corresponds to which dataset.
+
+So the following code (note that it is not within a `tar_target()` call):
+
+```{targets import-dataset-csv-factory}
+import_dataset_csv_factory(
+  files = c(
+    system.file("extdata/genomics_dataset.csv", package = "moiraine"),
+    system.file("extdata/transcriptomics_dataset.csv", package = "moiraine"),
+    system.file("extdata/metabolomics_dataset.csv", package = "moiraine")
+  ),
+  col_ids = c("marker", "gene_id", "sample_id"),
+  features_as_rowss = c(TRUE, TRUE, FALSE),
+  target_name_suffixes = c("geno", "transcripto", "metabo")
+)
+```
+
+will create the following targets:
+
+-   `dataset_file_geno`, `dataset_file_transcripto`, `dataset_file_metabo`
+
+-   `data_geno`, `data_metabo`, `data_transcripto`
+
+```{r size-dataset-targets}
+tar_read(data_geno) |> dim()
+tar_read(data_transcripto) |> dim()
+tar_read(data_metabo) |> dim()
+```
+
+With this factory function, it is not possible to pass arguments to `read_csv()`. If you want to control how the files are read, please use the `import_dataset_csv()` function directly instead, as shown in @sec-import-dataset-manual.
+
+## Importing the features metadata
+
+Similarly to how we imported the datasets, there are two ways of importing features metadata: either manually, or using a target factory function. The two options are illustrated below.
+
+### Manually {#sec-import-fmeta-manual}
+
+As shown in the previous section, we can start by creating a target that tracks the raw features metadata file, then read the file into R using the `import_fmetadata_csv()` function. It has the similar arguments as the `import_dataset_csv()` function, but returns a data-frame (rather than a matrix); and does not have the options to read a csv where the features are columns (they must be in rows):
+
+```{targets import-geno-fmetadata}
+list(
+  tar_target(
+    fmetadata_file_geno,
+    system.file("extdata/genomics_features_info.csv", package = "moiraine"),
+    format = "file"
+  ),
+  
+  tar_target(
+    fmetadata_geno,
+    import_fmetadata_csv(
+      fmetadata_file_geno,
+      col_id = "marker",
+      col_types = c("chromosome" = "c")
+    )
+  )
+)
+```
+
+Notice that in the `import_fmetadata_csv()` call, we've added an argument (`col_types`) which will be passed on to `read_csv()`. This is to ensure that the `chromosome` column will be read as character (even though the chromosomes are denoted with integers).
+
+```{r show-genomics-fmetadata}
+tar_read(fmetadata_geno) |> head()
+```
+
+You can see that in the data-frame of features metadata, the feature IDs are present both as row names and in the `feature_id` column. This makes it easier to subset the datasets later on.
+
+### Using a target factory function
+
+Alternatively, we can use a target factory function that automates the process when we have to read in several features metadata files. In our case, we have to do it for the genomics and metabolomics datasets only, as the transcriptomics dataset has a different features metadata format. However because we need to specify the column types for the genomics dataset, we will use the targets factory function to read in the metabolomics features metadata only. The arguments are almost the same as for `import_dataset_csv_factory()` (except for `features_as_rowss`):
+
+```{targets import-fmetadata-csv-factory}
+import_fmetadata_csv_factory(
+  files = c(
+    system.file("extdata/metabolomics_features_info.csv", package = "moiraine")
+  ),
+  col_ids = c("feature_id"),
+  target_name_suffixes = c("metabo")
+)
+```
+
+The targets created are:
+
+-   `fmetadata_file_metabo`
+
+-   `fmetadata_metabo`
+
+```{r head-fmetadata-targets}
+tar_read(fmetadata_metabo) |> head()
+```
+
+Again, the targets factory function does not allow to pass arguments to `readr::read_csv()` (if you need them, please use `import_fmetadata_csv()` directly as we have done in @sec-import-fmeta-manual).
+
+### Importing features metadata from a GTF/GFF file
+
+The `moiraine` package can also extract features metadata from a genome annotation file (`.gtf` or `.gff`). We'll demonstrate that for the transcriptomics dataset, for which information about the position and name of the transcripts can be found in the genome annotation used to map the reads. The function is called `import_fmetadata_gff()` (it is also the function you would use to read in information from a `.gtf` file). The type of information to extract from the annotation file is specified through the `feature_type` argument, which can be either `'genes'` or `'transcripts'`. In addition, if the function does not extract certain fields from the annotation file, these can be explicitly called using the `add_fields` parameter.
+
+In this example, we want to extract information about the genes from the gtf file. We also want to make sure that the `Name` and `description`field are imported, as they give the name and description of the genes. To read in this information "manually", we create the following targets:
+
+```{targets import-transcripto-fmetadata}
+list(
+  tar_target(
+    fmetadata_file_transcripto,
+    system.file("extdata/bos_taurus_gene_model.gff3", package = "moiraine"),
+    format = "file"
+  ),
+  
+  tar_target(
+    fmetadata_transcripto,
+    import_fmetadata_gff(
+      fmetadata_file_transcripto,
+      feature_type = "genes",
+      add_fields = c("Name", "description")
+    )
+  )
+)
+```
+
+As for the other import functions, there exists a more succinct target factory version, called `import_fmetadata_gff_factory()`:
+
+```{targets import-fmetadata-gff-factory}
+import_fmetadata_gff_factory(
+  files = system.file("extdata/bos_taurus_gene_model.gff3", package = "moiraine"),
+  feature_types = "genes",
+  add_fieldss = c("Name", "description"),
+  target_name_suffixes = "transcripto"
+)
+```
+
+This will create two targets: `fmetadata_file_transcripto` and `fmetadata_transcripto`.
+
+As with `import_fmetadata`, the function returns a data-frame of features information:
+
+```{r head-fmetadata-transcripto}
+tar_read(fmetadata_transcripto) |> head()
+```
+
+## Importing the samples metadata
+
+As for importing datasets or features metadata, the `import_smetadata_csv()` function reads in a csv file that contains information about the samples measured. Similarly to `import_fmetadata_csv()`, this function assumes that the csv file contains samples as rows. In this example, we have one samples information file for all of our omics datasets, but it is possible to have one separate samples metadata csv file for each omics dataset (if there are some omics-specific information such as batch, technology specifications, etc).
+
+We can do this by manually creating the following targets:
+
+```{targets import-samples-metadata}
+list(
+  tar_target(
+    smetadata_file_all,
+    system.file("extdata/samples_info.csv", package = "moiraine"),
+    format = "file"
+  ),
+
+  tar_target(
+    smetadata_all,
+    import_smetadata_csv(
+      smetadata_file_all,
+      col_id = "animal_id"
+    )
+  )
+)
+```
+
+which is equivalent to the (more succinct) command:
+
+```{targets import-smetadata-csv-factory}
+import_smetadata_csv_factory(
+  files = system.file("extdata/samples_info.csv", package = "moiraine"),
+  col_ids = "animal_id",
+  target_name_suffixes = "all"
+)
+```
+
+The latter command creates the targets `smetadata_file_all` and `smetadata_all`. `smetadata_all` stores the samples metadata imported as a data-frame:
+
+```{r head-smetadata-all}
+tar_read(smetadata_all) |> head()
+```
+
+Note that in the samples metadata data-frame, the sample IDs are present both as row names and in the `id` column. This makes it easier to subset the datasets later on.
+
+As for the other import functions, `import_smetadata_csv()` accepts arguments that will be passed to `readr::read_csv()` in order to specify how the file should be read. The targets factory version does not have this option.
+
+## Creating the omics sets
+
+Once each dataset and associated features and samples metadata have been imported, we need to combine them into omics sets. In practice, this means that for each omics dataset, we will create an R object that stores the actual dataset alongside its relevant metadata. `moiraine` relies on the `Biobase` containers derived from `Biobase::eSet` to store the different omics datasets; for example, `Biobase::ExpressionSet` objects are used to store transcriptomics measurements. Currently, `moiraine` support four types of omics containers:
+
+-   genomics containers, which are `Biobase::SnpSet` objects. The particularity of this data type is that the features metadata data-frame must contain a column named `chromosome` and a column named `position`, which store the chromosome and genomic position within the chromosome (in base pairs) of a given genomic marker or variant.
+
+-   transcriptomics containers, which are `Biobase::ExpressionSet` objects. The particularity of this data type is that the features metadata data-frame must contain the following columns: `chromosome`, `start`, `end`, giving the chromosome, start and end positions (in base pairs) of the genes or transcripts. Moreover, the values in `start` and `end` must be integers, and for each row the value in `end` must be higher than the value in `start`.
+
+-   metabolomics containers, which are `MetabolomeSet` objects (implemented within `moiraine`). There are no restrictions on the features metadata table for this type of containers.
+
+-   phenotype containers, which are `PhenotypeSet` objects (implemented within `moiraine`). There are no restrictions on the features metadata table for this type of containers.
+
+In practice, the nuances between these different containers are not very important, and the type of container used to store a particular dataset will have no impact on the downstream analysis apart from the name that will be given to the omics dataset. So in order to create a container for a transcriptomics dataset in the absence of features metadata, we have to create a dummy data-frame with the columns `chromosome`, `start` and `end` containing the values `ch1`, `1`, and `10` (for example) and use that as features metadata. Alternately, or for other omics data (e.g. proteomics), it is possible to use a `PhenotypeSet` object instead.
+
+### Creating a single omics set
+
+The function `create_omics_set()` provides a convenient wrapper to create such container objects from the imported datasets and metadata. It has two mandatory arguments: the dataset, which should be in the form of a matrix where the rows correspond to features and the columns to samples; and the type of omics data that the dataset represents (`'genomics'`, `'transcriptomics'`, `'metabolomics'` or `'phenomics'`). The latter determines which type of container will be generated. Optionally, a features metadata and/or a samples metadata data-frame can be passed on via the `features_metadata` and `samples_metadata` arguments, respectively. For example, let's create a set for the genomics data:
+
+```{targets create-set-geno}
+tar_target(
+  set_geno,
+  create_omics_set(
+    data_geno,
+    omics_type = "genomics",
+    features_metadata = fmetadata_geno,
+    samples_metadata = smetadata_all
+  )
+)
+```
+
+If executed, this command will return the following warning:
+
+```{r warning-set-geno, echo = FALSE}
+tar_meta(fields = "warnings") |>
+  dplyr::filter(name == "set_geno") |>
+  dplyr::pull(warnings) |>
+  stringr::str_split("(?<=\\.)\\. ") |>
+  unlist() |>
+  purrr::walk(warning, call. = FALSE)
+```
+
+This is because, when providing features and samples metadata information, the function makes sure that the feature or sample IDs present in the metadata tables match those used in the dataset. In our case, 5 sample IDs from the metadata data-frame are not present in the dataset. We can confirm that by comparing the column names of the genomics dataset to the row names of the samples metadata:
+
+```{r diff-samples-geno-smetadata}
+setdiff(
+  tar_read(smetadata_all) |> rownames(),
+  tar_read(data_geno) |> colnames()
+)
+```
+
+Rather than throwing an error, the function will add a row for each missing sample ID to the metadata data-frame, with a `NA` in every column, and will remove from the metadata data-frame any sample not present in the dataset. The same applies for features metadata.
+
+The resulting object is a `SnpSet`:
+
+```{r print-set-geno}
+tar_read(set_geno)
+```
+
+which can be queried using specific methods from the `Biobase` package, e.g.:
+
+```{r query-set-geno}
+tar_load(set_geno)
+
+dim(set_geno)
+
+featureNames(set_geno) |> head()
+
+sampleNames(set_geno) |> head()
+
+fData(set_geno) |> head() ## extracts features metadata
+
+pData(set_geno) |> head() ## extracts samples metadata
+```
+
+Note that these methods can also be applied to the other types of containers.
+
+### Using a target factory for creating omics sets
+
+The function `create_omics_set_factory()` allows us to create several omics sets at once. It returns a list of targets, each storing one of the created omics set container. It takes as input arguments vectors that give for each omics set the arguments required by `create_omics_set()`.
+
+```{targets create-omics-set-factory}
+create_omics_set_factory(
+  datasets = c(data_geno, data_transcripto, data_metabo),
+  omics_types = c("genomics", "transcriptomics", "metabolomics"),
+  features_metadatas = c(fmetadata_geno, fmetadata_transcripto, fmetadata_metabo),
+  samples_metadatas = c(smetadata_all, smetadata_all, smetadata_all)
+)
+```
+
+Again, the warnings raised by the function originate from discrepancies between the datasets and associated metadata. It is always good practice to double-check manually to make sure that it is not due to a typo in the IDs or similar error.
+
+If one of the datasets has no associated features or samples metadata, use `NULL` in the corresponding input arguments, e.g.:
+
+```{targets create-omics-set-factory-no-metadata, eval = FALSE}
+create_omics_set_factory(
+  datasets = c(data_geno, data_transcripto, data_metabo),
+  omics_types = c("genomics", "transcriptomics", "metabolomics"),
+  features_metadatas = c(NULL, fmetadata_transcripto, fmetadata_metabo),
+  samples_metadatas = c(smetadata_all, NULL, smetadata_all)
+)
+```
+
+The `create_omics_set_factory()` function has a `target_name_suffixes` argument to customise the name of the created targets. However, if this argument is not provided, the function will attempt to read the suffixes to use from the name of the dataset targets. So in this case, it knows that the suffixes to use are `'geno'`, `'transcripto'` and `'metabo'`. Consequently, the function creates the following targets: `set_geno`, `set_transcripto`, `set_metabo`.
+
+```{r print-set-geno-again}
+tar_read(set_geno)
+```
+
+```{r print-set-transcripto}
+tar_read(set_transcripto)
+```
+
+```{r print-set-metabo}
+tar_read(set_metabo)
+```
+
+## Creating the multi-omics set
+
+Finally, we can combine the different omics sets into one multi-omics set object. `moiraine` makes use of the [`MultiDataSet` package](https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html) for that. `MultiDataSet` (@hernandez-ferrer2017) implements a multi-omics data container that collects, in one R object, several omics datasets alongside their associated features and samples metadata. One of the main advantages of using a `MultiDataSet` container is that we can pass all of the information associated with a set of related omics datasets with only one R object. In addition, the `MultiDataSet` package implements a number of very useful functions. For example, it is possible to assess the samples that are common to several omics sets. This is particularly useful for data integration, as the `moiraine` package can automatically discard samples missing from one or more datasets prior to the integration step if needed. Note that sample matching between the different omics datasets is based on sample IDs, so they must be consistent between the different datasets.
+
+We will create the multi-omics set with the `create_multiomics_set()` function. It requires a list of the omics sets (that we created via either `create_omics_set()` or `create_omics_set_factory()`) to include, and returns a `MultiDataSet::MultiDataSet-class` object.
+
+```{targets create-multiomics-set}
+tar_target(
+  mo_set,
+  create_multiomics_set(
+    list(set_geno,
+         set_transcripto,
+         set_metabo)
+  )
+)
+```
+
+```{r print-mo-set}
+tar_read(mo_set)
+```
+
+Within the `MultiDataSet` object, each omics set is assigned a name. The name depends first on the omics container type: a `SnpSet` set will be named `snps`, an `ExpressionSet` set will be named `rnaseq`, a `MetabolomeSet` will be named `metabolome` and a `PhenotypeSet` will be called `phenotypes`. If several sets of the same type are provided, they will be assigned unique names, e.g. `snps+1` and `snps+2` (the `+` symbol used as separator is set in the `MultiDataSet` package and cannot be changed). Alternatively, we can provide custom names for the datasets, using the `datasets_names` argument. These will be added to the type name (e.g. `snps+customname`). For example:
+
+```{targets create-multiomics-set-with-names}
+tar_target(
+  mo_set_with_names,
+  create_multiomics_set(
+    list(set_geno,
+         set_transcripto,
+         set_metabo),
+    datasets_names = c("CaptureSeq", "RNAseq", "LCMS")
+  )
+)
+```
+
+returns:
+
+```{r test-create-multiomics-set-with-names}
+tar_read(mo_set_with_names)
+```
+
+Importantly, the `create_multiomics_set()` function makes sure that samples metadata is consistent across the datasets for common samples. That is, if the same column (i.e. with the same name) is present in the samples metadata of several omics datasets, the values in this column must match for each sample present in all datasets. Otherwise, the function returns an error.
+
+In the following chapter on [Inspecting the MultiDataSet object](#sec-inspecting-multidataset), we will see how to handle the `MultiDataSet` object we just created. Alternatively, the [MultiDataSet package vignette](https://www.bioconductor.org/packages/release/bioc/vignettes/MultiDataSet/inst/doc/MultiDataSet.html) provides examples of constructing, querying and subsetting `MultiDataSet` objects.
+
+## Recap -- targets list
+
+For convenience, here is the list of targets that we created in this section:
+
+<details>
+
+  <summary>Targets list for data import</summary>
+
+```{targets recap-targets-list}
+list(
+  ## Data import using a target factory
+  import_dataset_csv_factory(
+    files = c(
+      system.file("extdata/genomics_dataset.csv", package = "moiraine"),
+      system.file("extdata/transcriptomics_dataset.csv", package = "moiraine"),
+      system.file("extdata/metabolomics_dataset.csv", package = "moiraine")
+    ),
+    col_ids = c("marker", "gene_id", "sample_id"),
+    features_as_rowss = c(TRUE, TRUE, FALSE),
+    target_name_suffixes = c("geno", "transcripto", "metabo")
+  ),
+  
+  ## Genomics features metadata file
+  tar_target(
+    fmetadata_file_geno,
+    system.file("extdata/genomics_features_info.csv", package = "moiraine"),
+    format = "file"
+  ),
+  
+  ## Genomics features metadata import
+  tar_target(
+    fmetadata_geno,
+    import_fmetadata_csv(
+      fmetadata_file_geno,
+      col_id = "marker",
+      col_types = c("chromosome" = "c")
+    )
+  ),
+  
+  
+  ## Metabolomics features metadata import
+  import_fmetadata_csv_factory(
+    files = c(
+      system.file("extdata/metabolomics_features_info.csv", package = "moiraine")
+    ),
+    col_ids = c("feature_id"),
+    target_name_suffixes = c("metabo")
+  ),
+  
+  ## Transcriptomics features metadata import
+  import_fmetadata_gff_factory(
+    files = system.file("extdata/bos_taurus_gene_model.gff3", package = "moiraine"),
+    feature_types = "genes",
+    add_fieldss = c("Name", "description"),
+    target_name_suffixes = "transcripto"
+  ),
+  
+  ## Samples metadata import
+  import_smetadata_csv_factory(
+    files = system.file("extdata/samples_info.csv", package = "moiraine"),
+    col_ids = "animal_id",
+    target_name_suffixes = "all"
+  ),
+  
+  ## Creating omics sets for each dataset
+  create_omics_set_factory(
+    datasets = c(data_geno, data_transcripto, data_metabo),
+    omics_types = c("genomics", "transcriptomics", "metabolomics"),
+    features_metadatas = c(fmetadata_geno, fmetadata_transcripto, fmetadata_metabo),
+    samples_metadatas = c(smetadata_all, smetadata_all, smetadata_all)
+  ),
+  
+  ## Creating the MultiDataSet object
+  tar_target(
+    mo_set,
+    create_multiomics_set(
+      list(set_geno,
+           set_transcripto,
+           set_metabo)
+    )
+  )
+)
+```
+
+</details>

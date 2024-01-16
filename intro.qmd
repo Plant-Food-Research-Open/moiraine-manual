@@ -4,10 +4,14 @@
 #| child: "_setup.qmd"
 ```
 
-This is a book created from markdown and executable code.
+-   omics dataset + what are samples and features metadata
 
-See @knuth84 for additional discussion of literate programming.
+-   what is multi-omics integration
 
-```{r}
-c(1 + 1)
-```
+-   supervised vs unsupervised
+
+-   the analysis workflow from moiraine (use the graph I use in presentations)
+
+### Other things to add in intro
+
+Note: Throughout the package and vignettes, we refer to the different biological entities measured in a given dataset (e.g. genes, transcripts, metabolic compounds, etc) as features.
