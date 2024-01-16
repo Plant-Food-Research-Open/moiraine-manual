@@ -212,7 +212,7 @@ The targets created are:
 tar_read(fmetadata_metabo) |> head()
 ```
 
-Again, the targets factory function does not allow to pass arguments to `readr::read_csv()` (if you need them, please use `import_fmetadata_csv()` directly as we have done in @sec-import-fmeta-manual).
+Again, the targets factory function does not allow to pass arguments to `read_csv()` (if you need them, please use `import_fmetadata_csv()` directly as we have done in @sec-import-fmeta-manual).
 
 ### Importing features metadata from a GTF/GFF file
 
@@ -300,7 +300,7 @@ tar_read(smetadata_all) |> head()
 
 Note that in the samples metadata data-frame, the sample IDs are present both as row names and in the `id` column. This makes it easier to subset the datasets later on.
 
-As for the other import functions, `import_smetadata_csv()` accepts arguments that will be passed to `readr::read_csv()` in order to specify how the file should be read. The targets factory version does not have this option.
+As for the other import functions, `import_smetadata_csv()` accepts arguments that will be passed to `read_csv()` in order to specify how the file should be read. The targets factory version does not have this option.
 
 ## Creating the omics sets
 

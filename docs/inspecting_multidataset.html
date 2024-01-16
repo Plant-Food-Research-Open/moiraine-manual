@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>The moiraine R package user manual - 4&nbsp; Inspecting the MultiDataSet object</title>
 <style>
 code{white-space: pre-wrap;}
@@ -20,8 +17,70 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
-
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -40,8 +99,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -60,28 +118,19 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
-
-
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
       <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The moiraine R package user manual</a> 
     </div>
@@ -93,7 +142,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
@@ -115,8 +164,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
   </div>
@@ -127,24 +176,39 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
     </ul>
-    </div>
-</nav>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#querying-datasets-names-and-dimensions" id="toc-querying-datasets-names-and-dimensions" class="nav-link active" data-scroll-target="#querying-datasets-names-and-dimensions"><span class="toc-section-number">4.1</span>  Querying datasets names and dimensions</a></li>
+  <li><a href="#extracting-datasets-and-metadata" id="toc-extracting-datasets-and-metadata" class="nav-link" data-scroll-target="#extracting-datasets-and-metadata"><span class="toc-section-number">4.2</span>  Extracting datasets and metadata</a></li>
+  <li>
+<a href="#summary-plots" id="toc-summary-plots" class="nav-link" data-scroll-target="#summary-plots"><span class="toc-section-number">4.3</span>  Summary plots</a>
+  <ul class="collapse">
+<li><a href="#samples-upset-plot" id="toc-samples-upset-plot" class="nav-link" data-scroll-target="#samples-upset-plot"><span class="toc-section-number">4.3.1</span>  Samples upset plot</a></li>
+  <li><a href="#datasets-density-plots" id="toc-datasets-density-plots" class="nav-link" data-scroll-target="#datasets-density-plots"><span class="toc-section-number">4.3.2</span>  Datasets density plots</a></li>
+  <li><a href="#datasets-mean-sd-plots" id="toc-datasets-mean-sd-plots" class="nav-link" data-scroll-target="#datasets-mean-sd-plots"><span class="toc-section-number">4.3.3</span>  Datasets mean-sd plots</a></li>
+  </ul>
+</li>
+  <li><a href="#assessing-missing-values" id="toc-assessing-missing-values" class="nav-link" data-scroll-target="#assessing-missing-values"><span class="toc-section-number">4.4</span>  Assessing missing values</a></li>
+  <li>
+<a href="#visualising-the-datasets" id="toc-visualising-the-datasets" class="nav-link" data-scroll-target="#visualising-the-datasets"><span class="toc-section-number">4.5</span>  Visualising the datasets</a>
+  <ul class="collapse">
+<li><a href="#as-a-heatmap" id="toc-as-a-heatmap" class="nav-link" data-scroll-target="#as-a-heatmap"><span class="toc-section-number">4.5.1</span>  As a heatmap</a></li>
+  </ul>
+</li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title"><span id="sec-inspecting-multidataset" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></span></h1>
 </div>
 
@@ -158,13 +222,444 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header>
+</header><div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biobase">Biobase</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## For working with lists</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span>
+<span><span class="co">## For custom colour palettes</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/circlize">circlize</a></span><span class="op">)</span></span>
+<span><span class="co">## For custom colour palettes</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this chapter, we will show here how to inspect the <code>MultiDataSet</code> object that we created in <a href="data_import.html"><span>Chapter&nbsp;3</span></a> and to extract information from it.</p>
+<p>As a reminder, here is what the <code>_targets.R</code> script should look like so far:</p>
+<details><summary><code>_targets.R</code> script
+</summary></details><p>At this stage, our different omics datasets (and associated metadata) are stored in a <code>MultiDataSet</code> object, saved in the target called <code>mo_set</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mo_set</span></span>
+<span><span class="co">#&gt; Object of class 'MultiDataSet'</span></span>
+<span><span class="co">#&gt;  . assayData: 3 elements</span></span>
+<span><span class="co">#&gt;     . snps: 23036 features, 139 samples </span></span>
+<span><span class="co">#&gt;     . rnaseq: 20335 features, 143 samples </span></span>
+<span><span class="co">#&gt;     . metabolome: 55 features, 139 samples </span></span>
+<span><span class="co">#&gt;  . featureData:</span></span>
+<span><span class="co">#&gt;     . snps: 23036 rows, 13 cols (feature_id, ..., p_value)</span></span>
+<span><span class="co">#&gt;     . rnaseq: 20335 rows, 8 cols (feature_id, ..., Name)</span></span>
+<span><span class="co">#&gt;     . metabolome: 55 rows, 16 cols (feature_id, ..., de_signif)</span></span>
+<span><span class="co">#&gt;  . rowRanges:</span></span>
+<span><span class="co">#&gt;     . snps: YES</span></span>
+<span><span class="co">#&gt;     . rnaseq: YES</span></span>
+<span><span class="co">#&gt;     . metabolome: NO</span></span>
+<span><span class="co">#&gt;  . phenoData:</span></span>
+<span><span class="co">#&gt;     . snps: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span>
+<span><span class="co">#&gt;     . rnaseq: 143 samples, 10 cols (id, ..., geno_comp_3)</span></span>
+<span><span class="co">#&gt;     . metabolome: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="querying-datasets-names-and-dimensions" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="querying-datasets-names-and-dimensions">
+<span class="header-section-number">4.1</span> Querying datasets names and dimensions</h2>
+<p>The names of the omics datasets stored in a <code>MultiDataSet</code> object can be obtained with:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "snps"       "rnaseq"     "metabolome"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It is also possible to query the number of features and samples in each dataset via <code><a href="https://rdrr.io/pkg/moiraine/man/n_features.html">n_features()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/n_samples.html">n_samples()</a></code>. Both functions return a named integer vector:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_features.html">n_features</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;      23036      20335         55</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_samples.html">n_samples</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;        139        143        139</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The feature and sample IDs for each dataset can be extracted with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_features.html">get_features()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples.html">get_samples()</a></code> functions. Both functions return a named list of features or samples ID for each omics dataset:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features.html">get_features</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 3</span></span>
+<span><span class="co">#&gt;  $ snps      : chr [1:23036] "1_41768691" "10-27008241-A-C-rs42918694" "10-37505419-T-C-rs136559242" "10-49904259-G-A-rs471723345" ...</span></span>
+<span><span class="co">#&gt;  $ rnaseq    : chr [1:20335] "ENSBTAG00000000005" "ENSBTAG00000000008" "ENSBTAG00000000009" "ENSBTAG00000000010" ...</span></span>
+<span><span class="co">#&gt;  $ metabolome: chr [1:55] "HMDB00001" "HMDB00008" "HMDB00042" "HMDB00043" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples.html">get_samples</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 3</span></span>
+<span><span class="co">#&gt;  $ snps      : chr [1:139] "R21" "Y3660" "Y3243" "R5764" ...</span></span>
+<span><span class="co">#&gt;  $ rnaseq    : chr [1:143] "R9497" "R5969" "R5327" "R5979" ...</span></span>
+<span><span class="co">#&gt;  $ metabolome: chr [1:139] "R21" "Y3660" "Y3243" "R5764" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="extracting-datasets-and-metadata" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="extracting-datasets-and-metadata">
+<span class="header-section-number">4.2</span> Extracting datasets and metadata</h2>
+<p>We can extract the dataset matrices from a <code>MultiDataSet</code> object with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_datasets.html">get_datasets()</a></code> function, which returns a named list of matrices, each with features as rows and samples as columns:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 3</span></span>
+<span><span class="co">#&gt;  $ snps      : num [1:23036, 1:139] 1 2 0 1 2 0 1 2 1 1 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:23036] "1_41768691" "10-27008241-A-C-rs42918694" "10-37505419-T-C-rs136559242" "10-49904259-G-A-rs471723345" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:139] "R21" "Y3660" "Y3243" "R5764" ...</span></span>
+<span><span class="co">#&gt;  $ rnaseq    : num [1:20335, 1:143] 733 6 0 2693 0 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:20335] "ENSBTAG00000000005" "ENSBTAG00000000008" "ENSBTAG00000000009" "ENSBTAG00000000010" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:143] "R9497" "R5969" "R5327" "R5979" ...</span></span>
+<span><span class="co">#&gt;  $ metabolome: num [1:55, 1:139] 9.1 58.2 403 172.6 0.7 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:55] "HMDB00001" "HMDB00008" "HMDB00042" "HMDB00043" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:139] "R21" "Y3660" "Y3243" "R5764" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span><span class="op">[[</span><span class="st">"snps"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<span><span class="co">#&gt;                             R21 Y3660 Y3243 R5764 P4669</span></span>
+<span><span class="co">#&gt; 1_41768691                    1     0     2     2     1</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694    2     2     2     1     2</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242   0     1     0     2     0</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345   1     2     2     2     2</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846   2     2     1     2     2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Similarly, the functions <code><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata.html">get_samples_metadata()</a></code> each return a named list of feature or sample metadata data-frames, one per omics dataset:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 3</span></span>
+<span><span class="co">#&gt;  $ snps      :'data.frame':  23036 obs. of  13 variables:</span></span>
+<span><span class="co">#&gt;   ..$ feature_id     : chr [1:23036] "1_41768691" "10-27008241-A-C-rs42918694" "10-37505419-T-C-rs136559242" "10-49904259-G-A-rs471723345" ...</span></span>
+<span><span class="co">#&gt;   ..$ chromosome     : chr [1:23036] "1" "10" "10" "0" ...</span></span>
+<span><span class="co">#&gt;   ..$ position       : num [1:23036] 4.21e+07 2.70e+07 3.74e+07 0.00 1.09e+08 ...</span></span>
+<span><span class="co">#&gt;   ..$ gen_train_score: num [1:23036] 0.679 0.805 0.789 0.797 0.891 ...</span></span>
+<span><span class="co">#&gt;   ..$ ref            : chr [1:23036] "T" "A" "A" "A" ...</span></span>
+<span><span class="co">#&gt;   ..$ alt            : chr [1:23036] "G" "C" "G" "G" ...</span></span>
+<span><span class="co">#&gt;   ..$ ilmn_strand    : chr [1:23036] "BOT" "TOP" "TOP" "TOP" ...</span></span>
+<span><span class="co">#&gt;   ..$ customer_strand: chr [1:23036] "BOT" "TOP" "BOT" "TOP" ...</span></span>
+<span><span class="co">#&gt;   ..$ norm_id        : num [1:23036] 2 1 1 2 3 1 3 3 0 0 ...</span></span>
+<span><span class="co">#&gt;   ..$ qtl_type       : chr [1:23036] NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;   ..$ qtl_effect     : num [1:23036] NA NA NA NA NA NA NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;   ..$ p_value        : num [1:23036] NA NA NA NA NA NA NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;   ..$ fdr            : num [1:23036] NA NA NA NA NA NA NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;  $ rnaseq    :'data.frame':  20335 obs. of  8 variables:</span></span>
+<span><span class="co">#&gt;   ..$ feature_id : chr [1:20335] "ENSBTAG00000000005" "ENSBTAG00000000008" "ENSBTAG00000000009" "ENSBTAG00000000010" ...</span></span>
+<span><span class="co">#&gt;   ..$ chromosome : Factor w/ 178 levels "1","2","3","4",..: 17 29 18 21 8 20 20 5 5 23 ...</span></span>
+<span><span class="co">#&gt;   ..$ start      : int [1:20335] 65389743 32214439 12338037 34209956 7950815 33708626 33674806 74883636 74905031 27720176 ...</span></span>
+<span><span class="co">#&gt;   ..$ end        : int [1:20335] 65505336 32244810 12342272 34223394 7971600 33732944 33703223 74893752 74919112 27721739 ...</span></span>
+<span><span class="co">#&gt;   ..$ width      : int [1:20335] 115594 30372 4236 13439 20786 24319 28418 10117 14082 1564 ...</span></span>
+<span><span class="co">#&gt;   ..$ strand     : Factor w/ 3 levels "+","-","*": 1 2 1 1 2 1 1 2 2 2 ...</span></span>
+<span><span class="co">#&gt;   ..$ Name       : chr [1:20335] "GRK3" "KCNJ1" "FOXF1" "UBL7" ...</span></span>
+<span><span class="co">#&gt;   ..$ description: chr [1:20335] "G protein-coupled receptor kinase 3 [Source:VGNC Symbol;Acc:VGNC:53904]" "potassium inwardly rectifying channel subfamily J member 1 [Source:VGNC Symbol;Acc:VGNC:30453]" "forkhead box F1 [Source:VGNC Symbol;Acc:VGNC:29084]" "ubiquitin like 7 [Source:VGNC Symbol;Acc:VGNC:50128]" ...</span></span>
+<span><span class="co">#&gt;  $ metabolome:'data.frame':  55 obs. of  16 variables:</span></span>
+<span><span class="co">#&gt;   ..$ feature_id                  : chr [1:55] "HMDB00001" "HMDB00008" "HMDB00042" "HMDB00043" ...</span></span>
+<span><span class="co">#&gt;   ..$ hmdb_id                     : chr [1:55] "HMDB0000001" "HMDB0000008" "HMDB0000042" "HMDB0000043" ...</span></span>
+<span><span class="co">#&gt;   ..$ name                        : chr [1:55] "1-Methylhistidine" "2-Hydroxybutyric acid" "Acetic acid" "Betaine" ...</span></span>
+<span><span class="co">#&gt;   ..$ chemical_formula            : chr [1:55] "C7H11N3O2" "C4H8O3" "C2H4O2" "C5H12NO2" ...</span></span>
+<span><span class="co">#&gt;   ..$ monisotopic_molecular_weight: num [1:55] 169 104 60 118 102 ...</span></span>
+<span><span class="co">#&gt;   ..$ cas_registry_number         : chr [1:55] "332-80-9" "3347-90-8" "64-19-7" "6915-17-9" ...</span></span>
+<span><span class="co">#&gt;   ..$ smiles                      : chr [1:55] "CN1C=NC(C[C@H](N)C(O)=O)=C1" "CC[C@H](O)C(O)=O" "CC(O)=O" "C[N+](C)(C)CC(O)=O" ...</span></span>
+<span><span class="co">#&gt;   ..$ inchikey                    : chr [1:55] "BRMWTNUJHUMWMS-LURJTMIESA-N" "AFENDNXGAFYKQO-VKHMYHEASA-N" "QTBSBXVTEAMEQO-UHFFFAOYSA-N" "KWIUHFFTVRNATP-UHFFFAOYSA-O" ...</span></span>
+<span><span class="co">#&gt;   ..$ kegg_id                     : chr [1:55] "C01152" "C05984" "C00033" NA ...</span></span>
+<span><span class="co">#&gt;   ..$ direct_parent               : chr [1:55] "Histidine and derivatives" "Alpha hydroxy acids and derivatives" "Carboxylic acids" "Alpha amino acids" ...</span></span>
+<span><span class="co">#&gt;   ..$ super_class                 : chr [1:55] "Organic acids and derivatives" "Organic acids and derivatives" "Organic acids and derivatives" "Organic acids and derivatives" ...</span></span>
+<span><span class="co">#&gt;   ..$ t_value                     : num [1:55] -0.556 0.218 -12.532 -7.907 -0.437 ...</span></span>
+<span><span class="co">#&gt;   ..$ p_value                     : num [1:55] 5.80e-01 8.28e-01 1.75e-24 7.83e-13 6.63e-01 ...</span></span>
+<span><span class="co">#&gt;   ..$ padj                        : num [1:55] 6.78e-01 8.93e-01 4.82e-23 3.91e-12 7.44e-01 ...</span></span>
+<span><span class="co">#&gt;   ..$ de_signif                   : chr [1:55] "Not DE" "Not DE" "DE" "DE" ...</span></span>
+<span><span class="co">#&gt;   ..$ de_status                   : chr [1:55] "Not DE" "Not DE" "downregulated" "downregulated" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata.html">get_samples_metadata</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 3</span></span>
+<span><span class="co">#&gt;  $ snps      :'data.frame':  139 obs. of  10 variables:</span></span>
+<span><span class="co">#&gt;   ..$ id               : chr [1:139] "R21" "Y3660" "Y3243" "R5764" ...</span></span>
+<span><span class="co">#&gt;   ..$ feedlot          : chr [1:139] "F1" "F1" "F1" "F2" ...</span></span>
+<span><span class="co">#&gt;   ..$ gender           : chr [1:139] "female" "male" "male" "male" ...</span></span>
+<span><span class="co">#&gt;   ..$ status           : chr [1:139] "Control" "Control" "Control" "Control" ...</span></span>
+<span><span class="co">#&gt;   ..$ day_on_feed      : num [1:139] 31 19 16 46 35 49 21 16 37 37 ...</span></span>
+<span><span class="co">#&gt;   ..$ rnaseq_batch     : chr [1:139] "B2" "B2" "B2" "B1" ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_1      : num [1:139] 0.00785 0.85222 0.04417 0.21309 0.38939 ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_2      : num [1:139] 0.8207 0.0936 0.1903 0.6763 0.5035 ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_3      : num [1:139] 0.1715 0.0542 0.7656 0.1106 0.1071 ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_cluster: chr [1:139] "K3" "K2" "K1" "K3" ...</span></span>
+<span><span class="co">#&gt;  $ rnaseq    :'data.frame':  143 obs. of  10 variables:</span></span>
+<span><span class="co">#&gt;   ..$ id               : chr [1:143] "R9497" "R5969" "R5327" "R5979" ...</span></span>
+<span><span class="co">#&gt;   ..$ feedlot          : chr [1:143] "F2" "F2" "F2" "F2" ...</span></span>
+<span><span class="co">#&gt;   ..$ gender           : chr [1:143] "male" "male" "male" "male" ...</span></span>
+<span><span class="co">#&gt;   ..$ status           : chr [1:143] "BRD" "BRD" "BRD" "BRD" ...</span></span>
+<span><span class="co">#&gt;   ..$ day_on_feed      : num [1:143] 35 24 38 30 31 24 26 18 13 32 ...</span></span>
+<span><span class="co">#&gt;   ..$ rnaseq_batch     : chr [1:143] "B1" "B1" "B1" "B1" ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_1      : num [1:143] 0.15372 0.11066 0.14073 0.28673 0.00001 ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_2      : num [1:143] 0.745 0.626 0.809 0.108 0.999 ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_3      : num [1:143] 0.10178 0.26351 0.04987 0.60547 0.00108 ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_cluster: chr [1:143] "K3" "K3" "K3" "K1" ...</span></span>
+<span><span class="co">#&gt;  $ metabolome:'data.frame':  139 obs. of  10 variables:</span></span>
+<span><span class="co">#&gt;   ..$ id               : chr [1:139] "R21" "Y3660" "Y3243" "R5764" ...</span></span>
+<span><span class="co">#&gt;   ..$ feedlot          : chr [1:139] "F1" "F1" "F1" "F2" ...</span></span>
+<span><span class="co">#&gt;   ..$ gender           : chr [1:139] "female" "male" "male" "male" ...</span></span>
+<span><span class="co">#&gt;   ..$ status           : chr [1:139] "Control" "Control" "Control" "Control" ...</span></span>
+<span><span class="co">#&gt;   ..$ day_on_feed      : num [1:139] 31 19 16 46 35 49 21 16 37 37 ...</span></span>
+<span><span class="co">#&gt;   ..$ rnaseq_batch     : chr [1:139] "B2" "B2" "B2" "B1" ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_1      : num [1:139] 0.00785 0.85222 0.04417 0.21309 0.38939 ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_2      : num [1:139] 0.8207 0.0936 0.1903 0.6763 0.5035 ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_3      : num [1:139] 0.1715 0.0542 0.7656 0.1106 0.1071 ...</span></span>
+<span><span class="co">#&gt;   ..$ geno_comp_cluster: chr [1:139] "K3" "K2" "K1" "K3" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For the samples metadata, it is possible to extract a single data-frame that combines the metadata from the different datasets with the function <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata_combined.html">get_samples_metadata_combined()</a></code>. The <code>only_common_cols</code> argument controls whether only the columns that are common to the samples metadata of the different omics datasets should be returned. For this example, as the samples metadata is identical across the datasets, it makes no difference:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata_combined.html">get_samples_metadata_combined</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;          id feedlot gender  status day_on_feed rnaseq_batch geno_comp_1</span></span>
+<span><span class="co">#&gt; R21     R21      F1 female Control          31           B2    0.007853</span></span>
+<span><span class="co">#&gt; Y3660 Y3660      F1   male Control          19           B2    0.852220</span></span>
+<span><span class="co">#&gt; Y3243 Y3243      F1   male Control          16           B2    0.044171</span></span>
+<span><span class="co">#&gt; R5764 R5764      F2   male Control          46           B1    0.213094</span></span>
+<span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
+<span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
+<span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster</span></span>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3</span></span>
+<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2</span></span>
+<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3</span></span>
+<span><span class="co">#&gt; P4669    0.503471    0.107136                K3</span></span>
+<span><span class="co">#&gt; R5452    0.733992    0.000010                K3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="summary-plots" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="summary-plots">
+<span class="header-section-number">4.3</span> Summary plots</h2>
+<p>A number of plotting functions have been implemented to obtain a quick overview of the omics datasets in a <code>MultiDataSet</code> object.</p>
+<section id="samples-upset-plot" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="samples-upset-plot">
+<span class="header-section-number">4.3.1</span> Samples upset plot</h3>
+<p>First, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset()</a></code> function displays the number of common and unique samples across the datasets with an <a href="https://upset.app">UpSet plot</a>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-samples-upset-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>As can be seen in the upset plot above, 135 samples have measurements across all three omics datasets. In addition, 4 samples have both transcriptomics and metabolomics measurements, but no transcriptomics information; 3 samples are present in the genomics and metabolomics datasets but not the transcriptomics dataset, and the genomics and transcriptomics datasets each have a unique sample not present in the other omics datasets.</p>
+</section><section id="datasets-density-plots" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="datasets-density-plots">
+<span class="header-section-number">4.3.2</span> Datasets density plots</h3>
+<p>Next, we can show the density plot of each omics dataset with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data()</a></code> function. By default, all datasets are plotted onto the same axes, which is not very useful if they have very different scales. We can change that by setting the <code>combined</code> argument to <code>FALSE</code>, which splits the plot into one facet per dataset, and by setting <code>scales</code> to <code>'free'</code> in order to give its own scale to each dataset:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span><span class="va">mo_set</span>, combined <span class="op">=</span> <span class="cn">FALSE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-density-data-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+<p>By default, all datasets are represented in the density plot, but it is possible to focus on one or a subset of them via the <code>datasets</code> argument. This is useful here as the plots for the transcriptomics and metabolomics could benefit from a log10 transformation for the x-axis:</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span>,</span>
+<span>  combined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  scales <span class="op">=</span> <span class="st">"free"</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Transformation introduced infinite values in continuous x-axis</span></span>
+<span><span class="co">#&gt; Warning: Removed 338138 rows containing non-finite values (`stat_density()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-density-data-xlog10-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>Note that as the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data()</a></code> function returns a ggplot, it can be further customised with other <code>ggplot2</code> functions as shown above.</p>
+</section><section id="datasets-mean-sd-plots" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="datasets-mean-sd-plots">
+<span class="header-section-number">4.3.3</span> Datasets mean-sd plots</h3>
+<p>It is also possible to assess for each dataset whether there exists a relationship between the features mean and standard deviation, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data()</a></code> function. The presence of such relationship indicates that the dataset should be transformed, via a log or variance-stabilising transformation. The function requires the <code>hexbin</code> package to be installed:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-meansd-data-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>In our case, we can see a very strong relationship between features mean and standard deviation in both the transcriptomics and metabolomics datasets, which suggest that a log or variance-stabilising transformation will be necessary in both cases (datasets transformation are covered in <span class="quarto-unresolved-ref">?sec-preprocessing</span>).</p>
+<p>Note that the hexplots are only drawn for datasets with at least 30 features, and the trend curve (in pink) is only drawn for datasets with at least 10 features.</p>
+</section></section><section id="assessing-missing-values" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="assessing-missing-values">
+<span class="header-section-number">4.4</span> Assessing missing values</h2>
+<p>Finally, one very important aspect to check is the presence of missing values in the datasets. The function <code><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values()</a></code> provide a summary of the number of missing values in each dataset:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 9615 (0.3%) missing values in snps dataset, across 4093 features and 139 samples.</span></span>
+<span><span class="co">#&gt; No missing values in rnaseq dataset.</span></span>
+<span><span class="co">#&gt; 588 (7.69%) missing values in metabolome dataset, across 15 features and 45 samples.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The function returns an invisible character vector containing the messages printed above, which is useful for automatic reporting.</p>
+<p>In <span class="quarto-unresolved-ref">?sec-preprocessing</span>, we will see how to impute missing values.</p>
+</section><section id="visualising-the-datasets" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="visualising-the-datasets">
+<span class="header-section-number">4.5</span> Visualising the datasets</h2>
+<p>Once the omics datasets are stored in a <code>MultiDataSet</code> object, we can easily visualise the measurements for a set of features of interest. As an example, we will randomly select three features from each of the omics datasets:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">32</span><span class="op">)</span></span>
+<span><span class="va">random_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features.html">get_features</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span>, size <span class="op">=</span> <span class="fl">3</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">random_features</span></span>
+<span><span class="co">#&gt; [1] "ARS-BFGL-NGS-102169_dup" "BovineHD0300020059"     </span></span>
+<span><span class="co">#&gt; [3] "BTB-01546164"            "ENSBTAG00000038316"     </span></span>
+<span><span class="co">#&gt; [5] "ENSBTAG00000016902"      "ENSBTAG00000048333"     </span></span>
+<span><span class="co">#&gt; [7] "HMDB00214"               "HMDB00407"              </span></span>
+<span><span class="co">#&gt; [9] "HMDB00182"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="as-a-heatmap" class="level3" data-number="4.5.1"><h3 data-number="4.5.1" class="anchored" data-anchor-id="as-a-heatmap">
+<span class="header-section-number">4.5.1</span> As a heatmap</h3>
+<p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> allows us to view the data for these features as a heatmap. It relies on the <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">ComplexHeatmap::Heatmap()</a></code> function, and can be customised by passing arguments to this function (for example to remove the column labels):</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="va">random_features</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  show_column_names <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Not enough data to calculate distance between samples, disabling</span></span>
+<span><span class="co">#&gt; clustering of columns.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>Note that we specified that the data should be centred and scaled before plotting, to represent features from different datasets on a similar scale.</p>
+<p>By default, all samples all represented, including those that are only present in some of the omics datasets (hence the warning about columns clustering). We can instead restrict the plot to only samples that are present across all datasets (<code>only_common_samples</code> argument), or to specific samples by passing a list of samples ID to the <code>samples</code> argument.</p>
+<p>We can also add samples and/or features information to the sides of the heatmap through the <code>samples_info</code> and <code>features_info</code> arguments. These two arguments take a vector of column names from the samples or features metadata table, respectively. The <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">ComplexHeatmap::Heatmap()</a></code> picks random colours for these annotations, but we can set specific colour palettes by passing a list of colour palettes through the argument <code>colours_list</code>. For continuous annotations, the colour palette must be generated with <code><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">circlize::colorRamp2()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="va">random_features</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  show_column_names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  samples_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"status"</span>, <span class="st">"day_on_feed"</span><span class="op">)</span>,</span>
+<span>  features_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span><span class="op">)</span>,</span>
+<span>  colours_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    <span class="st">"status"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span> <span class="op">=</span> <span class="st">"gold"</span>, <span class="st">"BRD"</span> <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"day_on_feed"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink3"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-annotations-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>We can also use information from the features metadata tables to give a more meaningful label to the features. For example, we can use the column <code>Name</code> from the transcriptomics features metadata and the column <code>name</code> from the metabolomics features metadata to label the features. This is done by passing a named list through the <code>label_cols</code> argument, where each element is the name of the column to use and the name of the element gives the name of the dataset in the MultiDataSet object. If these labels are too long, we can truncate them through the <code>truncate</code> argument (see the function help).</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="va">random_features</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  show_column_names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  samples_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"status"</span>, <span class="st">"day_on_feed"</span><span class="op">)</span>,</span>
+<span>  features_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span><span class="op">)</span>,</span>
+<span>  colours_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    <span class="st">"status"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span> <span class="op">=</span> <span class="st">"gold"</span>, <span class="st">"BRD"</span> <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"day_on_feed"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink3"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  truncate <span class="op">=</span> <span class="fl">20</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-labels-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+<p>Note that because we didn’t include the <code>snps</code> dataset in the list passed through <code>label_cols</code>, the ID of the features are used as labels.</p>
+<!-- ### Against samples covariates -->
+<!-- Alternatively, we can display the features' measurements against some samples covariate, with the `plot_data_covariate()` function. As for the `plot_data_heatmap()` function, the plot shows data from all samples, unless otherwise specified (through either `common_samples_only` or `samples`). The covariate is specified as a column name from the samples metadata (can be from any dataset's samples metadata). If the covariate is categorical, the function generates violin plots. For example, we can represent the feature's measurements against samples bruising group. -->
+<!-- ```{r plot-data-covariate-categorical, fig.height = 6} -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_group", -->
+<!--   random_features,  -->
+<!--   only_common_samples = TRUE -->
+<!-- ) -->
+<!-- ``` -->
+<!-- We can use other columns from the samples metadata to customise the points colour and shape. For the colour, the constructed plot will depend on whether the corresponding in categorical or numeric: -->
+<!-- ```{r plot-data-covariate-categorical-colours, fig.height = 6} -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_group", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE, -->
+<!--   colour_by = "Rep", -->
+<!--   shape_by = "Rep" -->
+<!-- ) -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_group", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE, -->
+<!--   colour_by = "bruising_mean", -->
+<!--   shape_by = "Rep" -->
+<!-- ) -->
+<!-- ``` -->
+<!-- If instead the covariate is numerical, the function produces scatterplots with a loess curve for each feature: -->
+<!-- ```{r plot-data-covariate-numeric, fig.height = 6} -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_mean", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE -->
+<!-- ) -->
+<!-- ``` -->
+<!-- Again, we can use other samples information to specify the colour or shapes of the samples. Note that if the covariate used for points colour is discrete, a loess curve will be fitted for each category. If the covariate is continuous, or if changing the shape of the points, only one loess curve will be fitted for all data points. -->
+<!-- ```{r plot-data-covariate-numeric-colours, fig.height = 6} -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_mean", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE, -->
+<!--   colour_by = "Rep", -->
+<!--   shape_by = "Rep" -->
+<!-- ) -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_mean", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE, -->
+<!--   colour_by = "bruising_mean", -->
+<!--   shape_by = "Rep" -->
+<!-- ) -->
+<!-- ``` -->
+<!-- The features can be renamed using features metadata with the `label_cols` argument in the same way as with the `plot_data_heatmap()` function: -->
+<!-- ```{r plot-data-covariate-labels} -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_mean", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE, -->
+<!--   label_cols = list( -->
+<!--     "rnaseq" = "gene_name", -->
+<!--     "metabolome" = "comp_name" -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
+<!-- ## Recap -- targets list -->
+<!-- Although we didn't create any new target in this section, we can turn some plots into targets.  -->
+<!-- <details> -->
+<!--   <summary>Targets list for inspecting a MultiDataSet object</summary> -->
+<!-- ```{target recap-targets-list} -->
+<!-- list( -->
+<!--   ## Creating a density plot for each dataset -->
+<!--   tar_target( -->
+<!--     density_plots, -->
+<!--     plot_density_data( -->
+<!--       mo_set, -->
+<!--       combined = FALSE, -->
+<!--       scales = "free" -->
+<!--     ) -->
+<!--   ), -->
+<!--   ## Plotting the relationship between features mean and standard deviation -->
+<!--   ## for each dataset -->
+<!--   tar_target( -->
+<!--     mean_sd_plots, -->
+<!--     plot_meansd_data(mo_set) -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
+<!-- </details> -->
 
 
-
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -296,9 +791,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./data_import.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></span>
       </a>          

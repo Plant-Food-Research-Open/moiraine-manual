@@ -1,1 +1,383 @@
 # Inspecting the `MultiDataSet` object {#sec-inspecting-multidataset}
+
+```{r}
+#| child: "_setup.qmd"
+```
+
+```{r loading-packages}
+#| include: false
+
+library(targets)
+library(moiraine)
+library(Biobase)
+library(purrr)
+library(circlize)
+library(ggplot2)
+```
+
+```{r setup-visible}
+#| eval: false
+
+library(targets)
+library(moiraine)
+library(Biobase)
+
+## For working with lists
+library(purrr)
+## For custom colour palettes
+library(circlize)
+## For custom colour palettes
+library(ggplot2)
+```
+
+
+In this chapter, we will show here how to inspect the `MultiDataSet` object that we created in @sec-importing-data and to extract information from it.
+
+As a reminder, here is what the `_targets.R` script should look like so far:
+
+<details>
+  <summary>`_targets.R` script</summary>
+  
+</details>
+
+
+At this stage, our different omics datasets (and associated metadata) are stored in a `MultiDataSet` object, saved in the target called `mo_set`:
+
+```{r print-mo-set}
+tar_load(mo_set)
+
+mo_set
+```
+
+## Querying datasets names and dimensions
+
+The names of the omics datasets stored in a `MultiDataSet` object can be obtained with:
+
+```{r get-datasets-names}
+names(mo_set)
+```
+
+It is also possible to query the number of features and samples in each dataset via `n_features()` and `n_samples()`. Both functions return a named integer vector:
+
+```{r n-features}
+n_features(mo_set)
+```
+
+```{r n-samples}
+n_samples(mo_set)
+```
+
+The feature and sample IDs for each dataset can be extracted with the `get_features()` and `get_samples()` functions. Both functions return a named list of features or samples ID for each omics dataset:
+
+```{r get-features}
+get_features(mo_set) |> str()
+```
+
+```{r get-samples}
+get_samples(mo_set) |> str()
+```
+
+
+## Extracting datasets and metadata
+
+We can extract the dataset matrices from a `MultiDataSet` object with the `get_datasets()` function, which returns a named list of matrices, each with features as rows and samples as columns:
+
+```{r get-datasets}
+get_datasets(mo_set) |> str()
+```
+
+```{r get-datasets-example}
+get_datasets(mo_set)[["snps"]][1:5, 1:5]
+```
+
+
+Similarly, the functions `get_features_metadata()` and `get_samples_metadata()` each return a named list of feature or sample metadata data-frames, one per omics dataset:
+
+```{r get-features-metadata}
+get_features_metadata(mo_set) |> str()
+```
+
+```{r get-samples-metadata}
+get_samples_metadata(mo_set) |> str()
+```
+
+For the samples metadata, it is possible to extract a single data-frame that combines the metadata from the different datasets with the function `get_samples_metadata_combined()`. The `only_common_cols` argument controls whether only the columns that are common to the samples metadata of the different omics datasets should be returned. For this example, as the samples metadata is identical across the datasets, it makes no difference:
+
+```{r get-samples-metadata-combined}
+get_samples_metadata_combined(mo_set) |> head()
+```
+
+
+## Summary plots
+
+A number of plotting functions have been implemented to obtain a quick overview of the omics datasets in a `MultiDataSet` object.
+
+### Samples upset plot
+
+First, the `plot_samples_upset()` function displays the number of common and unique samples across the datasets with an [UpSet plot](https://upset.app):
+
+```{r plot-samples-upset}
+#| fig.width: 10
+#| fig.height: 7
+
+plot_samples_upset(mo_set)
+```
+
+As can be seen in the upset plot above, 135 samples have measurements across all three omics datasets. In addition, 4 samples have both transcriptomics and metabolomics measurements, but no transcriptomics information; 3 samples are present in the genomics and metabolomics datasets but not the transcriptomics dataset, and the genomics and transcriptomics datasets each have a unique sample not present in the other omics datasets.
+
+### Datasets density plots
+
+Next, we can show the density plot of each omics dataset with the `plot_density_data()` function. By default, all datasets are plotted onto the same axes, which is not very useful if they have very different scales. We can change that by setting the `combined` argument to `FALSE`, which splits the plot into one facet per dataset, and by setting `scales` to `'free'` in order to give its own scale to each dataset:
+
+```{r plot-density-data}
+#| fig.width: 9
+#| fig.height: 4
+
+plot_density_data(mo_set, combined = FALSE, scales = "free")
+```
+
+By default, all datasets are represented in the density plot, but it is possible to focus on one or a subset of them via the `datasets` argument. This is useful here as the plots for the transcriptomics and metabolomics could benefit from a log10 transformation for the x-axis:
+
+```{r plot-density-data-xlog10}
+#| fig.width: 8
+#| fig.height: 4
+
+plot_density_data(
+  mo_set,
+  datasets = c("rnaseq", "metabolome"),
+  combined = FALSE,
+  scales = "free"
+) +
+  scale_x_log10()
+```
+
+Note that as the `plot_density_data()` function returns a ggplot, it can be further customised with other `ggplot2` functions as shown above.
+
+### Datasets mean-sd plots
+
+It is also possible to assess for each dataset whether there exists a relationship between the features mean and standard deviation, with the `plot_meansd_data()` function. The presence of such relationship indicates that the dataset should be transformed, via a log or variance-stabilising transformation. The function requires the `hexbin` package to be installed:
+
+```{r plot-meansd-data, eval = requireNamespace("hexbin")}
+#| fig.width: 8
+#| fig.height: 4
+
+plot_meansd_data(mo_set)
+```
+
+In our case, we can see a very strong relationship between features mean and standard deviation in both the transcriptomics and metabolomics datasets, which suggest that a log or variance-stabilising transformation will be necessary in both cases (datasets transformation are covered in @sec-preprocessing).
+
+Note that the hexplots are only drawn for datasets with at least 30 features, and the trend curve (in pink) is only drawn for datasets with at least 10 features.
+
+## Assessing missing values
+
+Finally, one very important aspect to check is the presence of missing values in the datasets. The function `check_missing_values()` provide a summary of the number of missing values in each dataset:
+
+```{r check-missing-values}
+#| message: true
+
+check_missing_values(mo_set)
+```
+
+The function returns an invisible character vector containing the messages printed above, which is useful for automatic reporting.
+
+In @sec-preprocessing, we will see how to impute missing values.
+
+## Visualising the datasets
+
+Once the omics datasets are stored in a `MultiDataSet` object, we can easily visualise the measurements for a set of features of interest. As an example, we will randomly select three features from each of the omics datasets:
+
+```{r select-random-features}
+set.seed(32)
+random_features <- get_features(mo_set) |>
+  map(\(x) sample(x, size = 3, replace = FALSE)) |>
+  unlist() |>
+  unname()
+
+random_features
+```
+
+### As a heatmap
+
+The function `plot_data_heatmap()` allows us to view the data for these features as a heatmap. It relies on the `ComplexHeatmap::Heatmap()` function, and can be customised by passing arguments to this function (for example to remove the column labels):
+
+```{r plot-data-heatmap}
+#| fig.width: 10
+
+plot_data_heatmap(
+  mo_set,
+  random_features,
+  center = TRUE,
+  scale = TRUE,
+  show_column_names = FALSE
+)
+```
+
+Note that we specified that the data should be centred and scaled before plotting, to represent features from different datasets on a similar scale.
+
+By default, all samples all represented, including those that are only present in some of the omics datasets (hence the warning about columns clustering). We can instead restrict the plot to only samples that are present across all datasets (`only_common_samples` argument), or to specific samples by passing a list of samples ID to the `samples` argument.
+
+We can also add samples and/or features information to the sides of the heatmap through the `samples_info` and `features_info` arguments. These two arguments take a vector of column names from the samples or features metadata table, respectively. The `ComplexHeatmap::Heatmap()` picks random colours for these annotations, but we can set specific colour palettes by passing a list of colour palettes through the argument `colours_list`. For continuous annotations, the colour palette must be generated with `circlize::colorRamp2()`.
+
+```{r plot-data-heatmap-annotations}
+#| fig.width: 10
+#| fig.height: 6
+
+plot_data_heatmap(
+  mo_set,
+  random_features,
+  center = TRUE,
+  scale = TRUE,
+  show_column_names = FALSE,
+  only_common_samples = TRUE,
+  samples_info = c("status", "day_on_feed"),
+  features_info = c("chromosome"),
+  colours_list = list(
+    "status" = c("Control" = "gold", "BRD" = "lightblue"),
+    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3"))
+  )
+)
+```
+
+We can also use information from the features metadata tables to give a more meaningful label to the features. For example, we can use the column `Name` from the transcriptomics features metadata and the column `name` from the metabolomics features metadata to label the features. This is done by passing a named list through the `label_cols` argument, where each element is the name of the column to use and the name of the element gives the name of the dataset in the MultiDataSet object. If these labels are too long, we can truncate them through the `truncate` argument (see the function help).
+
+```{r plot-data-heatmap-labels}
+#| fig.width: 10
+#| fig.height: 6
+
+plot_data_heatmap(
+  mo_set,
+  random_features,
+  center = TRUE,
+  scale = TRUE,
+  show_column_names = FALSE,
+  only_common_samples = TRUE,
+  samples_info = c("status", "day_on_feed"),
+  features_info = c("chromosome"),
+  colours_list = list(
+    "status" = c("Control" = "gold", "BRD" = "lightblue"),
+    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3"))
+  ),
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  ),
+  truncate = 20
+)
+```
+
+Note that because we didn't include the `snps` dataset in the list passed through `label_cols`, the ID of the features are used as labels.
+
+<!-- ### Against samples covariates -->
+
+<!-- Alternatively, we can display the features' measurements against some samples covariate, with the `plot_data_covariate()` function. As for the `plot_data_heatmap()` function, the plot shows data from all samples, unless otherwise specified (through either `common_samples_only` or `samples`). The covariate is specified as a column name from the samples metadata (can be from any dataset's samples metadata). If the covariate is categorical, the function generates violin plots. For example, we can represent the feature's measurements against samples bruising group. -->
+
+<!-- ```{r plot-data-covariate-categorical, fig.height = 6} -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_group", -->
+<!--   random_features,  -->
+<!--   only_common_samples = TRUE -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- We can use other columns from the samples metadata to customise the points colour and shape. For the colour, the constructed plot will depend on whether the corresponding in categorical or numeric: -->
+
+<!-- ```{r plot-data-covariate-categorical-colours, fig.height = 6} -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_group", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE, -->
+<!--   colour_by = "Rep", -->
+<!--   shape_by = "Rep" -->
+<!-- ) -->
+
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_group", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE, -->
+<!--   colour_by = "bruising_mean", -->
+<!--   shape_by = "Rep" -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- If instead the covariate is numerical, the function produces scatterplots with a loess curve for each feature: -->
+
+<!-- ```{r plot-data-covariate-numeric, fig.height = 6} -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_mean", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- Again, we can use other samples information to specify the colour or shapes of the samples. Note that if the covariate used for points colour is discrete, a loess curve will be fitted for each category. If the covariate is continuous, or if changing the shape of the points, only one loess curve will be fitted for all data points. -->
+
+<!-- ```{r plot-data-covariate-numeric-colours, fig.height = 6} -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_mean", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE, -->
+<!--   colour_by = "Rep", -->
+<!--   shape_by = "Rep" -->
+<!-- ) -->
+
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_mean", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE, -->
+<!--   colour_by = "bruising_mean", -->
+<!--   shape_by = "Rep" -->
+<!-- ) -->
+<!-- ``` -->
+
+
+<!-- The features can be renamed using features metadata with the `label_cols` argument in the same way as with the `plot_data_heatmap()` function: -->
+
+<!-- ```{r plot-data-covariate-labels} -->
+<!-- plot_data_covariate( -->
+<!--   mo_set,  -->
+<!--   "bruising_mean", -->
+<!--   random_features, -->
+<!--   only_common_samples = TRUE, -->
+<!--   label_cols = list( -->
+<!--     "rnaseq" = "gene_name", -->
+<!--     "metabolome" = "comp_name" -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
+
+
+<!-- ## Recap -- targets list -->
+
+<!-- Although we didn't create any new target in this section, we can turn some plots into targets.  -->
+
+<!-- <details> -->
+<!--   <summary>Targets list for inspecting a MultiDataSet object</summary> -->
+
+
+<!-- ```{target recap-targets-list} -->
+<!-- list( -->
+<!--   ## Creating a density plot for each dataset -->
+<!--   tar_target( -->
+<!--     density_plots, -->
+<!--     plot_density_data( -->
+<!--       mo_set, -->
+<!--       combined = FALSE, -->
+<!--       scales = "free" -->
+<!--     ) -->
+<!--   ), -->
+
+<!--   ## Plotting the relationship between features mean and standard deviation -->
+<!--   ## for each dataset -->
+<!--   tar_target( -->
+<!--     mean_sd_plots, -->
+<!--     plot_meansd_data(mo_set) -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
+<!-- </details> -->
