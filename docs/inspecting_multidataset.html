@@ -203,8 +203,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a href="#visualising-the-datasets" id="toc-visualising-the-datasets" class="nav-link" data-scroll-target="#visualising-the-datasets"><span class="toc-section-number">4.5</span>  Visualising the datasets</a>
   <ul class="collapse">
 <li><a href="#as-a-heatmap" id="toc-as-a-heatmap" class="nav-link" data-scroll-target="#as-a-heatmap"><span class="toc-section-number">4.5.1</span>  As a heatmap</a></li>
+  <li><a href="#against-samples-covariates" id="toc-against-samples-covariates" class="nav-link" data-scroll-target="#against-samples-covariates"><span class="toc-section-number">4.5.2</span>  Against samples covariates</a></li>
   </ul>
 </li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">4.6</span>  Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -516,10 +518,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Note that we specified that the data should be centred and scaled before plotting, to represent features from different datasets on a similar scale.</p>
-<p>By default, all samples all represented, including those that are only present in some of the omics datasets (hence the warning about columns clustering). We can instead restrict the plot to only samples that are present across all datasets (<code>only_common_samples</code> argument), or to specific samples by passing a list of samples ID to the <code>samples</code> argument.</p>
-<p>We can also add samples and/or features information to the sides of the heatmap through the <code>samples_info</code> and <code>features_info</code> arguments. These two arguments take a vector of column names from the samples or features metadata table, respectively. The <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">ComplexHeatmap::Heatmap()</a></code> picks random colours for these annotations, but we can set specific colour palettes by passing a list of colour palettes through the argument <code>colours_list</code>. For continuous annotations, the colour palette must be generated with <code><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">circlize::colorRamp2()</a></code>.</p>
+<p>By default, all samples all represented, including those that are only present in some of the omics datasets (hence the warning about columns clustering). We can instead restrict the plot to only samples that are present across all datasets (<code>only_common_samples</code> argument), or to specific samples by passing a list of samples ID to the <code>samples</code> argument:</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="va">random_features</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  show_column_names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  samples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"O4713"</span>, <span class="st">"Y3660"</span>, <span class="st">"R5979"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-samples-subset-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>We can also add samples and/or features information to the sides of the heatmap through the <code>samples_info</code> and <code>features_info</code> arguments. These two arguments take a vector of column names from the samples or features metadata table, respectively. The <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">ComplexHeatmap::Heatmap()</a></code> picks random colours for these annotations, but we can set specific colour palettes by passing a list of colour palettes through the argument <code>colours_list</code>. For continuous annotations, the colour palette must be generated with <code><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">circlize::colorRamp2()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -539,7 +554,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>We can also use information from the features metadata tables to give a more meaningful label to the features. For example, we can use the column <code>Name</code> from the transcriptomics features metadata and the column <code>name</code> from the metabolomics features metadata to label the features. This is done by passing a named list through the <code>label_cols</code> argument, where each element is the name of the column to use and the name of the element gives the name of the dataset in the MultiDataSet object. If these labels are too long, we can truncate them through the <code>truncate</code> argument (see the function help).</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -563,103 +578,134 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Note that because we didn’t include the <code>snps</code> dataset in the list passed through <code>label_cols</code>, the ID of the features are used as labels.</p>
-<!-- ### Against samples covariates -->
-<!-- Alternatively, we can display the features' measurements against some samples covariate, with the `plot_data_covariate()` function. As for the `plot_data_heatmap()` function, the plot shows data from all samples, unless otherwise specified (through either `common_samples_only` or `samples`). The covariate is specified as a column name from the samples metadata (can be from any dataset's samples metadata). If the covariate is categorical, the function generates violin plots. For example, we can represent the feature's measurements against samples bruising group. -->
-<!-- ```{r plot-data-covariate-categorical, fig.height = 6} -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_group", -->
-<!--   random_features,  -->
-<!--   only_common_samples = TRUE -->
-<!-- ) -->
-<!-- ``` -->
-<!-- We can use other columns from the samples metadata to customise the points colour and shape. For the colour, the constructed plot will depend on whether the corresponding in categorical or numeric: -->
-<!-- ```{r plot-data-covariate-categorical-colours, fig.height = 6} -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_group", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE, -->
-<!--   colour_by = "Rep", -->
-<!--   shape_by = "Rep" -->
-<!-- ) -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_group", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE, -->
-<!--   colour_by = "bruising_mean", -->
-<!--   shape_by = "Rep" -->
-<!-- ) -->
-<!-- ``` -->
-<!-- If instead the covariate is numerical, the function produces scatterplots with a loess curve for each feature: -->
-<!-- ```{r plot-data-covariate-numeric, fig.height = 6} -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_mean", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE -->
-<!-- ) -->
-<!-- ``` -->
-<!-- Again, we can use other samples information to specify the colour or shapes of the samples. Note that if the covariate used for points colour is discrete, a loess curve will be fitted for each category. If the covariate is continuous, or if changing the shape of the points, only one loess curve will be fitted for all data points. -->
-<!-- ```{r plot-data-covariate-numeric-colours, fig.height = 6} -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_mean", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE, -->
-<!--   colour_by = "Rep", -->
-<!--   shape_by = "Rep" -->
-<!-- ) -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_mean", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE, -->
-<!--   colour_by = "bruising_mean", -->
-<!--   shape_by = "Rep" -->
-<!-- ) -->
-<!-- ``` -->
-<!-- The features can be renamed using features metadata with the `label_cols` argument in the same way as with the `plot_data_heatmap()` function: -->
-<!-- ```{r plot-data-covariate-labels} -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_mean", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE, -->
-<!--   label_cols = list( -->
-<!--     "rnaseq" = "gene_name", -->
-<!--     "metabolome" = "comp_name" -->
-<!--   ) -->
-<!-- ) -->
-<!-- ``` -->
-<!-- ## Recap -- targets list -->
-<!-- Although we didn't create any new target in this section, we can turn some plots into targets.  -->
-<!-- <details> -->
-<!--   <summary>Targets list for inspecting a MultiDataSet object</summary> -->
-<!-- ```{target recap-targets-list} -->
-<!-- list( -->
-<!--   ## Creating a density plot for each dataset -->
-<!--   tar_target( -->
-<!--     density_plots, -->
-<!--     plot_density_data( -->
-<!--       mo_set, -->
-<!--       combined = FALSE, -->
-<!--       scales = "free" -->
-<!--     ) -->
-<!--   ), -->
-<!--   ## Plotting the relationship between features mean and standard deviation -->
-<!--   ## for each dataset -->
-<!--   tar_target( -->
-<!--     mean_sd_plots, -->
-<!--     plot_meansd_data(mo_set) -->
-<!--   ) -->
-<!-- ) -->
-<!-- ``` -->
-<!-- </details> -->
+</section><section id="against-samples-covariates" class="level3" data-number="4.5.2"><h3 data-number="4.5.2" class="anchored" data-anchor-id="against-samples-covariates">
+<span class="header-section-number">4.5.2</span> Against samples covariates</h3>
+<p>Alternatively, we can display the features’ measurements against some samples covariate, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate()</a></code> function. As for the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> function, the plot shows data from all samples, unless otherwise specified (through either the <code>common_samples_only</code> or <code>samples</code> arguments). The covariate is specified as a column name from the samples metadata (can be from any dataset’s samples metadata). If the covariate is categorical, the function generates violin plots. For example, we can represent the feature’s measurements against the animal disease status:</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="st">"status"</span>,</span>
+<span>  <span class="va">random_features</span>,</span>
+<span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-categorical-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>We can use other columns from the samples metadata to customise the points colour and shape. For the colour, the constructed plot will depend on whether the corresponding in categorical or numeric:</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="st">"status"</span>,</span>
+<span>  <span class="va">random_features</span>,</span>
+<span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  colour_by <span class="op">=</span> <span class="st">"feedlot"</span>,</span>
+<span>  shape_by <span class="op">=</span> <span class="st">"feedlot"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-categorical-colours-1.png" class="img-fluid" width="768"></p>
+</div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="st">"status"</span>,</span>
+<span>  <span class="va">random_features</span>,</span>
+<span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  colour_by <span class="op">=</span> <span class="st">"day_on_feed"</span>,</span>
+<span>  shape_by <span class="op">=</span> <span class="st">"feedlot"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-categorical-colours-2.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>If instead the covariate is numerical, the function produces scatterplots with a loess curve for each feature:</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="st">"day_on_feed"</span>,</span>
+<span>  <span class="va">random_features</span>,</span>
+<span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>Again, we can use other samples information to specify the colour or shapes of the samples. Note that if the covariate used for points colour is discrete, a loess curve will be fitted for each category. If the covariate is continuous, or if changing the shape of the points, only one loess curve will be fitted for all data points.</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="st">"day_on_feed"</span>,</span>
+<span>  <span class="va">random_features</span>,</span>
+<span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  colour_by <span class="op">=</span> <span class="st">"status"</span>,</span>
+<span>  shape_by <span class="op">=</span> <span class="st">"status"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-colours-1.png" class="img-fluid" width="768"></p>
+</div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="st">"day_on_feed"</span>,</span>
+<span>  <span class="va">random_features</span>,</span>
+<span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  colour_by <span class="op">=</span> <span class="st">"day_on_feed"</span>,</span>
+<span>  shape_by <span class="op">=</span> <span class="st">"feedlot"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-colours-2.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>The features can be renamed using features metadata through the <code>label_cols</code> argument in the same way that with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> function:</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set</span>,</span>
+<span>  <span class="st">"day_on_feed"</span>,</span>
+<span>  <span class="va">random_features</span>,</span>
+<span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-labels-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section></section><section id="recap-targets-list" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">4.6</span> Recap – targets list</h2>
+<p>Although we didn’t create any new target in this section, we can turn some plots into targets.</p>
+<details><summary>
+Targets list for inspecting a MultiDataSet object
+</summary><div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="co">## Creating a density plot for each dataset</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">density_plots</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
+<span>      <span class="va">mo_set</span>,</span>
+<span>      combined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>      scales <span class="op">=</span> <span class="st">"free"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span></span>
+<span>  <span class="co">## Plotting the relationship between features mean and standard deviation</span></span>
+<span>  <span class="co">## for each dataset</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mean_sd_plots</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Assessing missing values</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">n_missing_values</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
 
-
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

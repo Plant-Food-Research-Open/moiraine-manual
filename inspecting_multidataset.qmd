@@ -214,7 +214,20 @@ plot_data_heatmap(
 
 Note that we specified that the data should be centred and scaled before plotting, to represent features from different datasets on a similar scale.
 
-By default, all samples all represented, including those that are only present in some of the omics datasets (hence the warning about columns clustering). We can instead restrict the plot to only samples that are present across all datasets (`only_common_samples` argument), or to specific samples by passing a list of samples ID to the `samples` argument.
+By default, all samples all represented, including those that are only present in some of the omics datasets (hence the warning about columns clustering). We can instead restrict the plot to only samples that are present across all datasets (`only_common_samples` argument), or to specific samples by passing a list of samples ID to the `samples` argument:
+
+```{r plot-data-heatmap-samples-subset}
+#| fig.width: 6
+
+plot_data_heatmap(
+  mo_set,
+  random_features,
+  center = TRUE,
+  scale = TRUE,
+  show_column_names = FALSE,
+  samples = c("O4713", "Y3660", "R5979")
+)
+```
 
 We can also add samples and/or features information to the sides of the heatmap through the `samples_info` and `features_info` arguments. These two arguments take a vector of column names from the samples or features metadata table, respectively. The `ComplexHeatmap::Heatmap()` picks random colours for these annotations, but we can set specific colour palettes by passing a list of colour palettes through the argument `colours_list`. For continuous annotations, the colour palette must be generated with `circlize::colorRamp2()`.
 
@@ -267,117 +280,123 @@ plot_data_heatmap(
 
 Note that because we didn't include the `snps` dataset in the list passed through `label_cols`, the ID of the features are used as labels.
 
-<!-- ### Against samples covariates -->
+### Against samples covariates
 
-<!-- Alternatively, we can display the features' measurements against some samples covariate, with the `plot_data_covariate()` function. As for the `plot_data_heatmap()` function, the plot shows data from all samples, unless otherwise specified (through either `common_samples_only` or `samples`). The covariate is specified as a column name from the samples metadata (can be from any dataset's samples metadata). If the covariate is categorical, the function generates violin plots. For example, we can represent the feature's measurements against samples bruising group. -->
+Alternatively, we can display the features' measurements against some samples covariate, with the `plot_data_covariate()` function. As for the `plot_data_heatmap()` function, the plot shows data from all samples, unless otherwise specified (through either the `common_samples_only` or `samples` arguments). The covariate is specified as a column name from the samples metadata (can be from any dataset's samples metadata). If the covariate is categorical, the function generates violin plots. For example, we can represent the feature's measurements against the animal disease status:
 
-<!-- ```{r plot-data-covariate-categorical, fig.height = 6} -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_group", -->
-<!--   random_features,  -->
-<!--   only_common_samples = TRUE -->
-<!-- ) -->
-<!-- ``` -->
+```{r plot-data-covariate-categorical, fig.height = 6}
+plot_data_covariate(
+  mo_set,
+  "status",
+  random_features,
+  only_common_samples = TRUE
+)
+```
 
-<!-- We can use other columns from the samples metadata to customise the points colour and shape. For the colour, the constructed plot will depend on whether the corresponding in categorical or numeric: -->
+We can use other columns from the samples metadata to customise the points colour and shape. For the colour, the constructed plot will depend on whether the corresponding in categorical or numeric:
 
-<!-- ```{r plot-data-covariate-categorical-colours, fig.height = 6} -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_group", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE, -->
-<!--   colour_by = "Rep", -->
-<!--   shape_by = "Rep" -->
-<!-- ) -->
+```{r plot-data-covariate-categorical-colours, fig.height = 6}
+plot_data_covariate(
+  mo_set,
+  "status",
+  random_features,
+  only_common_samples = TRUE,
+  colour_by = "feedlot",
+  shape_by = "feedlot"
+)
 
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_group", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE, -->
-<!--   colour_by = "bruising_mean", -->
-<!--   shape_by = "Rep" -->
-<!-- ) -->
-<!-- ``` -->
+plot_data_covariate(
+  mo_set,
+  "status",
+  random_features,
+  only_common_samples = TRUE,
+  colour_by = "day_on_feed",
+  shape_by = "feedlot"
+)
+```
 
-<!-- If instead the covariate is numerical, the function produces scatterplots with a loess curve for each feature: -->
+If instead the covariate is numerical, the function produces scatterplots with a loess curve for each feature:
 
-<!-- ```{r plot-data-covariate-numeric, fig.height = 6} -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_mean", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE -->
-<!-- ) -->
-<!-- ``` -->
+```{r plot-data-covariate-numeric, fig.height = 6}
+plot_data_covariate(
+  mo_set,
+  "day_on_feed",
+  random_features,
+  only_common_samples = TRUE
+)
+```
 
-<!-- Again, we can use other samples information to specify the colour or shapes of the samples. Note that if the covariate used for points colour is discrete, a loess curve will be fitted for each category. If the covariate is continuous, or if changing the shape of the points, only one loess curve will be fitted for all data points. -->
+Again, we can use other samples information to specify the colour or shapes of the samples. Note that if the covariate used for points colour is discrete, a loess curve will be fitted for each category. If the covariate is continuous, or if changing the shape of the points, only one loess curve will be fitted for all data points.
 
-<!-- ```{r plot-data-covariate-numeric-colours, fig.height = 6} -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_mean", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE, -->
-<!--   colour_by = "Rep", -->
-<!--   shape_by = "Rep" -->
-<!-- ) -->
+```{r plot-data-covariate-numeric-colours, fig.height = 6}
+plot_data_covariate(
+  mo_set,
+  "day_on_feed",
+  random_features,
+  only_common_samples = TRUE,
+  colour_by = "status",
+  shape_by = "status"
+)
 
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_mean", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE, -->
-<!--   colour_by = "bruising_mean", -->
-<!--   shape_by = "Rep" -->
-<!-- ) -->
-<!-- ``` -->
-
-
-<!-- The features can be renamed using features metadata with the `label_cols` argument in the same way as with the `plot_data_heatmap()` function: -->
-
-<!-- ```{r plot-data-covariate-labels} -->
-<!-- plot_data_covariate( -->
-<!--   mo_set,  -->
-<!--   "bruising_mean", -->
-<!--   random_features, -->
-<!--   only_common_samples = TRUE, -->
-<!--   label_cols = list( -->
-<!--     "rnaseq" = "gene_name", -->
-<!--     "metabolome" = "comp_name" -->
-<!--   ) -->
-<!-- ) -->
-<!-- ``` -->
+plot_data_covariate(
+  mo_set,
+  "day_on_feed",
+  random_features,
+  only_common_samples = TRUE,
+  colour_by = "day_on_feed",
+  shape_by = "feedlot"
+)
+```
 
 
-<!-- ## Recap -- targets list -->
+The features can be renamed using features metadata through the `label_cols` argument in the same way that with the `plot_data_heatmap()` function:
 
-<!-- Although we didn't create any new target in this section, we can turn some plots into targets.  -->
+```{r plot-data-covariate-labels}
+plot_data_covariate(
+  mo_set,
+  "day_on_feed",
+  random_features,
+  only_common_samples = TRUE,
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  )
+)
+```
 
-<!-- <details> -->
-<!--   <summary>Targets list for inspecting a MultiDataSet object</summary> -->
+
+## Recap -- targets list
+
+Although we didn't create any new target in this section, we can turn some plots into targets.
+
+<details>
+  <summary>Targets list for inspecting a MultiDataSet object</summary>
 
 
-<!-- ```{target recap-targets-list} -->
-<!-- list( -->
-<!--   ## Creating a density plot for each dataset -->
-<!--   tar_target( -->
-<!--     density_plots, -->
-<!--     plot_density_data( -->
-<!--       mo_set, -->
-<!--       combined = FALSE, -->
-<!--       scales = "free" -->
-<!--     ) -->
-<!--   ), -->
+```{targets recap-targets-list}
+list(
+  ## Creating a density plot for each dataset
+  tar_target(
+    density_plots,
+    plot_density_data(
+      mo_set,
+      combined = FALSE,
+      scales = "free"
+    )
+  ),
 
-<!--   ## Plotting the relationship between features mean and standard deviation -->
-<!--   ## for each dataset -->
-<!--   tar_target( -->
-<!--     mean_sd_plots, -->
-<!--     plot_meansd_data(mo_set) -->
-<!--   ) -->
-<!-- ) -->
-<!-- ``` -->
-<!-- </details> -->
+  ## Plotting the relationship between features mean and standard deviation
+  ## for each dataset
+  tar_target(
+    mean_sd_plots,
+    plot_meansd_data(mo_set)
+  ),
+  
+  ## Assessing missing values
+  tar_target(
+    n_missing_values,
+    check_missing_values(mo_set)
+  )
+)
+```
+</details>

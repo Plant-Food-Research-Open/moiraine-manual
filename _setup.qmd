@@ -10,6 +10,11 @@ knitr::knit_engines$set(
 
 knitr::opts_hooks$set(
   engine = function(options) {
+    if (options$engine == "target") {
+      options$class.source <- c(options$class.source, "targets-chunk")
+      options$class.output <- c(options$class.output, "targets-chunk")
+    }
+    
     if (options$engine == "targets") {
       options$class.source <- c(options$class.source, "targets-chunk")
       options$class.output <- c(options$class.output, "targets-chunk")
@@ -24,7 +29,7 @@ knitr::opts_hooks$set(
   },
 
   eval = function(options) {
-    if (options$engine %in% c("targets", "file")) {
+    if (options$engine %in% c("targets", "file", "target")) {
       options$eval <- FALSE
     }
     return(options)
