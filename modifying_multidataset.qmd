@@ -1,0 +1,265 @@
+# Modifying the `MultiDataSet` object {#sec-modifying-multidataset}
+
+```{r}
+#| child: "_setup.qmd"
+```
+
+```{r loading-packages}
+#| include: false
+
+library(targets)
+library(moiraine)
+library(MultiDataSet)
+library(readr)
+library(tibble)
+library(dplyr)
+library(purrr)
+```
+
+```{r setup-visible}
+#| eval: false
+
+library(targets)
+library(moiraine)
+library(MultiDataSet)
+
+## For reading data
+library(readr)
+## For creating data-frames
+library(tibble)
+## For data-frame manipulation
+library(dplyr)
+## For working with lists
+library(purrr)
+```
+
+
+In this chapter, we will show how to modify the `MultiDataSet` object that we created in @sec-importing-data.
+
+As a reminder, here is what the `_targets.R` script should look like so far:
+
+<details>
+  <summary>`_targets.R` script</summary>
+  
+```{file previous-vignettes}
+```
+</details>
+
+
+At this stage, our different omics datasets (and associated metadata) are stored in a `MultiDataSet` object, saved in the target called `mo_set`:
+
+```{r print-mo-set}
+tar_load(mo_set)
+
+mo_set
+```
+
+There are several reasons why we would want to modify the information contained in this object after it has been created. For example, we might want to apply a specific transformation to the omics dataset, using a custom function not implemented in the `moiraine` package. In that case, it would be preferable to apply the transformation on the datasets after the `MultiDataSet` object has been created and exploratory analyses have been performed, rather than on the raw data before importing it into the `moiraine` workflow. 
+
+In another scenario, after having created the `MultiDataSet` object, we might obtain more information about the samples and/or features that we want to add to the object's features or samples metadata, to be used in visualisations. In that case, it is recommended to include this information in the samples or features metadata files and re-run the integration pipeline; however functions to add information to the metadata tables are included for convenience. This can also be useful if, as with this example data, the features metadata was extracted from a specialised format (e.g. a GFF file for the RNAseq dataset) and we want to add in some information from another source.
+
+## Modifying a dataset matrix
+
+Let us imagine that, prior to performing the data transformation step (which we will see in @sec-preprocessing), we want to replace all zero values in the transcriptomics dataset with a small value, to avoid issues during the log-transformation process (note that this is only to illustrate this functionality, for the actual analysis we will use a different transformation that handles zero values). We will pick this small value as half of the non-null minimum value in the dataset (which will be 0.5, since we are working with count data). We can compute the new matrix of RNAseq counts:
+
+```{r new-rnaseq-mat}
+rnaseq_mat <- get_datasets(mo_set)[["rnaseq"]]
+rnaseq_mat[1:5, 1:5]
+
+small_val <- (1/2) * min(rnaseq_mat[rnaseq_mat != 0])
+small_val
+
+new_mat <- rnaseq_mat
+new_mat[new_mat == 0] <- small_val
+
+new_mat[1:5, 1:5]
+```
+
+In order to replace the rnaseq dataset stored in the `MultiDataSet` object with this new matrix, we pass both the object and the new matrix to the `replace_dataset()` function, along with the name of the omics dataset whose matrix should be replaced:
+
+```{r replace-dataset-example}
+mo_set_modif <- replace_dataset(mo_set, "rnaseq", new_mat)
+
+## Checking that the replacement has been done
+get_datasets(mo_set_modif)[["rnaseq"]][1:5, 1:5]
+```
+
+
+Note that this only works for modifying the values within an omics dataset, and not for filtering, since both features and samples number and IDs in the new dataset matrix should match the ones in the original matrix:
+
+```{r replace-dataset-subset}
+#| error: true
+
+mo_set_modif <- replace_dataset(mo_set, "rnaseq", new_mat[1:10, 1:10])
+```
+
+<details>
+  <summary>Click here to see a targets version of the code.</summary>
+
+
+```{targets modifying-rnaseq-example}
+list(
+  ## Replacing zero values in RNAseq dataset
+  ## (note that it is more tidy to write a function for that and call it here)
+  tar_target(
+    rnaseq_mat_nozero,
+    {
+      rnaseq_mat <- get_datasets(mo_set)[["rnaseq"]]
+      small_val <- (1/2) * min(rnaseq_mat[rnaseq_mat != 0])
+      new_mat <- rnaseq_mat
+      new_mat[new_mat == 0] <- small_val
+
+      new_mat
+    }
+  ),
+
+  ## Replacing RNAseq dataset in MultiDataSet object
+  tar_target(
+    mo_set_rnaseq_nozero,
+    replace_dataset(mo_set, "rnaseq", rnaseq_mat_nozero)
+  )
+)
+```
+</details>
+
+
+## Adding information to features metadata
+
+In the case of the transcriptomics dataset, we extracted the features metadata directly from a GFF file, which provides information about the genome annotation used. However, we might want to add information about the genes from a different source. We could add this information to the data-frame generated with `import_fmetadata_gff()` (see @sec-import-fmeta-gff) before creating the`MultiDataSet` object, but we will demonstrate here how to add information once we've already created the object. Note that we will use targets for this example, as we will incorporate these changes in our analysis pipeline.
+
+Let's start by reading in the differential expression results:
+
+```{targets reading-de-results}
+list(
+  tar_target(
+    rnaseq_de_res_file,
+    system.file(
+      "extdata/transcriptomics_de_results.csv",
+      package = "moiraine"
+    ),
+    format = "file"
+  ),
+
+  tar_target(
+    rnaseq_de_res_df,
+    read_csv(rnaseq_de_res_file) |>
+      rename(feature_id = gene_id) |>
+      mutate(dataset = "rnaseq")
+  )
+)
+```
+
+Notice that in the results file, the gene IDs are stored in the `gene_id` column. Here, we rename this column as `feature_id`, which is required for adding it to the features metadata. In addition, we create a `dataset` column which contains the name of the dataset in the `MultiDataSet` object to which the features belong. This is also necessary.
+
+The differential results look like this:
+
+```{r show-rnaseq-de-res-df}
+tar_read(rnaseq_de_res_df) |>
+  head()
+```
+
+We can now use the `add_features_metadata()` function to add this table to the features metadata of the transcriptomics dataset. The new `MultiDataSet` object that includes information about the differential expression results will be saved in the `mo_set_de` target:
+
+```{targets add-features-metadata}
+tar_target(
+  mo_set_de,
+  add_features_metadata(mo_set, rnaseq_de_res_df)
+)
+```
+
+The new information has been added to the features metadata of the transcriptomics dataset.
+
+```{r show-mo-set-de}
+tar_read(mo_set_de) |>
+  get_features_metadata() |>
+  pluck("rnaseq") |>
+  head()
+```
+
+Note that with this function, we can add information about features from different datasets at once, which is why there needs to be a `dataset` column in the data-frame to add, indicating the dataset to which each feature belongs. Also, not all features from a given dataset need to be present in this new data-frame; it is possible to add information for only a subset of them. In that case, the function will throw a warning giving the number of features from the corresponding dataset missing from the new data-frame, and the new columns in the corresponding features metadata will be filled with `NA` for features not present. However, it is only possible to add columns that do not already exist in the corresponding features metadata.
+
+
+## Adding information to samples metadata
+
+Similarly, we can add a data-frame of information to the samples metadata. Here, we will create a table that contains "new" simulated information about the samples that we want to incorporate in our `MultiDataSet` object.
+
+```{r simulate-samples-info}
+## Getting the list of samples ID across the datasets
+samples_list <- get_samples(mo_set) |>
+  unlist() |>
+  unname() |>
+  unique()
+
+## Simulating new information table, with new samples grouping
+new_samples_df <- tibble(id = samples_list) |>
+  mutate(new_group = sample(letters[1:3], n(), replace = TRUE))
+
+head(new_samples_df)
+```
+
+Note that the sample IDs must be stored in a column named `id`. We will use the `add_samples_metadata()` function to add this new data-frame to the samples metadata in our `MultiDataSet` object. There are several options for which samples metadata tables should be modified; this is controlled through the `datasets` argument of the function. By default, the information is added to the samples metadata table of all omics datasets (case when `datasets = NULL`):
+
+```{r add-samples-metadata-all}
+mo_set_new_samples_info <- add_samples_metadata(mo_set, new_samples_df)
+
+mo_set_new_samples_info |>
+  get_samples_metadata() |>
+  map(head)
+```
+
+However, it is also possible to specify for which dataset(s) the changes should be made, by passing their name to the `datasets` argument.
+
+
+```{r add-samples-metadata-specific}
+mo_set_new_samples_info <- add_samples_metadata(
+  mo_set, 
+  new_samples_df, 
+  datasets = c("rnaseq", "metabolome")
+)
+
+mo_set_new_samples_info |>
+  get_samples_metadata() |>
+  map(head)
+```
+
+In both cases, the function throws some warnings to alert about samples missing from this new table, or samples that are not present in the original samples metadata table. These warnings should be checked to avoid issues due to typos, etc.
+
+As with the `add_features_metadata()` function, it is possible to add information about only a subset of the samples; however the columns in the new data-frame must not already be present in the features metadata tables to which it will be added.
+
+
+## Recap -- targets list
+
+For convenience, here is the list of targets that we created in this section:
+
+<details>
+  <summary>Targets list for modifying a MultiDataSet object</summary>
+
+
+```{targets recap-targets-list}
+list(
+  ## RNAseq differential expression results file
+  tar_target(
+    rnaseq_de_res_file,
+    system.file(
+      "extdata/transcriptomics_de_results.csv",
+      package = "moiraine"
+    ),
+    format = "file"
+  ),
+
+  ## Reading the RNAseq differential expression results
+  tar_target(
+    rnaseq_de_res_df,
+    read_csv(rnaseq_de_res_file) |>
+      rename(feature_id = gene_id) |>
+      mutate(dataset = "rnaseq")
+  ),
+
+  ## Adding the differential expression results to the MultiDataSet object
+  tar_target(
+    mo_set_de,
+    add_features_metadata(mo_set, rnaseq_de_res_df)
+  )
+)
+```
+</details>

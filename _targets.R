@@ -5,7 +5,13 @@ library(moiraine)
 ## add any package you need to use in the pipeline here
 tar_option_set(
   packages = c(
-    "moiraine"
+    "moiraine",
+    "MOFA2",
+    "mixOmics",
+    "readr",
+    "dplyr",
+    "ggplot2",
+    "patchwork"
   )
 )
 
@@ -93,6 +99,30 @@ list(
            set_metabo),
       datasets_names = c("CaptureSeq", "RNAseq", "LCMS")
     )
+
+  ),
+  ## RNAseq differential expression results file
+  tar_target(
+    rnaseq_de_res_file,
+    system.file(
+      "extdata/transcriptomics_de_results.csv",
+      package = "moiraine"
+    ),
+    format = "file"
+  ),
+
+  ## Reading the RNAseq differential expression results
+  tar_target(
+    rnaseq_de_res_df,
+    read_csv(rnaseq_de_res_file) |>
+      rename(feature_id = gene_id) |>
+      mutate(dataset = "rnaseq")
+  ),
+
+  ## Adding the differential expression results to the MultiDataSet object
+  tar_target(
+    mo_set_de,
+    add_features_metadata(mo_set, rnaseq_de_res_df)
   )
 
 )

@@ -30,9 +30,8 @@ For each omics dataset, we need to import:
 
 -   the dataset itself (i.e. the matrix of omics measurements);
 
-```{=html}
 <!-- -->
-```
+
 -   the features metadata, i.e. information about the features measured in the dataset;
 
 -   the samples metadata, i.e. information about the samples measured in the dataset.
@@ -214,7 +213,7 @@ tar_read(fmetadata_metabo) |> head()
 
 Again, the targets factory function does not allow to pass arguments to `read_csv()` (if you need them, please use `import_fmetadata_csv()` directly as we have done in @sec-import-fmeta-manual).
 
-### Importing features metadata from a GTF/GFF file
+### Importing features metadata from a GTF/GFF file {#sec-import-fmeta-gff}
 
 The `moiraine` package can also extract features metadata from a genome annotation file (`.gtf` or `.gff`). We'll demonstrate that for the transcriptomics dataset, for which information about the position and name of the transcripts can be found in the genome annotation used to map the reads. The function is called `import_fmetadata_gff()` (it is also the function you would use to read in information from a `.gtf` file). The type of information to extract from the annotation file is specified through the `feature_type` argument, which can be either `'genes'` or `'transcripts'`. In addition, if the function does not extract certain fields from the annotation file, these can be explicitly called using the `add_fields` parameter.
 
@@ -469,7 +468,7 @@ For convenience, here is the list of targets that we created in this section:
 
 <details>
 
-  <summary>Targets list for data import</summary>
+<summary>Targets list for data import</summary>
 
 ```{targets recap-targets-list}
 list(

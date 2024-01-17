@@ -194,6 +194,16 @@ div.csl-indent {
   <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item">
@@ -220,7 +230,7 @@ div.csl-indent {
   <ul class="collapse">
 <li><a href="#sec-import-fmeta-manual" id="toc-sec-import-fmeta-manual" class="nav-link" data-scroll-target="#sec-import-fmeta-manual"><span class="toc-section-number">3.3.1</span>  Manually</a></li>
   <li><a href="#using-a-target-factory-function-1" id="toc-using-a-target-factory-function-1" class="nav-link" data-scroll-target="#using-a-target-factory-function-1"><span class="toc-section-number">3.3.2</span>  Using a target factory function</a></li>
-  <li><a href="#importing-features-metadata-from-a-gtfgff-file" id="toc-importing-features-metadata-from-a-gtfgff-file" class="nav-link" data-scroll-target="#importing-features-metadata-from-a-gtfgff-file"><span class="toc-section-number">3.3.3</span>  Importing features metadata from a GTF/GFF file</a></li>
+  <li><a href="#sec-import-fmeta-gff" id="toc-sec-import-fmeta-gff" class="nav-link" data-scroll-target="#sec-import-fmeta-gff"><span class="toc-section-number">3.3.3</span>  Importing features metadata from a GTF/GFF file</a></li>
   </ul>
 </li>
   <li><a href="#importing-the-samples-metadata" id="toc-importing-the-samples-metadata" class="nav-link" data-scroll-target="#importing-the-samples-metadata"><span class="toc-section-number">3.4</span>  Importing the samples metadata</a></li>
@@ -487,8 +497,8 @@ div.csl-indent {
 <span><span class="co">#&gt; HMDB00043  -7.9073179 7.827088e-13 3.913544e-12        DE downregulated</span></span>
 <span><span class="co">#&gt; HMDB00060  -0.4369834 6.628164e-01 7.439776e-01    Not DE        Not DE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Again, the targets factory function does not allow to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> (if you need them, please use <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> directly as we have done in <a href="#sec-import-fmeta-manual"><span>Section&nbsp;3.3.1</span></a>).</p>
-</section><section id="importing-features-metadata-from-a-gtfgff-file" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="importing-features-metadata-from-a-gtfgff-file">
+<p>Again, the targets factory function does not allow to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> (if you need them, please use <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> directly as we have done in <a href="#sec-import-fmeta-manual"><span>Section&nbsp;3.3.1</span></a>).</p>
+</section><section id="sec-import-fmeta-gff" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="sec-import-fmeta-gff">
 <span class="header-section-number">3.3.3</span> Importing features metadata from a GTF/GFF file</h3>
 <p>The <code>moiraine</code> package can also extract features metadata from a genome annotation file (<code>.gtf</code> or <code>.gff</code>). We’ll demonstrate that for the transcriptomics dataset, for which information about the position and name of the transcripts can be found in the genome annotation used to map the reads. The function is called <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff.html">import_fmetadata_gff()</a></code> (it is also the function you would use to read in information from a <code>.gtf</code> file). The type of information to extract from the annotation file is specified through the <code>feature_type</code> argument, which can be either <code>'genes'</code> or <code>'transcripts'</code>. In addition, if the function does not extract certain fields from the annotation file, these can be explicitly called using the <code>add_fields</code> parameter.</p>
 <p>In this example, we want to extract information about the genes from the gtf file. We also want to make sure that the <code>Name</code> and <code>description</code>field are imported, as they give the name and description of the genes. To read in this information “manually”, we create the following targets:</p>
@@ -593,7 +603,7 @@ div.csl-indent {
 <span><span class="co">#&gt; R5452    0.733992    0.000010                K3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that in the samples metadata data-frame, the sample IDs are present both as row names and in the <code>id</code> column. This makes it easier to subset the datasets later on.</p>
-<p>As for the other import functions, <code><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv.html">import_smetadata_csv()</a></code> accepts arguments that will be passed to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> in order to specify how the file should be read. The targets factory version does not have this option.</p>
+<p>As for the other import functions, <code><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv.html">import_smetadata_csv()</a></code> accepts arguments that will be passed to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> in order to specify how the file should be read. The targets factory version does not have this option.</p>
 </section><section id="creating-the-omics-sets" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="creating-the-omics-sets">
 <span class="header-section-number">3.5</span> Creating the omics sets</h2>
 <p>Once each dataset and associated features and samples metadata have been imported, we need to combine them into omics sets. In practice, this means that for each omics dataset, we will create an R object that stores the actual dataset alongside its relevant metadata. <code>moiraine</code> relies on the <code>Biobase</code> containers derived from <code><a href="https://rdrr.io/pkg/Biobase/man/class.eSet.html">Biobase::eSet</a></code> to store the different omics datasets; for example, <code><a href="https://rdrr.io/pkg/Biobase/man/class.ExpressionSet.html">Biobase::ExpressionSet</a></code> objects are used to store transcriptomics measurements. Currently, <code>moiraine</code> support four types of omics containers:</p>

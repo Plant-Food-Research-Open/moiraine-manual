@@ -31,7 +31,7 @@ library(ggplot2)
 ```
 
 
-In this chapter, we will show here how to inspect the `MultiDataSet` object that we created in @sec-importing-data and to extract information from it.
+In this chapter, we will show how to inspect the `MultiDataSet` object that we created in @sec-importing-data and how to extract information from it.
 
 As a reminder, here is what the `_targets.R` script should look like so far:
 

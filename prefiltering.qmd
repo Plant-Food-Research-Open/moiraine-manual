@@ -1,0 +1,69 @@
+# Dataset pre-filtering {#sec-prefiltering}
+
+## Subsetting samples
+
+### Based on sample IDs
+
+### Based on metadata
+
+## Subsetting features
+
+### Based on feature IDs
+
+The `MultiDataSet` package implements a `subset()` function (see the [MultiDataSet vignette](https://www.bioconductor.org/packages/release/bioc/vignettes/MultiDataSet/inst/doc/MultiDataSet.html#advanced-subsetting)), which can be used to restrict the omics datasets to specific features selected with their ID. However, this only works by directly passing the features ID in the command, as follows:
+
+```{r multidataset-subset-example-works}
+subset(mo_set, feature_id %in% c("ST4.03ch00_303860", "PGSC0003DMG400013995"))
+```
+
+While passing a vector of features ID doesn't work:
+
+```{r multidataset-subset-example-dontwork}
+#| error: true
+
+features_vec <- c("ST4.03ch00_303860", "PGSC0003DMG400013995")
+subset(mo_set, feature_id %in% features_vec)
+```
+
+This type of subsetting is made possible with the `subset_features()` function.
+
+```{r subset-features-examples}
+subset_features(mo_set, features_vec)
+```
+
+The `subset_features()` function accepts the features ID either as a vector, or as a list of vectors (typically one per dataset):
+
+```{r subset-features-example-more}
+## Selecting randomly 5 features ID per dataset
+features_list <- get_features(mo_set) |>
+  map(sample, size = 5, replace = FALSE)
+
+str(features_list)
+
+subset_features(mo_set, features_list)
+
+## Getting the selected IDs as a vector
+features_vec <- features_list |>
+  unlist() |>
+  unname()
+
+head(features_vec)
+
+subset_features(mo_set, features_vec)
+```
+
+
+Note that this limitation is only true for features; restricting the `MultiDataSet` object to specific samples based on a vector of IDs is possible as follows:
+
+```{r subsetting-samples-example}
+## Randomly selecting 10 samples
+samples_list <- get_samples(mo_set) |>
+  unlist() |>
+  unname() |>
+  unique() |>
+  sample(10, replace = FALSE)
+
+head(samples_list)
+
+mo_set[samples_list, ]
+```

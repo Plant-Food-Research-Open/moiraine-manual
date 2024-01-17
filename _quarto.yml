@@ -13,6 +13,8 @@ book:
       chapters:
       - data_import.qmd
       - inspecting_multidataset.qmd
+      - modifying_multidataset.qmd
+      - preprocessing.qmd
     - references.qmd
 
 bibliography: references.bib

@@ -89,7 +89,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./modifying_multidataset.html" rel="next">
 <link href="./data_import.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -175,6 +175,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item">
@@ -236,7 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">## For custom colour palettes</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this chapter, we will show here how to inspect the <code>MultiDataSet</code> object that we created in <a href="data_import.html"><span>Chapter&nbsp;3</span></a> and to extract information from it.</p>
+<p>In this chapter, we will show how to inspect the <code>MultiDataSet</code> object that we created in <a href="data_import.html"><span>Chapter&nbsp;3</span></a> and how to extract information from it.</p>
 <p>As a reminder, here is what the <code>_targets.R</code> script should look like so far:</p>
 <details><summary><code>_targets.R</code> script
 </summary></details><p>At this stage, our different omics datasets (and associated metadata) are stored in a <code>MultiDataSet</code> object, saved in the target called <code>mo_set</code>:</p>
@@ -470,7 +480,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="inspecting_multidataset_files/figure-html/plot-meansd-data-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>In our case, we can see a very strong relationship between features mean and standard deviation in both the transcriptomics and metabolomics datasets, which suggest that a log or variance-stabilising transformation will be necessary in both cases (datasets transformation are covered in <span class="quarto-unresolved-ref">?sec-preprocessing</span>).</p>
+<p>In our case, we can see a very strong relationship between features mean and standard deviation in both the transcriptomics and metabolomics datasets, which suggest that a log or variance-stabilising transformation will be necessary in both cases (datasets transformation are covered in <a href="preprocessing.html"><span>Chapter&nbsp;6</span></a>).</p>
 <p>Note that the hexplots are only drawn for datasets with at least 30 features, and the trend curve (in pink) is only drawn for datasets with at least 10 features.</p>
 </section></section><section id="assessing-missing-values" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="assessing-missing-values">
 <span class="header-section-number">4.4</span> Assessing missing values</h2>
@@ -482,7 +492,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 588 (7.69%) missing values in metabolome dataset, across 15 features and 45 samples.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The function returns an invisible character vector containing the messages printed above, which is useful for automatic reporting.</p>
-<p>In <span class="quarto-unresolved-ref">?sec-preprocessing</span>, we will see how to impute missing values.</p>
+<p>In <a href="preprocessing.html"><span>Chapter&nbsp;6</span></a>, we will see how to impute missing values.</p>
 </section><section id="visualising-the-datasets" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="visualising-the-datasets">
 <span class="header-section-number">4.5</span> Visualising the datasets</h2>
 <p>Once the omics datasets are stored in a <code>MultiDataSet</code> object, we can easily visualise the measurements for a set of features of interest. As an example, we will randomly select three features from each of the omics datasets:</p>
@@ -843,8 +853,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./modifying_multidataset.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
