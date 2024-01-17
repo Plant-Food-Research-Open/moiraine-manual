@@ -123,6 +123,23 @@ list(
   tar_target(
     mo_set_de,
     add_features_metadata(mo_set, rnaseq_de_res_df)
+  ),
+
+  ## Applying transformations to the datasets
+  transformation_datasets_factory(
+    mo_set_de,
+    c("rnaseq" = "vst-deseq2",
+      "metabolome" = "best-normalize-manual"),
+    methods = c("metabolome" = "log_x"),
+    b = 2,
+    standardize = FALSE,
+    transformed_data_name = "mo_set_transformed"
+  ),
+
+  ## Running a PCA on each dataset
+  pca_complete_data_factory(
+    mo_set_transformed,
+    complete_data_name = "mo_set_complete"
   )
 
 )

@@ -30,16 +30,15 @@ library(circlize)
 library(ggplot2)
 ```
 
-
 In this chapter, we will show how to inspect the `MultiDataSet` object that we created in @sec-importing-data and how to extract information from it.
 
 As a reminder, here is what the `_targets.R` script should look like so far:
 
 <details>
-  <summary>`_targets.R` script</summary>
-  
-</details>
 
+<summary>`_targets.R` script</summary>
+
+</details>
 
 At this stage, our different omics datasets (and associated metadata) are stored in a `MultiDataSet` object, saved in the target called `mo_set`:
 
@@ -77,7 +76,6 @@ get_features(mo_set) |> str()
 get_samples(mo_set) |> str()
 ```
 
-
 ## Extracting datasets and metadata
 
 We can extract the dataset matrices from a `MultiDataSet` object with the `get_datasets()` function, which returns a named list of matrices, each with features as rows and samples as columns:
@@ -89,7 +87,6 @@ get_datasets(mo_set) |> str()
 ```{r get-datasets-example}
 get_datasets(mo_set)[["snps"]][1:5, 1:5]
 ```
-
 
 Similarly, the functions `get_features_metadata()` and `get_samples_metadata()` each return a named list of feature or sample metadata data-frames, one per omics dataset:
 
@@ -107,8 +104,7 @@ For the samples metadata, it is possible to extract a single data-frame that com
 get_samples_metadata_combined(mo_set) |> head()
 ```
 
-
-## Summary plots
+## Summary plots {#sec-inspecting-multidataset-summary-plots}
 
 A number of plotting functions have been implemented to obtain a quick overview of the omics datasets in a `MultiDataSet` object.
 
@@ -348,7 +344,6 @@ plot_data_covariate(
 )
 ```
 
-
 The features can be renamed using features metadata through the `label_cols` argument in the same way that with the `plot_data_heatmap()` function:
 
 ```{r plot-data-covariate-labels}
@@ -364,14 +359,13 @@ plot_data_covariate(
 )
 ```
 
-
 ## Recap -- targets list
 
 Although we didn't create any new target in this section, we can turn some plots into targets.
 
 <details>
-  <summary>Targets list for inspecting a MultiDataSet object</summary>
 
+<summary>Targets list for inspecting a MultiDataSet object</summary>
 
 ```{targets recap-targets-list}
 list(
@@ -399,4 +393,5 @@ list(
   )
 )
 ```
+
 </details>

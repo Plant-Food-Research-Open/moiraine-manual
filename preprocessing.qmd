@@ -1,2 +1,376 @@
 # Data pre-processing {#sec-preprocessing}
 
+```{r}
+#| child: "_setup.qmd"
+```
+
+```{r loading-packages}
+#| include: false
+
+library(targets)
+library(moiraine)
+library(MultiDataSet)
+library(purrr)
+library(ggplot2)
+library(RColorBrewer)
+
+## For loading the transformations info
+library(DESeq2)
+library(S4Vectors)
+library(stats4)
+
+## to avoid the S3 overwrite message
+library(GGally)
+```
+
+```{r setup-visible, eval = FALSE}
+library(targets)
+library(moiraine)
+library(MultiDataSet)
+
+## For working with lists
+library(purrr)
+## For custom colour palettes
+library(ggplot2)
+library(RColorBrewer)
+
+## For displaying documentation
+library(DESeq2)
+library(S4Vectors)
+library(stats4)
+```
+
+In this chapter, we will show how to apply different transformations to the datasets, as well as how to run a PCA on each dataset and impute missing values if needed.
+
+As a reminder, here is what the `_targets.R` script should look like so far:
+
+<details>
+  <summary>`_targets.R` script</summary>
+  
+```{file code-previous-vignettes}
+```
+</details>
+
+
+## Datasets transformations
+
+After inspection of the density plots for the different datasets (see @sec-inspecting-multidataset-summary-plots), it might be necessary to normalise or transform some or all datasets. This is necessary to mitigate the mean-variance trend that occurs in RNAseq data, for example, or simply to bring the different features to a comparable scale. Transformation here refers to applying a function to each feature (i.e. each row) within a dataset that will transform the measurement values for the feature.
+
+`moiraine` implements several options to transform an omics dataset:
+
+-   Variance Stabilising Normalisation (VSN) through the `vsn` package -- recommended for metabolomics datasets or other continuous datasets with a strong mean-variance trend;
+
+-   Variance Stabilising Transformation (VST) through the `DESeq2` package -- recommended for RNAseq data or any raw read count-type data;
+
+-   Automatic selection of the best normalisation method for each feature through the `bestNormalize` package -- recommended for phenotype data, and when the number of features is small (note that the selection of the normalisation method is done independently for each feature, so the same transformation might not be applied to all features);
+
+-   A selection of common normalisation methods through the `bestNormalize` package, including center/scale, log, exponential, square-root, arcsinh, Box Cox, Yeo-Johnson and ordered quantile transformations (see details in the [bestNormalize vignette](https://cran.r-project.org/web/packages/bestNormalize/vignettes/bestNormalize.html)) -- recommended when applying the same transformation to all features, e.g. log2 transformation or centering.
+
+The transformation of one dataset is done through the `transform_dataset()` function, which takes as input a `MultiDataSet` object, the name of the dataset to transform, and the name of the transformation to be applied XXXXXX
+
+The target factory function `transformation_datasets_factory()` provides a wrapper to apply (potentially different) transformations to several datasets at once. The `transformation_datasets_factory()` function takes as input the multi-omics set and a named character vector, in which each element corresponds to a transformation that should be applied to a specific dataset. If a dataset is not present in the transformation vector, it will not be transformed (but it will still be present in the resulting MultiDataSet object).
+
+Here, we would like to apply Variance Stabilising Transformation to the transcriptomics dataset, and a log2 transformation to the metabolomics dataset. Note that the VST and VSN transformations are very close to the log2 transformation, especially for features with high means.
+
+```{targets transformation-datasets-factory}
+#| message: true
+
+transformation_datasets_factory(
+  mo_set_de,
+  c("rnaseq" = "vst-deseq2",
+    "metabolome" = "best-normalize-manual"),
+  methods = c("metabolome" = "log_x"),
+  b = 2,
+  standardize = FALSE,
+  transformed_data_name = "mo_set_transformed"
+)
+```
+
+In order to apply a log2 transformation on the metabolomics dataset, the transformation is set to `'best-normalize-manual'`, and the particular transformation to apply to each feature is specified via the `methods` argument. The `bestNormalize::log_x()` function uses by default a log base 10, but this can be changed by passing the `b` argument to the `transformation_datasets_factory` function. Also, the `bestNormalize` functions will by default standardise the transformed datasets, which we can prevent by passing `standardize = FALSE` to the function.
+
+The `transformation_datasets_factory()` function works as follows:
+
+-   It creates a grouped tibble of the transformations to apply to each dataset, stored in the `transformations_spec` target;
+
+```{r transformations-spec}
+tar_read(transformations_spec)
+```
+
+-   It performs the required transformation on each dataset via dynamic branching. This is done through a call to the `transform_dataset()` function. The transformed datasets are stored in a list, in the `transformations_runs_list` target. Note that by default the function will store all details of the transformation, which can be useful for later inspection, but can be memory-intensive. The option to only store the transformed dataset is given through the `return_matrix_only` argument to the `transformation_datasets_factory()` call.
+
+```{r show-transformations-run-list}
+tar_load(transformations_runs_list)
+
+names(transformations_runs_list)
+
+map_chr(transformations_runs_list, attr, "dataset_name")
+```
+
+We can have a look at the details of the transcriptomics dataset transformation:
+
+```{r show-transformation-detail-example}
+tar_read(transformations_runs_list_a1c8db41) |> names()
+
+tar_read(transformations_runs_list_a1c8db41)$info_transformation
+```
+
+-   It creates a new `MultiDataSet` object, with the transformed version of the datasets. By default, this new `MultiDataSet` object is stored in a target called `transformed_set`, but a different name can be specified via the `transformed_data_name` argument (here we called it `mo_set_transformed`).
+
+```{r print-mo-set-transformed}
+tar_load(mo_set_de)
+tar_load(mo_set_transformed)
+
+mo_set_transformed
+
+get_datasets(mo_set_de)$metabolome[1:5, 1:3]
+
+get_datasets(mo_set_transformed)$metabolome[1:5, 1:3]
+```
+
+We can assess the effect of the transformations by generating density and mean-sd plots of the transformed datasets:
+
+```{r plot-density-transformed-data}
+#| fig.width: 9
+#| fig.height: 4
+
+plot_density_data(
+  mo_set_transformed,
+  combined = FALSE,
+  scales = "free"
+)
+```
+
+Note how the relationship between features mean and standard deviation has been reduced in both transformed datasets:
+
+```{r plot-meansd-transformed-data, fig.width = 9, fig.height = 4}
+plot_meansd_data(mo_set_transformed)
+```
+
+Finally, it can be useful to summarise which transformations have been applied to the datasets, for example when creating a report. The function `get_table_transformation()` is here for that. It takes as an input the `transformations_runs_list` target generated by `transformation_datasets_factory()`, and returns a tibble indicating the transformation applied to each dataset:
+
+```{r get-table-transformation}
+get_table_transformations(transformations_runs_list)
+```
+
+
+In the next vignette, [Datasets prefiltering](prefiltering.html), we will see how to pre-filter the datasets to reduce the number of features prior to the data integration step. 
+
+
+## Running a PCA on each dataset
+
+In it always best practice to run some exploratory analysis on any datasets prior to running analyses. This is largely outside the scope of this package, and we assume that any input dataset has been properly assessed before turning to the integration pipeline. However, running a PCA on each of the omics datasets within the integration pipeline serves two purposes: 1) a last check to ensure that there are no obvious batch effets or problematic samples that should be addressed, and 2) as a missing data imputation method.
+
+The `moiraine` package relies on the Bioconductor [`pcaMethods`](https://bioconductor.org/packages/release/bioc/html/pcaMethods.html) package to perform Principal Components Analyses. In particular, the `pcaMethods` package implements a nipals method for PCA, which allows for missing values, and imputes missing values based on the results of the PCA.
+
+### Running the PCAs
+
+The `pca_complete_data_factory()` function uses [dynamic branching](https://books.ropensci.org/targets/dynamic.html) (you can think of it as the targets equivalent of for loops) to perform a PCA on each omics dataset within a `MultiDataSet` object. It takes as input the `MultiDataSet` object (in our case, `mo_set`), and, optionally, the names of the datasets on which a PCA should be run. This is useful if one dataset is very large and has no missing values, and we want to avoid running a PCA on it. It then proceeds as follows:
+
+-   It creates a target called `dataset_names_pca`, which stores a vector of dataset names on which a PCA should be applied.
+
+-   For each value in `dataset_names_pca`, it extracts the omics dataset as a matrix with features as rows and samples as columns, using the `get_dataset_matrix()` function. This is done via dynamic branching, the results as stored as a list in the `pca_mats_list` target. Note that the names of this list are not meaningful; to check which element of the list corresponds to which dataset, you can run `map_chr(pca_mats_list, attr, "dataset_name")`.
+
+-   For each matrix in `pca_mats_list`, it applies the `run_pca_matrix()` function to the corresponding dataset. This is done via dynamic branching; it results in a list where each element is the PCA result (i.e. a `pcaMethods::pcaRes` object) for a given dataset. This list is stored in the `pca_runs_list` target. Note that the names of this list are not meaningful; to check which element of the list corresponds to which dataset, you can run `map_chr(pca_runs_list, attr, "dataset_name")`.
+
+-   It extracts from the result of each PCA the complete dataset, i.e. with missing values imputed. It uses this information to construct a new `MultiDataSet` object, in which the datasets are complete (i.e. no missing value). If no PCA was run on a dataset, the dataset will still be present in the new `MultiDataSet` object, but its missing values will not be imputed. The resulting complete `MultiDataSet` object is stored by default in a target called `complete_set`; this name can be changed via the `complete_data_name` argument.
+
+Let's apply this to our multi-omics dataset:
+
+```{targets pca-complete-data-factory}
+pca_complete_data_factory(
+  mo_set_transformed,
+  complete_data_name = "mo_set_complete"
+)
+```
+
+We can have a look at the different targets constructed. By default, a PCA was run on all datasets:
+
+```{r print-dataset-names-pca}
+tar_read(dataset_names_pca)
+```
+
+```{r show-pcapmats-list-names}
+tar_load(pca_mats_list)
+
+map_chr(pca_mats_list, attr, "dataset_name")
+map(pca_mats_list, ~.x[1:5, 1:5])
+```
+
+
+```{r show-pca-runs-list-names}
+tar_load(pca_runs_list)
+
+names(pca_runs_list)
+
+map_chr(pca_runs_list, attr, "dataset_name")
+```
+
+The result of the PCA run on the genomics dataset looks like this:
+
+```{r show-pca-result}
+tar_read(pca_runs_list_74d71ae8)
+```
+
+You can notice that there is some information about the number of principal components computed, and whether the dataset was centred and scaled before applying the PCA. This is handled by the default arguments of `run_pca_matrix()`, but can be specified by passing the corresponding arguments to `pca_complete_data_factory()`. For example, to scale the datasets before performing a PCA, we could use:
+
+```{targets pca-complete-data-factory-with-scaling}
+pca_complete_data_factory(
+  mo_set_transformed,
+  complete_data_name = "mo_set_complete",
+  scale = TRUE
+)
+```
+
+For convenience, the `run_pca()` function can be used to run a PCA on one of the omics datasets directly from a `MultiDataSet` object. It is a wrapper around the `run_pca_matrix()` function, and takes as input a `MultiDataSet` object as well as the name of the omics dataset on which a PCA should be run, e.g.:
+
+```{r example-run-pca}
+#| eval: false
+
+run_pca(mo_set_de, "rnaseq")
+```
+
+
+### Visualising the PCA results
+
+It is possible to get an overview of the results of each PCA. First, the function `plot_screeplot_pca()` displays the percentage of variance explained by the principal components computed for each dataset. It takes as input the `pca_runs_list` target constructed in the previous step. Note that by default, 10 components are computed for each dataset.
+
+```{r plot-screeplot-pca}
+#| fig.width: 8
+#| fig.height: 8
+
+plot_screeplot_pca(pca_runs_list)
+```
+
+In addition, the `plot_samples_coordinates_pca` allows us to display the samples in the reduced principal components space (the common PCA sample plot). The function returns a list of plots (one plot per dataset). By default, it shows all principal components computed for each dataset, but for clarity we will only look at the first three:
+
+```{r plot-samples-coordinates-pca}
+#| fig.width: 8
+#| fig.height: 7
+#| warning: false
+
+plot_samples_coordinates_pca(
+  pca_runs_list,
+  pcs = 1:3
+)
+```
+
+Note that it is possible to look at a different set of principal components for each dataset. For that, the index of the principal components should be passed to the `pcs` argument as a named list (where the name of each element corresponds to a dataset name), e.g.:
+
+```{r plot-samples-coordinates-pca-diff-pcs}
+#| eval: false
+
+plot_samples_coordinates_pca(
+  pca_runs_list,
+  pcs = list(
+    "snps" = 1:4,
+    "rnaseq" = 1:2,
+    "metabolome" = 1:3
+  )
+)
+```
+
+By default, the points in the sample plots are not coloured. It is however possible to colour the samples according to the information contained in the sample metadata tables available through the MultiDataset object. We can set different colours and shapes for the upper and lower plots in the scatterplot matrix, see the `plot_samples_score()` function for more information. For example, we can assess whether the first three principal components show any clustering of the samples according to the parents or bruising mean (we'll only show the results for the SNPs dataset for space). We'll make a custom colour palette for the `other_parent` variable since there are a lot of values:
+
+```{r plot-samples-coordinates-pca-colours}
+#| fig.width: 8
+#| fig.height: 7
+#| warning: false
+
+plot_samples_coordinates_pca(
+  pca_runs_list,
+  datasets = "snps",
+  pcs = 1:3,
+  mo_data = mo_set_de,
+  colour_upper = "geno_comp_cluster",
+  shape_upper = "feedlot",
+  colour_lower = "status"
+) +
+  theme(legend.box = "vertical")
+```
+
+
+### Complete MultiDataSet
+
+We can check that the complete multi-omics set constructed has no more missing values:
+
+```{r print-mo-set-complete}
+tar_load(mo_set_complete)
+
+mo_set_complete
+```
+
+```{r check-missing-values-mo-set-complete}
+check_missing_values(mo_set_complete)
+```
+
+
+## Recap -- targets list
+
+For convenience, here is the list of targets that we created in this section:
+
+<details>
+  <summary>Targets list for datasets preprocessing</summary>
+  
+
+```{targets recap-targets-list}
+list(
+  ## Running a PCA on each dataset
+  pca_complete_data_factory(
+    mo_set,
+    complete_data_name = "mo_set_complete"
+  ),
+  
+  ## PCA screeplots
+  tar_target(
+    pca_screeplots,
+    plot_screeplot_pca(pca_runs_list)
+  ),
+  
+  ## PCA sample plots
+  tar_target(
+    pca_sample_plots,
+    plot_samples_coordinates_pca(
+      pca_runs_list,
+      datasets = "snps",
+      pcs = 1:3,
+      mo_data = mo_set,
+      colour_upper = "other_parent",
+      shape_upper = "group",
+      colour_lower = "bruising_group"
+    )
+  ),
+  
+  ## Applying transformations to the datasets
+  transformation_datasets_factory(
+    mo_set_complete,
+    c("rnaseq" = "vst-deseq2",
+      "metabolome" = "best-normalize-manual"),
+    methods = c("metabolome" = "log_x"),
+    b = 2,
+    standardize = FALSE,
+    transformed_data_name = "mo_set_transformed"
+  ),
+  
+  ## Density plot for each transformed dataset
+  tar_target(
+    density_plots_transformed,
+    plot_density_data(mo_set_transformed,
+                      combined = FALSE,
+                      scales = "free"
+    )
+  ),
+  
+  ## Plotting the mean-SD trend for transformed each dataset
+  tar_target(
+    mean_sd_plots_transformed,
+    plot_meansd_data(mo_set_transformed)
+  ),
+  
+  ## Summary table of the transformations applied
+  tar_target(
+    transformation_summary,
+    get_table_transformations(transformations_runs_list)
+  )
+)
+```
+</details>
