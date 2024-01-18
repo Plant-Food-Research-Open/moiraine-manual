@@ -131,6 +131,7 @@ list(
     c("rnaseq" = "vst-deseq2",
       "metabolome" = "best-normalize-manual"),
     methods = c("metabolome" = "log_x"),
+    a = 0.01,
     b = 2,
     standardize = FALSE,
     transformed_data_name = "mo_set_transformed"

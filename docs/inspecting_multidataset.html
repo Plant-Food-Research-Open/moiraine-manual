@@ -201,7 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#querying-datasets-names-and-dimensions" id="toc-querying-datasets-names-and-dimensions" class="nav-link active" data-scroll-target="#querying-datasets-names-and-dimensions"><span class="toc-section-number">4.1</span>  Querying datasets names and dimensions</a></li>
   <li><a href="#extracting-datasets-and-metadata" id="toc-extracting-datasets-and-metadata" class="nav-link" data-scroll-target="#extracting-datasets-and-metadata"><span class="toc-section-number">4.2</span>  Extracting datasets and metadata</a></li>
   <li>
-<a href="#summary-plots" id="toc-summary-plots" class="nav-link" data-scroll-target="#summary-plots"><span class="toc-section-number">4.3</span>  Summary plots</a>
+<a href="#sec-inspecting-multidataset-summary-plots" id="toc-sec-inspecting-multidataset-summary-plots" class="nav-link" data-scroll-target="#sec-inspecting-multidataset-summary-plots"><span class="toc-section-number">4.3</span>  Summary plots</a>
   <ul class="collapse">
 <li><a href="#samples-upset-plot" id="toc-samples-upset-plot" class="nav-link" data-scroll-target="#samples-upset-plot"><span class="toc-section-number">4.3.1</span>  Samples upset plot</a></li>
   <li><a href="#datasets-density-plots" id="toc-datasets-density-plots" class="nav-link" data-scroll-target="#datasets-density-plots"><span class="toc-section-number">4.3.2</span>  Datasets density plots</a></li>
@@ -333,9 +333,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 10-49904259-G-A-rs471723345   1     2     2     2     2</span></span>
 <span><span class="co">#&gt; 1-109550832-G-A-rs209732846   2     2     1     2     2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>To obtain the matrix for a single dataset from the <code>MultiDataSet</code> object, the <code><a href="https://rdrr.io/pkg/moiraine/man/get_dataset_matrix.html">get_dataset_matrix()</a></code> function can be used instead:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_dataset_matrix.html">get_dataset_matrix</a></span><span class="op">(</span><span class="va">mo_set</span>, <span class="st">"snps"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<span><span class="co">#&gt;                             R21 Y3660 Y3243 R5764 P4669</span></span>
+<span><span class="co">#&gt; 1_41768691                    1     0     2     2     1</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694    2     2     2     1     2</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242   0     1     0     2     0</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345   1     2     2     2     2</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846   2     2     1     2     2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Similarly, the functions <code><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata.html">get_samples_metadata()</a></code> each return a named list of feature or sample metadata data-frames, one per omics dataset:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ snps      :'data.frame':  23036 obs. of  13 variables:</span></span>
 <span><span class="co">#&gt;   ..$ feature_id     : chr [1:23036] "1_41768691" "10-27008241-A-C-rs42918694" "10-37505419-T-C-rs136559242" "10-49904259-G-A-rs471723345" ...</span></span>
@@ -379,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;   ..$ de_status                   : chr [1:55] "Not DE" "Not DE" "downregulated" "downregulated" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata.html">get_samples_metadata</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata.html">get_samples_metadata</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ snps      :'data.frame':  139 obs. of  10 variables:</span></span>
 <span><span class="co">#&gt;   ..$ id               : chr [1:139] "R21" "Y3660" "Y3243" "R5764" ...</span></span>
@@ -417,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>For the samples metadata, it is possible to extract a single data-frame that combines the metadata from the different datasets with the function <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata_combined.html">get_samples_metadata_combined()</a></code>. The <code>only_common_cols</code> argument controls whether only the columns that are common to the samples metadata of the different omics datasets should be returned. For this example, as the samples metadata is identical across the datasets, it makes no difference:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata_combined.html">get_samples_metadata_combined</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata_combined.html">get_samples_metadata_combined</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          id feedlot gender  status day_on_feed rnaseq_batch geno_comp_1</span></span>
 <span><span class="co">#&gt; R21     R21      F1 female Control          31           B2    0.007853</span></span>
 <span><span class="co">#&gt; Y3660 Y3660      F1   male Control          19           B2    0.852220</span></span>
@@ -433,14 +443,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; P4669    0.503471    0.107136                K3</span></span>
 <span><span class="co">#&gt; R5452    0.733992    0.000010                K3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="summary-plots" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="summary-plots">
+</section><section id="sec-inspecting-multidataset-summary-plots" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="sec-inspecting-multidataset-summary-plots">
 <span class="header-section-number">4.3</span> Summary plots</h2>
 <p>A number of plotting functions have been implemented to obtain a quick overview of the omics datasets in a <code>MultiDataSet</code> object.</p>
 <section id="samples-upset-plot" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="samples-upset-plot">
 <span class="header-section-number">4.3.1</span> Samples upset plot</h3>
 <p>First, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset()</a></code> function displays the number of common and unique samples across the datasets with an <a href="https://upset.app">UpSet plot</a>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="inspecting_multidataset_files/figure-html/plot-samples-upset-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -450,14 +460,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">4.3.2</span> Datasets density plots</h3>
 <p>Next, we can show the density plot of each omics dataset with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data()</a></code> function. By default, all datasets are plotted onto the same axes, which is not very useful if they have very different scales. We can change that by setting the <code>combined</code> argument to <code>FALSE</code>, which splits the plot into one facet per dataset, and by setting <code>scales</code> to <code>'free'</code> in order to give its own scale to each dataset:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span><span class="va">mo_set</span>, combined <span class="op">=</span> <span class="cn">FALSE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span><span class="va">mo_set</span>, combined <span class="op">=</span> <span class="cn">FALSE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="inspecting_multidataset_files/figure-html/plot-density-data-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
 <p>By default, all datasets are represented in the density plot, but it is possible to focus on one or a subset of them via the <code>datasets</code> argument. This is useful here as the plots for the transcriptomics and metabolomics could benefit from a log10 transformation for the x-axis:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span>,</span>
 <span>  combined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -475,7 +485,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">4.3.3</span> Datasets mean-sd plots</h3>
 <p>It is also possible to assess for each dataset whether there exists a relationship between the features mean and standard deviation, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data()</a></code> function. The presence of such relationship indicates that the dataset should be transformed, via a log or variance-stabilising transformation. The function requires the <code>hexbin</code> package to be installed:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="inspecting_multidataset_files/figure-html/plot-meansd-data-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -486,7 +496,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">4.4</span> Assessing missing values</h2>
 <p>Finally, one very important aspect to check is the presence of missing values in the datasets. The function <code><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values()</a></code> provide a summary of the number of missing values in each dataset:</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 9615 (0.3%) missing values in snps dataset, across 4093 features and 139 samples.</span></span>
 <span><span class="co">#&gt; No missing values in rnaseq dataset.</span></span>
 <span><span class="co">#&gt; 588 (7.69%) missing values in metabolome dataset, across 15 features and 45 samples.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -497,7 +507,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">4.5</span> Visualising the datasets</h2>
 <p>Once the omics datasets are stored in a <code>MultiDataSet</code> object, we can easily visualise the measurements for a set of features of interest. As an example, we will randomly select three features from each of the omics datasets:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">32</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">32</span><span class="op">)</span></span>
 <span><span class="va">random_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features.html">get_features</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span>, size <span class="op">=</span> <span class="fl">3</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -514,7 +524,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">4.5.1</span> As a heatmap</h3>
 <p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> allows us to view the data for these features as a heatmap. It relies on the <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">ComplexHeatmap::Heatmap()</a></code> function, and can be customised by passing arguments to this function (for example to remove the column labels):</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -530,7 +540,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that we specified that the data should be centred and scaled before plotting, to represent features from different datasets on a similar scale.</p>
 <p>By default, all samples all represented, including those that are only present in some of the omics datasets (hence the warning about columns clustering). We can instead restrict the plot to only samples that are present across all datasets (<code>only_common_samples</code> argument), or to specific samples by passing a list of samples ID to the <code>samples</code> argument:</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -544,7 +554,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>We can also add samples and/or features information to the sides of the heatmap through the <code>samples_info</code> and <code>features_info</code> arguments. These two arguments take a vector of column names from the samples or features metadata table, respectively. The <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">ComplexHeatmap::Heatmap()</a></code> picks random colours for these annotations, but we can set specific colour palettes by passing a list of colour palettes through the argument <code>colours_list</code>. For continuous annotations, the colour palette must be generated with <code><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">circlize::colorRamp2()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -564,7 +574,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>We can also use information from the features metadata tables to give a more meaningful label to the features. For example, we can use the column <code>Name</code> from the transcriptomics features metadata and the column <code>name</code> from the metabolomics features metadata to label the features. This is done by passing a named list through the <code>label_cols</code> argument, where each element is the name of the column to use and the name of the element gives the name of the dataset in the MultiDataSet object. If these labels are too long, we can truncate them through the <code>truncate</code> argument (see the function help).</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -592,7 +602,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">4.5.2</span> Against samples covariates</h3>
 <p>Alternatively, we can display the features’ measurements against some samples covariate, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate()</a></code> function. As for the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> function, the plot shows data from all samples, unless otherwise specified (through either the <code>common_samples_only</code> or <code>samples</code> arguments). The covariate is specified as a column name from the samples metadata (can be from any dataset’s samples metadata). If the covariate is categorical, the function generates violin plots. For example, we can represent the feature’s measurements against the animal disease status:</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"status"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -604,7 +614,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>We can use other columns from the samples metadata to customise the points colour and shape. For the colour, the constructed plot will depend on whether the corresponding in categorical or numeric:</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"status"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -615,7 +625,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output-display">
 <p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-categorical-colours-1.png" class="img-fluid" width="768"></p>
 </div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"status"</span>,</span>
@@ -630,7 +640,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>If instead the covariate is numerical, the function produces scatterplots with a loess curve for each feature:</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"day_on_feed"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -642,7 +652,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Again, we can use other samples information to specify the colour or shapes of the samples. Note that if the covariate used for points colour is discrete, a loess curve will be fitted for each category. If the covariate is continuous, or if changing the shape of the points, only one loess curve will be fitted for all data points.</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"day_on_feed"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -653,7 +663,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output-display">
 <p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-colours-1.png" class="img-fluid" width="768"></p>
 </div>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"day_on_feed"</span>,</span>
@@ -668,7 +678,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>The features can be renamed using features metadata through the <code>label_cols</code> argument in the same way that with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"day_on_feed"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -688,7 +698,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <details><summary>
 Targets list for inspecting a MultiDataSet object
 </summary><div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Creating a density plot for each dataset</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">density_plots</span>,</span>

@@ -63,7 +63,7 @@ In another scenario, after having created the `MultiDataSet` object, we might ob
 Let us imagine that, prior to performing the data transformation step (which we will see in @sec-preprocessing), we want to replace all zero values in the transcriptomics dataset with a small value, to avoid issues during the log-transformation process (note that this is only to illustrate this functionality, for the actual analysis we will use a different transformation that handles zero values). We will pick this small value as half of the non-null minimum value in the dataset (which will be 0.5, since we are working with count data). We can compute the new matrix of RNAseq counts:
 
 ```{r new-rnaseq-mat}
-rnaseq_mat <- get_datasets(mo_set)[["rnaseq"]]
+rnaseq_mat <- get_dataset_matrix(mo_set, "rnaseq")
 rnaseq_mat[1:5, 1:5]
 
 small_val <- (1/2) * min(rnaseq_mat[rnaseq_mat != 0])
@@ -81,7 +81,7 @@ In order to replace the rnaseq dataset stored in the `MultiDataSet` object with 
 mo_set_modif <- replace_dataset(mo_set, "rnaseq", new_mat)
 
 ## Checking that the replacement has been done
-get_datasets(mo_set_modif)[["rnaseq"]][1:5, 1:5]
+get_dataset_matrix(mo_set_modif, "rnaseq")[1:5, 1:5]
 ```
 
 
@@ -104,7 +104,7 @@ list(
   tar_target(
     rnaseq_mat_nozero,
     {
-      rnaseq_mat <- get_datasets(mo_set)[["rnaseq"]]
+      rnaseq_mat <- get_dataset_matrix(mo_set, "rnaseq")
       small_val <- (1/2) * min(rnaseq_mat[rnaseq_mat != 0])
       new_mat <- rnaseq_mat
       new_mat[new_mat == 0] <- small_val

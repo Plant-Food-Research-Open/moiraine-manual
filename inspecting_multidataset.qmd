@@ -88,6 +88,13 @@ get_datasets(mo_set) |> str()
 get_datasets(mo_set)[["snps"]][1:5, 1:5]
 ```
 
+To obtain the matrix for a single dataset from the `MultiDataSet` object, the `get_dataset_matrix()` function can be used instead:
+
+```{r get-dataset-matrix-example}
+get_dataset_matrix(mo_set, "snps")[1:5, 1:5]
+```
+
+
 Similarly, the functions `get_features_metadata()` and `get_samples_metadata()` each return a named list of feature or sample metadata data-frames, one per omics dataset:
 
 ```{r get-features-metadata}
