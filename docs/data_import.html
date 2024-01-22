@@ -204,6 +204,11 @@ div.csl-indent {
   <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item">
@@ -324,7 +329,7 @@ div.csl-indent {
 <p>The created target, called <code>dataset_file_geno</code>, takes as value the path to the file:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">dataset_file_geno</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/a0cb1ab1c9bfde027266aa5d81f33617/moiraine/extdata/genomics_dataset.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/287c05d8d3c75e0fc72013b86230bba2/moiraine/extdata/genomics_dataset.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The next step is to import this dataset in R. We use the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function for that, rather than the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> or similar functions, as it ensures that the data is imported with the correct format for further use with the <code>moiraine</code> package. When importing a dataset, we need to specify the path to the file, as well as the name of the column in the csv file that contains the row names (through the <code>col_id</code> argument). In addition, we need to specify whether the features are represented in rows in the csv file, or in columns. This is done through the argument <code>features_as_rows</code>. For example, we can load the genomics dataset through:</p>
 <div class="cell">

@@ -141,6 +141,22 @@ list(
   pca_complete_data_factory(
     mo_set_transformed,
     complete_data_name = "mo_set_complete"
+  ),
+
+  ## Unsupervised feature selection based on MAD score
+  feature_preselection_mad_factory(
+    mo_set_complete,
+    to_keep_ns = c("snps" = 1000, "rnaseq" = 1000),
+    with_ties = TRUE,
+    filtered_set_target_name = "mo_presel_unsupervised"
+  ),
+
+  ## Supervised feature selection based on disease status
+  feature_preselection_splsda_factory(
+    mo_set_complete,
+    group = "status",
+    to_keep_ns = c("snps" = 1000, "rnaseq" = 1000),
+    filtered_set_target_name = "mo_presel_supervised"
   )
 
 )

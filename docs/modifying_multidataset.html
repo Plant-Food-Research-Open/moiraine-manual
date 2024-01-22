@@ -185,6 +185,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item">
@@ -443,10 +448,10 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
 <span><span class="co">#&gt;   id    new_group</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;    </span></span>
-<span><span class="co">#&gt; 1 R21   a        </span></span>
+<span><span class="co">#&gt; 1 R21   b        </span></span>
 <span><span class="co">#&gt; 2 Y3660 a        </span></span>
 <span><span class="co">#&gt; 3 Y3243 a        </span></span>
-<span><span class="co">#&gt; 4 R5764 b        </span></span>
+<span><span class="co">#&gt; 4 R5764 c        </span></span>
 <span><span class="co">#&gt; 5 P4669 a        </span></span>
 <span><span class="co">#&gt; 6 R5452 c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -472,10 +477,10 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
 <span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R21      0.820691    0.171456                K3         a</span></span>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3         b</span></span>
 <span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         a</span></span>
 <span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         a</span></span>
-<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         b</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         c</span></span>
 <span><span class="co">#&gt; P4669    0.503471    0.107136                K3         a</span></span>
 <span><span class="co">#&gt; R5452    0.733992    0.000010                K3         c</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -488,11 +493,11 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; R9504 R9504      F2   male    BRD          31           B1    0.000010</span></span>
 <span><span class="co">#&gt; R5994 R5994      F2   male    BRD          24           B1    0.129271</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         a</span></span>
-<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         b</span></span>
-<span><span class="co">#&gt; R5327    0.809396    0.049874                K3         c</span></span>
-<span><span class="co">#&gt; R5979    0.107794    0.605473                K1         a</span></span>
-<span><span class="co">#&gt; R9504    0.998913    0.001077                K3         c</span></span>
+<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         c</span></span>
+<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         c</span></span>
+<span><span class="co">#&gt; R5327    0.809396    0.049874                K3         a</span></span>
+<span><span class="co">#&gt; R5979    0.107794    0.605473                K1         c</span></span>
+<span><span class="co">#&gt; R9504    0.998913    0.001077                K3         b</span></span>
 <span><span class="co">#&gt; R5994    0.034351    0.836377                K1         b</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $metabolome</span></span>
@@ -504,10 +509,10 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
 <span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R21      0.820691    0.171456                K3         a</span></span>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3         b</span></span>
 <span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         a</span></span>
 <span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         a</span></span>
-<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         b</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         c</span></span>
 <span><span class="co">#&gt; P4669    0.503471    0.107136                K3         a</span></span>
 <span><span class="co">#&gt; R5452    0.733992    0.000010                K3         c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -551,11 +556,11 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; R9504 R9504      F2   male    BRD          31           B1    0.000010</span></span>
 <span><span class="co">#&gt; R5994 R5994      F2   male    BRD          24           B1    0.129271</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         a</span></span>
-<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         b</span></span>
-<span><span class="co">#&gt; R5327    0.809396    0.049874                K3         c</span></span>
-<span><span class="co">#&gt; R5979    0.107794    0.605473                K1         a</span></span>
-<span><span class="co">#&gt; R9504    0.998913    0.001077                K3         c</span></span>
+<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         c</span></span>
+<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         c</span></span>
+<span><span class="co">#&gt; R5327    0.809396    0.049874                K3         a</span></span>
+<span><span class="co">#&gt; R5979    0.107794    0.605473                K1         c</span></span>
+<span><span class="co">#&gt; R9504    0.998913    0.001077                K3         b</span></span>
 <span><span class="co">#&gt; R5994    0.034351    0.836377                K1         b</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $metabolome</span></span>
@@ -567,10 +572,10 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
 <span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R21      0.820691    0.171456                K3         a</span></span>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3         b</span></span>
 <span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         a</span></span>
 <span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         a</span></span>
-<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         b</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         c</span></span>
 <span><span class="co">#&gt; P4669    0.503471    0.107136                K3         a</span></span>
 <span><span class="co">#&gt; R5452    0.733992    0.000010                K3         c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

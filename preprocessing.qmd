@@ -44,7 +44,7 @@ library(S4Vectors)
 library(stats4)
 ```
 
-In this chapter, we will show how to apply different transformations to the datasets, as well as how to run a PCA on each dataset and impute missing values if needed.
+Once each omics dataset has been imported into R with associated metadata and combined into a `MultiDataSet` object, there is a number of pre-processing steps that should be considered. In this chapter, we will show how to apply different transformations to the datasets, as well as how to run a PCA on each dataset and impute missing values if needed.
 
 As a reminder, here is what the `_targets.R` script should look like so far:
 

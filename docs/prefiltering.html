@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>The moiraine R package user manual - 7&nbsp; Dataset pre-filtering</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./preprocessing.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The moiraine R package user manual</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data preparation</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#subsetting-samples-of-interest" id="toc-subsetting-samples-of-interest" class="nav-link active" data-scroll-target="#subsetting-samples-of-interest"><span class="toc-section-number">7.1</span>  Subsetting samples of interest</a>
+  <ul class="collapse">
+<li><a href="#based-on-sample-ids" id="toc-based-on-sample-ids" class="nav-link" data-scroll-target="#based-on-sample-ids"><span class="toc-section-number">7.1.1</span>  Based on sample IDs</a></li>
+  <li><a href="#based-on-metadata" id="toc-based-on-metadata" class="nav-link" data-scroll-target="#based-on-metadata"><span class="toc-section-number">7.1.2</span>  Based on metadata</a></li>
+  <li><a href="#retaining-common-samples" id="toc-retaining-common-samples" class="nav-link" data-scroll-target="#retaining-common-samples"><span class="toc-section-number">7.1.3</span>  Retaining common samples</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#subsetting-features-of-interest" id="toc-subsetting-features-of-interest" class="nav-link" data-scroll-target="#subsetting-features-of-interest"><span class="toc-section-number">7.2</span>  Subsetting features of interest</a>
+  <ul class="collapse">
+<li><a href="#based-on-feature-ids" id="toc-based-on-feature-ids" class="nav-link" data-scroll-target="#based-on-feature-ids"><span class="toc-section-number">7.2.1</span>  Based on feature IDs</a></li>
+  <li><a href="#based-on-metadata-1" id="toc-based-on-metadata-1" class="nav-link" data-scroll-target="#based-on-metadata-1"><span class="toc-section-number">7.2.2</span>  Based on metadata</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#features-preselection" id="toc-features-preselection" class="nav-link" data-scroll-target="#features-preselection"><span class="toc-section-number">7.3</span>  Features preselection</a>
+  <ul class="collapse">
+<li><a href="#unsupervised-features-preselection" id="toc-unsupervised-features-preselection" class="nav-link" data-scroll-target="#unsupervised-features-preselection"><span class="toc-section-number">7.3.1</span>  Unsupervised features preselection</a></li>
+  <li><a href="#supervised-features-preselection" id="toc-supervised-features-preselection" class="nav-link" data-scroll-target="#supervised-features-preselection"><span class="toc-section-number">7.3.2</span>  Supervised features preselection</a></li>
+  </ul>
+</li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">7.4</span>  Recap – targets list</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-prefiltering" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">MultiDataSet</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## For working with lists</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once the datasets have been appropriately transformed, and missing values imputed if necessary, the next step is to perform some pre-filtering to reduce the dimensions of the datasets. This applies to samples (e.g.&nbsp;we want to focus the analysis on a subset of samples of interest) as well as features. Pre-filtering of features is of particular importance, as datasets with large number of features lead to increased computational time and potentially lower quality results during the integration process. Note that the goal of this pre-filtering step is not to retain only interesting features, but rather to discard the less relevant features so that the datasets have a manageable size for the downstream data integration tools.</p>
+<p>As a reminder, here is what the <code>_targets.R</code> script should look like so far:</p>
+<details><summary><code>_targets.R</code> script
+</summary><div class="cell">
+<div class="cell">
+
+</div>
+</div>
+</details><p>We will load the <code>MultiDataSet</code> object containing the transformed omics datasets with missing values imputed:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Number of samples and features in each omics dataset</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_samples.html">n_samples</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;        139        143        139</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_features.html">n_features</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;      23036      20335         55</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="subsetting-samples-of-interest" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="subsetting-samples-of-interest">
+<span class="header-section-number">7.1</span> Subsetting samples of interest</h2>
+<p>It is possible that for the integration analysis, we might want to retain only a subset of samples of interest; for example to focus on a specific phenotypic group. In this section, we will see a number of ways to subset samples of interest from a <code>MultiDataSet</code> object.</p>
+<section id="based-on-sample-ids" class="level3" data-number="7.1.1"><h3 data-number="7.1.1" class="anchored" data-anchor-id="based-on-sample-ids">
+<span class="header-section-number">7.1.1</span> Based on sample IDs</h3>
+<p>The <code>MultiDataSet</code> package allows to subset a <code>MultiDataSet</code> object based on a vector of sample IDs. For example, here we generate a list of 10 samples to which we would like to restrict the <code>MultiDataSet</code> object:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Randomly selecting 10 samples</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">47</span><span class="op">)</span></span>
+<span><span class="va">samples_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples.html">get_samples</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">samples_list</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "U5523" "R8953" "R21"   "G3594" "R107"  "O5245"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can restrict the <code>MultiDataSet</code> object to only these samples as follows:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mo_samples_filtered</span> <span class="op">&lt;-</span> <span class="va">mo_set_complete</span><span class="op">[</span><span class="va">samples_list</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_samples.html">n_samples</a></span><span class="op">(</span><span class="va">mo_samples_filtered</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;          9         10         10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>MultiDataSet</code> object returned only contains the 10 samples of interest. One of the selected samples was not present in the genomics dataset, which is why this dataset has only 9 samples.</p>
+</section><section id="based-on-metadata" class="level3" data-number="7.1.2"><h3 data-number="7.1.2" class="anchored" data-anchor-id="based-on-metadata">
+<span class="header-section-number">7.1.2</span> Based on metadata</h3>
+<p>Alternatively, we might want to select samples based on some information contained in the samples metadata associated with the omics datasets. Again, this option is implemented in the <code>MultiDataSet</code> package through the <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> function (see <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/MultiDataSet/inst/doc/MultiDataSet.html#advanced-subsetting">their vignette</a> for more information). For this example, we want to retain only animals from feedlot 1. This information is encoded in the <code>feedlot</code> column from the samples metadata of the datasets:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata_combined.html">get_samples_metadata_combined</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    144 obs. of  10 variables:</span></span>
+<span><span class="co">#&gt;  $ id               : chr  "R21" "Y3660" "Y3243" "R5764" ...</span></span>
+<span><span class="co">#&gt;  $ feedlot          : chr  "F1" "F1" "F1" "F2" ...</span></span>
+<span><span class="co">#&gt;  $ gender           : chr  "female" "male" "male" "male" ...</span></span>
+<span><span class="co">#&gt;  $ status           : chr  "Control" "Control" "Control" "Control" ...</span></span>
+<span><span class="co">#&gt;  $ day_on_feed      : num  31 19 16 46 35 49 21 16 37 37 ...</span></span>
+<span><span class="co">#&gt;  $ rnaseq_batch     : chr  "B2" "B2" "B2" "B1" ...</span></span>
+<span><span class="co">#&gt;  $ geno_comp_1      : num  0.00785 0.85222 0.04417 0.21309 0.38939 ...</span></span>
+<span><span class="co">#&gt;  $ geno_comp_2      : num  0.8207 0.0936 0.1903 0.6763 0.5035 ...</span></span>
+<span><span class="co">#&gt;  $ geno_comp_3      : num  0.1715 0.0542 0.7656 0.1106 0.1071 ...</span></span>
+<span><span class="co">#&gt;  $ geno_comp_cluster: chr  "K3" "K2" "K1" "K3" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the <code>subset</code> function, the first argument is the <code>MultiDataSet</code> object to subset, the second argument slot is for subsetting features based on their metadata (which we will see in the next section), and the third slot is for samples subsetting. We perform the subsetting by passing an expression, similar to what we would use with the <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> function, i.e.&nbsp;we treat the column name on which to perform the subsetting as a variable name.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mo_samples_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">mo_set_complete</span>, , <span class="va">feedlot</span> <span class="op">==</span> <span class="st">"F1"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_samples.html">n_samples</a></span><span class="op">(</span><span class="va">mo_samples_filtered</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;         22         23         23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>MultiDataSet</code> object returned contains only samples corresponding to animals from feedlot 1.</p>
+</section><section id="retaining-common-samples" class="level3" data-number="7.1.3"><h3 data-number="7.1.3" class="anchored" data-anchor-id="retaining-common-samples">
+<span class="header-section-number">7.1.3</span> Retaining common samples</h3>
+<p>Most data integration tools only accept samples that are present in all omics datasets. When that is the case, the <code>moiraine</code> package will automatically remove samples that are absent from some datasets when preparing the input data for the corresponding integration tool. However, for convenience, we show here how to restrict a <code>MultiDataSet</code> object to only samples that are common to all datasets.</p>
+<p>This is done through the <code><a href="https://rdrr.io/pkg/MultiDataSet/man/commonSamples.html">commonSamples()</a></code> function from the <code>MultiDataSet</code> package, which returns a filtered <code>MultiDataSet</code> object:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mo_samples_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MultiDataSet/man/commonSamples.html">commonSamples</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_samples.html">n_samples</a></span><span class="op">(</span><span class="va">mo_samples_filtered</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;        135        135        135</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The returned <code>MultiDataSet</code> object contains 135 samples which are present in all three omics datasets (which we can confirm with the Upset plot generated in <a href="inspecting_multidataset.html#sec-inspecting-multidataset-summary-plots"><span>Section&nbsp;4.3</span></a>).</p>
+</section></section><section id="subsetting-features-of-interest" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="subsetting-features-of-interest">
+<span class="header-section-number">7.2</span> Subsetting features of interest</h2>
+<section id="based-on-feature-ids" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="based-on-feature-ids">
+<span class="header-section-number">7.2.1</span> Based on feature IDs</h3>
+<p>As with samples, we might want to filter a <code>MultiDataSet</code> object to only specific features of interest. We will randomly select feature IDs from each omics dataset:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">36</span><span class="op">)</span></span>
+<span><span class="va">features_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features.html">get_features</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span>, size <span class="op">=</span> <span class="fl">5</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">features_list</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 3</span></span>
+<span><span class="co">#&gt;  $ snps      : chr [1:5] "BovineHD0600012019" "BovineHD1200015003" "BTB-01046082" "BovineHD2600010539" ...</span></span>
+<span><span class="co">#&gt;  $ rnaseq    : chr [1:5] "ENSBTAG00000002154" "ENSBTAG00000009915" "ENSBTAG00000052111" "ENSBTAG00000012274" ...</span></span>
+<span><span class="co">#&gt;  $ metabolome: chr [1:5] "HMDB00201" "HMDB00641" "HMDB00123" "HMDB00294" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> method implemented in the <code>MultiDataSet</code> package can be used to restrict the omics datasets to specific features based on a list of IDs. However, this only works by directly passing the features ID in the command, as follows:</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mo_features_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set_complete</span>, </span>
+<span>  <span class="va">feature_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"BovineHD0600012019"</span>, <span class="st">"ENSBTAG00000002154"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_features.html">n_features</a></span><span class="op">(</span><span class="va">mo_features_filtered</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;          1          1          0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>While passing a vector of feature IDs doesn’t work:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">features_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"BovineHD0600012019"</span>, <span class="st">"ENSBTAG00000002154"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">mo_set_complete</span>, <span class="va">feature_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">features_vec</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in .local(x, ...): feat expression could not be applied to any of the sets.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This type of subsetting is made possible with the <code><a href="https://rdrr.io/pkg/moiraine/man/subset_features.html">subset_features()</a></code> function in <code>moiraine</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mo_features_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/subset_features.html">subset_features</a></span><span class="op">(</span><span class="va">mo_set_complete</span>, <span class="va">features_vec</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_features.html">n_features</a></span><span class="op">(</span><span class="va">mo_features_filtered</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;          1          1          0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/subset_features.html">subset_features()</a></code> function accepts the features ID either as a vector, or as a list of vectors (typically one per dataset):</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mo_features_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/subset_features.html">subset_features</a></span><span class="op">(</span><span class="va">mo_set_complete</span>, <span class="va">features_list</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_features.html">n_features</a></span><span class="op">(</span><span class="va">mo_features_filtered</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;          5          5          5</span></span>
+<span></span>
+<span><span class="co">## Getting the selected IDs as a vector</span></span>
+<span><span class="va">features_vec</span> <span class="op">&lt;-</span> <span class="va">features_list</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">features_vec</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "BovineHD0600012019" "BovineHD1200015003" "BTB-01046082"      </span></span>
+<span><span class="co">#&gt; [4] "BovineHD2600010539" "BovineHD2600008282" "ENSBTAG00000002154"</span></span>
+<span></span>
+<span><span class="va">mo_features_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/subset_features.html">subset_features</a></span><span class="op">(</span><span class="va">mo_set_complete</span>, <span class="va">features_vec</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_features.html">n_features</a></span><span class="op">(</span><span class="va">mo_features_filtered</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;          5          5          5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="based-on-metadata-1" class="level3" data-number="7.2.2"><h3 data-number="7.2.2" class="anchored" data-anchor-id="based-on-metadata-1">
+<span class="header-section-number">7.2.2</span> Based on metadata</h3>
+<p>It is also possible to subset features based on their metadata. For that, we can use the <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> function from the MultiDataSet package, as we did for samples subsetting. For example, for the transcriptomics and metabolomics dataset, we have in the features metadata a column (<code>de_signif</code>) that recaps the results of a differential abundance analysis on the corresponding dataset. We could decide to select only the differentially abundant compounds from this dataset. Note that it only performs the filtering for datasets that have this column in their features metadata.</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mo_features_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">mo_set_complete</span>, <span class="va">de_signif</span> <span class="op">==</span> <span class="st">"DE"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in .local(x, ...): The following sets could not be filtered by feature</span></span>
+<span><span class="co">#&gt; id: snps</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_features.html">n_features</a></span><span class="op">(</span><span class="va">mo_features_filtered</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
+<span><span class="co">#&gt;      23036        111         30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="features-preselection" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="features-preselection">
+<span class="header-section-number">7.3</span> Features preselection</h2>
+<p>In the previous section, we saw how to restrict the <code>MultiDataSet</code> object to a set of features of interest. However, in a typical integration workflow, we instead want to reduce the dimensions of the omics datasets through a data-centric method that discards features least relevant to the biological problem of interest. Here, we present two approaches for features preselection: an unsupervised approach, which relies only on the omics measurements, and a supervised approach, which accounts for information we have about the samples. The choice between these two approaches will depend on the research question being investigated. Note that this preselection step is distinct from the data cleaning process that should be applied to each omics dataset, in which features with low expression or high missing values are removed. This ideally should be done before the multi-omics integration workflow constructed with <code>moiraine</code>, although it can be integrated in the analysis pipeline.</p>
+<section id="unsupervised-features-preselection" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="unsupervised-features-preselection">
+<span class="header-section-number">7.3.1</span> Unsupervised features preselection</h3>
+<p>In order to reduce the number of features in the omics datasets, one option is to only retain the most variable features from each dataset. We refer to this approach as unsupervised preselection, as it only relies on the omics measurements to discard irrelevant features. In the package, two metrics of feature variability are implemented: the <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> (COV), and the <a href="https://en.wikipedia.org/wiki/Median_absolute_deviation">Median Absolute Deviation</a> (MAD). Careful consideration is required when determining which of these metrics should be used to select the most variable features, as each has some drawbacks. In particular:</p>
+<ul>
+<li><p>Filtering based on COV will retain features that are only present in very few samples. This might be problematic for noisy datasets in which some features are technical artefacts, or if we are looking for biomarkers that are expressed across all observations.</p></li>
+<li><p>Filtering based on MAD will discard any feature that is absent in more than half of the observations. This might be problematic if for example we are comparing two groups with unbalanced size, and we are looking for group-specific biomarkers.</p></li>
+</ul>
+<p>Therefore, a first step of data cleaning to remove artefact features, as well as consideration of the biological research question, is needed before proceeding.</p>
+<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_cov_factory.html">feature_preselection_cov_factory()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_mad_factory.html">feature_preselection_mad_factory()</a></code> functions allow us to perform unsupervised COV- or MAD-based preselection for some or all datasets within a <code>MultiDataSet</code> object. It provides two options to set the desired size of the filtered datasets: we can either specify the number of features to retain in each dataset (via the <code>to_keep_ns</code> argument), or the proportion of features that should be kept in each dataset (via the <code>to_keep_props</code> argument). For example, let’s say that we want to retain 1,000 features with the highest MAD score in both the genomics and transcriptomics datasets (as the metabolomics dataset contains only 55 compounds, no preselection will be applied to it):</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_mad_factory.html">feature_preselection_mad_factory</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_samples_complete</span>,</span>
+<span>  to_keep_ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snps"</span> <span class="op">=</span> <span class="fl">1000</span>, <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
+<span>  with_ties <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  filtered_set_target_name <span class="op">=</span> <span class="st">"mo_presel_unsupervised"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>feature_preselection_mad_factory</code> works as follows:</p>
+<ul>
+<li>it creates a grouped tibble in which each row is one of the datasets to be filtered, with the number or proportion of features to retain. It is stored in the <code>mad_spec</code> target:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mad_spec</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 4</span></span>
+<span><span class="co">#&gt;   dsn      tkn wt    tar_group</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 snps    1000 TRUE          2</span></span>
+<span><span class="co">#&gt; 2 rnaseq  1000 TRUE          1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>it uses dynamic branching over the grouped tibble to extract each omics dataset as a matrix via the <code><a href="https://rdrr.io/pkg/moiraine/man/get_dataset_matrix.html">get_dataset_matrix()</a></code> function. The result of this target, called <code>mad_mat</code>, is a list where each element is a matrix of omics measurements. The names of this list are specific to the dynamic branching, but the name of the omics dataset to which each matrix belongs is stored in their <code>'dataset_name'</code> attribute:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mad_mat</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="va">mad_mat</span>, <span class="va">attr</span>, <span class="st">"dataset_name"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; mad_mat_e428ef62 mad_mat_d5a0e3cc </span></span>
+<span><span class="co">#&gt;         "rnaseq"           "snps"</span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">mad_mat</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $mad_mat_e428ef62</span></span>
+<span><span class="co">#&gt;                        R9497     R5969     R5327     R5979     R9504</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000005 10.357314 11.289047 12.070536 10.201227 10.251942</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000008  4.836495  4.937948  4.375764  4.986154  5.710581</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000009  3.486141  4.054636  4.983434  3.486141  3.486141</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000010 12.216690 11.937084 12.079359 11.383360 11.897780</span></span>
+<span><span class="co">#&gt; ENSBTAG00000000011  3.486141  4.054636  4.005139  3.979732  3.486141</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $mad_mat_d5a0e3cc</span></span>
+<span><span class="co">#&gt;                             R21 Y3660 Y3243 R5764 P4669</span></span>
+<span><span class="co">#&gt; 1_41768691                    1     0     2     2     1</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694    2     2     2     1     2</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242   0     1     0     2     0</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345   1     2     2     2     2</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846   2     2     1     2     2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>it uses dynamic branching over the list of matrices to perform the prefiltering for each dataset, by calling the <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_mad_matrix.html">select_features_mad_matrix()</a></code> function. The function computes the MAD coefficient of each feature, then selects the features with the highest absolute MAD values. The <code>with_ties</code> argument determines whether more features than requested by <code>to_keep_ns</code> or <code>to_keep_props</code> should be kept if several features at the limit of selection have identical MAD values. The <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_mad_matrix.html">select_features_mad_matrix()</a></code> function returns a tibble with the MAD coefficient of each feature in the dataset, as well as an indicator of whether the feature was retained or not. This is useful to produce some diagnostic plots, for example with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_mad.html">plot_feature_preselection_mad()</a></code> function. The results of the prefiltering are stored as a list in the target called <code>individual_mad_values</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">individual_mad_values</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="va">individual_mad_values</span>, <span class="va">attr</span>, <span class="st">"dataset_name"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; individual_mad_values_0bdea42a individual_mad_values_19c0eba7 </span></span>
+<span><span class="co">#&gt;                       "rnaseq"                         "snps"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">individual_mad_values</span>, <span class="va">head</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $individual_mad_values_0bdea42a</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span><span class="co">#&gt;   feature_id           mad selected</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;              &lt;dbl&gt; &lt;lgl&gt;   </span></span>
+<span><span class="co">#&gt; 1 ENSBTAG00000049569  3.55 TRUE    </span></span>
+<span><span class="co">#&gt; 2 ENSBTAG00000048835  3.53 TRUE    </span></span>
+<span><span class="co">#&gt; 3 ENSBTAG00000051412  3.48 TRUE    </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $individual_mad_values_19c0eba7</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span><span class="co">#&gt;   feature_id                    mad selected</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                       &lt;dbl&gt; &lt;lgl&gt;   </span></span>
+<span><span class="co">#&gt; 1 1_41768691                   1.48 TRUE    </span></span>
+<span><span class="co">#&gt; 2 10-27008241-A-C-rs42918694   1.48 TRUE    </span></span>
+<span><span class="co">#&gt; 3 10-37505419-T-C-rs136559242  1.48 TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>It creates a new <code>MultiDataSet</code> object in which the relevant datasets have been filtered to only contain the selected features, via <code><a href="https://rdrr.io/pkg/moiraine/man/get_filtered_dataset_variability.html">get_filtered_dataset_variability()</a></code>. By default, the target used to store this object is called <code>filtered_set_mad</code>, but this can be changed via the <code>filtered_set_target_name</code> argument (here we called it <code>mo_presel_unsupervised</code> instead).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_presel_unsupervised</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Object of class 'MultiDataSet'</span></span>
+<span><span class="co">#&gt;  . assayData: 3 elements</span></span>
+<span><span class="co">#&gt;     . snps: 12618 features, 139 samples </span></span>
+<span><span class="co">#&gt;     . rnaseq: 1000 features, 143 samples </span></span>
+<span><span class="co">#&gt;     . metabolome: 55 features, 139 samples </span></span>
+<span><span class="co">#&gt;  . featureData:</span></span>
+<span><span class="co">#&gt;     . snps: 12618 rows, 13 cols (feature_id, ..., p_value)</span></span>
+<span><span class="co">#&gt;     . rnaseq: 1000 rows, 15 cols (feature_id, ..., de_signif)</span></span>
+<span><span class="co">#&gt;     . metabolome: 55 rows, 16 cols (feature_id, ..., de_signif)</span></span>
+<span><span class="co">#&gt;  . rowRanges:</span></span>
+<span><span class="co">#&gt;     . snps: YES</span></span>
+<span><span class="co">#&gt;     . rnaseq: YES</span></span>
+<span><span class="co">#&gt;     . metabolome: NO</span></span>
+<span><span class="co">#&gt;  . phenoData:</span></span>
+<span><span class="co">#&gt;     . snps: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span>
+<span><span class="co">#&gt;     . rnaseq: 143 samples, 10 cols (id, ..., geno_comp_3)</span></span>
+<span><span class="co">#&gt;     . metabolome: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_mad.html">plot_feature_preselection_mad()</a></code> function can be used to visualise the distribution of MAD values across each (non-filtered) dataset and the minimum MAD value retained in the filtered datasets:</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_mad.html">plot_feature_preselection_mad</a></span><span class="op">(</span><span class="va">individual_mad_values</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="prefiltering_files/figure-html/plot-feature-preselection-mad-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>If we instead wanted to retain 50% of all features both the genomics and transcriptomics datasets, we would write:</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_mad_factory.html">feature_preselection_mad_factory</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_samples_complete</span>,</span>
+<span>  to_keep_props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">0.5</span>, <span class="st">"metabolome"</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>  with_ties <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  filtered_set_target_name <span class="op">=</span> <span class="st">"mo_presel_unsupervised"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that the <code><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_cov_factory.html">feature_preselection_cov_factory()</a></code> function works in exactly the same way, but calls the <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_cov_matrix.html">select_features_cov_matrix()</a></code> function, and the results can be visualised with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_cov.html">plot_feature_preselection_cov()</a></code> function.</p>
+<p>For convenience, the <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_mad.html">select_features_mad()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_cov.html">select_features_cov()</a></code> functions can be used to perform a MAD- or COV-based prefiltering on one of the omics datasets directly from a <code>MultiDataSet</code> object. These are wrappers around the <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_mad_matrix.html">select_features_mad_matrix()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_cov_matrix.html">select_features_cov_matrix()</a></code> functions, respectively, and take as input a <code>MultiDataSet</code> object as well as the name of the omics dataset on which the preselection should be run, as well as either the number or proportion of features to retain, e.g.:</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/select_features_mad.html">select_features_mad</a></span><span class="op">(</span><span class="va">mo_set_complete</span>, <span class="st">"rnaseq"</span>, to_keep_n <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/select_features_mad.html">select_features_mad</a></span><span class="op">(</span><span class="va">mo_set_complete</span>, <span class="st">"rnaseq"</span>, to_keep_prop <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="supervised-features-preselection" class="level3" data-number="7.3.2"><h3 data-number="7.3.2" class="anchored" data-anchor-id="supervised-features-preselection">
+<span class="header-section-number">7.3.2</span> Supervised features preselection</h3>
+<p>Another approach to features preselection can be preferred when we are trying to assess the features most relevant to an outcome of interest or to differences between sample groups. In this scenario, prior to integrating the datasets, it could be useful to reduce the size of the datasets by filtering out the features that are least associated with the outcome of interest. In this case, we can use some single-omics feature selection method to perform a first “crude” prefiltering.</p>
+<p><code>moiraine</code> relies on the sPLS-DA algorithm implemented in the <code>mixOmics</code> package for this. <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html">sparse Partial Least-Squares Discriminant Analysis</a> (or sPLS-DA for short) is a feature selection method that aims to detect, in a multivariate dataset, the variables or features that best discriminate a categorical outcome of interest in the observations. The advantages of sPLS-DA is that it can handle datasets in which there are more features than samples, which is typically the case in omics datasets. More information can be found in <span class="citation" data-cites="lêcao2011">Lê Cao, Boitard, and Besse (<a href="references.html#ref-l%C3%AAcao2011" role="doc-biblioref">2011</a>)</span> or in the <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html"><code>mixOmics</code> vignette</a>. By running an sPLS-DA analysis on each dataset separately, we can remove the features that are least informative with respect to the trait or outcome of interest. We refer to this approach as supervised preselection, as it relies on information about the samples to select the features of interest.</p>
+<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory()</a></code> function allows us to perform this supervised preselection for some or all datasets within a <code>MultiDataSet</code> object. It provides the option to set either the number or proportion of features to retain in each dataset, via the <code>to_keep_ns</code> and <code>to_keep_props</code> arguments. One additional argument that needs to be passed to the function is <code>group</code>, which gives the name of the column in the samples metadata information to be used as categorical outcome for the sPLS-DA run. This column must be present in the sample metadata of at least one of the datasets to be filtered. For this example, we will retain in each dataset 1,000 features that best discriminate the control and diseased animals. Warning: this function can take several minutes to run.</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_samples_complete</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"status"</span>,</span>
+<span>  to_keep_ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snps"</span> <span class="op">=</span> <span class="fl">1000</span>, <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
+<span>  filtered_set_target_name <span class="op">=</span> <span class="st">"mo_presel_supervised"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The function works as follows:</p>
+<ul>
+<li>it creates a grouped tibble in which each row is one of the datasets to be filtered, with the number or proportion of features to retain. It is stored in the <code>splda_spec</code> target:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">splsda_spec</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span><span class="co">#&gt;   dsn      tkn tar_group</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dbl&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 snps    1000         2</span></span>
+<span><span class="co">#&gt; 2 rnaseq  1000         1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>it uses dynamic branching over the grouped tibble to generate for each omics dataset the necessary input for the <code>mixOmics</code> package, via the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_splsda.html">get_input_splsda()</a></code> function. The result, stored in the <code>individual_splsda_input</code> target, is a list of sPLS-DA inputs, i.e.&nbsp;a list itself containing the omics dataset as a matrix (with samples as rows and features as columns) and a vector indicating the grouping of the samples:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">individual_splsda_input</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">individual_splsda_input</span>, <span class="va">names</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $individual_splsda_input_a82e0f4d</span></span>
+<span><span class="co">#&gt; [1] "rnaseq" "Y"     </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $individual_splsda_input_de775b91</span></span>
+<span><span class="co">#&gt; [1] "snps" "Y"</span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">individual_splsda_input</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="st">"Y"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $individual_splsda_input_a82e0f4d</span></span>
+<span><span class="co">#&gt; R9497 R5969 R5327 R5979 R9504 R5994 </span></span>
+<span><span class="co">#&gt;   BRD   BRD   BRD   BRD   BRD   BRD </span></span>
+<span><span class="co">#&gt; Levels: BRD Control</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $individual_splsda_input_de775b91</span></span>
+<span><span class="co">#&gt;     R21   Y3660   Y3243   R5764   P4669   R5452 </span></span>
+<span><span class="co">#&gt; Control Control Control Control     BRD Control </span></span>
+<span><span class="co">#&gt; Levels: BRD Control</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>it uses dynamic branching to run a performance cross-validation analysis on each dataset, via the function <code><a href="https://rdrr.io/pkg/moiraine/man/perf_splsda.html">perf_splsda()</a></code> (which is essentially a wrapper for the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function). This cross-validation step selects the optimal number of components to compute for each dataset during the sPLS-DA analysis. The results of this cross-validation step are saved in a list, stored in the <code>individual_splsda_perf</code> target. It can take a bit of time (for this example, around 6 minutes per dataset).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span>, <span class="va">attr</span>, <span class="st">"dataset_name"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; individual_splsda_perf_68d22d74 individual_splsda_perf_746586a5 </span></span>
+<span><span class="co">#&gt;                        "rnaseq"                          "snps"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The cross-validation results be visualised with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_splsda.html">plot_feature_preselection_splsda()</a></code> function, in which the chosen value for the number of components to compute for each dataset is highlighted in grey:</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_splsda.html">plot_feature_preselection_splsda</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="prefiltering_files/figure-html/plot-feature-preselection-splsda-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<ul>
+<li>it uses dynamic branching to run sPLS-DA on each dataset, via the <code><a href="https://rdrr.io/pkg/moiraine/man/run_splsda.html">run_splsda()</a></code> function. The results are stored as a list in the <code>individual_splsda_run</code> target.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">individual_splsda_run</span><span class="op">)</span>, <span class="va">attr</span>, <span class="st">"dataset_name"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; individual_splsda_run_fe6f99fe individual_splsda_run_4a7ecf19 </span></span>
+<span><span class="co">#&gt;                       "rnaseq"                         "snps"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>it creates a new <code>MultiDataSet</code> object in which the relevant datasets have been filtered to only contain the selected features. By default, the target used to store this object is called <code>filtered_set_mad</code>, but this can be changed via the <code>filtered_set_target_name</code> argument.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_presel_supervised</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Object of class 'MultiDataSet'</span></span>
+<span><span class="co">#&gt;  . assayData: 3 elements</span></span>
+<span><span class="co">#&gt;     . snps: 1000 features, 139 samples </span></span>
+<span><span class="co">#&gt;     . rnaseq: 994 features, 143 samples </span></span>
+<span><span class="co">#&gt;     . metabolome: 55 features, 139 samples </span></span>
+<span><span class="co">#&gt;  . featureData:</span></span>
+<span><span class="co">#&gt;     . snps: 1000 rows, 13 cols (feature_id, ..., p_value)</span></span>
+<span><span class="co">#&gt;     . rnaseq: 994 rows, 15 cols (feature_id, ..., de_signif)</span></span>
+<span><span class="co">#&gt;     . metabolome: 55 rows, 16 cols (feature_id, ..., de_signif)</span></span>
+<span><span class="co">#&gt;  . rowRanges:</span></span>
+<span><span class="co">#&gt;     . snps: YES</span></span>
+<span><span class="co">#&gt;     . rnaseq: YES</span></span>
+<span><span class="co">#&gt;     . metabolome: NO</span></span>
+<span><span class="co">#&gt;  . phenoData:</span></span>
+<span><span class="co">#&gt;     . snps: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span>
+<span><span class="co">#&gt;     . rnaseq: 143 samples, 10 cols (id, ..., geno_comp_3)</span></span>
+<span><span class="co">#&gt;     . metabolome: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can notice that with this approach, we are not guaranteed to retain exactly 1,000 features per dataset. This is because, in an sPLS-DA run, a same feature can be selected for more than one latent component, and so the number of features retained will be slightly smaller than the one requested.</p>
+</section></section><section id="recap-targets-list" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">7.4</span> Recap – targets list</h2>
+<p>For convenience, here is the list of targets that we created in this section:</p>
+<details><summary>
+Targets list for datasets prefiltering
+</summary><div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="co">## Unsupervised feature selection based on MAD score</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_mad_factory.html">feature_preselection_mad_factory</a></span><span class="op">(</span></span>
+<span>    <span class="va">mo_set_complete</span>,</span>
+<span>    to_keep_ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snps"</span> <span class="op">=</span> <span class="fl">1000</span>, <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
+<span>    with_ties <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    filtered_set_target_name <span class="op">=</span> <span class="st">"mo_presel_unsupervised"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Diagnostic plot for MAD-based feature selection</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">preselection_mad_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_mad.html">plot_feature_preselection_mad</a></span><span class="op">(</span><span class="va">individual_mad_values</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Supervised feature selection based on bruising groups</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory</a></span><span class="op">(</span></span>
+<span>    <span class="va">mo_set_complete</span>,</span>
+<span>    group <span class="op">=</span> <span class="st">"status"</span>,</span>
+<span>    to_keep_ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snps"</span> <span class="op">=</span> <span class="fl">1000</span>, <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
+<span>    filtered_set_target_name <span class="op">=</span> <span class="st">"mo_presel_supervised"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Diagnostic plot for sPLS-DA based feature selection</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">preselection_splsda_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_splsda.html">plot_feature_preselection_splsda</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-lêcao2011" class="csl-entry" role="doc-biblioentry">
+Lê Cao, Kim-Anh, Simon Boitard, and Philippe Besse. 2011. <span>“Sparse PLS Discriminant Analysis: Biologically Relevant Feature Selection and Graphical Displays for Multiclass Problems.”</span> <em>BMC Bioinformatics</em> 12 (1): 253. <a href="https://doi.org/10.1186/1471-2105-12-253">https://doi.org/10.1186/1471-2105-12-253</a>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./preprocessing.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
