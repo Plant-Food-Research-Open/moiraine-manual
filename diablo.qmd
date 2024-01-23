@@ -1,0 +1,547 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# Data integration with DIABLO {#sec-diablo}
+
+```{r}
+#| child: "_setup.qmd"
+```
+
+```{r loading-packages}
+#| include: false
+
+library(targets)
+library(moiraine)
+library(mixOmics)
+library(purrr)
+library(dplyr)
+```
+
+```{r setup-visible}
+#| eval: false
+
+library(targets)
+library(moiraine)
+
+## For integration with DIABLO
+library(mixOmics)
+
+## For working with lists
+library(purrr)
+
+## For data-frames manipulation
+library(dplyr)
+```
+
+Now that the omics datasets have been appropriately pre-processed and pre-filtered, we are ready to perform the actual data integration step. In this chapter, we will show how to perform multi-omics data integration with the [DIABLO](https://mixomicsteam.github.io/mixOmics-Vignette/id_06.html) method from the [`mixOmics`](http://mixomics.org/) package.
+
+As a reminder, here is what the `_targets.R` script should look like so far:
+
+<details>
+  <summary>`_targets.R` script</summary>
+
+```{file targets-script}
+```
+</details>
+
+
+
+## What is DIABLO?
+
+DIABLO (for Data Integration Analysis for Biomarker discovery using Latent Components) is a multivariate approach to perform supervised data integration. Given two or more omics datasets for which measurements are taken on the same samples, DIABLO aims at selecting correlated features across the datasets that best discriminate between the different sample groups for a categorical outcome of interest.
+
+DIABLO works by iteratively constructing linear combinations of the features, called latent components, which maximise the correlation between the datasets and with the categorical outcome. In order to perform feature selection, the latent components are subjected to $L1$-regularisation (or LASSO), i.e. the number of features included in the linear combination is constrained by the user. Moreover, the optimisation problem is weighted to allow the user to control the balance between maximising the correlation between omics datasets and discriminating between the outcome groups of interest.
+
+DIABLO requires as input the matrices of omics measurements, all with the same samples, as well as a factor variable indicating the outcome group for each sample. While the omics datasets are automatically centred and scaled by DIABLO, proper preprocessing and normalisation is assumed to be carried out by the user. Although the DIABLO algorithm can handle the presence of missing features, it will prohibit the use of cross-validation. It is thus recommended to perform data imputation prior to running a DIABLO analysis. Importantly, DIABLO tends to perform better when the number of features in the datasets is not too large. Therefore, it is highly recommended to perform some prefiltering prior to using DIABLO.
+
+## Creating the DIABLO input
+
+The first step is to transform the `MultiDataSet` object into a suitable format for the `mixOmics` package. This is done with the `get_input_mixomics_supervised()` function, which takes as input:
+
+-   a `MultiDataSet` object,
+
+-   the name of the column in the samples metadata table that corresponds to the categorical outcome of interest,
+
+-   optionally, the names of the datasets to include in the analysis. This is useful if we want to exclude one of more datasets from the analysis.
+
+In our case, we want to find differences between the healthy and diseased animals. We will use the multi-omics datasets that have gone through supervised prefiltering (i.e. we discarded the features least related with the disease status, as seen in @sec-prefiltering).
+
+```{targets diablo-input}
+tar_target(
+  diablo_input,
+  get_input_mixomics_supervised(
+    mo_presel_supervised,
+    group = "status"
+  )
+)
+```
+
+Importantly, the `get_input_mixomics_supervised()` function only retains samples that are present in all omics datasets to be analysed. It also makes sure that the column provided as categorical outcome does not contain numerical values, as DIABLO can only handle categorical outcome. If the column contains integers, they will be considered as levels of a factor.
+
+The result of the function is a named list with one element per dataset to integrate, plus a `Y` element that contains the categorical outcome. The omics datasets are stored as matrices with samples as rows and features as columns; the categorical outcome is a named factor vector.
+
+```{r show-diablo-input}
+tar_load(diablo_input)
+str(diablo_input)
+```
+
+## Constructing the design matrix
+
+DIABLO relies on a design matrix to balance its two optimisation objectives: maximising the covariance between the omics datasets, and maximising the discrimination between the outcome categories. The design matrix is a matrix with one row and one column per dataset, plus a row and a column for the `"Y"` dataset, i.e. the categorical outcome. The values within each cell of the matrix indicate the ratio between the two objectives for this combination of dataset. A value of 0 means that we want to prioritise outcome discrimination, while a value of 1 indicates that we want to prioritise maximising the covariance between the two corresponding datasets. All values must be between 0 and 1.
+
+There are two options for constructing the design matrix, which we present below.
+
+### Predefined design matrices
+
+A first option is to choose a strategy based on what we are trying to obtain from the integration:
+
+-   if we want to strike a balance between the two objectives (recommended option), we'll constructed a "weighted full" design matrix that looks like this:
+
+```{r make-weighted-full-design-matrix}
+diablo_predefined_design_matrix(names(diablo_input), "weighted_full")
+```
+
+-   if we want to maximise the discrimination between the outcome categories, we'll construct a "null" design matrix that looks like this:
+
+```{r make-null-design-matrix}
+diablo_predefined_design_matrix(names(diablo_input), "null")
+```
+
+-   if we want only to maximise the covariance between the datasets, we'll construct a "full" design matrix that looks like this:
+
+```{r make-full-design-matrix}
+diablo_predefined_design_matrix(names(diablo_input), "full")
+```
+
+We will show how to use these pre-defined design matrices when running DIABLO.
+
+### Estimating the design matrix through pairwise PLS
+
+Alternatively, we can let the data guide the construction of the design matrix. This is achieved by assessing the correlation between each pair of datasets, through a [PLS](https://mixomicsteam.github.io/Bookdown/pls.html) (Projection to Latent Structures) run. More specifically, the correlation between the datasets is computed as the correlation coefficient between the first component constructed for each dataset during the PLS run. Then, based on the correlation obtained between a pair of dataset, we can decide on a value to use for the design matrix. Typically, the following thresholds are recommended by the authors of the mixOmics package:
+
+-   correlation coefficient of 0.8 or above between two datasets: assign a value of 1 in the corresponding cell of the design matrix;
+
+-   correlation coefficient below 0.8: assign a value of 0.1 in the corresponding cell of the design matrix.
+
+The `diablo_pairwise_pls_factory()` function automates this process. It takes as input the DIABLO input object that we constructed previously:
+
+```{targets diablo-pairwise-pls-factory}
+diablo_pairwise_pls_factory(diablo_input)
+```
+
+The function works as follows:
+
+-   It creates a list of all possible pairs of datasets, which is stored in the `diablo_pairs_datasets` target:
+
+```{r print-diablo-pairs-datasets}
+tar_read(diablo_pairs_datasets)
+```
+
+-   It uses dynamic branching to perform a PLS run on each pair of datasets, via the `run_pairwise_pls()` function. The results are stored as a list in the `diablo_pls_runs_list` target. Each element of the list has a `datasets_name` attribute to indicate which datasets were analysed:
+
+```{r print-diablo-pls-runs-list}
+map(tar_read(diablo_pls_runs_list), attr, "datasets_name")
+```
+
+-   It constructs the estimated correlation matrix between the datasets, based on the results of the PLS runs, via the `diablo_get_pairwise_pls_corr()` function. The resulting matrix is available through the `diablo_pls_correlation_matrix` target:
+
+```{r print-diablo-pls-correlation-matrix}
+tar_read(diablo_pls_correlation_matrix)
+```
+
+-   It constructs the design matrix according to the datasets correlation matrix, through the `diablo_generate_design_matrix()` function. This function has parameters to customise how the correlation matrix should be translated into a design matrix, notably by setting the threshold to use on the correlation coefficients (default is 0.8, as recommended). These arguments can be customised in the `diablo_pairwise_pls_factory()` function. The resulting design function is stored in the target `diablo_design_matrix`:
+
+```{r print-diablo-design-matrix}
+tar_read(diablo_design_matrix)
+```
+
+## Choosing the number of latent components
+
+One important parameter that must be set when performing a DIABLO analysis is the number of latent components to construct for each dataset. The optimal number of components can be estimated by cross-validation, implemented in the `mixOmics::perf()` function. This function assesses the classification performance (i.e. how well the different outcome groups are separated) achieved by DIABLO for different numbers of latent components.
+
+Choosing the optimal number of latent components to construct is a multi-step process. The first step is to run DIABLO without feature selection, setting the number of latent components to the maximum value we wish to test. We recommend to set this to the number of groups in the categorical outcome + 2, which in our case equals 4; however this can be further refined after checking the results. For this example, we will set the maximum to 7. The function also requires as input the design matrix to be used; here we will use the one constructed from the PLS runs:
+
+```{targets diablo-novarsel}
+tar_target(
+  diablo_novarsel,
+  diablo_run(
+    diablo_input, 
+    diablo_design_matrix, 
+    ncomp = 7
+  )
+)
+```
+
+Alternatively, if we want to use one of the predefined design matrices, we can pass on one of `'null'`, `'weighted_full'` or `'full'` instead of the computed `diablo_design_matrix`, e.g.:
+
+```{targets diablo-novarsel-predefined-design-mat}
+tar_target(
+  diablo_novarsel,
+  diablo_run(
+    diablo_input, 
+    "weighted_full", 
+    ncomp = 7
+  )
+)
+```
+
+Then, we call the `mixOmics::perf()` function on the result of this first DIABLO run. There are a number of parameters to set:
+
+-   `validation`: the type of cross-validation to perform, M-fold (`"Mfold"`) or leave-one-out (`"loo"`). We recommend to use M-fold validation, except when the number of samples is very small.
+
+-   `folds`: for M-fold cross-validation, the number of folds to construct, i.e. the number of groups in which to split the samples. Each group in turn will be considered as test set while the remaining groups will be considered the training set. The value to use depends on the number of samples in the datasets. By default, 10 is a reasonable number. For leave-one-out cross-validation, this parameter is set to the number of samples (that is the principle of leave-one-out cross-validation).
+
+-   `nrepeat`: the number of times the cross-validation will be repeated. This is important for M-fold cross-validation, as the way the samples are split into groups affects the results. Therefore, by repeating the cross-validation scheme we're averaging the results over different splits, thus reducing the impact of samples splitting. We recommend at least 10 repeats. Irrelevant for leave-one-out cross-validation, so can be left to 1.
+
+-   `cpus`: number of CPUs to use for the computation. Useful if `folds` $\times$ `repeats` is large, as this can be computationally intensive.
+
+Here we'll perform a 10-fold cross validation with 10 repeats.
+
+```{targets diablo-perf-res}
+tar_target(
+  diablo_perf_res,
+  mixOmics::perf(
+    diablo_novarsel,
+    validation = "Mfold",
+    folds = 10,
+    nrepeat = 10,
+    cpus = 3
+  )
+)
+```
+
+We can visualise the results of the cross-validation with the `diablo_plot_perf()` function:
+
+```{r plot-diablo-perf-res}
+tar_load(diablo_perf_res)
+diablo_plot_perf(diablo_perf_res)
+```
+
+The plot displays the cross-validation results computed with several different distances and error rates:
+
+-   Distance: this refers to the prediction distance that is used to predict the samples group in the test set, based on the samples grouping in the training set. DIABLO tests the maximum, centroids and Mahalanobis distance. The authors of the package recommend using either the centroids or the Mahalanobis distance over the maximum distance when choosing the optimal number of components.
+
+-   Error rate: this refers to the method by which the performance of the produced model is computed. DIABLO uses both the overall misclassification error rate and the balanced error rate. The authors recommend the latter, as it is is less biased towards the majority group when there is an unbalanced number of samples per group.
+
+The function `diablo_get_optim_ncomp()` extracts from the cross-validation results the optimal number of components to compute, given a chosen distance and error rate. The authors of the package recommend to use the results obtained with the centroids distance and the balanced error rate; these are used by default by the `diablo_get_optim_ncomp()` function. In our example, the optimal number of components is:
+
+```{r diablo-get-optim-ncomp}
+diablo_get_optim_ncomp(diablo_perf_res)
+```
+
+For ease of reuse we will save this value as a target in our analysis pipeline:
+
+```{targets diablo-optim-ncomp}
+tar_target(
+  diablo_optim_ncomp,
+  diablo_get_optim_ncomp(diablo_perf_res)
+)
+```
+
+
+## Choosing the number of features to retain
+
+The next parameter to set is the number of features to retain from the different datasets for each latent component. This is usually chosen by performing cross-validation on a grid of possible values. The range of values to test depends on the type of question we are trying to answer: selecting a larger number of features might lead to a better discrimination of the outcome groups, but will be hard to manually inspect for further interpretation.
+
+The function `diablo_tune()` provides a wrapper around the `mixOmics::tune()` function that performs this cross-validation. Some of the arguments are similar to the `mixOmics::perf()` function, e.g. `validation`, `folds`, `nrepeats` or `cpus`. In addition, we recommend setting the `dist` argument, which corresponds to the prediction distance metric used for performance assessment, to `"centroids.dist"` (or `"mahalanobis.dist"`).
+
+The `keepX_list` argument controls the grid of values to be tested as possible number of features to retain from each dataset. It should be in the form of a named list, with one element per dataset, and where each element is a vector of integers corresponding to the values to test. The names of the list should correspond to the names of the datasets in the `MultiDataSet` object. If no value is provided for `keepX_list`, six values ranging from 5 to 30 (by increments of 5) are tested for each dataset.
+
+```{targets diablo-tune-res}
+tar_target(
+  diablo_tune_res,
+  diablo_tune(
+    diablo_input,
+    diablo_design_matrix,
+    ncomp = diablo_optim_ncomp,
+    validation = "Mfold",
+    folds = 10,
+    nrepeat = 5,
+    dist = "centroids.dist",
+    cpus = 3
+  )
+)
+```
+
+This step can be very time-consuming, especially if the grid of values to test is very large. For this example, it takes around 50 minutes to run.
+
+The cross-validation results can be inspected with the `diablo_plot_tune()` function:
+
+```{r diablo-plot-tune}
+#| fig.height: 11
+
+tar_load(diablo_tune_res)
+diablo_plot_tune(diablo_tune_res)
+```
+
+The visualisation shows the performance of DIABLO runs with different number of features retained from each dataset. The different runs are ordered according to their performance. Here, we can see for example that it seems preferable to retain more genes and less metabolites for component 1.
+
+The optimal number of features to retain from each dataset for the different latent components is stored in the cross-validation results object, and can be accessed with:
+
+```{r print-choice-keepX-diablo-tune-res}
+diablo_tune_res$choice.keepX
+```
+
+For reporting purposes, the `diablo_table_optim_keepX()` function displays the optimal `keepX` values in a table format:
+
+```{r diablo-table-optim-keepX}
+diablo_table_optim_keepX(diablo_tune_res)
+```
+
+## Final DIABLO run
+
+Once a value has been selected for all parameters, it is time to perform the final DIABLO run. This can be done through the `diablo_run()` function, which is a wrapper for the `mixOmics::block.splsda()` function.
+
+```{targets diablo-final-run}
+tar_target(
+  diablo_final_run,
+  diablo_run(
+    diablo_input,
+    diablo_design_matrix,
+    ncomp = diablo_optim_ncomp,
+    keepX = diablo_tune_res$choice.keepX
+  )
+)
+```
+
+```{r load-diablo-final-run}
+tar_load(diablo_final_run)
+```
+
+## Results interpretation
+
+In @sec-interpretation, we show the different functionalities implemented in the `moiraine` package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the DIABLO-specific plots that can be generated to help interpret the results of a DIABLO run.
+
+### Correlation between datasets
+
+First, we can assess how well the latent components correlate across the datasets. The `diablo_plot()` function is adapted from the `mixOmics::plotDiablo()` function, and displays, for a given latent component (specified with the `ncomp` argument), the correlation between the samples coordinates for this latent component across the datasets. Additionally, it allows to assess how well the latent components discriminate the outcome groups in each dataset.
+
+```{r diablo-plot}
+#| fig.height = 8
+
+n_comp <- diablo_get_optim_ncomp(diablo_perf_res)
+walk(
+  seq_len(n_comp), 
+  \(x) {
+    diablo_plot(diablo_final_run, ncomp = x)
+    title(paste("Latent component", x))
+  }
+)
+```
+
+For the first three latent components, the strongest correlation is observed between the transcriptomics and metabolomics components, while the lowest correlation is observed between the genomics and metabolomics components. Across all three datasets, the first latent component alone is able to separate quite clearly the control and diseased animals. Note that as each latent component maximises the correlation between the datasets, these plots inform us about co-variation across the datasets.
+
+### Samples projection to the latent component space
+
+We can also represent the samples in the subspace spanned by the latent components for each dataset, using the `mixOmics::plotIndiv()` function. For example, we can have a look at the samples coordinates for the first two latent components:
+
+```{r diablo-plotIndiv}
+#| fig.height: 7
+
+plotIndiv(
+  diablo_final_run,
+  comp = 1:2,
+  ind.names = FALSE,
+  legend = TRUE,
+  legend.title = "Disease status"
+)
+```
+
+As noted above, based on the first two latent components, there is a clear separation of the control and BRD animals across all three datasets.
+
+Ideally, we would look at all possible combinations of latent components, as follows:
+
+```{r diablo-plotIndiv-all}
+#| eval: false
+
+walk(
+  combn(seq_len(n_comp), 2, simplify = FALSE),
+  \(x) {
+    plotIndiv(
+      diablo_final_run,
+      comp = x,
+      ind.names = FALSE,
+      legend = TRUE,
+      legend.title = "Phenotype group"
+    )
+  } 
+)
+```
+
+
+### Correlation circle plots
+
+The correlation circle plots produced by the `mixOmics::plotVar()` function displays the contribution of the selected features to the different latent components. We will focus here on the first two latent components:
+
+```{r diablo-plotVar}
+#| fig.height: 8.5
+
+plotVar(
+  diablo_final_run,
+  comp = 1:2,
+  var.names = FALSE,
+  ## If overlap = TRUE, features from the
+  ## different datasets are shown in one plot
+  overlap = FALSE,
+  pch = rep(16, 3),
+  cex = rep(2, 3)
+)
+```
+
+Across all three datasets, it seems that most selected features contribute to either one or the other latent component, but not both.
+
+The `plotVar()` function offers the option to show the label of the features rather than representing them as points. However, it can be more informative to use information from the feature metadata as labels, rather than using the feature IDs. For example in the transcriptomics dataset, it would be more interesting to use the name of the genes. This information is available in the datasets' features metadata:
+
+```{r show-rnaseq-fmetadata}
+tar_load(mo_set_de)
+get_features_metadata(mo_set_de)[["rnaseq"]] |>
+  str()
+```
+
+The `diablo_plot_var()` function is a variant of `plotVar()`, which uses columns from the features metadata to label features plot. It takes as an input the DIABLO result object as well as the `MultiDataSet` object, and a named list providing for each dataset the name of the column in the feature metadata data-frame to use as features label:
+
+```{r diablo-plot-var}
+#| fig.height = 8.5
+
+diablo_plot_var(
+  diablo_final_run,
+  mo_set_de,
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  ),
+  overlap = FALSE,
+  cex = rep(2, 3),
+  comp = 1:2
+)
+```
+
+Note that if a dataset is not present in the list passed to `label_cols` (here, that is the case of the genomics dataset), the feature IDs will be used as labels.
+
+
+### Circos plot
+
+Lastly, it is possible to represent the correlation between features selected from different datasets, with the `mixOmics::circosPlot()` function. For ease of visualisation, it only displays correlations above a certain threshold (specified via the `cutoff` argument). By default, it displays the features selected for all latent components, but this can be controlled via the `comp` argument:
+
+```{r diablo-circosPlot}
+#| fig.height = 8
+
+circosPlot(
+  diablo_final_run,
+  cutoff = 0.7,
+  size.variables = 0.5,
+  comp = 1:2
+)
+```
+
+As for the correlation circle plot function, the `diablo_plot_circos()` function generates the same plot, but allows us to use columns in the feature metadata of each dataset as feature labels:
+
+```{r diablo-plot-circos}
+#| fig.height = 8
+
+diablo_plot_circos(
+  diablo_final_run,
+  tar_read(mo_set),
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  ),
+  cutoff = 0.7,
+  size.variables = 0.5,
+  comp = 1:2
+)
+```
+
+This plot is useful to identify features across the datasets with high correlations.
+
+## Recap -- targets list
+
+For convenience, here is the list of targets that we created in this section:
+
+<details>
+  <summary>Targets list for DIABLO analysis</summary>
+  
+```{targets recap-targets-list}
+list(
+  ## Creating the DIABLO input
+  tar_target(
+    diablo_input,
+    get_input_mixomics_supervised(
+      mo_presel_supervised,
+      group = "status"
+    )
+  ),
+  
+  ## Running sPLS on each dataset to construct the design matrix
+  diablo_pairwise_pls_factory(diablo_input),
+  
+  ## Initial DIABLO run with no feature selection and large number of components
+  tar_target(
+    diablo_novarsel,
+    diablo_run(
+      diablo_input,
+      diablo_design_matrix,
+      ncomp = 7
+    )
+  ),
+  
+  ## Cross-validation for number of components
+  tar_target(
+    diablo_perf_res,
+    mixOmics::perf(
+      diablo_novarsel,
+      validation = "Mfold",
+      folds = 10,
+      nrepeat = 10,
+      cpus = 3
+    )
+  ),
+  
+  ## Plotting cross-validation results (for number of components)
+  tar_target(
+    diablo_perf_plot,
+    diablo_plot_perf(diablo_perf_res)
+  ),
+  
+  ## Selected value for ncomp
+  tar_target(
+    diablo_optim_ncomp,
+    diablo_get_optim_ncomp(diablo_perf_res)
+  ),
+  
+  ## Cross-validation for number of features to retain
+  tar_target(
+    diablo_tune_res,
+    diablo_tune(
+      diablo_input,
+      diablo_design_matrix,
+      ncomp = diablo_optim_ncomp,
+      validation = "Mfold",
+      folds = 10,
+      nrepeat = 5,
+      dist = "centroids.dist",
+      cpus = 3
+    )
+  ),
+  
+  ## Plotting cross-validation results (for number of features)
+  tar_target(
+    diablo_tune_plot,
+    diablo_plot_tune(diablo_tune_res)
+  ),
+  
+  ## Final DIABLO run
+  tar_target(
+    diablo_final_run,
+    diablo_run(
+      diablo_input,
+      diablo_design_matrix,
+      ncomp = diablo_optim_ncomp,
+      keepX = diablo_tune_res$choice.keepX
+    )
+  )
+)
+```
+</details>

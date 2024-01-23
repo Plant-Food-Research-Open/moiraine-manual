@@ -101,6 +101,11 @@ list(
     )
 
   ),
+
+  ##===================================##
+  ## Adding information about features ----
+  ##===================================##
+
   ## RNAseq differential expression results file
   tar_target(
     rnaseq_de_res_file,
@@ -125,6 +130,10 @@ list(
     add_features_metadata(mo_set, rnaseq_de_res_df)
   ),
 
+  ##=========================##
+  ## Datasets transformation ----
+  ##=========================##
+
   ## Applying transformations to the datasets
   transformation_datasets_factory(
     mo_set_de,
@@ -137,11 +146,21 @@ list(
     transformed_data_name = "mo_set_transformed"
   ),
 
+
+  ##============================================##
+  ## Individual PCA and missing data imputation ----
+  ##============================================##
+
   ## Running a PCA on each dataset
   pca_complete_data_factory(
     mo_set_transformed,
     complete_data_name = "mo_set_complete"
   ),
+
+
+  ##===============##
+  ## Pre-filtering ----
+  ##===============##
 
   ## Unsupervised feature selection based on MAD score
   feature_preselection_mad_factory(
@@ -157,6 +176,103 @@ list(
     group = "status",
     to_keep_ns = c("snps" = 1000, "rnaseq" = 1000),
     filtered_set_target_name = "mo_presel_supervised"
-  )
+  ),
 
+  ##=================##
+  ## DIABLO pipeline ----
+  ##=================##
+
+  ## Creating the DIABLO input
+  tar_target(
+    diablo_input,
+    get_input_mixomics_supervised(
+      mo_presel_supervised,
+      group = "status"
+    )
+  ),
+
+  ## Running sPLS on each dataset to construct the design matrix
+  diablo_pairwise_pls_factory(diablo_input),
+
+  ## Initial DIABLO run with no feature selection and large number of components
+  tar_target(
+    diablo_novarsel,
+    diablo_run(
+      diablo_input,
+      diablo_design_matrix,
+      ncomp = 7
+    )
+  ),
+
+  ## Cross-validation for number of components
+  tar_target(
+    diablo_perf_res,
+    mixOmics::perf(
+      diablo_novarsel,
+      validation = "Mfold",
+      folds = 10,
+      nrepeat = 10,
+      cpus = 3
+    )
+  ),
+
+  ## Plotting cross-validation results (for number of components)
+  tar_target(
+    diablo_perf_plot,
+    diablo_plot_perf(diablo_perf_res)
+  ),
+
+  ## Selected value for ncomp
+  tar_target(
+    diablo_optim_ncomp,
+    diablo_get_optim_ncomp(diablo_perf_res)
+  ),
+
+  ## Cross-validation for number of features to retain
+  tar_target(
+    diablo_tune_res,
+    diablo_tune(
+      diablo_input,
+      diablo_design_matrix,
+      ncomp = diablo_optim_ncomp,
+      validation = "Mfold",
+      folds = 10,
+      nrepeat = 5,
+      dist = "centroids.dist",
+      cpus = 3
+    )
+  ),
+
+  ## Plotting cross-validation results (for number of features)
+  tar_target(
+    diablo_tune_plot,
+    diablo_plot_tune(diablo_tune_res)
+  ),
+
+  ## Final DIABLO run
+  tar_target(
+    diablo_final_run,
+    diablo_run(
+      diablo_input,
+      diablo_design_matrix,
+      ncomp = diablo_optim_ncomp,
+      keepX = diablo_tune_res$choice.keepX
+    )
+  ),
+
+  ##========================##
+  ## Results interpretation ----
+  ##========================##
+
+  ## Formatting DIABLO output
+  tar_target(
+    diablo_output,
+    get_output(diablo_final_run)
+  ),
+
+  ## Formatting DIABLO output - individual latent dimensions
+  tar_target(
+    diablo_output_no_average,
+    get_output(diablo_final_run, use_average_dimensions = FALSE)
+  )
 )
