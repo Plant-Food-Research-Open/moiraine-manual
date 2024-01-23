@@ -16,9 +16,12 @@ book:
       - modifying_multidataset.qmd
       - preprocessing.qmd
       - prefiltering.qmd
-    - part: "Supervised data integration"
+    - part: "Supervised integration"
       chapters:
       - diablo.qmd
+    - part: "Unsupervised integration"
+      chapters:
+      - spls.qmd
     - part: "Results interpretation"
       chapters:
       - interpretation.qmd

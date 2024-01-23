@@ -4,263 +4,263 @@
 #| child: "_setup.qmd"
 ```
 
-## DIABLO
-
-Some of the plots that will be used to interpret the results require us to transform the DIABLO result object into a standard "dimensions reduction output" object, through the `get_output()` function. The returned object contains the results of the DIABLO run stored in a standard way for the `moiraine` package, i.e. as a list with the samples scores for the different latent components stored in the `samples_score` element, the features loading for the latent components stored in the `features_weight` element, and the proportion of variance explained by each latent component in the corresponding dataset in the `variance_explained` element.
-
-```{targets diablo-output}
-tar_target(
-  diablo_output,
-  get_output(diablo_final_run)
-)
-```
-
-```{r show-diablo-output}
-tar_load(diablo_output)
-
-diablo_output
-```
+<!-- ## DIABLO -->
+
+<!-- Some of the plots that will be used to interpret the results require us to transform the DIABLO result object into a standard "dimensions reduction output" object, through the `get_output()` function. The returned object contains the results of the DIABLO run stored in a standard way for the `moiraine` package, i.e. as a list with the samples scores for the different latent components stored in the `samples_score` element, the features loading for the latent components stored in the `features_weight` element, and the proportion of variance explained by each latent component in the corresponding dataset in the `variance_explained` element. -->
+
+<!-- ```{targets diablo-output} -->
+<!-- tar_target( -->
+<!--   diablo_output, -->
+<!--   get_output(diablo_final_run) -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- ```{r show-diablo-output} -->
+<!-- tar_load(diablo_output) -->
+
+<!-- diablo_output -->
+<!-- ``` -->
 
-Notice that in the `features_weight` table, the features loading for the latent components as computed by DIABLO is stored in the `weight` column. Then, a feature importance score is computed as `abs(weight) / abs(max(weight))`. It allows us to quickly filter the most important features, regardless of the sign of their contribution to the latent component and the scale of the loadings for the component.
+<!-- Notice that in the `features_weight` table, the features loading for the latent components as computed by DIABLO is stored in the `weight` column. Then, a feature importance score is computed as `abs(weight) / abs(max(weight))`. It allows us to quickly filter the most important features, regardless of the sign of their contribution to the latent component and the scale of the loadings for the component. -->
 
-By default, the `get_output` function will create a weighted average of each latent component across all datasets. This can be disabled by setting `use_average_dimensions = FALSE`, to extract the dataset-specific latent components.
+<!-- By default, the `get_output` function will create a weighted average of each latent component across all datasets. This can be disabled by setting `use_average_dimensions = FALSE`, to extract the dataset-specific latent components. -->
 
-```{targets diablo-output-no-average}
-tar_target(
-  diablo_output_no_average,
-  get_output(diablo_final_run, use_average_dimensions = FALSE)
-)
-```
+<!-- ```{targets diablo-output-no-average} -->
+<!-- tar_target( -->
+<!--   diablo_output_no_average, -->
+<!--   get_output(diablo_final_run, use_average_dimensions = FALSE) -->
+<!-- ) -->
+<!-- ``` -->
 
-We can check which latent components are present with the `get_latent_dimensions()` function:
+<!-- We can check which latent components are present with the `get_latent_dimensions()` function: -->
 
-```{r no-average-components}
-get_latent_dimensions(diablo_output)
-get_latent_dimensions(tar_read(diablo_output_no_average))
-```
+<!-- ```{r no-average-components} -->
+<!-- get_latent_dimensions(diablo_output) -->
+<!-- get_latent_dimensions(tar_read(diablo_output_no_average)) -->
+<!-- ``` -->
 
-### Samples plots
+<!-- ### Samples plots -->
 
-More generally, we can plot the samples in the subspace spanned by the different components using the `plot_samples_score()` function. This function takes as input the DIABLO result in standardised format (from the `get_output()` function), and creates a matrix of scatter-plots to compare all possible pairs of components. The function also accepts a MultiDataSet object as an optional input, which can be used to enrich the plot with information about the samples extracted from the samples metadata. The plots in the resulting matrix are redundant: the lower plots (below the diagonal) are just a rotated version of the upper plots (above the diagonal); this is useful to represent several properties of the samples in one plot. For more details, see the help of the function. Here, we'll show in the upper plots the bruising groups and replicate ID, and in the lower plots the parents of each sample.
+<!-- More generally, we can plot the samples in the subspace spanned by the different components using the `plot_samples_score()` function. This function takes as input the DIABLO result in standardised format (from the `get_output()` function), and creates a matrix of scatter-plots to compare all possible pairs of components. The function also accepts a MultiDataSet object as an optional input, which can be used to enrich the plot with information about the samples extracted from the samples metadata. The plots in the resulting matrix are redundant: the lower plots (below the diagonal) are just a rotated version of the upper plots (above the diagonal); this is useful to represent several properties of the samples in one plot. For more details, see the help of the function. Here, we'll show in the upper plots the bruising groups and replicate ID, and in the lower plots the parents of each sample. -->
 
-```{r plot-samples-score-ggpairs}
-#| fig.height = 10
+<!-- ```{r plot-samples-score-ggpairs} -->
+<!-- #| fig.height = 10 -->
 
-plot_samples_score(
-  diablo_output,
-  mo_data = tar_read(mo_set),
-  colour_upper = "status",
-  scale_colour_upper = scale_colour_brewer(palette = "Set1"),
-  shape_upper = "feedlot",
-  colour_lower = "geno_comp_cluster",
-  shape_lower = NULL
-) +
-  theme(legend.box = "vertical")
-```
+<!-- plot_samples_score( -->
+<!--   diablo_output, -->
+<!--   mo_data = tar_read(mo_set), -->
+<!--   colour_upper = "status", -->
+<!--   scale_colour_upper = scale_colour_brewer(palette = "Set1"), -->
+<!--   shape_upper = "feedlot", -->
+<!--   colour_lower = "geno_comp_cluster", -->
+<!--   shape_lower = NULL -->
+<!-- ) + -->
+<!--   theme(legend.box = "vertical") -->
+<!-- ``` -->
 
-Remember, the `get_output()` function will by default compute a weighted average of the samples score across the datasets for each latent component, which is why we are seeing two latent components in the plot.
+<!-- Remember, the `get_output()` function will by default compute a weighted average of the samples score across the datasets for each latent component, which is why we are seeing two latent components in the plot. -->
 
-Two other related functions allow us to visualise the samples score in different ways. The `plot_samples_score_pair()` function creates a scatterplot of samples score for two user-selected latent components. The latent components must be selected by name, which we can find through:
+<!-- Two other related functions allow us to visualise the samples score in different ways. The `plot_samples_score_pair()` function creates a scatterplot of samples score for two user-selected latent components. The latent components must be selected by name, which we can find through: -->
 
-```{r latent-dimensions-levels}
-get_latent_dimensions(diablo_output)
-```
+<!-- ```{r latent-dimensions-levels} -->
+<!-- get_latent_dimensions(diablo_output) -->
+<!-- ``` -->
 
-And, as for the previous example, the MultiDataSet object can be used to enrich the plot with samples properties:
+<!-- And, as for the previous example, the MultiDataSet object can be used to enrich the plot with samples properties: -->
 
-```{r plot-samples-score-pair}
-plot_samples_score_pair(
-  diablo_output,
-  c("Component 1", "Component 2"),
-  mo_data = tar_read(mo_set),
-  colour_by = "status",
-  shape_by = "geno_comp_cluster"
-) +
-  scale_colour_brewer(palette = "Set1")
-```
+<!-- ```{r plot-samples-score-pair} -->
+<!-- plot_samples_score_pair( -->
+<!--   diablo_output, -->
+<!--   c("Component 1", "Component 2"), -->
+<!--   mo_data = tar_read(mo_set), -->
+<!--   colour_by = "status", -->
+<!--   shape_by = "geno_comp_cluster" -->
+<!-- ) + -->
+<!--   scale_colour_brewer(palette = "Set1") -->
+<!-- ``` -->
 
-The `plot_samples_score_covariate()` function displays the samples score for each component against a samples covariate from the samples metadata. For example, to show the distribution of samples score between the different sibling groups, we can use:
+<!-- The `plot_samples_score_covariate()` function displays the samples score for each component against a samples covariate from the samples metadata. For example, to show the distribution of samples score between the different sibling groups, we can use: -->
 
-```{r plot-samples-score-covariate}
-#| fig.height = 7,
-#| fig.width = 8.5
+<!-- ```{r plot-samples-score-covariate} -->
+<!-- #| fig.height = 7, -->
+<!-- #| fig.width = 8.5 -->
 
-plot_samples_score_covariate(
-  diablo_output,
-  mo_data = tar_read(mo_set),
-  covariate = "status",
-  colour_by = "feedlot",
-  ncol = 1
-)
-```
+<!-- plot_samples_score_covariate( -->
+<!--   diablo_output, -->
+<!--   mo_data = tar_read(mo_set), -->
+<!--   covariate = "status", -->
+<!--   colour_by = "feedlot", -->
+<!--   ncol = 1 -->
+<!-- ) -->
+<!-- ``` -->
 
 
-Note that the function creates different plots depending on whether the covariate is categorical (as above) or numeric. For numerical variables, it will create scatterplots, e.g.:
+<!-- Note that the function creates different plots depending on whether the covariate is categorical (as above) or numeric. For numerical variables, it will create scatterplots, e.g.: -->
 
-```{r plot-samples-score-covariate-numeric}
-plot_samples_score_covariate(
-  diablo_output,
-  mo_data = tar_read(mo_set),
-  covariate = "day_on_feed",
-  colour_by = "feedlot",
-  latent_dimensions = "Component 1"
-)
-```
+<!-- ```{r plot-samples-score-covariate-numeric} -->
+<!-- plot_samples_score_covariate( -->
+<!--   diablo_output, -->
+<!--   mo_data = tar_read(mo_set), -->
+<!--   covariate = "day_on_feed", -->
+<!--   colour_by = "feedlot", -->
+<!--   latent_dimensions = "Component 1" -->
+<!-- ) -->
+<!-- ``` -->
 
-### Extracting the selected features
+<!-- ### Extracting the selected features -->
 
-We can extract the features that were selected for the different latent components with the function `get_selected_features()`, which takes as input the DIABLO results in standardised format:
+<!-- We can extract the features that were selected for the different latent components with the function `get_selected_features()`, which takes as input the DIABLO results in standardised format: -->
 
-```{r get-selected-features}
-get_selected_features(diablo_output) |>
-  head()
-```
+<!-- ```{r get-selected-features} -->
+<!-- get_selected_features(diablo_output) |> -->
+<!--   head() -->
+<!-- ``` -->
 
-The function returns a tibble indicating:
+<!-- The function returns a tibble indicating: -->
 
--   the features ID;
+<!-- -   the features ID; -->
 
--   the dataset from which the features originate;
+<!-- -   the dataset from which the features originate; -->
 
--   the latent component for which the features have been selected;
+<!-- -   the latent component for which the features have been selected; -->
 
--   the features' loading for this latent component, i.e. their weight in the linear combination that constitutes the latent component;
+<!-- -   the features' loading for this latent component, i.e. their weight in the linear combination that constitutes the latent component; -->
 
-- the features' importance score, i.e. their absolute weight divided by the maximum weight for the corresponding dataset and latent component.
+<!-- - the features' importance score, i.e. their absolute weight divided by the maximum weight for the corresponding dataset and latent component. -->
 
-By passing the original MultiDataSet object as input to this function, we can extract the feature metadata associated with the selected features:
+<!-- By passing the original MultiDataSet object as input to this function, we can extract the feature metadata associated with the selected features: -->
 
-```{r get-selected-features-metadata}
-get_selected_features(
-  diablo_output,
-  mo_data = tar_read(mo_set)
-) |>
-  head()
-```
+<!-- ```{r get-selected-features-metadata} -->
+<!-- get_selected_features( -->
+<!--   diablo_output, -->
+<!--   mo_data = tar_read(mo_set) -->
+<!-- ) |> -->
+<!--   head() -->
+<!-- ``` -->
 
-By default, the `get_selected_features()` function returns the selected features for all datasets and latent components, but we can focus on a subset of these by passing datasets or latent components names to the `datasets` and `latent_dimensions` parameters of the function. For example, let us get the selected features from the transcriptomics and metabolomics datasets for the first latent component:
+<!-- By default, the `get_selected_features()` function returns the selected features for all datasets and latent components, but we can focus on a subset of these by passing datasets or latent components names to the `datasets` and `latent_dimensions` parameters of the function. For example, let us get the selected features from the transcriptomics and metabolomics datasets for the first latent component: -->
 
-```{r get-selected-features-subset}
-get_selected_features(
-  diablo_output,
-  latent_dimensions = "Component 1",
-  datasets = c("rnaseq", "metabolome"),
-  mo_data = tar_read(mo_set)
-) |>
-  head()
-```
+<!-- ```{r get-selected-features-subset} -->
+<!-- get_selected_features( -->
+<!--   diablo_output, -->
+<!--   latent_dimensions = "Component 1", -->
+<!--   datasets = c("rnaseq", "metabolome"), -->
+<!--   mo_data = tar_read(mo_set) -->
+<!-- ) |> -->
+<!--   head() -->
+<!-- ``` -->
 
-Alternatively, the `get_top_features()` function facilitates the extraction of the top contributing features per dataset and latent component. The function offers two options:
+<!-- Alternatively, the `get_top_features()` function facilitates the extraction of the top contributing features per dataset and latent component. The function offers two options: -->
 
-- select from each dataset the top N features that contribute the most to a latent component; N is set through the `n_features` argument of the function (note that if there are ties in the features importance all ties will be returned).
+<!-- - select from each dataset the top N features that contribute the most to a latent component; N is set through the `n_features` argument of the function (note that if there are ties in the features importance all ties will be returned). -->
 
-- select from each dataset all features that have an importance score equal to or greater than a certain threshold. The threshold is set through the `min_importance` argument of the function.
+<!-- - select from each dataset all features that have an importance score equal to or greater than a certain threshold. The threshold is set through the `min_importance` argument of the function. -->
 
-As for the `get_selected_features()` function, it is possible to focus on specific datasets and/or latent components, and to pass on a MultiDataSet object to extract features metadata.
+<!-- As for the `get_selected_features()` function, it is possible to focus on specific datasets and/or latent components, and to pass on a MultiDataSet object to extract features metadata. -->
 
-```{r get-top-features-n}
-get_top_features(diablo_output, n_features = 3, mo_data = tar_read(mo_set)) |>
-  head()
-```
+<!-- ```{r get-top-features-n} -->
+<!-- get_top_features(diablo_output, n_features = 3, mo_data = tar_read(mo_set)) |> -->
+<!--   head() -->
+<!-- ``` -->
 
 
-```{r get-top-features-min}
-get_top_features(diablo_output, min_importance = 0.8, mo_data = tar_read(mo_set)) |>
-  head()
-```
+<!-- ```{r get-top-features-min} -->
+<!-- get_top_features(diablo_output, min_importance = 0.8, mo_data = tar_read(mo_set)) |> -->
+<!--   head() -->
+<!-- ``` -->
 
 
-### Visualising the top features
+<!-- ### Visualising the top features -->
 
-We can also look at the loading of the features from each dataset that most contribute to each of the latent components with the function `plot_top_features()`. The function takes as input the formatted DIABLO output. By default, feature IDs will be used as labels, but it is possible to make use of the feature metadata in our MultiDataSet object to label the features. In this example, we select columns from the feature metadata of the transcriptomics and metabolomics datasets to get more meaningful labels, but leave the SNPs' label to be their ID.
+<!-- We can also look at the loading of the features from each dataset that most contribute to each of the latent components with the function `plot_top_features()`. The function takes as input the formatted DIABLO output. By default, feature IDs will be used as labels, but it is possible to make use of the feature metadata in our MultiDataSet object to label the features. In this example, we select columns from the feature metadata of the transcriptomics and metabolomics datasets to get more meaningful labels, but leave the SNPs' label to be their ID. -->
 
-```{r plot-top-features}
-#| fig.width = 10,
-#| fig.height = 7
+<!-- ```{r plot-top-features} -->
+<!-- #| fig.width = 10, -->
+<!-- #| fig.height = 7 -->
 
-plot_top_features(
-  diablo_output,
-  mo_data = tar_read(mo_set),
-  label_cols = list(
-    "rnaseq" = "Name",
-    "metabolome" = "name"
-  )
-) +
-  theme(
-    axis.text.y = element_text(size = 8)
-  )
-```
+<!-- plot_top_features( -->
+<!--   diablo_output, -->
+<!--   mo_data = tar_read(mo_set), -->
+<!--   label_cols = list( -->
+<!--     "rnaseq" = "Name", -->
+<!--     "metabolome" = "name" -->
+<!--   ) -->
+<!-- ) + -->
+<!--   theme( -->
+<!--     axis.text.y = element_text(size = 8) -->
+<!--   ) -->
+<!-- ``` -->
 
-By default, the function displays the top 20 features per dataset and component, but that can be changed with the `n_features` dataset. If less than 20 features were selected for a given dataset and component, only the select features will be shown.
+<!-- By default, the function displays the top 20 features per dataset and component, but that can be changed with the `n_features` dataset. If less than 20 features were selected for a given dataset and component, only the select features will be shown. -->
 
 
-We can investigate further these features by looking at their measurements in the datasets, with the `plot_data_heatmap()` or `plot_data_covariate()` functions (more details in the vignettes on [Inspecting a MultiDataSet object](inspecting-multidataset.html#visualising-data)). We will extract the ID of the top 3 features from each dataset for component 1 with the `get_top_features()` that we saw in [the previous section](diablo-pipeline.html#extracting-the-selected-features):
+<!-- We can investigate further these features by looking at their measurements in the datasets, with the `plot_data_heatmap()` or `plot_data_covariate()` functions (more details in the vignettes on [Inspecting a MultiDataSet object](inspecting-multidataset.html#visualising-data)). We will extract the ID of the top 3 features from each dataset for component 1 with the `get_top_features()` that we saw in [the previous section](diablo-pipeline.html#extracting-the-selected-features): -->
 
-```{r get-top-features-list}
-top_features <- get_top_features(
-  diablo_output,
-  n_features = 3,
-  latent_dimensions = "Component 1"
-) |> 
-  pull(feature_id)
+<!-- ```{r get-top-features-list} -->
+<!-- top_features <- get_top_features( -->
+<!--   diablo_output, -->
+<!--   n_features = 3, -->
+<!--   latent_dimensions = "Component 1" -->
+<!-- ) |>  -->
+<!--   pull(feature_id) -->
 
-top_features
-```
+<!-- top_features -->
+<!-- ``` -->
 
 
-We can visualise these features as a heatmap:
+<!-- We can visualise these features as a heatmap: -->
 
-```{r plot-data-heatmap-annotations, fig.width = 10}
-plot_data_heatmap(
-  tar_read(mo_presel_supervised),
-  top_features,
-  center = TRUE,
-  scale = TRUE,
-  only_common_samples = TRUE,
-  show_column_names = FALSE,
-  samples_info = "status",
-  colours_list = list(
-    "status" = c("Control" = "gold", "BRD" = "lightblue")
-  ),
-  label_cols = list(
-    "rnaseq" = "Name",
-    "metabolome" = "name"
-  )
-)
-```
+<!-- ```{r plot-data-heatmap-annotations, fig.width = 10} -->
+<!-- plot_data_heatmap( -->
+<!--   tar_read(mo_presel_supervised), -->
+<!--   top_features, -->
+<!--   center = TRUE, -->
+<!--   scale = TRUE, -->
+<!--   only_common_samples = TRUE, -->
+<!--   show_column_names = FALSE, -->
+<!--   samples_info = "status", -->
+<!--   colours_list = list( -->
+<!--     "status" = c("Control" = "gold", "BRD" = "lightblue") -->
+<!--   ), -->
+<!--   label_cols = list( -->
+<!--     "rnaseq" = "Name", -->
+<!--     "metabolome" = "name" -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
 
-or a violin plot against samples bruising group:
+<!-- or a violin plot against samples bruising group: -->
 
-```{r plot-data-covariate-categorical, fig.height = 5}
-plot_data_covariate(
-  tar_read(mo_presel_supervised), 
-  "status",
-  top_features,
-  only_common_samples = TRUE,
-  label_cols = list(
-    "rnaseq" = "Name",
-    "metabolome" = "name"
-  )
-)
-```
+<!-- ```{r plot-data-covariate-categorical, fig.height = 5} -->
+<!-- plot_data_covariate( -->
+<!--   tar_read(mo_presel_supervised),  -->
+<!--   "status", -->
+<!--   top_features, -->
+<!--   only_common_samples = TRUE, -->
+<!--   label_cols = list( -->
+<!--     "rnaseq" = "Name", -->
+<!--     "metabolome" = "name" -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
 
 
-### Comparing features importance between latent components
+<!-- ### Comparing features importance between latent components -->
 
-We can also compare the importance given to the features between any two latent components with the `plot_features_weight_pair()` function.
+<!-- We can also compare the importance given to the features between any two latent components with the `plot_features_weight_pair()` function. -->
 
-```{r}
-plot_features_weight_pair(
-  diablo_output,
-  c("Component 1", "Component 2"),
-  mo_data = tar_read(mo_set),
-  label_cols = list(
-    "rnaseq" = "Name",
-    "metabolome" = "name"
-  )
-)
-```
+<!-- ```{r} -->
+<!-- plot_features_weight_pair( -->
+<!--   diablo_output, -->
+<!--   c("Component 1", "Component 2"), -->
+<!--   mo_data = tar_read(mo_set), -->
+<!--   label_cols = list( -->
+<!--     "rnaseq" = "Name", -->
+<!--     "metabolome" = "name" -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
 
-In this case, the plot is not extremely interesting, but allows us to quickly confirm that different features were selected for the two latent components. The top 5 features according to their consensus importance (see section about [methods comparison](methods-comparison.html#feature-consensus-importance)) are highlighted in red.
+<!-- In this case, the plot is not extremely interesting, but allows us to quickly confirm that different features were selected for the two latent components. The top 5 features according to their consensus importance (see section about [methods comparison](methods-comparison.html#feature-consensus-importance)) are highlighted in red. -->
 
-By default, the function plots the signed importance score of the features, i.e. their importance score to which the sign of their weight was added. This can be changed through the `features_metric` argument of the function.
+<!-- By default, the function plots the signed importance score of the features, i.e. their importance score to which the sign of their weight was added. This can be changed through the `features_metric` argument of the function. -->

@@ -192,6 +192,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
       </ul>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Supervised integration</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data integration with DIABLO</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Unsupervised integration</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data integration with sPLS</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Results interpretation</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  </div>
+</li>
+      </ul>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
@@ -265,7 +310,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </details><section id="datasets-transformations" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="datasets-transformations">
 <span class="header-section-number">6.1</span> Datasets transformations</h2>
-<p>After inspection of the density plots for the different datasets (see <a href="inspecting_multidataset.html#sec-inspecting-multidataset-summary-plots"><span>Section&nbsp;4.3</span></a>), it might be necessary to normalise or transform some or all datasets. This is necessary to mitigate the mean-variance trend that occurs in RNAseq data, for example, or simply to bring the different features to a comparable scale. Transformation here refers to applying a function to each feature (i.e.&nbsp;each row) within a dataset that will transform the measurement values for the feature.</p>
+<p>After inspection of the density plots for the different datasets (see <a href="#sec-inspecting-multidataset-summary-plots"><span class="quarto-unresolved-ref">sec-inspecting-multidataset-summary-plots</span></a>), it might be necessary to normalise or transform some or all datasets. This is necessary to mitigate the mean-variance trend that occurs in RNAseq data, for example, or simply to bring the different features to a comparable scale. Transformation here refers to applying a function to each feature (i.e.&nbsp;each row) within a dataset that will transform the measurement values for the feature.</p>
 <p><code>moiraine</code> implements several options to transform an omics dataset:</p>
 <ul>
 <li><p>Variance Stabilising Normalisation (VSN) through the <code>vsn</code> package – recommended for metabolomics datasets or other continuous datasets with a strong mean-variance trend;</p></li>

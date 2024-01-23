@@ -9,11 +9,33 @@ tar_option_set(
     "MOFA2",
     "mixOmics",
     "readr",
+    "tibble",
+    "tidyr",
     "dplyr",
     "ggplot2",
     "patchwork"
   )
 )
+
+test_multilevel <- function(smeta, multilevel) {
+  mo_set <- c("A", "B") |>
+    rlang::set_names(c("phenomics", "metabolomics")) |>
+    purrr::map(
+      ~ matrix(
+        data = rnorm(nrow(smeta) * 30),
+        ncol = nrow(smeta),
+        dimnames = list(paste0(.x, "feature", 1:30), rownames(smeta))
+      )
+    ) |>
+    purrr::imap(
+      ~ create_omics_set(.x, .y, samples_metadata = smeta)
+    ) |>
+    create_multiomics_set()
+
+  res <- get_input_spls(mo_set, mode = "canonical", multilevel = multilevel)
+
+  attr(res, "multilevel")
+}
 
 ## List of targets
 list(
@@ -257,6 +279,128 @@ list(
       diablo_design_matrix,
       ncomp = diablo_optim_ncomp,
       keepX = diablo_tune_res$choice.keepX
+    )
+  ),
+
+  ##===============##
+  ## sPLS pipeline ----
+  ##===============##
+
+  ## Showcasing multilevel with one factor
+  tar_target(
+    spls_smeta1,
+    tibble(
+      sample_id = paste0("sample_", 1:10),
+      id = sample_id,
+      plant_id = paste0("plant_", rep(1:5, each = 2)),
+      treatment = rep(LETTERS[1:2], 5)
+    ) |>
+      column_to_rownames("sample_id") |>
+      as.data.frame()
+  ),
+
+  tar_target(
+    spls_multilevel1,
+    test_multilevel(spls_smeta1, multilevel = "plant_id")
+  ),
+
+  ## Showcasing multilevel with two factors
+  tar_target(
+    spls_smeta2,
+    expand_grid(
+      plant_id = paste0("plant_", 1:2),
+      treatment = LETTERS[1:2],
+      time = 1:3
+    ) |>
+      mutate(
+        sample_id = paste0("sample_", 1:n()),
+        id = sample_id
+      ) |>
+      relocate(id) |>
+      column_to_rownames("sample_id") |>
+      as.data.frame()
+  ),
+
+  tar_target(
+    spls_multilevel2,
+    test_multilevel(spls_smeta2, multilevel = c("plant_id", "treatment", "time"))
+  ),
+
+  ## Creating sPLS input
+  tar_target(
+    spls_input,
+    get_input_spls(
+      mo_presel_supervised,
+      mode = "canonical",
+      datasets = c("rnaseq", "metabolome")
+    )
+  ),
+
+  ## Initial PLS run with no feature selection and large number of components
+  tar_target(
+    spls_novarsel,
+    spls_run(
+      spls_input,
+      ncomp = 4
+    )
+  ),
+
+  ## Cross-validation for number of components
+  tar_target(
+    spls_perf_res,
+    mixOmics::perf(
+      spls_novarsel,
+      validation = "Mfold",
+      folds = 10,
+      nrepeat = 10,
+      cpus = 3
+    )
+  ),
+
+  ## Plotting cross-validation results (for number of components)
+  ## Can try criterion = 'Q2.total', 'cor.tpred', 'cor.upred', 'RSS.tpred',
+  ## 'RSS.upred' (but avoid 'RSS' and 'PRESS')
+  tar_target(
+    spls_perf_plot,
+    plot(spls_perf_res, criterion = "Q2.total")
+  ),
+
+  ## Selected value for ncomp
+  tar_target(
+    spls_optim_ncomp,
+    spls_get_optim_ncomp(spls_perf_res, min_ncomp = 2)
+  ),
+
+  ## Cross-validation for number of features to retain
+  tar_target(
+    spls_tune_res,
+    spls_tune(
+      spls_input,
+      ncomp = spls_optim_ncomp,
+      keepX = seq(10, 100, 10),
+      keepY = seq(10, 100, 10),
+      validation = "Mfold",
+      folds = 10,
+      nrepeat = 5,
+      measure = "cor",
+      cpus = 3
+    )
+  ),
+
+  ## Plotting cross-validation results (for number of features)
+  tar_target(
+    spls_tune_plot,
+    spls_plot_tune(spls_tune_res)
+  ),
+
+  ## Final sPLS run
+  tar_target(
+    spls_final_run,
+    spls_run(
+      spls_input,
+      ncomp = spls_optim_ncomp,
+      keepX = spls_tune_res$choice.keepX,
+      keepY = spls_tune_res$choice.keepY
     )
   ),
 

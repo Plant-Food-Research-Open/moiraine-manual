@@ -89,7 +89,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./interpretation.html" rel="next">
+<link href="./spls.html" rel="next">
 <link href="./prefiltering.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -194,7 +194,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Supervised data integration</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Supervised integration</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -209,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Results interpretation</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Unsupervised integration</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -217,7 +217,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data integration with sPLS</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Results interpretation</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -306,7 +321,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>the name of the column in the samples metadata table that corresponds to the categorical outcome of interest,</p></li>
 <li><p>optionally, the names of the datasets to include in the analysis. This is useful if we want to exclude one of more datasets from the analysis.</p></li>
 </ul>
-<p>In our case, we want to find differences between the healthy and diseased animals. We will use the multi-omics datasets that have gone through supervised prefiltering (i.e.&nbsp;we discarded the features least related with the disease status, as seen in <a href="prefiltering.html"><span>Chapter&nbsp;7</span></a>).</p>
+<p>In our case, we want to find differences between the healthy and diseased animals. We will use the multi-omics datasets that have gone through supervised prefiltering (i.e.&nbsp;we discarded the features least related with the disease status, as seen in <a href="#sec-prefiltering"><span class="quarto-unresolved-ref">sec-prefiltering</span></a>).</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_input</span>,</span>
@@ -448,7 +463,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section></section><section id="choosing-the-number-of-latent-components" class="level2" data-number="8.4"><h2 data-number="8.4" class="anchored" data-anchor-id="choosing-the-number-of-latent-components">
 <span class="header-section-number">8.4</span> Choosing the number of latent components</h2>
 <p>One important parameter that must be set when performing a DIABLO analysis is the number of latent components to construct for each dataset. The optimal number of components can be estimated by cross-validation, implemented in the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function. This function assesses the classification performance (i.e.&nbsp;how well the different outcome groups are separated) achieved by DIABLO for different numbers of latent components.</p>
-<p>Choosing the optimal number of latent components to construct is a multi-step process. The first step is to run DIABLO without feature selection, setting the number of latent components to the maximum value we wish to test. We recommend to set this to the number of groups in the categorical outcome + 2, which in our case equals 4; however this can be further refined after checking the results. For this example, we will set the maximum to 7. The function also requires as input the design matrix to be used; here we will use the one constructed from the PLS runs:</p>
+<p>Choosing the optimal number of latent components to construct is a multi-step process. The first step is to run DIABLO without feature selection, setting the number of latent components to the maximum value we wish to test. We recommend to set this to the number of groups in the categorical outcome + 2, which in our case equals 4; however this can be further refined after checking the results. For this example, we will set the maximum to 7. This is done through the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run()</a></code> function, which is a wrapper for the <code><a href="https://rdrr.io/pkg/mixOmics/man/block.splsda.html">mixOmics::block.splsda()</a></code> function. The function also requires as input the design matrix to be used; here we will use the one constructed from the PLS runs:</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_novarsel</span>,</span>
@@ -569,7 +584,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section><section id="final-diablo-run" class="level2" data-number="8.6"><h2 data-number="8.6" class="anchored" data-anchor-id="final-diablo-run">
 <span class="header-section-number">8.6</span> Final DIABLO run</h2>
-<p>Once a value has been selected for all parameters, it is time to perform the final DIABLO run. This can be done through the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run()</a></code> function, which is a wrapper for the <code><a href="https://rdrr.io/pkg/mixOmics/man/block.splsda.html">mixOmics::block.splsda()</a></code> function.</p>
+<p>Once a value has been selected for all parameters, it is time to perform the final DIABLO run:</p>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_final_run</span>,</span>
@@ -584,14 +599,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>To facilitate reporting, the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_params.html">diablo_get_params()</a></code> function extracts from the DIABLO result the parameters used (i.e.&nbsp;number of latent components computed and number of features retained from each dataset for each latent component), with HTML formatting:</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_params.html">diablo_get_params</a></span><span class="op">(</span><span class="va">diablo_final_run</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span><span class="co">#&gt;   Parameter Description                                                    Value</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                                                          &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 ncomp     Number of latent component                                     4    </span></span>
+<span><span class="co">#&gt; 2 keepX     Number of features retained in each X for each latent compone… snps…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section><section id="results-interpretation" class="level2" data-number="8.7"><h2 data-number="8.7" class="anchored" data-anchor-id="results-interpretation">
 <span class="header-section-number">8.7</span> Results interpretation</h2>
-<p>In <a href="interpretation.html"><span>Chapter&nbsp;9</span></a>, we show the different functionalities implemented in the <code>moiraine</code> package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the DIABLO-specific plots that can be generated to help interpret the results of a DIABLO run.</p>
+<p>In <a href="#sec-interpretation"><span class="quarto-unresolved-ref">sec-interpretation</span></a>, we show the different functionalities implemented in the <code>moiraine</code> package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the DIABLO-specific plots that can be generated to help interpret the results of a DIABLO run.</p>
 <section id="correlation-between-datasets" class="level3" data-number="8.7.1"><h3 data-number="8.7.1" class="anchored" data-anchor-id="correlation-between-datasets">
 <span class="header-section-number">8.7.1</span> Correlation between datasets</h3>
 <p>First, we can assess how well the latent components correlate across the datasets. The <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot.html">diablo_plot()</a></code> function is adapted from the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotDiablo.html">mixOmics::plotDiablo()</a></code> function, and displays, for a given latent component (specified with the <code>ncomp</code> argument), the correlation between the samples coordinates for this latent component across the datasets. Additionally, it allows to assess how well the latent components discriminate the outcome groups in each dataset.</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n_comp</span><span class="op">)</span>, </span>
 <span>  \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
@@ -617,7 +641,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">8.7.2</span> Samples projection to the latent component space</h3>
 <p>We can also represent the samples in the subspace spanned by the latent components for each dataset, using the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotIndiv.html">mixOmics::plotIndiv()</a></code> function. For example, we can have a look at the samples coordinates for the first two latent components:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotIndiv.html">plotIndiv</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotIndiv.html">plotIndiv</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_final_run</span>,</span>
 <span>  comp <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
 <span>  ind.names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -631,7 +655,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As noted above, based on the first two latent components, there is a clear separation of the control and BRD animals across all three datasets.</p>
 <p>Ideally, we would look at all possible combinations of latent components, as follows:</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/combn.html">combn</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n_comp</span><span class="op">)</span>, <span class="fl">2</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotIndiv.html">plotIndiv</a></span><span class="op">(</span></span>
@@ -648,7 +672,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">8.7.3</span> Correlation circle plots</h3>
 <p>The correlation circle plots produced by the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">mixOmics::plotVar()</a></code> function displays the contribution of the selected features to the different latent components. We will focus here on the first two latent components:</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_final_run</span>,</span>
 <span>  comp <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
 <span>  var.names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -665,7 +689,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Across all three datasets, it seems that most selected features contribute to either one or the other latent component, but not both.</p>
 <p>The <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar()</a></code> function offers the option to show the label of the features rather than representing them as points. However, it can be more informative to use information from the feature metadata as labels, rather than using the feature IDs. For example in the transcriptomics dataset, it would be more interesting to use the name of the genes. This information is available in the datasets’ features metadata:</p>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span><span class="op">[[</span><span class="st">"rnaseq"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    20335 obs. of  15 variables:</span></span>
@@ -687,7 +711,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_var.html">diablo_plot_var()</a></code> function is a variant of <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar()</a></code>, which uses columns from the features metadata to label features plot. It takes as an input the DIABLO result object as well as the <code>MultiDataSet</code> object, and a named list providing for each dataset the name of the column in the feature metadata data-frame to use as features label:</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_var.html">diablo_plot_var</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_var.html">diablo_plot_var</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_final_run</span>,</span>
 <span>  <span class="va">mo_set_de</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -707,7 +731,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">8.7.4</span> Circos plot</h3>
 <p>Lastly, it is possible to represent the correlation between features selected from different datasets, with the <code><a href="https://rdrr.io/pkg/mixOmics/man/circosPlot.html">mixOmics::circosPlot()</a></code> function. For ease of visualisation, it only displays correlations above a certain threshold (specified via the <code>cutoff</code> argument). By default, it displays the features selected for all latent components, but this can be controlled via the <code>comp</code> argument:</p>
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/circosPlot.html">circosPlot</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/circosPlot.html">circosPlot</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_final_run</span>,</span>
 <span>  cutoff <span class="op">=</span> <span class="fl">0.7</span>,</span>
 <span>  size.variables <span class="op">=</span> <span class="fl">0.5</span>,</span>
@@ -719,7 +743,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>As for the correlation circle plot function, the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_circos.html">diablo_plot_circos()</a></code> function generates the same plot, but allows us to use columns in the feature metadata of each dataset as feature labels:</p>
 <div class="cell">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_circos.html">diablo_plot_circos</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_circos.html">diablo_plot_circos</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_final_run</span>,</span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -741,7 +765,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <details><summary>
 Targets list for DIABLO analysis
 </summary><div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Creating the DIABLO input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_input</span>,</span>
@@ -961,8 +985,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./interpretation.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./spls.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data integration with sPLS</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

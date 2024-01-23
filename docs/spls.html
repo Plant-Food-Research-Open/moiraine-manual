@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>The moiraine R package user manual - 9&nbsp; Data integration with sPLS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./interpretation.html" rel="next">
+<link href="./diablo.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data integration with sPLS</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The moiraine R package user manual</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data preparation</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Supervised integration</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data integration with DIABLO</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Unsupervised integration</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spls.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data integration with sPLS</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Results interpretation</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#what-is-spls" id="toc-what-is-spls" class="nav-link active" data-scroll-target="#what-is-spls"><span class="toc-section-number">9.1</span>  What is sPLS?</a></li>
+  <li>
+<a href="#creating-the-spls-input" id="toc-creating-the-spls-input" class="nav-link" data-scroll-target="#creating-the-spls-input"><span class="toc-section-number">9.2</span>  Creating the sPLS input</a>
+  <ul class="collapse">
+<li><a href="#the-four-spls-modes" id="toc-the-four-spls-modes" class="nav-link" data-scroll-target="#the-four-spls-modes"><span class="toc-section-number">9.2.1</span>  The four sPLS modes</a></li>
+  <li><a href="#the-multilevel-option" id="toc-the-multilevel-option" class="nav-link" data-scroll-target="#the-multilevel-option"><span class="toc-section-number">9.2.2</span>  The multilevel option</a></li>
+  <li><a href="#the-spls-input-object" id="toc-the-spls-input-object" class="nav-link" data-scroll-target="#the-spls-input-object"><span class="toc-section-number">9.2.3</span>  The sPLS input object</a></li>
+  </ul>
+</li>
+  <li><a href="#choosing-the-number-of-latent-components" id="toc-choosing-the-number-of-latent-components" class="nav-link" data-scroll-target="#choosing-the-number-of-latent-components"><span class="toc-section-number">9.3</span>  Choosing the number of latent components</a></li>
+  <li><a href="#choosing-the-number-of-features-to-retain" id="toc-choosing-the-number-of-features-to-retain" class="nav-link" data-scroll-target="#choosing-the-number-of-features-to-retain"><span class="toc-section-number">9.4</span>  Choosing the number of features to retain</a></li>
+  <li><a href="#final-spls-run" id="toc-final-spls-run" class="nav-link" data-scroll-target="#final-spls-run"><span class="toc-section-number">9.5</span>  Final sPLS run</a></li>
+  <li>
+<a href="#results-interpretation" id="toc-results-interpretation" class="nav-link" data-scroll-target="#results-interpretation"><span class="toc-section-number">9.6</span>  Results interpretation</a>
+  <ul class="collapse">
+<li><a href="#samples-plots" id="toc-samples-plots" class="nav-link" data-scroll-target="#samples-plots"><span class="toc-section-number">9.6.1</span>  Samples plots</a></li>
+  <li><a href="#correlation-circle-plots" id="toc-correlation-circle-plots" class="nav-link" data-scroll-target="#correlation-circle-plots"><span class="toc-section-number">9.6.2</span>  Correlation circle plots</a></li>
+  </ul>
+</li>
+  <li><a href="#recap---targets-list" id="toc-recap---targets-list" class="nav-link" data-scroll-target="#recap---targets-list"><span class="toc-section-number">9.7</span>  Recap - targets list</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-spls" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data integration with sPLS</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## For integration with DIABLO</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.mixOmics.org">mixOmics</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that the omics datasets have been appropriately pre-processed and pre-filtered, we are ready to perform the actual data integration step. In this chapter, we will show how to perform multi-omics data integration with the <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_04.html">sPLS</a> method from the <a href="http://mixomics.org/"><code>mixOmics</code></a> package.</p>
+<p>As a reminder, here is what the <code>_targets.R</code> script should look like so far:</p>
+<details><summary><code>_targets.R</code> script
+</summary><div class="cell">
+<div class="cell">
+
+</div>
+</div>
+</details><section id="what-is-spls" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="what-is-spls">
+<span class="header-section-number">9.1</span> What is sPLS?</h2>
+<p>sPLS (for sparse Partial Least Squares) is a method for the unsupervised integration of two omics datasets. Given two omics datasets for which measurements are taken on the same samples, sPLS aims at investigating the shared variation between the datasets, and the selection of correlated features driving this shared variation.</p>
+<p>sPLS works by constructing linear combinations of the omics features, called latent components. These latent components are constructed such that the covariance between each omics dataset’ component is maximised. They are constructed iteratively, and different matrix deflation modes can be used after the construction of each component. The selected mode defines the role that the two datasets play in the analysis, i.e.&nbsp;whether there is a predictor and a response dataset, or whether the two datasets play symmetrical roles. In addition, <span class="math inline">\(L1\)</span>-regularisation (also called LASSO) is applied to the latent components in order to select the most important features from each dataset. Note that within the <code>mixOmics</code> package, the (s)PLS algorithm has two types: the univariate type denoted PLS1, which refers to the case where one of the datasets contains a single feature or variable, and the multivariate type, PLS2, which is for the integration of two datasets each with multiple features. This chapter is focused on the PLS2 type.</p>
+<p>sPLS requires as input matrices of omics measurements obtained on the same samples. While the omics datasets are automatically centred and scaled by the algorithm, proper preprocessing and normalisation is assumed to be carried out by the user. Although the sPLS algorithm can handle the presence of missing features, it will prohibit the use of cross-validation, so it is recommended to perform data imputation prior to running an sPLS analysis.</p>
+</section><section id="creating-the-spls-input" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="creating-the-spls-input">
+<span class="header-section-number">9.2</span> Creating the sPLS input</h2>
+<p>The first step is to transform the <code>MultiDataSet</code> object into a suitable format for the <code>mixOmics</code> package. This can be done through the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls()</a></code> function. The function restricts the datasets to only common samples, and returns a named list, where each element is an omics dataset matrix with samples as rows and features as columns. The names of the two datasets to analyse are passed on through the <code>datasets</code> argument. In addition, the analysis mode must be specified through the <code>mode</code> argument, and optionally the multilevel option to handle repeated measurements can be set through the <code>multilevel</code> argument. Both concepts are explained below.</p>
+<section id="the-four-spls-modes" class="level3" data-number="9.2.1"><h3 data-number="9.2.1" class="anchored" data-anchor-id="the-four-spls-modes">
+<span class="header-section-number">9.2.1</span> The four sPLS modes</h3>
+<p>There are four possible modes that can be used for an sPLS analysis. These modes define the role that each of the datasets play, and differ by the type of matrix deflation used in the analysis. These four modes are:</p>
+<ul>
+<li><p>The regression mode (<code>mode = "regression"</code>): the first dataset (first name in <code>datasets</code> argument) is considered as the ‘predictor’ dataset, and the second as the ‘response’ dataset. With this mode, the order in which the datasets appear in the <code>datasets</code> argument matters.</p></li>
+<li><p>The canonical mode (<code>mode = "canonical"</code>): the two datasets play a symmetrical role, and the order in which they appear in the <code>datasets</code> argument does not matter. This mode is used when there is no a priori relationship between the two datasets. This is similar to a canonical correlation analysis (CCA).</p></li>
+<li><p>The invariant mode (<code>mode = "invariant"</code>): similar to the regression mode with the first dataset being considered as the predictor dataset, and the second as the response dataset. However no matrix deflation is performed, which allows to perform a redundancy analysis. Again, the order in which the datasets appear in the <code>datasets</code> argument matters.</p></li>
+<li><p>The classic mode (<code>mode = "classic"</code>): similar to the regression mode with the first dataset being considered as the predictor dataset, and the second as the response dataset; however this mode uses a different normalisation method for the loading vectors in accordance to another version of the sPLS method. Again, the order in which the datasets appear in the <code>datasets</code> argument matters.</p></li>
+</ul>
+<p>The difference between these four modes lies in the type of matrix deflation used after computing each latent component. Therefore, the first latent components constructed will be identical between modes, but the subsequent ones will differ.</p>
+</section><section id="the-multilevel-option" class="level3" data-number="9.2.2"><h3 data-number="9.2.2" class="anchored" data-anchor-id="the-multilevel-option">
+<span class="header-section-number">9.2.2</span> The multilevel option</h3>
+<p>The <code>mixOmics</code> package includes an option to deal with repeated measurements (see the <code>mixOmics</code> <a href="http://mixomics.org/methods/multilevel/">multilevel article</a>). This corresponds to the case where several samples in the omics datasets come from the same biological individual (patient, animal, plant) that has been measured several times (e.g.&nbsp;before and after a treatment, or across several body sites). In such case, it is possible that the measurements obtained are more similar within an individual than within a treatment group, which reduces our ability to detect differences between the treatment groups.</p>
+<p>To mitigate this effect, the <code>mixOmics</code> package can decompose the datasets to extract their within-individual variation part, which is then used as input for the sPLS run (<span class="citation" data-cites="liquet2012">Liquet et al. (<a href="references.html#ref-liquet2012" role="doc-biblioref">2012</a>)</span> ). As noted by the authors of the package, this methodology is applicable to balanced as well as unbalanced designs. Before selecting this option, is it recommended to explore the datasets with some unsupervised dimension reduction method (e.g.&nbsp;a PCA), in order to assess whether the between-individual variation should be removed to enable the detection of any between-treatment effect.</p>
+<p>The multilevel option can accommodate one- or two-factor decomposition, which refers to the number of treatment covariates whose effect we are studying. For example, if we have repeated measurements on the same subjects for three time-points after the application of a treatment, we will use a one-factor decomposition with time being the factor of interest. If instead we have repeated measurements on the same subjects for three time-points after the application of two different treatments (so 6 measurements for a same subject), we will use a two-factor decomposition with time and treatment as the factors of interest.</p>
+<p>With the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls()</a></code> function, in order to use the multilevel option with one factor, the <code>multilevel</code> argument should be populated with the name of the column in the samples metadata of the omics datasets containing the ID of the biological individuals. For example, if we have measured different plants once after the application of two different treatments, the samples metadata table might look like this:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">id</th>
+<th style="text-align: left;">plant_id</th>
+<th style="text-align: left;">treatment</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sample_1</td>
+<td style="text-align: left;">sample_1</td>
+<td style="text-align: left;">plant_1</td>
+<td style="text-align: left;">A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sample_2</td>
+<td style="text-align: left;">sample_2</td>
+<td style="text-align: left;">plant_1</td>
+<td style="text-align: left;">B</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sample_3</td>
+<td style="text-align: left;">sample_3</td>
+<td style="text-align: left;">plant_2</td>
+<td style="text-align: left;">A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sample_4</td>
+<td style="text-align: left;">sample_4</td>
+<td style="text-align: left;">plant_2</td>
+<td style="text-align: left;">B</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sample_5</td>
+<td style="text-align: left;">sample_5</td>
+<td style="text-align: left;">plant_3</td>
+<td style="text-align: left;">A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sample_6</td>
+<td style="text-align: left;">sample_6</td>
+<td style="text-align: left;">plant_3</td>
+<td style="text-align: left;">B</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sample_7</td>
+<td style="text-align: left;">sample_7</td>
+<td style="text-align: left;">plant_4</td>
+<td style="text-align: left;">A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sample_8</td>
+<td style="text-align: left;">sample_8</td>
+<td style="text-align: left;">plant_4</td>
+<td style="text-align: left;">B</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sample_9</td>
+<td style="text-align: left;">sample_9</td>
+<td style="text-align: left;">plant_5</td>
+<td style="text-align: left;">A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sample_10</td>
+<td style="text-align: left;">sample_10</td>
+<td style="text-align: left;">plant_5</td>
+<td style="text-align: left;">B</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>where the <code>id</code> column contains the unique ID for each observation (these are the IDs present in the omics datasets), <code>plant_id</code> records the ID of the plant measured (our biological individuals) on which repeated measurements have been taken, and <code>treatment</code> contains the treatment that has been applied before each observation. In that case, we will set <code>multilevel = "plant_id"</code> to use the multilevel option:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">spls_input_multilevel1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set_multilevel1</span>, </span>
+<span>  mode <span class="op">=</span> <span class="st">"canonical"</span>,</span>
+<span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span>,</span>
+<span>  multilevel <span class="op">=</span> <span class="st">"plant_id"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The resulting design table that will be used by the <code>mixOmics</code> package is stored in the <code>multilevel</code> argument of the object returned by the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls()</a></code> function. It consists of a data-frame with observations as rows, and an integer ID for the corresponding biological individual in the first column:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">plant_id</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sample_1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sample_2</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sample_3</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sample_4</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sample_5</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sample_6</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sample_7</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sample_8</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sample_9</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sample_10</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>In order to use the multilevel option with two factors, the <code>multilevel</code> argument should instead be populated with a vector of three column names from the samples metadata table. The first value, similarly to a one-factor decomposition, should be the name of the column containing the ID of the biological individuals. The second and third values should be the name of the columns containing the levels of the two factors of interest. Continuing on the previous example, supposing that in a similar study, we take measurements on the plants at three different time-points after the application of each treatment. The samples metadata table might look like this:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata_combined.html">get_samples_metadata_combined</a></span><span class="op">(</span><span class="va">mo_set_multilevel2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<pre><code>#&gt;                  id plant_id treatment time
+#&gt; sample_1   sample_1  plant_1         A    1
+#&gt; sample_2   sample_2  plant_1         A    2
+#&gt; sample_3   sample_3  plant_1         A    3
+#&gt; sample_4   sample_4  plant_1         B    1
+#&gt; sample_5   sample_5  plant_1         B    2
+#&gt; sample_6   sample_6  plant_1         B    3
+#&gt; sample_7   sample_7  plant_2         A    1
+#&gt; sample_8   sample_8  plant_2         A    2
+#&gt; sample_9   sample_9  plant_2         A    3
+#&gt; sample_10 sample_10  plant_2         B    1
+#&gt; sample_11 sample_11  plant_2         B    2
+#&gt; sample_12 sample_12  plant_2         B    3</code></pre>
+</div>
+<p>with similar columns to the previous example, and an additional <code>time</code> column indicating the time-point at which the measurement was taken. In that case, we should set <code>multilevel = c("plant_id", "treatment", "time")</code> to use the multilevel option, as follows:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">spls_input_multilevel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set_multilevel2</span>, </span>
+<span>  mode <span class="op">=</span> <span class="st">"canonical"</span>,</span>
+<span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span>,</span>
+<span>  multilevel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"plant_id"</span>, <span class="st">"treatment"</span>, <span class="st">"time"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As for the one-factor example, the resulting design table that will be used by the <code>mixOmics</code> package is stored in the <code>multilevel</code> argument of the object returned by the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls()</a></code> function. It consists of a data-frame with observations as rows, and an integer ID for the corresponding biological individual in the first column, and the two factors with their original levels in the following columns:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">spls_input_multilevel2</span>, <span class="st">"multilevel"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<pre><code>#&gt;           plant_id treatment time
+#&gt; sample_1         1         A    1
+#&gt; sample_2         1         A    2
+#&gt; sample_3         1         A    3
+#&gt; sample_4         1         B    1
+#&gt; sample_5         1         B    2
+#&gt; sample_6         1         B    3
+#&gt; sample_7         2         A    1
+#&gt; sample_8         2         A    2
+#&gt; sample_9         2         A    3
+#&gt; sample_10        2         B    1
+#&gt; sample_11        2         B    2
+#&gt; sample_12        2         B    3</code></pre>
+</div>
+</section><section id="the-spls-input-object" class="level3" data-number="9.2.3"><h3 data-number="9.2.3" class="anchored" data-anchor-id="the-spls-input-object">
+<span class="header-section-number">9.2.3</span> The sPLS input object</h3>
+<p>For our example dataset, we will integrate the transcriptomics and metabolomics datasets using the canonical mode (since we don’t have any a priori on the relationship between the two datasets). In this case we do not have a repeated measurements design.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_input</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls</a></span><span class="op">(</span></span>
+<span>    <span class="va">mo_presel_supervised</span>,</span>
+<span>    mode <span class="op">=</span> <span class="st">"canonical"</span>,</span>
+<span>    datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The result of the function is a named list of length 2, where each element is a matrix of omics measurements, which have been restricted to samples that are common to the two datasets. The sPLS mode to be used is stored in the <code>mode</code> attribute of the object.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">spls_input</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 2</span></span>
+<span><span class="co">#&gt;  $ rnaseq    : num [1:139, 1:994] 3.49 3.49 4.01 3.49 4.25 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:139] "R9497" "R5969" "R5327" "R5979" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:994] "ENSBTAG00000000020" "ENSBTAG00000000046" "ENSBTAG00000000056" "ENSBTAG00000000061" ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "datatype")= chr "ExpressionSet"</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "package")= chr "Biobase"</span></span>
+<span><span class="co">#&gt;  $ metabolome: num [1:139, 1:55] 3.29 3.39 3.64 3.32 3.63 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:139] "R9497" "R5969" "R5327" "R5979" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:55] "HMDB00001" "HMDB00008" "HMDB00042" "HMDB00043" ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "datatype")= chr "MetabolomeSet"</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "package")= chr "moiraine"</span></span>
+<span><span class="co">#&gt;  - attr(*, "mode")= chr "canonical"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="choosing-the-number-of-latent-components" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="choosing-the-number-of-latent-components">
+<span class="header-section-number">9.3</span> Choosing the number of latent components</h2>
+<p>The first step when running an sPLS analysis is to determine the number of latent components to construct, which can be chosen using cross-validation. This is done by running an initial sPLS analysis on the datasets with no feature selection and a large number of latent components; for example we want to test up to four latent components. We use for this the <code><a href="https://rdrr.io/pkg/moiraine/man/spls_run.html">spls_run()</a></code> function, which is a wrapper for the <code><a href="https://rdrr.io/pkg/mixOmics/man/spls.html">mixOmics::spls()</a></code> function.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_novarsel</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_run.html">spls_run</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_input</span>,</span>
+<span>    ncomp <span class="op">=</span> <span class="fl">4</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We then apply the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function on the result of this initial run. There are several parameters to set:</p>
+<ul>
+<li><p><code>validation</code>: the type of cross-validation to perform, M-fold (<code>"Mfold"</code>) or leave-one-out (<code>"loo"</code>). We recommend to use M-fold validation, except when the number of samples is very small.</p></li>
+<li><p><code>folds</code>: for M-fold cross-validation, the number of folds to construct, i.e.&nbsp;the number of groups in which to split the samples. Each group in turn will be considered as test set while the remaining groups are used to make the training set. The value to use depends on the number of samples in the datasets. By default, 10 is a reasonable number. For leave-one-out cross-validation, this parameter is set to the number of samples (that is the principle of leave-one-out cross-validation).</p></li>
+<li><p><code>nrepeat</code>: the number of times the cross-validation will be repeated. This is important for M-fold cross-validation, as the way the samples are split into groups affects the results. Therefore, by repeating the cross-validation scheme we are averaging the results over different splits, thus reducing the impact of samples splitting. We recommend at least 10 repeats. Irrelevant for leave-one-out cross-validation, so can be left to 1.</p></li>
+<li><p><code>cpus</code>: number of CPUs to use for the computation. Useful if <code>folds</code> <span class="math inline">\(\times\)</span> <code>repeats</code> is large, as this can be computationally intensive.</p></li>
+</ul>
+<p>Here we’ll perform a 10-fold cross validation with 10 repeats.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_perf_res</span>,</span>
+<span>  <span class="fu">mixOmics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">perf</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_novarsel</span>,</span>
+<span>    validation <span class="op">=</span> <span class="st">"Mfold"</span>,</span>
+<span>    folds <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    nrepeat <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    cpus <span class="op">=</span> <span class="fl">3</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can visualise the results of the cross-validation with the <code><a href="https://rdrr.io/pkg/mixOmics/man/plot.tune.html">mixOmics::plot.tune.spls()</a></code> function, setting the criterion to <code>Q2.total</code>, which corresponds to the <span class="math inline">\(Q^2\)</span> criterion reflecting the predictive power of the model (other possible values include <code>cor.tpred</code>, <code>cor.upred</code>, <code>RSS.tpred</code>, <code>RSS.upred</code>):</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">spls_perf_res</span><span class="op">)</span>, criterion <span class="op">=</span> <span class="st">"Q2.total"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="spls_files/figure-html/spls-perf-res-plot-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>The plot generated displays the average <span class="math inline">\(Q^2_{total}\)</span> criterion across the different cross-validation folds obtained with different number of latent components. The authors of the <code>mixOmics</code> package recommend to select the number of latent components above which the Q2 criterion becomes smaller than 0.0975 (depicted as a black horizontal line in the plot). However, there are cases in which the Q2 values instead increases with the number of latent components. In these cases, it is recommended to select the number of latent components above which the Q2 values exceed the threshold of 0.0975. To facilitate the selection, the <code><a href="https://rdrr.io/pkg/moiraine/man/spls_get_optim_ncomp.html">spls_get_optim_ncomp()</a></code> function can automatically select the optimal number of latent components to use based on the cross-validation results. However, its results should always be checked against the graphical representation of the <span class="math inline">\(Q^2_{total}\)</span> criterion. In our case, the function selects the optimal number of latent components to construct to be 1:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_get_optim_ncomp.html">spls_get_optim_ncomp</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">spls_perf_res</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that with this function, it is possible to set a minimum number of latent components to construct. This is useful if we want to be able to generate sample plots, even though technically only one latent component is necessary. This minimum number can be set through the <code>min_ncomp</code> argument. For the example, we will set it to two, to be able to showcase some of the plotting functionalities. We will save the chosen value in a target, for reuse in the rest of the pipeline:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_optim_ncomp</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_get_optim_ncomp.html">spls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">spls_perf_res</span>, min_ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">spls_optim_ncomp</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="choosing-the-number-of-features-to-retain" class="level2" data-number="9.4"><h2 data-number="9.4" class="anchored" data-anchor-id="choosing-the-number-of-features-to-retain">
+<span class="header-section-number">9.4</span> Choosing the number of features to retain</h2>
+<p>The next parameter to set is the number of features to retain from each of the omics datasets, for each latent component. Again, we can use cross-validation to select optimal values amongst a grid of values to test. The range of values to test depends on the type of question we are trying to answer: selecting a larger number of features might lead to a higher degree of agreement between the latent components of the two datasets, but will be hard to manually inspect for further characterisation.</p>
+<p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/spls_tune.html">spls_tune()</a></code> provides a wrapper around the <code><a href="https://rdrr.io/pkg/mixOmics/man/tune.html">mixOmics::tune()</a></code> function that performs this cross-validation. Some of the arguments are similar to the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function, e.g.&nbsp;<code>validation</code>, <code>folds</code>, <code>nrepeats</code> or <code>cpus.</code> In addition, we recommend setting the <code>measure</code> argument, which corresponds to the metric used for performance assessment, to <code>"cor"</code> (i.e.&nbsp;the correlation between the latent components constructed). Alternatively, it is possible to set the <code>measure</code> argument to <code>"RSS"</code>.</p>
+<p>The <code>keepX</code> and <code>keepY</code> arguments control the grid of values to be tested as possible number of features to retain from the first and second dataset, respectively. Both arguments should be in the form of an integer vector of values to test. If no value is provided for either of these arguments, six values ranging from 5 to 30 (by increments of 5) are tested for the corresponding dataset. Here we will increase the maximum number of features that can be retained from each dataset to 100. Note that the metabolomics dataset has only 55 features, so the <code>spls_tune</code> function will remove all values to test above this number.</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_tune_res</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_tune.html">spls_tune</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_input</span>,</span>
+<span>    ncomp <span class="op">=</span> <span class="va">spls_optim_ncomp</span>,</span>
+<span>    keepX <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>    keepY <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>    validation <span class="op">=</span> <span class="st">"Mfold"</span>,</span>
+<span>    folds <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    nrepeat <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>    measure <span class="op">=</span> <span class="st">"cor"</span>,</span>
+<span>    cpus <span class="op">=</span> <span class="fl">3</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The cross-validation results can be inspected with the <code><a href="https://rdrr.io/pkg/moiraine/man/spls_plot_tune.html">spls_plot_tune()</a></code> function:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">spls_tune_res</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_plot_tune.html">spls_plot_tune</a></span><span class="op">(</span><span class="va">spls_tune_res</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="spls_files/figure-html/spls-plot-tune-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>In the plot, each point corresponds to a pair of values (<code>keepX</code>, <code>keepY</code>) tested. The colour of each point indicates the average correlation obtained across the cross-validation folds between the latent components constructed for the first dataset (left panel) or second dataset (right panel). The grey shadow around each point indicates the Coefficient of Variation (i.e.&nbsp;standard deviation divided by mean) of this correlation across the cross-validation folds (so a larger shadow indicates a larger relative variation across the folds). The point corresponding to the optimal pair of values for <code>keepX</code> and <code>keepY</code> is highlighted in red. It corresponds to the pair of values that maximises this average correlation for both datasets (according to a t-test of significance).</p>
+<p>The optimal number of features to retain from each dataset for the different latent components is stored in the cross-validation results object, and can be accessed with:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">spls_tune_res</span><span class="op">$</span><span class="va">choice.keepX</span></span>
+<span><span class="co">#&gt; comp1 comp2 </span></span>
+<span><span class="co">#&gt;    40    10</span></span>
+<span><span class="va">spls_tune_res</span><span class="op">$</span><span class="va">choice.keepY</span></span>
+<span><span class="co">#&gt; comp1 comp2 </span></span>
+<span><span class="co">#&gt;    30    10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that for the example, we will keep the selected values, however given the diagnostic plot shown above, we could probably set the number of features to retain for the second latent component to 20 for the transcriptomics dataset and 30 for the metabolomics dataset.</p>
+</section><section id="final-spls-run" class="level2" data-number="9.5"><h2 data-number="9.5" class="anchored" data-anchor-id="final-spls-run">
+<span class="header-section-number">9.5</span> Final sPLS run</h2>
+<p>Once a value has been selected for all parameters, we can perform the final sPLS run.</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_final_run</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_run.html">spls_run</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_input</span>,</span>
+<span>    ncomp <span class="op">=</span> <span class="va">spls_optim_ncomp</span>,</span>
+<span>    keepX <span class="op">=</span> <span class="va">spls_tune_res</span><span class="op">$</span><span class="va">choice.keepX</span>,</span>
+<span>    keepY <span class="op">=</span> <span class="va">spls_tune_res</span><span class="op">$</span><span class="va">choice.keepY</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will load the results of this final run for interpretation.</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">spls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To facilitate reporting, the <code><a href="https://rdrr.io/pkg/moiraine/man/spls_get_params.html">spls_get_params()</a></code> function extracts from the sPLS result the parameters used (i.e.&nbsp;number of latent components computed and number of features retained from each dataset for each latent component):</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_get_params.html">spls_get_params</a></span><span class="op">(</span><span class="va">spls_final_run</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span><span class="co">#&gt;   Parameter Description                                                    Value</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                                                          &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 ncomp     Number of latent component                                     2    </span></span>
+<span><span class="co">#&gt; 2 keepX     Number of features retained in dataset rnaseq for each latent… 40, …</span></span>
+<span><span class="co">#&gt; 3 keepY     Number of features retained in dataset metabolome for each la… 30, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="results-interpretation" class="level2" data-number="9.6"><h2 data-number="9.6" class="anchored" data-anchor-id="results-interpretation">
+<span class="header-section-number">9.6</span> Results interpretation</h2>
+<p>In <a href="interpretation.html"><span>Chapter&nbsp;10</span></a>, we show the different functionalities implemented in the <code>moiraine</code> package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the sPLS-specific plots that can be generated to help interpret the results of an sPLS run.</p>
+<section id="samples-plots" class="level3" data-number="9.6.1"><h3 data-number="9.6.1" class="anchored" data-anchor-id="samples-plots">
+<span class="header-section-number">9.6.1</span> Samples plots</h3>
+<p>We can represent the samples in the subspace spanned by the latent components for each dataset, using the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotIndiv.html">mixOmics::plotIndiv()</a></code> function.</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotIndiv.html">plotIndiv</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_final_run</span>,</span>
+<span>  ind.names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  comp <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="spls_files/figure-html/spls-plot-indiv-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>Here, ‘Block X’ refers to the first dataset (i.e.&nbsp;the transcriptomics dataset in our case), and ‘Block Y’ to the second dataset (the metabolomics dataset). The agreement between the latent components computed for each dataset can be more easily visualised using an arrow plot, using the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotArrow.html">mixOmics::plotArrow()</a></code> function:</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotArrow.html">plotArrow</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_final_run</span>,</span>
+<span>  ind.names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  comp <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="spls_files/figure-html/spls-plot-arrow-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>In the arrow plot, each sample is represented with two points, which are linked by an arrow. The point at the start of the arrow corresponds to the sample in the projection space of the first dataset (i.e.&nbsp;transcriptomics dataset), while the point at the end of the arrow shows the location of the sample in the projection space of the second dataset (i.e.&nbsp;the metabolomics dataset). In this plot, most of the arrows are large, which indicates that there is not a good agreement between the latent components of the two datasets.</p>
+</section><section id="correlation-circle-plots" class="level3" data-number="9.6.2"><h3 data-number="9.6.2" class="anchored" data-anchor-id="correlation-circle-plots">
+<span class="header-section-number">9.6.2</span> Correlation circle plots</h3>
+<p>The correlation circle plots produced by the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">mixOmics::plotVar()</a></code> function allows to visualise the correlation between each of the selected features and the different latent components:</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_final_run</span>,</span>
+<span>  comp <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>  var.names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="spls_files/figure-html/spls-plotVar-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>The <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar()</a></code> function offers the option to show the label of the features rather than representing them as points. However, it can be more informative to use information from the feature metadata as labels, rather than using the feature IDs. For example in the transcriptomics dataset, it would be more interesting to use the name of the genes. This information is available in the datasets’ features metadata:</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span><span class="op">[[</span><span class="st">"rnaseq"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    20335 obs. of  15 variables:</span></span>
+<span><span class="co">#&gt;  $ feature_id : chr  "ENSBTAG00000000005" "ENSBTAG00000000008" "ENSBTAG00000000009" "ENSBTAG00000000010" ...</span></span>
+<span><span class="co">#&gt;  $ chromosome : Factor w/ 178 levels "1","2","3","4",..: 17 29 18 21 8 20 20 5 5 23 ...</span></span>
+<span><span class="co">#&gt;  $ start      : int  65389743 32214439 12338037 34209956 7950815 33708626 33674806 74883636 74905031 27720176 ...</span></span>
+<span><span class="co">#&gt;  $ end        : int  65505336 32244810 12342272 34223394 7971600 33732944 33703223 74893752 74919112 27721739 ...</span></span>
+<span><span class="co">#&gt;  $ width      : int  115594 30372 4236 13439 20786 24319 28418 10117 14082 1564 ...</span></span>
+<span><span class="co">#&gt;  $ strand     : Factor w/ 3 levels "+","-","*": 1 2 1 1 2 1 1 2 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ Name       : chr  "GRK3" "KCNJ1" "FOXF1" "UBL7" ...</span></span>
+<span><span class="co">#&gt;  $ description: chr  "G protein-coupled receptor kinase 3 [Source:VGNC Symbol;Acc:VGNC:53904]" "potassium inwardly rectifying channel subfamily J member 1 [Source:VGNC Symbol;Acc:VGNC:30453]" "forkhead box F1 [Source:VGNC Symbol;Acc:VGNC:29084]" "ubiquitin like 7 [Source:VGNC Symbol;Acc:VGNC:50128]" ...</span></span>
+<span><span class="co">#&gt;  $ log_fc     : num  0.136 -0.1297 1.2714 0.3957 0.0777 ...</span></span>
+<span><span class="co">#&gt;  $ log_cpm    : num  5.905 -0.744 -2.563 6.256 -2.761 ...</span></span>
+<span><span class="co">#&gt;  $ f          : num  4.163 1.068 23.956 60.53 0.142 ...</span></span>
+<span><span class="co">#&gt;  $ p_value    : num  4.32e-02 3.03e-01 2.73e-06 1.58e-12 7.07e-01 ...</span></span>
+<span><span class="co">#&gt;  $ fdr        : num  7.17e-02 3.94e-01 9.67e-06 1.52e-11 7.77e-01 ...</span></span>
+<span><span class="co">#&gt;  $ de_signif  : chr  "Not DE" "Not DE" "Not DE" "Not DE" ...</span></span>
+<span><span class="co">#&gt;  $ de_status  : chr  "Not DE" "Not DE" "Not DE" "Not DE" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/spls_plot_var.html">spls_plot_var()</a></code> function is a variant of <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar()</a></code>, which uses columns from the features metadata to label features plot. It takes as an input the sPLS result object as well as the <code>MultiDataSet</code> object, and a named list providing for each dataset the name of the column in the feature metadata data-frame to use as features label:</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_plot_var.html">spls_plot_var</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_final_run</span>,</span>
+<span>  <span class="va">mo_set_de</span>,</span>
+<span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>  comp <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="spls_files/figure-html/spls-plot-var-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>Note that if a dataset is not present in the list passed to <code>label_cols</code>, the feature IDs will be used as labels.</p>
+</section></section><section id="recap---targets-list" class="level2" data-number="9.7"><h2 data-number="9.7" class="anchored" data-anchor-id="recap---targets-list">
+<span class="header-section-number">9.7</span> Recap - targets list</h2>
+<p>For convenience, here is the list of targets that we created in this section:</p>
+<details><summary>
+Targets list for sPLS analysis
+</summary><div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="co">## Creating sPLS input</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_input</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls</a></span><span class="op">(</span></span>
+<span>      <span class="va">mo_presel_supervised</span>,</span>
+<span>      mode <span class="op">=</span> <span class="st">"canonical"</span>,</span>
+<span>      datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Initial PLS run with no feature selection and large number of components</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_novarsel</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_run.html">spls_run</a></span><span class="op">(</span></span>
+<span>      <span class="va">spls_input</span>,</span>
+<span>      ncomp <span class="op">=</span> <span class="fl">4</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Cross-validation for number of components</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_perf_res</span>,</span>
+<span>    <span class="fu">mixOmics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">perf</a></span><span class="op">(</span></span>
+<span>      <span class="va">spls_novarsel</span>,</span>
+<span>      validation <span class="op">=</span> <span class="st">"Mfold"</span>,</span>
+<span>      folds <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>      nrepeat <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>      cpus <span class="op">=</span> <span class="fl">3</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Plotting cross-validation results (for number of components)</span></span>
+<span>  <span class="co">## Can try criterion = 'Q2.total', 'cor.tpred', 'cor.upred', 'RSS.tpred',</span></span>
+<span>  <span class="co">## 'RSS.upred' (but avoid 'RSS' and 'PRESS')</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_perf_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">spls_perf_res</span>, criterion <span class="op">=</span> <span class="st">"Q2.total"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Selected value for ncomp</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_optim_ncomp</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_get_optim_ncomp.html">spls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">spls_perf_res</span>, min_ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Cross-validation for number of features to retain</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_tune_res</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_tune.html">spls_tune</a></span><span class="op">(</span></span>
+<span>      <span class="va">spls_input</span>,</span>
+<span>      ncomp <span class="op">=</span> <span class="va">spls_optim_ncomp</span>,</span>
+<span>      keepX <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>      keepY <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>      validation <span class="op">=</span> <span class="st">"Mfold"</span>,</span>
+<span>      folds <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>      nrepeat <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>      measure <span class="op">=</span> <span class="st">"cor"</span>,</span>
+<span>      cpus <span class="op">=</span> <span class="fl">3</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Plotting cross-validation results (for number of features)</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_tune_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_plot_tune.html">spls_plot_tune</a></span><span class="op">(</span><span class="va">spls_tune_res</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Final sPLS run</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_final_run</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_run.html">spls_run</a></span><span class="op">(</span></span>
+<span>      <span class="va">spls_input</span>,</span>
+<span>      ncomp <span class="op">=</span> <span class="va">spls_optim_ncomp</span>,</span>
+<span>      keepX <span class="op">=</span> <span class="va">spls_tune_res</span><span class="op">$</span><span class="va">choice.keepX</span>,</span>
+<span>      keepY <span class="op">=</span> <span class="va">spls_tune_res</span><span class="op">$</span><span class="va">choice.keepY</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-liquet2012" class="csl-entry" role="doc-biblioentry">
+Liquet, Benoit, Kim-Anh Lê Cao, Hakim Hocini, and Rodolphe Thiébaut. 2012. <span>“A Novel Approach for Biomarker Selection and the Integration of Repeated Measures Experiments from Two Assays.”</span> <em>BMC Bioinformatics</em> 13 (1): 325. <a href="https://doi.org/10.1186/1471-2105-13-325">https://doi.org/10.1186/1471-2105-13-325</a>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./diablo.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data integration with DIABLO</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./interpretation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

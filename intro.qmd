@@ -16,7 +16,6 @@
 
 Note: Throughout the package and vignettes, we refer to the different biological entities measured in a given dataset (e.g. genes, transcripts, metabolic compounds, etc) as features.
 
-
 To improve upon the default ggplot2 colours, each vignette is run with the following options:
 
 ```{r ggplo2-colour-options}

@@ -1,8 +1,3 @@
----
-output: html_document
-editor_options: 
-  chunk_output_type: console
----
 # Data integration with DIABLO {#sec-diablo}
 
 ```{r}
@@ -161,7 +156,7 @@ tar_read(diablo_design_matrix)
 
 One important parameter that must be set when performing a DIABLO analysis is the number of latent components to construct for each dataset. The optimal number of components can be estimated by cross-validation, implemented in the `mixOmics::perf()` function. This function assesses the classification performance (i.e. how well the different outcome groups are separated) achieved by DIABLO for different numbers of latent components.
 
-Choosing the optimal number of latent components to construct is a multi-step process. The first step is to run DIABLO without feature selection, setting the number of latent components to the maximum value we wish to test. We recommend to set this to the number of groups in the categorical outcome + 2, which in our case equals 4; however this can be further refined after checking the results. For this example, we will set the maximum to 7. The function also requires as input the design matrix to be used; here we will use the one constructed from the PLS runs:
+Choosing the optimal number of latent components to construct is a multi-step process. The first step is to run DIABLO without feature selection, setting the number of latent components to the maximum value we wish to test. We recommend to set this to the number of groups in the categorical outcome + 2, which in our case equals 4; however this can be further refined after checking the results. For this example, we will set the maximum to 7. This is done through the `diablo_run()` function, which is a wrapper for the `mixOmics::block.splsda()` function. The function also requires as input the design matrix to be used; here we will use the one constructed from the PLS runs:
 
 ```{targets diablo-novarsel}
 tar_target(
@@ -292,7 +287,7 @@ diablo_table_optim_keepX(diablo_tune_res)
 
 ## Final DIABLO run
 
-Once a value has been selected for all parameters, it is time to perform the final DIABLO run. This can be done through the `diablo_run()` function, which is a wrapper for the `mixOmics::block.splsda()` function.
+Once a value has been selected for all parameters, it is time to perform the final DIABLO run:
 
 ```{targets diablo-final-run}
 tar_target(
@@ -309,6 +304,13 @@ tar_target(
 ```{r load-diablo-final-run}
 tar_load(diablo_final_run)
 ```
+
+To facilitate reporting, the `diablo_get_params()` function extracts from the DIABLO result the parameters used (i.e. number of latent components computed and number of features retained from each dataset for each latent component), with HTML formatting:
+
+```{r diablo-get-params-code}
+diablo_get_params(diablo_final_run)
+```
+
 
 ## Results interpretation
 
