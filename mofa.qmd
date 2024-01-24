@@ -1,0 +1,408 @@
+# Integration with MOFA {#sec-mofa}
+
+```{r}
+#| child: "_setup.qmd"
+```
+
+```{r loading-packages}
+#| include: false
+
+library(targets)
+library(moiraine)
+library(MOFA2)
+```
+
+```{r setup-visible}
+#| eval: false
+
+library(targets)
+library(moiraine)
+
+## For integration with MOFA
+library(MOFA2)
+
+```
+
+
+In this vignette, we assume that the omics datasets and associated metadata have been imported into a `MultiDataSet` object (see vignette on [Importing the data](data-import.html)), appropriately transformed (see vignette on [Datasets preprocessing](datasets-preprocessing.html)) and pre-filtered ([Datasets prefiltering](prefiltering.html)). We will show here how to perform multi-omics data integration with the MOFA method from the [`MOFA2`](https://biofam.github.io/MOFA2/index.html) package.
+
+As a reminder, here is what the `_targets.R` script should look like so far:
+
+<details>
+  <summary>`_targets.R` script</summary>
+
+```{file targets-script}
+```
+</details>
+
+
+## What is MOFA?
+
+MOFA (for Multi-Omics Factor Analysis) is a method for the unsupervised integration of two or more omics datasets. It aims at uncovering the main axes of variations shared by all or a subset of the datasets, through the construction of a small number of latent factors. It can be assimilated to a generalisation of the PCA (Principal Components Analysis) to multiple datasets. The latent factors are constructed as sparse linear combinations of the features (variants, genes, compounds), highlighting the features that contribute to each axis of variation.
+
+MOFA uses a Bayesian framework to decompose each dataset (referred to as view in the package documentation) into the product of a latent factor matrix (which corresponds to the main axes of variations) and a matrix of feature weights (which indicate the extent to which the features contribute to the different latent factors). MOFA applies two levels of sparsity. The first level of sparsity is used to detect whether a given latent factor is active (i.e. explains variation) in each dataset. This allows to assess which sources of variations are shared across the datasets. The second level of sparsity is applied to the features, allowing to assess which features contribute to each source of variation.
+
+MOFA requires as input matrices of omics measurements that must have at least some samples in common, and accept some samples being absent from some of the datasets. It is recommended to have at least 15 samples in common across the datasets in order to obtain sensible results. The number of features in each dataset must not be too small (i.e. at least 15). It is critical that each dataset is properly normalised, with batch effects removed. In addition, it is strongly recommended that the datasets are pre-filtered to retain highly variable features; a similar number of features should be retained across the datasets. Missing values are not a problem with MOFA. MOFA can also accept samples and features metadata as data-frames. Lastly, there is a number of parameters that can be customised. The most important ones will be mentioned in this vignette; for a complete list see the [MOFA tutorial](https://raw.githack.com/bioFAM/MOFA2_tutorials/master/R_tutorials/getting_started_R.html).
+
+A characteristic of the MOFA2 package is that the model training part of the analysis is done in Python with the `mofapy2` module. MOFA2 interacts with Python from R with the `reticulate` package. This is important to know as it might affect the installation and run depending on the environment in which it is used.
+
+### A note on groups in MOFA
+
+MOFA offers the option to assign samples to groups (referred to as the multi-group framework within MOFA). It is important to understand what this does before using it. In particular, if the aim of the analysis is to find features that separate samples based on a grouping, you should not use this multi-group framework. By setting sample groups in MOFA, it will ignore sources of variations that discriminate the groups. Instead, this multi-group framework will seek sources of variations that are shared between the different groups, and sources of variations that are exclusive to a specific group. For example, in [this analysis](https://raw.githack.com/bioFAM/MOFA2_tutorials/master/R_tutorials/scNMT_gastrulation.html), the multi-group framework was used to split samples (cells) based on their developmental stage. The goal of the analysis was to find coordinated variation between the different datasets, and detect at which developmental stage (i.e. in which group) it occurred, rather than trying to differentiate the different developmental stages.
+
+## Creating the MOFA input
+
+The first step is to transform the `MultiDataSet` object into a suitable format for the `MOFA2` package. This can be done through the `get_input_mofa()` function. In addition to the `MultiDataSet` object, this function accepts as arguments:
+
+-   `datasets`: a vector of dataset names that dictates which datasets from the multi-omics set will be included in the analysis (by default, all datasets are included);
+
+-   `groups`: the name of the column in the samples metadata to be used as group indicator if using the multi-group framework (if not set, the multi-group framework will not be used);
+
+-   `options_list`: a list of options to customise the MOFA model -- more information below;
+
+-   `only_common_samples`: whether only the samples present in all datasets should be retained. The default value is `FALSE`; this argument should be set to `TRUE` when some datasets contain much more samples than others; when only a few samples are missing from some of the datasets, it is ok to leave it to `FALSE`.
+
+We expand on the options that can be set with the `options_list` argument below.
+
+### MOFA parameters
+
+MOFA has three type of parameters (referred to as options) that the user can control.
+
+#### Data options
+
+These are options for data handling when creating the MOFA model. The two important options are:
+
+-   `scale_views`: logical, whether the datasets (views) should be scaled to unit variance. The default is `FALSE`, but it is recommended to set it to `TRUE` if the scale difference between the datasets is high.
+
+-   `scale_groups`: logical, whether to scale the groups to unit variance. Irrelevant unless using the multi-group framework. The default is `FALSE`, but it is recommended to set it to `TRUE` if the scale difference between the groups is high.
+
+See the documentation for `get_default_data_options()` for a full list.
+
+#### Model options
+
+These are the options defining different aspects of the MOFA model. The most important ones are:
+
+-   `num_factors`: The maximum number of factors to construct (note that this is a maximum, i.e. MOFA can return a lower number of factors if there is not a lot of variation in the datasets). The default is set to 15, which is a good start. This can be adjusted after running MOFA with the default value.
+
+-   `likelihoods`: Named character vector, the type of likelihood to use for each dataset. MOFA offers three options: Gaussian likelihood (`'gaussian'`) for continuous data, Bernoulli likelihood (`'bernoulli'`) for binary data, and Poisson likelihood `('poisson')` for count data. It is highly recommended to transform the datasets in order to use a Gaussian likelihood: for example, applying a variance-stabilising transformation on RNAseq data rather than using the raw read counts with a Poisson likelihood. By default, a Gaussian likelihood is chosen for all datasets.
+
+See the documentation for `get_default_model_options()` for a full list.
+
+#### Training options
+
+These are the options that control how the model is trained. The most important ones are:
+
+-   `seed`: setting the random seed. This is standard practice, to make sure that the results are be reproducible.
+
+See the documentation for `get_default_training_options()` for a full list.
+
+#### Passing the parameters to `get_input_mofa`
+
+When creating a MOFA input object with `get_input_mofa()`, all options will be set to their default values. The user can customise the values for some of the options through the `options_list` parameter. This should be a named list, with up to three elements (one per type of options that MOFA accepts): `data_options`, `model_options`, and `training_options`. Each element is itself a named list, where each element of the list corresponds to a specific option. All three elements do not have to be present; for example, if we want to only specify a value of the model option `num_factors`, we can set `options_list` to `list(model_options = list(num_factors = 10))`. If we also want to set the likelihoods and the random seed, then `options_list` becomes:
+
+```{r options_list_example, eval = FALSE}
+list(
+  model_options = list(num_factors = 10),
+  training_options = list(seed = 43)
+)
+```
+
+For our example, we'll make sure that each dataset is scaled to unit variance, and that a Poisson likelihood is used for the genomics data, for which we have variants dosage. We'll also restrict the dataset to only those samples that are present in all three datasets, since the genomics dataset has many more samples than the other two datasets. We'll set the random seed to ensure that the results are reproducible:
+
+```{targets get-input-mofa}
+tar_target(
+  mofa_input,
+  get_input_mofa(
+    mo_presel_supervised,
+    options_list = list(
+      data_options = list(scale_views = TRUE),
+      model_options = list(likelihoods = c(
+        "snps" = "poisson",
+        "rnaseq" = "gaussian",
+        "metabolome" = "gaussian")
+      ),
+      training_options = list(seed = 43)
+    ),
+    only_common_samples = TRUE
+  )
+)
+```
+
+This will produce 2 warnings:
+
+```{r get-input-mofa-warnings, echo=FALSE, message=FALSE}
+res <- get_input_mofa(tar_read(mo_presel_supervised),
+  options_list = list(
+    data_options = list(scale_views = TRUE),
+    model_options = list(likelihoods = c(
+      "snps" = "poisson",
+      "rnaseq" = "gaussian",
+      "metabolome" = "gaussian"
+    ))
+  )
+)
+```
+
+The first warning message informs us that in the MOFA input object, the `group` column in the samples metadata has been renamed `group_metadata`. This is because MOFA needs a `group` column its own version of the samples metadata (for the multi-group framework), so there cannot be another column named `group`. Note that will have no effect on the `MultiDataSet` object.
+
+The second warning informs us that we have chosen to use a Poisson likelihood for the genomics dataset, but the latter does not have integer data. This is because the genotypes are posterior mean genotypes, so they are real values rather than integer (since they include uncertainty about dosage calling). This is taken care of by automatically rounding the dataset; but in other settings this warning can be an indication that the Poisson likelihood is not appropriate for the dataset.
+
+The output of the `get_input_mofa()` function is a MOFA object, more specifically an untrained model:
+
+```{r mofa-input}
+tar_load(mofa_input)
+mofa_input
+```
+
+We did not use the multi-group framework, so there is only one sample group.
+
+## Visualising the MOFA input
+
+Several functions are available both through `MOFA2` and `moiraine` to visualise and summarise the MOFA input object.
+
+First, it is possible to represent the samples that are present or missing across the different datasets with the `MOFA2::plot_data_overview()` function:
+
+```{r plot-data-overview}
+plot_data_overview(mofa_input)
+```
+
+Since we retained only the samples that are present in all datasets, there are no missing samples.
+
+For reporting purposes, it can also be useful to summarise the different options used to create the MOFA model. This can be done with the `options_list_as_tibble()` function, which turns a list of parameters into a tibble presenting the name and value of each parameter. For example, we can list the data options used:
+
+```{r mofa-options-list-as-tibble, eval = FALSE}
+options_list_as_tibble(mofa_input@data_options)
+```
+
+```{r mofa-options-list-as-tibble-kable, echo = FALSE}
+options_list_as_tibble(mofa_input@data_options) |>
+  kbl()
+```
+
+## Training the model
+
+Once we have prepared our MOFA input, we can train the model with the `MOFA2::run_mofa()` function. This is done through Python, so there might be some issues when trying to run the function for the first time after installing `MOFA2` if the configuration is not correct. If that is the case, see the MOFA2 tutorial (e.g. their [troubleshooting section](https://biofam.github.io/MOFA2/troubleshooting.html)) for tips on how to solve this.
+
+By default, the function will save the resulting trained model in a temporary file, with the `.hdf5` format. It can be preferable to save the result into the output folder of your project; here as we are using targets to save the results of each step of the analysis, we do not need to do so. In addition, is it strongly recommended to set the `save_data` parameter to `TRUE`, as otherwise without the data, some of the visualisation options might not be available. Lastly, the `use_basilisk` parameter can be a source of error depending on your computer configuration:
+
+```{targets run-mofa}
+tar_target(
+  mofa_trained,
+  run_mofa(
+    mofa_input,
+    save_data = TRUE,
+    use_basilisk = TRUE
+  )
+)
+```
+
+In our case, the following warnings are returned:
+
+```{r run-mofa-warnings, echo = FALSE}
+tar_meta(fields = "warnings") |>
+  dplyr::filter(name == "mofa_trained") |>
+  dplyr::pull(warnings) |>
+  warning()
+```
+
+The first one has to do with saving the model into a temporary file. We will explain the others in more detail when analysing the resulting model.
+
+The output of the function is a trained MOFA model, with 15 latent factors:
+
+```{r mofa-trained}
+tar_load(mofa_trained)
+mofa_trained
+```
+
+The next sections of this vignette will show you how to display and interpret the trained model.
+
+## Variance explained and diagnostic plots
+
+When training the model, MOFA2 constructs latent factors, which are sparse combination of the features, and which represent main axes of variation shared across all or a subsets of the datasets. One of the first steps to take when analysing the trained model is to assess the amount of variance in the datasets explained by each factor; similarly to what we would do when running a PCA.
+
+### Variance explained per factor and dataset
+
+The function `MOFA2::plot_variance_explained()` displays the percentage of variance in each dataset explained by each factor as a heatmap. The `x` and `y` arguments (and also `split_by` argument when using the multi-group framework) control whether the factors or the datasets should be represented as the rows or columns:
+
+```{r plot-variance-explained}
+plot_variance_explained(
+  mofa_trained,
+  x = "view",  ## datasets on the x-axis
+  y = "factor" ## factors on the y-axis
+) 
+```
+
+Here, we see that factor1 explains a lot (~35%) of variation in the transcriptomics dataset, but no variation in the other datasets. Factor 2 explains some variation in the genomics dataset and a little bit in the transcriptomics dataset, but not at all in the metabolomics datasets. Factors 3 to 7 are specific to the metabolomics dataset. Factors 8 to 15 seem to explain very little variation; seeing this, we could re-train the MOFA model by setting the number of factors to 7. This also explains in part the second warning we got (which indicated that we should re-train the model with less factors).
+
+### Total variance explained per dataset
+
+In addition, the `MOFA2::plot_variance_explained()` function can create a second plot displaying the total percentage of variance explained by all the factors for each dataset, if the argument `plot_total` is set to `TRUE` :
+
+```{r plot-total-variance-explained}
+plot_variance_explained(
+  mofa_trained,
+  x = "view",
+  y = "factor",
+  plot_total = TRUE
+)[[2]] ## show only the 2nd plot
+```
+
+The factors explain around 55% of the variation in the metabolomics dataset, 50% in the transcriptomics dataset, but less than 20% in in the genomics dataset.
+
+### Correlation between factors
+
+Finally, it is always good practice to check the correlation between the different computed factors. All factors should be mostly uncorrelated; if a large correlation is observed between some factors, it could be an indication of poor model fit, either because too many factors were computed (in this case, try reducing the number of factors to compute) or maybe because of an improper normalisation of the datasets. The function `MOFA2::plot_factor_cor()` displays the correlation between all factors via the `corrplot::corrplot()` function:
+
+```{r plot-factors-correlation}
+plot_factor_cor(
+  mofa_trained,
+  type = "upper",
+  diag = FALSE,
+  tl.cex = 0.8
+)
+```
+
+There is a moderate positive correlation between factors 2 and 3, which would have triggered the third warning that we got. In this case, in addition to reducing the total number of factors, we could also increase the amount of iterations for which we let the model train, by setting the training option `convergence_mode` to `'medium'` or even `'slow'`.
+
+## Factors association with samples covariates
+
+The next step in our analysis is to assess which sources of variation each factor is representing. 
+
+### Correlation between factors and samples covariates
+
+One way to do this is to check whether the factors are correlated with some known covariates that were recorded in the samples metadata. The `mofa_plot_cor_covariates()` function displays the correlation between each factor and the samples covariates. Note that when covariates that are factors are transformed to numerical group indicators in order to compute the correlation with factors. This function is similar to the `MOFA2` function `correlate_factors_with_covariates()` except that it returns a ggplot (rather than creating a base R plot), and offers a few convenient features through the optional arguments. By default, the function uses all covariates recorded in the samples metadata; however we can focus on a subset of them by passing the column names to the `covariates` argument:
+
+```{r mofa-plot-cor-covariates}
+mofa_plot_cor_covariates(
+  mofa_trained,
+  covariates = c(
+    "bruising_group",
+    "bruising_mean",
+    "Family",
+    "other_parent",
+    "Rep",
+    "Sample")
+)
+```
+
+From this plot, we can spot some interesting trends. For example, factors 1 and 2 (which explain variation in the transcriptomics and genomics datasets, respectively) are moderately associated with both the bruising response and the parent of the samples. Factor 3, however, which explains variation in the metabolomics dataset, is correlated with bruising response but not the pedigree information. This is very interesting: we know that there is some confounding between pedigree and bruising response, as some families yielded all high- or low-bruising samples. Therefore, the first two factors are picking up differences between bruising groups that overlap with differences between the families; as genomics data is strongly relfective of pedigree information. On the other hand, the metabolomics dataset does not seem to contain information about pedigree, and therefore factor 3 highlights differences between the two bruising groups that is independent from family differences. Factor 6, which again mostly explains variation from the metabolomics dataset , is correlated with the covariate `Sample`, i.e. samples ID.
+
+In general, it is a good idea to interpret this correlation plot together with the plot representing the percentage of variation explained in the datasets by each factor. However, it is necessary to investigate more before making claims about what the factors are representing.
+
+
+### Visualising the top features
+
+
+The `MOFA2` package offers a number of very useful visualisations to further interpret the results. For example, for a given factor and dataset of interest, we can visualise how the top contributing features vary with the factor values (i.e. the samples score). For example, let's have a look at the top contributing features for factor 1:
+
+```{r plot-data-scatter}
+plot_data_scatter(
+  mofa_trained,
+  factor = 1,
+  view = "rnaseq",
+  features = 6,
+  color_by = "bruising_mean",
+  shape_by = "bruising_group"
+)
+```
+
+For all features with a negative weight, their abundance decreases when the factor value increases. For features with positive weights, their abundance increases with the factor values.
+
+Lastly, we can visualise the measurements of the top contributing features across the samples as a heatmap. Note that the `annotation_samples` argument allows us to add annotations on top of the heatmap to represent certain characteristics of the samples (the `annotation_features` does the same thing for features). For example here we'll add information about the phenotype group:
+
+```{r plot-data-heatmap}
+MOFA2::plot_data_heatmap(
+  mofa_trained,
+  factor = 1,
+  view = "rnaseq",
+  features = 20,
+  annotation_samples = "bruising_group",
+  fontsize_col = 5
+)
+```
+
+
+## Recap -- targets list
+
+For convenience, here is the list of targets that we created in this section:
+
+<details>
+  <summary>Targets list for MOFA analysis</summary>
+  
+```{targets recap-targets-list}
+list(
+  ## Creating MOFA input
+  tar_target(
+    mofa_input,
+    get_input_mofa(
+      mo_presel_supervised,
+      options_list = list(
+        data_options = list(scale_views = TRUE),
+        model_options = list(likelihoods = c(
+          "snps" = "poisson",
+          "rnaseq" = "gaussian",
+          "metabolome" = "gaussian")
+        ),
+        training_options = list(seed = 43)
+      ),
+      only_common_samples = TRUE
+    )
+  ),
+  
+  ## Overview plot of the samples in each dataset
+  tar_target(
+    mofa_input_plot,
+    plot_data_overview(mofa_input)
+  ),
+  
+  ## Training MOFA model
+  tar_target(
+    mofa_trained,
+    run_mofa(
+      mofa_input,
+      save_data = TRUE,
+      use_basilisk = TRUE
+    )
+  ),
+  
+  ## Formatting MOFA output
+  tar_target(
+    mofa_output,
+    get_output(mofa_trained)
+  ),
+  
+  ## Plots of variance explained
+  tar_target(
+    mofa_var_explained_plot,
+    plot_variance_explained(
+      mofa_trained,
+      x = "view",  ## datasets on the x-axis
+      y = "factor" ## factors on the y-axis
+    )
+  ),
+  tar_target(
+    mofa_total_var_explained_plot,
+    plot_variance_explained(
+      mofa_trained,
+      x = "view",
+      y = "factor",
+      plot_total = TRUE
+    )[[2]]
+  ),
+  
+  ## Plot of factors correlation with covariates
+  tar_target(
+    mofa_factors_covariates_cor_plot,
+    mofa_plot_cor_covariates(mofa_trained,
+      covariates = c(
+        "bruising_group",
+        "bruising_mean",
+        "Family",
+        "other_parent",
+        "Rep",
+        "Sample")
+    )
+  )
+)
+```
+</details>

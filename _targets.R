@@ -504,6 +504,39 @@ list(
     )
   ),
 
+  ##===============##
+  ## MOFA pipeline ----
+  ##===============##
+
+  ## Creating MOFA input
+  tar_target(
+    mofa_input,
+    get_input_mofa(
+      mo_presel_supervised,
+      options_list = list(
+        data_options = list(scale_views = TRUE),
+        model_options = list( likelihoods = c(
+          "snps" = "poisson",
+          "rnaseq" = "gaussian",
+          "metabolome" = "gaussian"
+        )
+        ),
+        training_options = list(seed = 43)
+      ),
+      only_common_samples = TRUE
+    )
+  ),
+
+  ## Training MOFA model
+  tar_target(
+    mofa_trained,
+    run_mofa(
+      mofa_input,
+      save_data = TRUE,
+      use_basilisk = TRUE
+    )
+  ),
+
   ##========================##
   ## Results interpretation ----
   ##========================##

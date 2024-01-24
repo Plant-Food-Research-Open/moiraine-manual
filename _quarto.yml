@@ -20,6 +20,7 @@ book:
       chapters:
       - spls.qmd
       - so2pls.qmd
+      - mofa.qmd
     - part: "Supervised integration"
       chapters:
       - diablo.qmd
