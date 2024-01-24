@@ -523,7 +523,7 @@ list(
         ),
         training_options = list(seed = 43)
       ),
-      only_common_samples = TRUE
+      only_common_samples = FALSE
     )
   ),
 

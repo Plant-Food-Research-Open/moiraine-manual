@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>The moiraine R package user manual - 10&nbsp; Integration with MOFA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./diablo.html" rel="next">
+<link href="./so2pls.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The moiraine R package user manual</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data preparation</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Unsupervised integration</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Supervised integration</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Results interpretation</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#what-is-mofa" id="toc-what-is-mofa" class="nav-link active" data-scroll-target="#what-is-mofa"><span class="toc-section-number">10.1</span>  What is MOFA?</a>
+  <ul class="collapse">
+<li><a href="#a-note-on-groups-in-mofa" id="toc-a-note-on-groups-in-mofa" class="nav-link" data-scroll-target="#a-note-on-groups-in-mofa"><span class="toc-section-number">10.1.1</span>  A note on groups in MOFA</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#creating-the-mofa-input" id="toc-creating-the-mofa-input" class="nav-link" data-scroll-target="#creating-the-mofa-input"><span class="toc-section-number">10.2</span>  Creating the MOFA input</a>
+  <ul class="collapse">
+<li><a href="#mofa-parameters" id="toc-mofa-parameters" class="nav-link" data-scroll-target="#mofa-parameters"><span class="toc-section-number">10.2.1</span>  MOFA parameters</a></li>
+  </ul>
+</li>
+  <li><a href="#visualising-the-mofa-input" id="toc-visualising-the-mofa-input" class="nav-link" data-scroll-target="#visualising-the-mofa-input"><span class="toc-section-number">10.3</span>  Visualising the MOFA input</a></li>
+  <li><a href="#training-the-model" id="toc-training-the-model" class="nav-link" data-scroll-target="#training-the-model"><span class="toc-section-number">10.4</span>  Training the model</a></li>
+  <li>
+<a href="#results-interpretation" id="toc-results-interpretation" class="nav-link" data-scroll-target="#results-interpretation"><span class="toc-section-number">10.5</span>  Results interpretation</a>
+  <ul class="collapse">
+<li><a href="#variance-explained" id="toc-variance-explained" class="nav-link" data-scroll-target="#variance-explained"><span class="toc-section-number">10.5.1</span>  Variance explained</a></li>
+  <li><a href="#correlation-between-factors" id="toc-correlation-between-factors" class="nav-link" data-scroll-target="#correlation-between-factors"><span class="toc-section-number">10.5.2</span>  Correlation between factors</a></li>
+  <li><a href="#correlation-between-factors-and-samples-covariates" id="toc-correlation-between-factors-and-samples-covariates" class="nav-link" data-scroll-target="#correlation-between-factors-and-samples-covariates"><span class="toc-section-number">10.5.3</span>  Correlation between factors and samples covariates</a></li>
+  <li><a href="#visualising-the-top-features" id="toc-visualising-the-top-features" class="nav-link" data-scroll-target="#visualising-the-top-features"><span class="toc-section-number">10.5.4</span>  Visualising the top features</a></li>
+  </ul>
+</li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">10.6</span>  Recap – targets list</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-mofa" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## For integration with MOFA</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://biofam.github.io/MOFA2/index.html">MOFA2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that the omics datasets have been appropriately pre-processed and pre-filtered, we are ready to perform the actual data integration step. In this chapter, we will show how to perform multi-omics data integration with the MOFA method from the <a href="https://biofam.github.io/MOFA2/index.html"><code>MOFA2</code></a> package.</p>
+<p>As a reminder, here is what the <code>_targets.R</code> script should look like so far:</p>
+<details><summary><code>_targets.R</code> script
+</summary><div class="cell">
+<div class="cell">
+
+</div>
+</div>
+</details><section id="what-is-mofa" class="level2" data-number="10.1"><h2 data-number="10.1" class="anchored" data-anchor-id="what-is-mofa">
+<span class="header-section-number">10.1</span> What is MOFA?</h2>
+<p>MOFA (for Multi-Omics Factor Analysis) is a method for the unsupervised integration of two or more omics datasets. It aims at uncovering the main axes of variations shared by all or a subset of the datasets, through the construction of a small number of latent factors. It can be assimilated to a generalisation of the PCA (Principal Components Analysis) to multiple datasets. The latent factors are constructed as sparse linear combinations of the omics features, highlighting the features that contribute to each axis of variation.</p>
+<p>MOFA uses a Bayesian framework to decompose each dataset (referred to as “view” in the package documentation) into the product of a latent factor matrix (representing to the main axes of variation) and a matrix of feature weights (indicating the extent to which the features contribute to the different latent factors). MOFA applies two levels of sparsity. The first level of sparsity is used to detect whether a given latent factor is active (i.e.&nbsp;explains variation) in each dataset. This allows to assess which sources of variations are shared across the datasets. The second level of sparsity is applied to the features, allowing to assess which features contribute to each source of variation.</p>
+<p>MOFA requires as input matrices of omics measurements that must have at least some samples in common, but accepts some samples being absent from some of the datasets. It is recommended to have at least 15 samples in common across the datasets in order to obtain sensible results. The number of features in each dataset must not be too small (i.e.&nbsp;at least 15). It is critical that each dataset is properly normalised, with batch effects removed. In addition, it is strongly recommended that the datasets are pre-filtered to retain highly variable features; a similar number of features should be retained across the datasets. Missing values are not a problem with MOFA. MOFA can also accept samples and features metadata as data-frames. Lastly, there is a number of parameters that can be customised. The most important ones will be mentioned in this chapter; for a complete list see the <a href="https://raw.githack.com/bioFAM/MOFA2_tutorials/master/R_tutorials/getting_started_R.html">MOFA tutorial</a>.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A characteristic of the MOFA2 package is that the model training part of the analysis is done in Python with the <code>mofapy2</code> module. MOFA2 interacts with Python from R with the <code>reticulate</code> package. This is important to know as it might affect the installation and run depending on the environment in which it is used.</p>
+</div>
+</div>
+<section id="a-note-on-groups-in-mofa" class="level3" data-number="10.1.1"><h3 data-number="10.1.1" class="anchored" data-anchor-id="a-note-on-groups-in-mofa">
+<span class="header-section-number">10.1.1</span> A note on groups in MOFA</h3>
+<p>MOFA offers the option to assign samples to groups (referred to as the multi-group framework within MOFA). It is important to understand what this does before using it. In particular, if the aim of the analysis is to find features that separate samples based on a grouping, you should not use this multi-group framework. By setting sample groups in MOFA, it will ignore sources of variations that discriminate the groups. Instead, this multi-group framework will seek sources of variations that are shared between the different groups, and sources of variations that are exclusive to a specific group. For example, in <a href="https://raw.githack.com/bioFAM/MOFA2_tutorials/master/R_tutorials/scNMT_gastrulation.html">this analysis</a>, the multi-group framework was used to split samples (cells) based on their developmental stage. The goal of the analysis was to find coordinated variation between the different datasets, and detect at which developmental stage (i.e.&nbsp;in which group) it occurred, rather than trying to differentiate the different developmental stages.</p>
+</section></section><section id="creating-the-mofa-input" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="creating-the-mofa-input">
+<span class="header-section-number">10.2</span> Creating the MOFA input</h2>
+<p>The first step is to transform the <code>MultiDataSet</code> object into a suitable format for the <code>MOFA2</code> package. This is done through the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_mofa.html">get_input_mofa()</a></code> function. In addition to the <code>MultiDataSet</code> object, this function accepts as arguments:</p>
+<ul>
+<li><p><code>datasets</code>: a vector of dataset names that dictates which datasets from the multi-omics set should be included in the analysis (by default, all datasets are included);</p></li>
+<li><p><code>groups</code>: the name of the column in the samples metadata to be used as group indicator if using the multi-group framework (if not set, the multi-group framework will not be used);</p></li>
+<li><p><code>options_list</code>: a list of options to customise the MOFA model – more information below;</p></li>
+<li><p><code>only_common_samples</code>: whether only the samples present in all datasets should be retained. The default value is <code>FALSE</code>; this argument should be set to <code>TRUE</code> when some datasets contain many more samples than others; when only a few samples are missing from some of the datasets, it is ok to leave it to <code>FALSE</code>.</p></li>
+</ul>
+<p>We expand on the options that can be set with the <code>options_list</code> argument below.</p>
+<section id="mofa-parameters" class="level3" data-number="10.2.1"><h3 data-number="10.2.1" class="anchored" data-anchor-id="mofa-parameters">
+<span class="header-section-number">10.2.1</span> MOFA parameters</h3>
+<p>MOFA has three type of parameters (referred to as options) that the user can control.</p>
+<section id="data-options" class="level4" data-number="10.2.1.1"><h4 data-number="10.2.1.1" class="anchored" data-anchor-id="data-options">
+<span class="header-section-number">10.2.1.1</span> Data options</h4>
+<p>These are options for data handling when creating the MOFA model. The two important options are:</p>
+<ul>
+<li><p><code>scale_views</code>: logical, whether the datasets (views) should be scaled to unit variance. The default is <code>FALSE</code>, but it is recommended to set it to <code>TRUE</code> if the scale difference between the datasets is high.</p></li>
+<li><p><code>scale_groups</code>: logical, whether to scale the groups to unit variance. Irrelevant unless using the multi-group framework. The default is <code>FALSE</code>, but it is recommended to set it to <code>TRUE</code> if the scale difference between the groups is high.</p></li>
+</ul>
+<p>See the documentation for <code><a href="https://rdrr.io/pkg/MOFA2/man/get_default_data_options.html">get_default_data_options()</a></code> for a full list.</p>
+</section><section id="model-options" class="level4" data-number="10.2.1.2"><h4 data-number="10.2.1.2" class="anchored" data-anchor-id="model-options">
+<span class="header-section-number">10.2.1.2</span> Model options</h4>
+<p>These are the options defining different aspects of the MOFA model. The most important ones are:</p>
+<ul>
+<li><p><code>num_factors</code>: The maximum number of factors to construct (note that this is a maximum, i.e.&nbsp;MOFA can return a lower number of factors if there is not a lot of variation in the datasets). The default is set to 15, which is a good start. This can be adjusted after running MOFA with the default value.</p></li>
+<li><p><code>likelihoods</code>: Named character vector, the type of likelihood to use for each dataset. MOFA offers three options: Gaussian likelihood (<code>'gaussian'</code>) for continuous data, Bernoulli likelihood (<code>'bernoulli'</code>) for binary data, and Poisson likelihood <code>('poisson')</code> for count data. It is highly recommended to transform the datasets in order to use a Gaussian likelihood: for example, applying a variance-stabilising transformation on RNAseq data rather than using the raw read counts with a Poisson likelihood. By default, a Gaussian likelihood is chosen for all datasets.</p></li>
+</ul>
+<p>See the documentation for <code><a href="https://rdrr.io/pkg/MOFA2/man/get_default_model_options.html">get_default_model_options()</a></code> for a full list.</p>
+</section><section id="training-options" class="level4" data-number="10.2.1.3"><h4 data-number="10.2.1.3" class="anchored" data-anchor-id="training-options">
+<span class="header-section-number">10.2.1.3</span> Training options</h4>
+<p>These are the options that control how the model is trained. The most important one is:</p>
+<ul>
+<li>
+<code>seed</code>: setting the random seed. This is standard practice, to make sure that the results are reproducible.</li>
+</ul>
+<p>See the documentation for <code><a href="https://rdrr.io/pkg/MOFA2/man/get_default_training_options.html">get_default_training_options()</a></code> for a full list.</p>
+</section><section id="passing-the-parameters-to-get_input_mofa" class="level4" data-number="10.2.1.4"><h4 data-number="10.2.1.4" class="anchored" data-anchor-id="passing-the-parameters-to-get_input_mofa">
+<span class="header-section-number">10.2.1.4</span> Passing the parameters to <code>get_input_mofa</code>
+</h4>
+<p>When creating a MOFA input object with <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_mofa.html">get_input_mofa()</a></code>, all options will be set to their default values. It is possible to customise the values for some of the options through the <code>options_list</code> parameter. This should be a named list, with up to three elements (one per type of options that MOFA accepts): <code>data_options</code>, <code>model_options</code>, and <code>training_options</code>. Each element is itself a named list, where each element of the list corresponds to a specific option. All three elements do not have to be present; for example, if we want to only specify a value for the model option <code>num_factors</code>, we can set <code>options_list</code> to:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  model_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>num_factors <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we also want to set the likelihoods and the random seed, then <code>options_list</code> becomes:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  model_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>num_factors <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  training_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">43</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For our example, we’ll make sure that each dataset is scaled to unit variance, and that a Poisson likelihood is used for the genomics data, for which we have variants dosage. Since there are only 9 samples that are not present in all omics datasets, we can keep them in the analysis. We’ll set the random seed to ensure that the results are reproducible:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">mofa_input</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_mofa.html">get_input_mofa</a></span><span class="op">(</span></span>
+<span>    <span class="va">mo_presel_supervised</span>,</span>
+<span>    options_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>      data_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>scale_views <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>      model_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>likelihoods <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>        <span class="st">"snps"</span> <span class="op">=</span> <span class="st">"poisson"</span>,</span>
+<span>        <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"gaussian"</span>,</span>
+<span>        <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"gaussian"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      training_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">43</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    only_common_samples <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This will produce a warning:</p>
+<div class="cell">
+<pre><code>#&gt; Warning: Dataset snps is to be modelled with a poisson likelihood, but is not
+#&gt; integer. Transforming to integer.</code></pre>
+</div>
+<p>The warning informs us that we have chosen to use a Poisson likelihood for the genomics dataset, but the latter does not have integer data. This is because the missing values imputed with NIPALS-PCA (see <a href="preprocessing.html#sec-preprocessing-missing-values"><span>Section&nbsp;6.2.3</span></a>) are continuous rather than discrete. This is taken care of by automatically rounding the dataset; but in other settings this warning can be an indication that the Poisson likelihood is not appropriate for the dataset.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When constructing the MOFA object, if there exists a column named <code>group</code> in a samples metadata table in the <code>MultiDataSet</code> object, the column will be renamed as <code>group_metadata</code> in the resulting MOFA input object. This is because MOFA needs a <code>group</code> column its own version of the samples metadata (for the multi-group framework), so there cannot be another column named <code>group</code>. Note that will have no effect on the <code>MultiDataSet</code> object, but is important to remember if you want to use some of the plotting functionalities that <code>MOFA2</code> offers.</p>
+</div>
+</div>
+<p>The output of the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_mofa.html">get_input_mofa()</a></code> function is a MOFA object, more specifically an untrained model:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mofa_input</span><span class="op">)</span></span>
+<span><span class="va">mofa_input</span></span>
+<span><span class="co">#&gt; Untrained MOFA model with the following characteristics: </span></span>
+<span><span class="co">#&gt;  Number of views: 3 </span></span>
+<span><span class="co">#&gt;  Views names: snps rnaseq metabolome </span></span>
+<span><span class="co">#&gt;  Number of features (per view): 1000 994 55 </span></span>
+<span><span class="co">#&gt;  Number of groups: 1 </span></span>
+<span><span class="co">#&gt;  Groups names: group1 </span></span>
+<span><span class="co">#&gt;  Number of samples (per group): 144 </span></span>
+<span><span class="co">#&gt; </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We did not use the multi-group framework, so there is only one samples group.</p>
+</section></section></section><section id="visualising-the-mofa-input" class="level2" data-number="10.3"><h2 data-number="10.3" class="anchored" data-anchor-id="visualising-the-mofa-input">
+<span class="header-section-number">10.3</span> Visualising the MOFA input</h2>
+<p>It is possible to represent the samples that are present or missing across the different datasets with the <code><a href="https://rdrr.io/pkg/MOFA2/man/plot_data_overview.html">plot_data_overview()</a></code> function implemented in <code>MOFA2</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_data_overview.html">plot_data_overview</a></span><span class="op">(</span><span class="va">mofa_input</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="mofa_files/figure-html/plot-data-overview-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>The plot generated shows the dimensions of the datasets that will be analysed.</p>
+<p>For reporting purposes, it can also be useful to summarise the different options used to create the MOFA model. This can be done with the <code><a href="https://rdrr.io/pkg/moiraine/man/options_list_as_tibble.html">options_list_as_tibble()</a></code> function, which turns a list of parameters into a tibble presenting the name and value of each parameter. For example, we can list the data options used:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/options_list_as_tibble.html">options_list_as_tibble</a></span><span class="op">(</span><span class="va">mofa_input</span><span class="op">@</span><span class="va">data_options</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
+<span><span class="co">#&gt;   Parameter     Value                         </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;                         </span></span>
+<span><span class="co">#&gt; 1 scale_views   TRUE                          </span></span>
+<span><span class="co">#&gt; 2 scale_groups  FALSE                         </span></span>
+<span><span class="co">#&gt; 3 center_groups TRUE                          </span></span>
+<span><span class="co">#&gt; 4 use_float32   TRUE                          </span></span>
+<span><span class="co">#&gt; 5 views         'snps', 'rnaseq', 'metabolome'</span></span>
+<span><span class="co">#&gt; 6 groups        group1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="training-the-model" class="level2" data-number="10.4"><h2 data-number="10.4" class="anchored" data-anchor-id="training-the-model">
+<span class="header-section-number">10.4</span> Training the model</h2>
+<p>Once we have prepared our MOFA input, we can train the model with the <code><a href="https://rdrr.io/pkg/MOFA2/man/run_mofa.html">run_mofa()</a></code> function (from the <code>MOFA2</code> package). This is done through Python, so there might be some issues when trying to run the function for the first time after installing <code>MOFA2</code> if the configuration is not correct. If that is the case, see the MOFA2 tutorial (e.g.&nbsp;their <a href="https://biofam.github.io/MOFA2/troubleshooting.html">troubleshooting section</a>) for tips on how to solve this.</p>
+<p>By default, the function will save the resulting trained model in a temporary file, with the <code>.hdf5</code> format. It can be preferable to save the result into the output folder of your project; here as we are using targets to save the results of each step of the analysis, we do not need to do so. In addition, is it strongly recommended to set the <code>save_data</code> parameter to <code>TRUE</code>, as otherwise without the data, some of the visualisation options might not be available. Lastly, the <code>use_basilisk</code> parameter might have to be switched to <code>FALSE</code> if there are any issues with calling the Python module:</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">mofa_trained</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/run_mofa.html">run_mofa</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_input</span>,</span>
+<span>    save_data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    use_basilisk <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In our case, the following warnings are returned:</p>
+<div class="cell">
+<pre><code>#&gt; Warning: No output filename provided. Using tmpRtmpaM7XWKmofa_20240125102128.hdf5 to store the trained model.
+#&gt; 
+#&gt; Factors 1 are strongly correlated with the total number of expressed features for at least one of your omics. Such factors appear when there are differences in the total levels between your samples, sometimes because of poor normalisation in the preprocessing steps.</code></pre>
+</div>
+<p>The first one has to do with saving the model into a temporary file. We will explain the others in more detail when analysing the resulting model.</p>
+<p>The output of the function is a trained MOFA model, with 15 latent factors:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
+<span><span class="va">mofa_trained</span></span>
+<span><span class="co">#&gt; Trained MOFA with the following characteristics: </span></span>
+<span><span class="co">#&gt;  Number of views: 3 </span></span>
+<span><span class="co">#&gt;  Views names: snps rnaseq metabolome </span></span>
+<span><span class="co">#&gt;  Number of features (per view): 1000 994 55 </span></span>
+<span><span class="co">#&gt;  Number of groups: 1 </span></span>
+<span><span class="co">#&gt;  Groups names: group1 </span></span>
+<span><span class="co">#&gt;  Number of samples (per group): 144 </span></span>
+<span><span class="co">#&gt;  Number of factors: 15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="results-interpretation" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="results-interpretation">
+<span class="header-section-number">10.5</span> Results interpretation</h2>
+<p>In <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>, we show the different functionalities implemented in the <code>moiraine</code> package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the MOFA-specific plots that can be generated to help interpret the results of a MOFA run.</p>
+<section id="variance-explained" class="level3" data-number="10.5.1"><h3 data-number="10.5.1" class="anchored" data-anchor-id="variance-explained">
+<span class="header-section-number">10.5.1</span> Variance explained</h3>
+<p>When training the model, MOFA2 constructs latent factors, which are sparse combination of the features, and which represent main axes of variation shared across all or a subsets of the datasets. One of the first steps to take when analysing the trained model is to assess the amount of variance in the datasets explained by each factor; similarly to what we would do when running a PCA.</p>
+<p>The function <code><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained()</a></code> from <code>MOFA2</code> displays the percentage of variance in each dataset explained by each factor as a heatmap. The <code>x</code> and <code>y</code> arguments (and also <code>split_by</code> argument when using the multi-group framework) control whether the factors or the datasets should be represented as the rows or columns in the heatmap:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<span>  <span class="va">mofa_trained</span>,</span>
+<span>  x <span class="op">=</span> <span class="st">"view"</span>,  <span class="co">## datasets on the x-axis</span></span>
+<span>  y <span class="op">=</span> <span class="st">"factor"</span> <span class="co">## factors on the y-axis</span></span>
+<span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="mofa_files/figure-html/plot-variance-explained-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>Here, we see that factor 1 explains a lot (almost 50%) of variation in the transcriptomics dataset, a little (around 10%) in the metabolomics dataset and almost none in the genomics dataset. Factor 2 explains around 20% of variation in the genomics dataset, and none in the other datasets. Factors 3 and 4 seem specificto the transcriptomics datasets, and factors 5 to 15 explain very little variation; seeing this, we could re-train the MOFA model by setting the number of factors to 4 or 5.</p>
+<p>In addition, the <code><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained()</a></code> function can create a second plot displaying the total percentage of variance explained by all the factors for each dataset, if the argument <code>plot_total</code> is set to <code>TRUE</code> :</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<span>  <span class="va">mofa_trained</span>,</span>
+<span>  x <span class="op">=</span> <span class="st">"view"</span>,</span>
+<span>  y <span class="op">=</span> <span class="st">"factor"</span>,</span>
+<span>  plot_total <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="co">## show only the 2nd plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="mofa_files/figure-html/plot-total-variance-explained-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>The factors explain almost 85% of the variation in the transcriptomics dataset, but less than 30% in in the genomics and metabolomics datasets.</p>
+</section><section id="correlation-between-factors" class="level3" data-number="10.5.2"><h3 data-number="10.5.2" class="anchored" data-anchor-id="correlation-between-factors">
+<span class="header-section-number">10.5.2</span> Correlation between factors</h3>
+<p>Before moving to the interpretation, it is always good practice to check the correlation between the different computed factors. All factors should be mostly uncorrelated; if a large correlation is observed between some factors, it could be an indication of poor model fit, either because too many factors were computed (in this case, try reducing the number of factors to compute or increasing the number of iterations for the model training via the <code>convergence_mode</code> training option) or maybe because of an improper normalisation of the datasets. The function <code><a href="https://rdrr.io/pkg/MOFA2/man/plot_factor_cor.html">plot_factor_cor()</a></code> from <code>MOFA2</code> displays the correlation between all factors via the <code><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html">corrplot::corrplot()</a></code> function:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_factor_cor.html">plot_factor_cor</a></span><span class="op">(</span></span>
+<span>  <span class="va">mofa_trained</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"upper"</span>,</span>
+<span>  diag <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  tl.cex <span class="op">=</span> <span class="fl">0.8</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="mofa_files/figure-html/plot-factors-correlation-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>There is a moderate positive correlation between factors 2 and 5, but nothing to be concerned about.</p>
+</section><section id="correlation-between-factors-and-samples-covariates" class="level3" data-number="10.5.3"><h3 data-number="10.5.3" class="anchored" data-anchor-id="correlation-between-factors-and-samples-covariates">
+<span class="header-section-number">10.5.3</span> Correlation between factors and samples covariates</h3>
+<p>To assess which sources of variation each factor is representing, we can check whether the factors are correlated with some known covariates that were recorded in the samples metadata. The <code><a href="https://rdrr.io/pkg/moiraine/man/mofa_plot_cor_covariates.html">mofa_plot_cor_covariates()</a></code> function displays the correlation between each factor and the samples covariates. Note that factor covariates are transformed to numerical group indicators in order to compute the correlations. This function is similar to the <code>MOFA2</code> function <code><a href="https://rdrr.io/pkg/MOFA2/man/correlate_factors_with_covariates.html">correlate_factors_with_covariates()</a></code> except that it returns a ggplot (rather than creating a base R plot), and offers a few convenient features through the optional arguments. By default, the function uses all covariates recorded in the samples metadata; however we can focus on a subset of them by passing the column names to the <code>covariates</code> argument.</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/mofa_plot_cor_covariates.html">mofa_plot_cor_covariates</a></span><span class="op">(</span></span>
+<span>  <span class="va">mofa_trained</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="mofa_files/figure-html/mofa-plot-cor-covariates-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>From this plot, we can spot some interesting trends. For example, factor 1, which explains variation in the transcriptomics and metabolomics datasets, is strongly correlated with disease status. It makes sense, since the transcriptomics dataset has been filtered to retain genes most associated with differences between healthly and infected animals, so we expect it to be the strongest source of variation in the dataset. Factor 2, which explains variation only in the genomics dataset, is strongly correlated with the genomics composition of the animals, which makes a lot of sense as more related individuals share similar genomics profiles. It also makes sense that this variation is less present in the other two datasets. Factor 5, which explains variation only in the transcriptomics dataset, seems to be modestly correlated with the RNASeq batches.</p>
+<p>In general, it is a good idea to interpret this correlation plot together with the plot representing the percentage of variation explained in the datasets by each factor. However, it is necessary to investigate more before making claims about what the factors are representing.</p>
+</section><section id="visualising-the-top-features" class="level3" data-number="10.5.4"><h3 data-number="10.5.4" class="anchored" data-anchor-id="visualising-the-top-features">
+<span class="header-section-number">10.5.4</span> Visualising the top features</h3>
+<p>The <code>MOFA2</code> package offers a number of very useful visualisations to further interpret the results. For example, for a given factor and dataset of interest, we can visualise how the top contributing features vary with the factor values (i.e.&nbsp;the sample scores). For example, let’s have a look at the top contributing features from the transcriptomics dataset for factor 1:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_data_scatter.html">plot_data_scatter</a></span><span class="op">(</span></span>
+<span>  <span class="va">mofa_trained</span>,</span>
+<span>  factor <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  view <span class="op">=</span> <span class="st">"rnaseq"</span>,</span>
+<span>  features <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>  color_by <span class="op">=</span> <span class="st">"status"</span>,</span>
+<span>  shape_by <span class="op">=</span> <span class="st">"feedlot"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="mofa_files/figure-html/plot-data-scatter-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>For all six genes, their expression is higher in infected animals compared with healthy ones.</p>
+<p>We can also visualise the measurements of the top contributing features across the samples as a heatmap, for a given dataset and factor. That the <code>annotation_samples</code> argument allows us to add annotations on top of the heatmap to represent certain characteristics of the samples. For example here we’ll add information about the phenotype group and chromosome:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">MOFA2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<span>  <span class="va">mofa_trained</span>,</span>
+<span>  factor <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  view <span class="op">=</span> <span class="st">"rnaseq"</span>,</span>
+<span>  features <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  annotation_samples <span class="op">=</span> <span class="st">"status"</span>,</span>
+<span>  fontsize_col <span class="op">=</span> <span class="fl">5</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="mofa_files/figure-html/plot-data-heatmap-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>Note that <code>moiraine</code> implements similar functions to represent the top contributing features, as we will see in <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>.</p>
+</section></section><section id="recap-targets-list" class="level2" data-number="10.6"><h2 data-number="10.6" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">10.6</span> Recap – targets list</h2>
+<p>For convenience, here is the list of targets that we created in this section:</p>
+<details><summary>
+Targets list for MOFA analysis
+</summary><div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="co">## Creating MOFA input</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_input</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_mofa.html">get_input_mofa</a></span><span class="op">(</span></span>
+<span>      <span class="va">mo_presel_supervised</span>,</span>
+<span>      options_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>        data_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>scale_views <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>        model_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>likelihoods <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>          <span class="st">"snps"</span> <span class="op">=</span> <span class="st">"poisson"</span>,</span>
+<span>          <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"gaussian"</span>,</span>
+<span>          <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"gaussian"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        training_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">43</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      only_common_samples <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Overview plot of the samples in each dataset</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_input_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_data_overview.html">plot_data_overview</a></span><span class="op">(</span><span class="va">mofa_input</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Training MOFA model</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_trained</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/run_mofa.html">run_mofa</a></span><span class="op">(</span></span>
+<span>      <span class="va">mofa_input</span>,</span>
+<span>      save_data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      use_basilisk <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Formatting MOFA output</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_output</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Plots of variance explained</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_var_explained_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<span>      <span class="va">mofa_trained</span>,</span>
+<span>      x <span class="op">=</span> <span class="st">"view"</span>,  <span class="co">## datasets on the x-axis</span></span>
+<span>      y <span class="op">=</span> <span class="st">"factor"</span> <span class="co">## factors on the y-axis</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_total_var_explained_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<span>      <span class="va">mofa_trained</span>,</span>
+<span>      x <span class="op">=</span> <span class="st">"view"</span>,</span>
+<span>      y <span class="op">=</span> <span class="st">"factor"</span>,</span>
+<span>      plot_total <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Plot of factors correlation with covariates</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_factors_covariates_cor_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/mofa_plot_cor_covariates.html">mofa_plot_cor_covariates</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./so2pls.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./diablo.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

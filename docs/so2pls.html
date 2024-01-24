@@ -108,7 +108,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./diablo.html" rel="next">
+<link href="./mofa.html" rel="next">
 <link href="./spls.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -229,6 +229,11 @@ div.csl-indent {
   <a href="./so2pls.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -241,7 +246,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -256,7 +261,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -374,13 +379,9 @@ div.csl-indent {
 <section id="adjusted-cross-validation" class="level3" data-number="9.3.1"><h3 data-number="9.3.1" class="anchored" data-anchor-id="adjusted-cross-validation">
 <span class="header-section-number">9.3.1</span> Adjusted cross-validation</h3>
 <p>In a first step, an adjusted cross-validation procedure is used to compute the optimal values for <span class="math inline">\(n\)</span>, <span class="math inline">\(n_x\)</span> and <span class="math inline">\(n_y\)</span>. This is done through the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_o2m_adjR2.html">so2pls_crossval_o2m_adjR2()</a></code> function, which is a wrapper around the <code><a href="https://rdrr.io/pkg/OmicsPLS/man/crossval_o2m_adjR2.html">OmicsPLS::crossval_o2m_adjR2()</a></code> function. Briefly, the function estimates, for each possible value of <span class="math inline">\(n\)</span>, the values of <span class="math inline">\(n_x\)</span> and <span class="math inline">\(n_y\)</span> that minimise the prediction error for the joint part of each dataset<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Using these values, it then computes the prediction error for the full dataset decomposition and uses it to select the optimal value of <span class="math inline">\(n\)</span>. Compared with the traditional cross-validation approach where the “full decomposition” prediction error is calculated for each possible combination of the tested parameter values, this adjusted procedure can be much faster, while often giving a very similar result. The authors recommend using it as a first pass to reduce the number of values to test for <span class="math inline">\(n\)</span>, <span class="math inline">\(n_x\)</span> and <span class="math inline">\(n_y\)</span>.</p>
-<p>In this example, we will test 1 to 5 joint components, and 0 to 10 specific components for each dataset (testing only even values). We use a 10-fold cross validation (<code>nr_folds</code> parameter specifying the number of folds to use for the cross-validation), and distribute the computation over 6 cores to reduce the running time (through the <code>nr_cores</code> argument). We will also set the seed to ensure the reproducibility of the results, through the <code>seed</code> argument. Note that in order to use <code>seed</code>, you need to be using the latest version of the <code>OmicsPLS</code> package from GitHub, which can be installed as follows:</p>
+<p>In this example, we will test 1 to 5 joint components, and 0 to 10 specific components for each dataset (testing only even values). We use a 10-fold cross validation (<code>nr_folds</code> parameter specifying the number of folds to use for the cross-validation), and distribute the computation over 6 cores to reduce the running time (through the <code>nr_cores</code> argument). We will also set the seed to ensure the reproducibility of the results, through the <code>seed</code> argument.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"selbouhaddani/OmicsPLS"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_cv_adj</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_o2m_adjR2.html">so2pls_crossval_o2m_adjR2</a></span><span class="op">(</span></span>
 <span>    <span class="va">omicspls_input</span>,</span>
@@ -393,9 +394,22 @@ div.csl-indent {
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In order to use the <code>seed</code> argument for the <code>so2pls_crossval_o2m_adjR2</code>, you need to be using the latest version of the <code>OmicsPLS</code> package from GitHub, which can be installed with <code>devtools::install_github("selbouhaddani/OmicsPLS")</code>.</p>
+</div>
+</div>
 <p>Despite using multiple cores, this function can take a while to run (this example took around 8 minutes to execute). The function returns a data-frame giving, for each tested value for <span class="math inline">\(n\)</span>, the values of <span class="math inline">\(n_x\)</span> and <span class="math inline">\(n_y\)</span> that yielded the lowest prediction error, as well as the prediction error obtained for these values of the parameters:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">so2pls_cv_adj</span></span>
 <span><span class="co">#&gt;        MSE n nx ny</span></span>
@@ -407,7 +421,7 @@ div.csl-indent {
 </div>
 <p>The prediction error obtained with each tested value of <span class="math inline">\(n\)</span> can be visualised with the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv_adj.html">so2pls_plot_cv_adj()</a></code> function, which takes as input the result from <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_o2m_adjR2.html">so2pls_crossval_o2m_adjR2()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv_adj.html">so2pls_plot_cv_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv_adj.html">so2pls_plot_cv_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="so2pls_files/figure-html/plot-cv-adj-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -415,7 +429,7 @@ div.csl-indent {
 <p>In the plot, The values of <span class="math inline">\(n_x\)</span> and <span class="math inline">\(n_y\)</span> chosen for each value of <span class="math inline">\(n\)</span> are displayed next to each point. We can see that the smallest prediction error is obtained with one joint component.</p>
 <p>In addition, the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_ncomp_adj.html">so2pls_get_optim_ncomp_adj()</a></code> function returns the optimal values of <span class="math inline">\(n\)</span>, <span class="math inline">\(n_x\)</span> and <span class="math inline">\(n_y\)</span> from the output of the cross-validation step as a vector:</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_ncomp_adj.html">so2pls_get_optim_ncomp_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_ncomp_adj.html">so2pls_get_optim_ncomp_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  n nx ny </span></span>
 <span><span class="co">#&gt;  1  8  2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -424,7 +438,7 @@ div.csl-indent {
 <p>In a second step, a standard cross-validation approach is used to refine the results from the adjusted cross-validation step, by testing values around the selected <span class="math inline">\(n\)</span>, <span class="math inline">\(n_x\)</span> and <span class="math inline">\(n_y\)</span> values. Standard cross-validation is performed within the <code>OmicsPLS</code> package by the <code><a href="https://rdrr.io/pkg/OmicsPLS/man/crossval_o2m.html">OmicsPLS::crossval_o2m()</a></code> function. The function <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_o2m.html">so2pls_crossval_o2m()</a></code> is a convenient wrapper that takes as input the result from the adjusted cross-validation step, in order to automatically select which values should be tested for <span class="math inline">\(n\)</span>, <span class="math inline">\(n_x\)</span> and <span class="math inline">\(n_y\)</span>.</p>
 <p>Once again, we perform a 10-fold cross-validation, distributed over 6 cores:</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_cv</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_o2m.html">so2pls_crossval_o2m</a></span><span class="op">(</span></span>
 <span>    <span class="va">omicspls_input</span>,</span>
@@ -438,7 +452,7 @@ div.csl-indent {
 <p>This standard cross-validation step takes around 6 minutes to run, which makes sense as we are testing less values than in the previous step.</p>
 <p>The result is a <code>cvo2m</code> object, which is a list containing the results of the cross-validation step as well as further information about the run. It can be visualised with the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv.html">so2pls_plot_cv()</a></code> function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv.html">so2pls_plot_cv</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -447,13 +461,13 @@ div.csl-indent {
 </div>
 <p>The plot displays, for each tested value of <span class="math inline">\(n\)</span> (facets), the prediction error (MSE – colour) obtained for the tested values of <span class="math inline">\(n_x\)</span> (x-axis) and <span class="math inline">\(n_y\)</span> (y-axis). The combination of values yielding the smallest prediction error is highlighted in red. This optimal combination can be extracted from the results with the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_ncomp.html">so2pls_get_optim_ncomp()</a></code> function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_ncomp.html">so2pls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_ncomp.html">so2pls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  n nx ny </span></span>
 <span><span class="co">#&gt;  1  7  2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For convenience for the next steps of the analysis, we can store these values as a target:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_cv_res</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_ncomp.html">so2pls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -462,7 +476,7 @@ div.csl-indent {
 <span class="header-section-number">9.4</span> Choosing the number of features to retain for the joint components</h2>
 <p>Once the number of joint and specific components to compute has been decided, we need to estimate the optimal number of features to retain from each dataset for each of the joint components (no feature selection is performed for the specific components). This is done through cross-validation, where the aim is to maximise the covariance between the joint components of the two datasets. This step is performed via the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_sparsity.html">so2pls_crossval_sparsity()</a></code> function (which is identical to the <code><a href="https://rdrr.io/pkg/OmicsPLS/man/crossval_sparsity.html">OmicsPLS::crossval_sparsity()</a></code> function, except that all results from the cross-validation are returned, which is necessary for plotting purposes). The function takes as input the number of joint and specific components (<code>n</code>, <code>nx</code> and <code>ny</code> arguments), the number of folds to use for the cross-validation (<code>nr_folds</code>), and the values to test for each dataset (<code>keepx_seq</code> and <code>keepy_seq</code> arguments). For this example, we will test values between 5 and 100 for the rnaseq dataset, and between 5 and 40 for the metabolomics dataset:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_cv_sparsity</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_sparsity.html">so2pls_crossval_sparsity</a></span><span class="op">(</span></span>
 <span>    <span class="va">omicspls_input</span>,</span>
@@ -477,7 +491,7 @@ div.csl-indent {
 </div>
 <p>The function returns a list containing the results of the cross-validation. They can be visualised with the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv_sparsity.html">so2pls_plot_cv_sparsity()</a></code> function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv_sparsity.html">so2pls_plot_cv_sparsity</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -492,7 +506,7 @@ div.csl-indent {
 <p>In the plot, the values selected with the maximum rule are highlighted in orange, and the ones selected with the 1SD rule in red.</p>
 <p>These optimal values can be extracted from the results of the cross-validation step with the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_keep.html">so2pls_get_optim_keep()</a></code> function. By default, the function uses the 1SD rule, but this can be disabled by setting the <code>use_1sd_rule</code> parameter to <code>FALSE</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_keep.html">so2pls_get_optim_keep</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_keep.html">so2pls_get_optim_keep</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $keepx</span></span>
 <span><span class="co">#&gt; x_1sd </span></span>
 <span><span class="co">#&gt;   100 </span></span>
@@ -518,14 +532,14 @@ div.csl-indent {
 </div>
 <p>The function returns a list of vectors, which are needed for the next step of the analysis. We will save these values as a target:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_cv_sparsity_res</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_keep.html">so2pls_get_optim_keep</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This list can be printed in a more reader-friendly way through the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_print_cv_sparsity.html">so2pls_print_cv_sparsity()</a></code> function (which has been created mainly for reporting purposes), which returns a tibble containing the number of features to retain from each dataset for the different joint components:</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_print_cv_sparsity.html">so2pls_print_cv_sparsity</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity_res</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_print_cv_sparsity.html">so2pls_print_cv_sparsity</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity_res</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 3</span></span>
 <span><span class="co">#&gt;   dataset    `Joint component 1` Total</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;                    &lt;dbl&gt; &lt;dbl&gt;</span></span>
@@ -536,7 +550,7 @@ div.csl-indent {
 <span class="header-section-number">9.5</span> Final sO2PLS run</h2>
 <p>Once a value has been selected for all parameters, we can perform the final sO2PLS run. This can be done through the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_o2m.html">so2pls_o2m()</a></code> function, which is a wrapper around the <code><a href="https://rdrr.io/pkg/OmicsPLS/man/o2m.html">OmicsPLS::o2m()</a></code> function. We’ll use the values selected from the different cross-validation steps to inform the parameter values:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_final_run</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_o2m.html">so2pls_o2m</a></span><span class="op">(</span></span>
 <span>    <span class="va">omicspls_input</span>,</span>
@@ -547,7 +561,7 @@ div.csl-indent {
 </div>
 <p>This function returns an <code>o2m</code> object, which, when printed, provides a summary of the sO2PLS results:</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">so2pls_final_run</span></span>
 <span><span class="co">#&gt; SO2PLS fit </span></span>
@@ -558,12 +572,12 @@ div.csl-indent {
 </div>
 </section><section id="results-interpretation" class="level2" data-number="9.6"><h2 data-number="9.6" class="anchored" data-anchor-id="results-interpretation">
 <span class="header-section-number">9.6</span> Results interpretation</h2>
-<p>In <a href="interpretation.html"><span>Chapter&nbsp;11</span></a>, we show the different functionalities implemented in the <code>moiraine</code> package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the sO2PLS-specific plots that can be generated to help interpret the results of an sO2PLS run.</p>
+<p>In <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>, we show the different functionalities implemented in the <code>moiraine</code> package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the sO2PLS-specific plots that can be generated to help interpret the results of an sO2PLS run.</p>
 <section id="variance-explained" class="level3" data-number="9.6.1"><h3 data-number="9.6.1" class="anchored" data-anchor-id="variance-explained">
 <span class="header-section-number">9.6.1</span> Variance explained</h3>
 <p>The <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function, when applied to an sO2PLS output, provides an overview of the variance explained by the different latent components, as well as other summary statistics:</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; *** Summary of the SO2PLS fit *** </span></span>
 <span><span class="co">#&gt; </span></span>
@@ -605,7 +619,7 @@ div.csl-indent {
 </div>
 <p>These statistics can be visualised with the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_summary.html">so2pls_plot_summary()</a></code> function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_summary.html">so2pls_plot_summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_summary.html">so2pls_plot_summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="so2pls_files/figure-html/plot-summary-final-run-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -613,7 +627,7 @@ div.csl-indent {
 <p>The plot on the left shows the percentage of variation explained by the joint, orthogonal/specific and residual parts for each dataset. In our example, the joint parts explain around 27% and 11% of the variation in the transcriptomics and metabolomics datasets, respectively, while the specific components explain around 35% and 18% of the variation in each dataset. Taken together, the joint and specific parts explain 61.5% of the variation present in the transcriptomics dataset, but only 29% in the metabolomics dataset. The plot on the right depicts the percentage of joint variation of a dataset explained by the joint variation of the other dataset, i.e.&nbsp;it gives an indication of how correlated the joint parts of the two datasets are. In our case, the joint part of each dataset explains between 78% of the joint variation in the other dataset, which is indicative of a good covariance between the datasets.</p>
 <p>To get more information about the percentage of variation explained by each individual joint or specific component, we can have a look at the screeplot generated by the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_screeplot.html">so2pls_screeplot()</a></code> function, which shows the percentage of variance explained by each individual joint or specific component for each dataset:</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_screeplot.html">so2pls_screeplot</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_screeplot.html">so2pls_screeplot</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="so2pls_files/figure-html/screeplot-final-run-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -622,7 +636,7 @@ div.csl-indent {
 <span class="header-section-number">9.6.2</span> Relationship between the datasets’ joint components</h3>
 <p>As the joint components of the two datasets are related, we can compare the joint components’ sample scores obtained for each dataset. This can be visualised with the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_compare_samples_joint_components.html">so2pls_compare_samples_joint_components()</a></code> function. In the resulting plot, the samples can be coloured according to some information that we have about the samples. This is done by passing the <code>MultiDataSet</code> multi-omics object to the function through the <code>mo_data</code> argument, and choosing the column from the samples metadata information that will be used to colour the samples, through the <code>colour_by</code> argument. Note that if nothing is passed to these two arguments, all samples will have the same colour. In our case, we want to colour the samples according to their disease status, and show the feedlot with the shape of the points:</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_compare_samples_joint_components.html">so2pls_compare_samples_joint_components</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_final_run</span>,</span>
@@ -637,7 +651,7 @@ div.csl-indent {
 <p>It seems that joint component 1 is pretty consistent between the two datasets, except for one individual (an infected animal from feedlot 2 seen on the bottom-left of the plot). For both datasets, this joint component clearly separates the control and infected animals.</p>
 <p>Note that, since the function returns a <a href="https://patchwork.data-imaginist.com/">patchwork</a> of ggplots, it is possible to customise the colours used as follows:</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_compare_samples_joint_components.html">so2pls_compare_samples_joint_components</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_compare_samples_joint_components.html">so2pls_compare_samples_joint_components</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_final_run</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
 <span>  colour_by <span class="op">=</span> <span class="st">"status"</span>,</span>
@@ -650,17 +664,17 @@ div.csl-indent {
 </div>
 <p>We can visualise precisely how the joint components from the two datasets are related. As it is possible to express each joint component of one dataset as a linear combination of the joint components of the other dataset, we can look at the coefficients of these linear combinations. This is the purpose of the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_joint_components_coefficients.html">so2pls_plot_joint_components_coefficients()</a></code> function. In this case, since there is only one joint component, the visualisation is not particularly useful:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_joint_components_coefficients.html">so2pls_plot_joint_components_coefficients</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_joint_components_coefficients.html">so2pls_plot_joint_components_coefficients</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="so2pls_files/figure-html/plot-joint-comp-coeff-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
 </section><section id="samples-plots" class="level3" data-number="9.6.3"><h3 data-number="9.6.3" class="anchored" data-anchor-id="samples-plots">
 <span class="header-section-number">9.6.3</span> Samples plots</h3>
-<p>In <a href="interpretation.html"><span>Chapter&nbsp;11</span></a>, different visualisations implemented in <code>moiraine</code> are presented to show the samples in the space spanned by the latent components. However, since in sO2PLS there is a distinction between joint and specific latent components, some convenience functions have been implemented to generate such plots for all joint or all specific components at once.</p>
+<p>In <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>, different visualisations implemented in <code>moiraine</code> are presented to show the samples in the space spanned by the latent components. However, since in sO2PLS there is a distinction between joint and specific latent components, some convenience functions have been implemented to generate such plots for all joint or all specific components at once.</p>
 <p>First, we will focus on the joint components. The <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_joint_components.html">so2pls_plot_samples_joint_components()</a></code> function represents the sample scores for the joint components as either violin plots (if there is only one joint component) or as a matrix of two-by-two scatter plots. Rather than displaying the sample scores separately for each dataset, it instead represents for each joint component the average of the sample scores across the two datasets. This function is based on the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score()</a></code> function (see <span class="quarto-unresolved-ref">?sec-interpretation-samples-scores</span>), so information about the samples can be added to the plot by passing a <code>MultiDataSet</code> object to the function. Here, we want to visualise the samples’ health status as well as feedlot.</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_joint_components.html">so2pls_plot_samples_joint_components</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_joint_components.html">so2pls_plot_samples_joint_components</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_final_run</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="va">mo_set_de</span>,</span>
 <span>  colour_upper <span class="op">=</span> <span class="st">"status"</span>,</span>
@@ -675,7 +689,7 @@ div.csl-indent {
 <p>We can clearly see that joint component 1 separates most of the control from the infected animals. Note that the function returns a ggplot, which can be further customised.</p>
 <p>Similarly, the <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_specific_components.html">so2pls_plot_samples_specific_components()</a></code> function displays the sample scores for the specific components of each dataset. Contrary to the joint components, these specific sample scores plots are independent between the two datasets, and therefore the function returns a list of plots, one for each dataset. Again, the sample scores are represented either as a violin plot (if there is only one specific component), or as scatterplots (if there are more than one specific component). Samples metadata available in the <code>MultiDataSet</code> object can be used to colour the samples.</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_specific_components.html">so2pls_plot_samples_specific_components</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_specific_components.html">so2pls_plot_samples_specific_components</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_final_run</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="va">mo_set_de</span>,</span>
 <span>  colour_upper <span class="op">=</span> <span class="st">"feedlot"</span>,</span>
@@ -702,7 +716,7 @@ div.csl-indent {
 <details><summary>
 Targets list for sO2PLS analysis
 </summary><div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Creating sO2PLS input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">omicspls_input</span>,</span>
@@ -797,6 +811,62 @@ Targets list for sO2PLS analysis
 <span>      <span class="va">so2pls_cv_res</span>,</span>
 <span>      <span class="va">so2pls_cv_sparsity_res</span></span>
 <span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Summary plot of percentage of variance explained</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_summary_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_summary.html">so2pls_plot_summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Screeplot</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_screeplot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_screeplot.html">so2pls_screeplot</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Comparison of samples score for joint components</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_joint_components_comparison_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_compare_samples_joint_components.html">so2pls_compare_samples_joint_components</a></span><span class="op">(</span></span>
+<span>      <span class="va">so2pls_final_run</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_de</span>,</span>
+<span>      colour_by <span class="op">=</span> <span class="st">"status"</span>,</span>
+<span>      shape_by <span class="op">=</span> <span class="st">"feedlot"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Coefficient plot for joint components</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_joint_components_coefficients_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_joint_components_coefficients.html">so2pls_plot_joint_components_coefficients</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Joint component samples score plot</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_joint_components_samples_score_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_joint_components.html">so2pls_plot_samples_joint_components</a></span><span class="op">(</span></span>
+<span>      <span class="va">so2pls_final_run</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_de</span>,</span>
+<span>      colour_upper <span class="op">=</span> <span class="st">"status"</span>,</span>
+<span>      scale_colour_upper <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Paired"</span><span class="op">)</span>,</span>
+<span>      shape_upper <span class="op">=</span> <span class="st">"feedlot"</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.box <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Specific components samples score plot</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_specific_components_samples_score_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_specific_components.html">so2pls_plot_samples_specific_components</a></span><span class="op">(</span></span>
+<span>      <span class="va">so2pls_final_run</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_de</span>,</span>
+<span>      colour_upper <span class="op">=</span> <span class="st">"feedlot"</span>,</span>
+<span>      scale_colour_upper <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Paired"</span><span class="op">)</span>,</span>
+<span>      colour_lower <span class="op">=</span> <span class="st">"rnaseq_batch"</span>,</span>
+<span>      shape_upper <span class="op">=</span> <span class="st">"gender"</span></span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>      <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.box <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -951,8 +1021,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./diablo.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./mofa.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

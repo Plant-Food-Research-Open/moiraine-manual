@@ -340,7 +340,7 @@ plot_samples_coordinates_pca(
 ```
 
 
-### Missing values imputation
+### Missing values imputation {#sec-preprocessing-missing-values}
 
 We can check that the complete multi-omics set constructed has no more missing values:
 

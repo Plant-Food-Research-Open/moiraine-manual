@@ -96,25 +96,26 @@ spls_input_multilevel1 <- get_input_spls(
 
 The resulting design table that will be used by the `mixOmics` package is stored in the `multilevel` argument of the object returned by the `get_input_spls()` function. It consists of a data-frame with observations as rows, and an integer ID for the corresponding biological individual in the first column:
 
+```{r multilevel-input-one-factor-show}
+#| eval: false
+
+attr(spls_input_multilevel1, "multilevel")
+```
+
+
 ```{r multilevel-input-one-factor-res}
 #| echo: false
 
-tar_read(spls_multilevel1) |> 
-  kable()
+tar_read(spls_multilevel1)
 ```
 
 In order to use the multilevel option with two factors, the `multilevel` argument should instead be populated with a vector of three column names from the samples metadata table. The first value, similarly to a one-factor decomposition, should be the name of the column containing the ID of the biological individuals. The second and third values should be the name of the columns containing the levels of the two factors of interest. Continuing on the previous example, supposing that in a similar study, we take measurements on the plants at three different time-points after the application of each treatment. The samples metadata table might look like this:
 
-```{r multilevel-two-factors-smetadata}
-#| eval: false
-
-get_samples_metadata_combined(mo_set_multilevel2)
-```
-
 ```{r multilevel-two-factors-table}
 #| echo: false
 
-tar_read(spls_smeta2)
+tar_read(spls_smeta2) |> 
+  kable()
 ```
 
 with similar columns to the previous example, and an additional `time` column indicating the time-point at which the measurement was taken. In that case, we should set `multilevel = c("plant_id", "treatment", "time")` to use the multilevel option, as follows:

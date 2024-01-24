@@ -90,15 +90,7 @@ In a first step, an adjusted cross-validation procedure is used to compute the o
 
 [^so2pls-1]: i.e. the prediction of the joint part of each dataset given the joint part of the other dataset.
 
-In this example, we will test 1 to 5 joint components, and 0 to 10 specific components for each dataset (testing only even values). We use a 10-fold cross validation (`nr_folds` parameter specifying the number of folds to use for the cross-validation), and distribute the computation over 6 cores to reduce the running time (through the `nr_cores` argument). We will also set the seed to ensure the reproducibility of the results, through the `seed` argument. Note that in order to use `seed`, you need to be using the latest version of the `OmicsPLS` package from GitHub, which can be installed as follows:
-
-```{r installing-omicspls}
-#| eval: false
-
-require(devtools)
-devtools::install_github("selbouhaddani/OmicsPLS")
-```
-
+In this example, we will test 1 to 5 joint components, and 0 to 10 specific components for each dataset (testing only even values). We use a 10-fold cross validation (`nr_folds` parameter specifying the number of folds to use for the cross-validation), and distribute the computation over 6 cores to reduce the running time (through the `nr_cores` argument). We will also set the seed to ensure the reproducibility of the results, through the `seed` argument.
 
 ```{targets adj-cv}
 tar_target(
@@ -114,6 +106,10 @@ tar_target(
   )
 )
 ```
+
+::: {.callout-note}
+In order to use the `seed` argument for the `so2pls_crossval_o2m_adjR2`, you need to be using the latest version of the `OmicsPLS` package from GitHub, which can be installed with `devtools::install_github("selbouhaddani/OmicsPLS")`.
+:::
 
 Despite using multiple cores, this function can take a while to run (this example took around 8 minutes to execute). The function returns a data-frame giving, for each tested value for $n$, the values of $n_x$ and $n_y$ that yielded the lowest prediction error, as well as the prediction error obtained for these values of the parameters:
 
@@ -480,6 +476,62 @@ list(
       so2pls_cv_res,
       so2pls_cv_sparsity_res
     )
+  ),
+  
+  ## Summary plot of percentage of variance explained
+  tar_target(
+    so2pls_summary_plot,
+    so2pls_plot_summary(so2pls_final_run)
+  ),
+  
+  ## Screeplot
+  tar_target(
+    so2pls_screeplot,
+    so2pls_screeplot(so2pls_final_run)
+  ),
+  
+  ## Comparison of samples score for joint components
+  tar_target(
+    so2pls_joint_components_comparison_plot,
+    so2pls_compare_samples_joint_components(
+      so2pls_final_run,
+      mo_data = mo_set_de,
+      colour_by = "status",
+      shape_by = "feedlot"
+    )
+  ),
+  
+  ## Coefficient plot for joint components
+  tar_target(
+    so2pls_joint_components_coefficients_plot,
+    so2pls_plot_joint_components_coefficients(so2pls_final_run)
+  ),
+  
+  ## Joint component samples score plot
+  tar_target(
+    so2pls_joint_components_samples_score_plot,
+    so2pls_plot_samples_joint_components(
+      so2pls_final_run,
+      mo_data = mo_set_de,
+      colour_upper = "status",
+      scale_colour_upper = scale_colour_brewer(palette = "Paired"),
+      shape_upper = "feedlot"
+    ) +
+      theme(legend.box = "vertical")
+  ),
+  
+  ## Specific components samples score plot
+  tar_target(
+    so2pls_specific_components_samples_score_plot,
+    so2pls_plot_samples_specific_components(
+      so2pls_final_run,
+      mo_data = mo_set_de,
+      colour_upper = "feedlot",
+      scale_colour_upper = scale_colour_brewer(palette = "Paired"),
+      colour_lower = "rnaseq_batch",
+      shape_upper = "gender"
+    ) |> 
+      map(\(x) x + theme(legend.box = "vertical"))
   )
 )
 ```
