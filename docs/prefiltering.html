@@ -108,7 +108,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./diablo.html" rel="next">
+<link href="./spls.html" rel="next">
 <link href="./preprocessing.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -213,7 +213,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Supervised integration</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Unsupervised integration</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -221,14 +221,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data integration with DIABLO</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Unsupervised integration</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Supervised integration</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -236,7 +241,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data integration with sPLS</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -251,7 +256,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -399,7 +404,7 @@ div.csl-indent {
 <span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
 <span><span class="co">#&gt;        135        135        135</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The returned <code>MultiDataSet</code> object contains 135 samples which are present in all three omics datasets (which we can confirm with the Upset plot generated in <a href="#sec-inspecting-multidataset-summary-plots"><span class="quarto-unresolved-ref">sec-inspecting-multidataset-summary-plots</span></a>).</p>
+<p>The returned <code>MultiDataSet</code> object contains 135 samples which are present in all three omics datasets (which we can confirm with the Upset plot generated in <a href="inspecting_multidataset.html#sec-inspecting-multidataset-summary-plots"><span>Section&nbsp;4.3</span></a>).</p>
 </section></section><section id="subsetting-features-of-interest" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="subsetting-features-of-interest">
 <span class="header-section-number">7.2</span> Subsetting features of interest</h2>
 <section id="based-on-feature-ids" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="based-on-feature-ids">
@@ -607,7 +612,7 @@ div.csl-indent {
 </section><section id="supervised-features-preselection" class="level3" data-number="7.3.2"><h3 data-number="7.3.2" class="anchored" data-anchor-id="supervised-features-preselection">
 <span class="header-section-number">7.3.2</span> Supervised features preselection</h3>
 <p>Another approach to features preselection can be preferred when we are trying to assess the features most relevant to an outcome of interest or to differences between sample groups. In this scenario, prior to integrating the datasets, it could be useful to reduce the size of the datasets by filtering out the features that are least associated with the outcome of interest. In this case, we can use some single-omics feature selection method to perform a first “crude” prefiltering.</p>
-<p><code>moiraine</code> relies on the sPLS-DA algorithm implemented in the <code>mixOmics</code> package for this. <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html">sparse Partial Least-Squares Discriminant Analysis</a> (or sPLS-DA for short) is a feature selection method that aims to detect, in a multivariate dataset, the variables or features that best discriminate a categorical outcome of interest in the observations. The advantages of sPLS-DA is that it can handle datasets in which there are more features than samples, which is typically the case in omics datasets. More information can be found in <span class="citation" data-cites="lêcao2011">Lê Cao, Boitard, and Besse (<a href="#ref-l%C3%AAcao2011" role="doc-biblioref">2011</a>)</span> or in the <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html"><code>mixOmics</code> vignette</a>. By running an sPLS-DA analysis on each dataset separately, we can remove the features that are least informative with respect to the trait or outcome of interest. We refer to this approach as supervised preselection, as it relies on information about the samples to select the features of interest.</p>
+<p><code>moiraine</code> relies on the sPLS-DA algorithm implemented in the <code>mixOmics</code> package for this. <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html">sparse Partial Least-Squares Discriminant Analysis</a> (or sPLS-DA for short) is a feature selection method that aims to detect, in a multivariate dataset, the variables or features that best discriminate a categorical outcome of interest in the observations. The advantages of sPLS-DA is that it can handle datasets in which there are more features than samples, which is typically the case in omics datasets. More information can be found in <span class="citation" data-cites="lêcao2011">Lê Cao, Boitard, and Besse (<a href="references.html#ref-l%C3%AAcao2011" role="doc-biblioref">2011</a>)</span> or in the <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html"><code>mixOmics</code> vignette</a>. By running an sPLS-DA analysis on each dataset separately, we can remove the features that are least informative with respect to the trait or outcome of interest. We refer to this approach as supervised preselection, as it relies on information about the samples to select the features of interest.</p>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory()</a></code> function allows us to perform this supervised preselection for some or all datasets within a <code>MultiDataSet</code> object. It provides the option to set either the number or proportion of features to retain in each dataset, via the <code>to_keep_ns</code> and <code>to_keep_props</code> arguments. One additional argument that needs to be passed to the function is <code>group</code>, which gives the name of the column in the samples metadata information to be used as categorical outcome for the sPLS-DA run. This column must be present in the sample metadata of at least one of the datasets to be filtered. For this example, we will retain in each dataset 1,000 features that best discriminate the control and diseased animals. Warning: this function can take several minutes to run.</p>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory</a></span><span class="op">(</span></span>
@@ -739,7 +744,7 @@ Targets list for datasets prefiltering
 </div>
 </details>
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-lêcao2011" class="csl-entry" role="doc-biblioentry">
 Lê Cao, Kim-Anh, Simon Boitard, and Philippe Besse. 2011. <span>“Sparse PLS Discriminant Analysis: Biologically Relevant Feature Selection and Graphical Displays for Multiclass Problems.”</span> <em>BMC Bioinformatics</em> 12 (1): 253. <a href="https://doi.org/10.1186/1471-2105-12-253">https://doi.org/10.1186/1471-2105-12-253</a>.
 </div>
@@ -882,8 +887,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./diablo.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data integration with DIABLO</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./spls.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

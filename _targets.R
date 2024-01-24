@@ -404,6 +404,106 @@ list(
     )
   ),
 
+  ##=================##
+  ## sO2PLS pipeline ----
+  ##=================##
+
+  ## Creating sO2PLS input
+  tar_target(
+    omicspls_input,
+    get_input_omicspls(
+      mo_presel_supervised,
+      datasets = c("rnaseq", "metabolome")
+    )
+  ),
+
+  ## Adjusted cross-validation for number of components
+  tar_target(
+    so2pls_cv_adj,
+    so2pls_crossval_o2m_adjR2(
+      omicspls_input,
+      a = 1:5,
+      ax = seq(0, 10, by = 2),
+      ay = seq(0, 10, by = 2),
+      nr_folds = 10,
+      nr_cores = 6,
+      seed = 127
+    )
+  ),
+  tar_target(
+    so2pls_cv_adj_res,
+    so2pls_get_optim_ncomp_adj(so2pls_cv_adj)
+  ),
+
+  ## Plotting adjusted cross-validation results
+  tar_target(
+    so2pls_cv_adj_plot,
+    so2pls_plot_cv_adj(so2pls_cv_adj)
+  ),
+
+  ## Standard cross-validation for number of components
+  tar_target(
+    so2pls_cv,
+    so2pls_crossval_o2m(
+      omicspls_input,
+      so2pls_cv_adj,
+      nr_folds = 10,
+      nr_cores = 6,
+      seed = 356
+    )
+  ),
+  tar_target(
+    so2pls_cv_res,
+    so2pls_get_optim_ncomp(so2pls_cv)
+  ),
+
+  ## Plotting standard cross-validation results
+  tar_target(
+    so2pls_cv_plot,
+    so2pls_plot_cv(so2pls_cv)
+  ),
+
+  ## Cross-validation for sparsity parameters
+  tar_target(
+    so2pls_cv_sparsity,
+    so2pls_crossval_sparsity(
+      omicspls_input,
+      n = so2pls_cv_res["n"],
+      nx = so2pls_cv_res["nx"],
+      ny = so2pls_cv_res["ny"],
+      nr_folds = 10,
+      keepx_seq = c(seq(5, 30, 5), seq(40, 100, 10)),
+      keepy_seq = c(seq(5, 40, 5))
+    )
+  ),
+  tar_target(
+    so2pls_cv_sparsity_res,
+    so2pls_get_optim_keep(so2pls_cv_sparsity)
+  ),
+
+  ## Plotting the results of the cross-validation for the number of features
+  ## to retain from each dataset for the different joint components
+  tar_target(
+    so2pls_cv_sparsity_plot,
+    so2pls_plot_cv_sparsity(so2pls_cv_sparsity)
+  ),
+
+  ## Extracting sparsity results in table format
+  tar_target(
+    so2pls_cv_sparsity_table,
+    so2pls_print_cv_sparsity(so2pls_cv_sparsity_res)
+  ),
+
+  ## Final sO2PLS run
+  tar_target(
+    so2pls_final_run,
+    so2pls_o2m(
+      omicspls_input,
+      so2pls_cv_res,
+      so2pls_cv_sparsity_res
+    )
+  ),
+
   ##========================##
   ## Results interpretation ----
   ##========================##

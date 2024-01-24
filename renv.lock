@@ -495,9 +495,14 @@
     },
     "OmicsPLS": {
       "Package": "OmicsPLS",
-      "Version": "2.0.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Version": "2.0.5",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "selbouhaddani",
+      "RemoteRepo": "OmicsPLS",
+      "RemoteRef": "master",
+      "RemoteSha": "4d9370e688974ddf6b0a6bb649073a6405273894",
       "Requirements": [
         "dplyr",
         "ggplot2",
@@ -506,9 +511,10 @@
         "parallel",
         "softImpute",
         "stats",
-        "tibble"
+        "tibble",
+        "withr"
       ],
-      "Hash": "fd6cdaafc8e78b511eb44aadafbb6a22"
+      "Hash": "6eca87d897c4d6d73563dea5f4a0fd93"
     },
     "R6": {
       "Package": "R6",
@@ -2102,7 +2108,7 @@
       "RemoteUsername": "PlantandFoodResearch",
       "RemoteRepo": "moiraine",
       "RemoteRef": "main",
-      "RemoteSha": "3da57d0060ce99061ff3a05da10a628375bc9ce7",
+      "RemoteSha": "8f72bf19adfb449054791d6c50395c45fa58bdb8",
       "Requirements": [
         "Biobase",
         "ComplexHeatmap",
@@ -2140,7 +2146,7 @@
         "tidyselect",
         "utils"
       ],
-      "Hash": "ea944811306c200792f0808f5fa53cec"
+      "Hash": "c5fcba1231fe0ad084ba7ffc17cfc3e0"
     },
     "munsell": {
       "Package": "munsell",

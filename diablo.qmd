@@ -1,4 +1,4 @@
-# Data integration with DIABLO {#sec-diablo}
+# Integration with DIABLO {#sec-diablo}
 
 ```{r}
 #| child: "_setup.qmd"
@@ -35,13 +35,13 @@ Now that the omics datasets have been appropriately pre-processed and pre-filter
 As a reminder, here is what the `_targets.R` script should look like so far:
 
 <details>
-  <summary>`_targets.R` script</summary>
+
+<summary>`_targets.R` script</summary>
 
 ```{file targets-script}
 ```
+
 </details>
-
-
 
 ## What is DIABLO?
 
@@ -235,7 +235,6 @@ tar_target(
 )
 ```
 
-
 ## Choosing the number of features to retain
 
 The next parameter to set is the number of features to retain from the different datasets for each latent component. This is usually chosen by performing cross-validation on a grid of possible values. The range of values to test depends on the type of question we are trying to answer: selecting a larger number of features might lead to a better discrimination of the outcome groups, but will be hard to manually inspect for further interpretation.
@@ -311,7 +310,6 @@ To facilitate reporting, the `diablo_get_params()` function extracts from the DI
 diablo_get_params(diablo_final_run)
 ```
 
-
 ## Results interpretation
 
 In @sec-interpretation, we show the different functionalities implemented in the `moiraine` package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the DIABLO-specific plots that can be generated to help interpret the results of a DIABLO run.
@@ -372,7 +370,6 @@ walk(
 )
 ```
 
-
 ### Correlation circle plots
 
 The correlation circle plots produced by the `mixOmics::plotVar()` function displays the contribution of the selected features to the different latent components. We will focus here on the first two latent components:
@@ -422,7 +419,6 @@ diablo_plot_var(
 
 Note that if a dataset is not present in the list passed to `label_cols` (here, that is the case of the genomics dataset), the feature IDs will be used as labels.
 
-
 ### Circos plot
 
 Lastly, it is possible to represent the correlation between features selected from different datasets, with the `mixOmics::circosPlot()` function. For ease of visualisation, it only displays correlations above a certain threshold (specified via the `cutoff` argument). By default, it displays the features selected for all latent components, but this can be controlled via the `comp` argument:
@@ -463,8 +459,9 @@ This plot is useful to identify features across the datasets with high correlati
 For convenience, here is the list of targets that we created in this section:
 
 <details>
-  <summary>Targets list for DIABLO analysis</summary>
-  
+
+<summary>Targets list for DIABLO analysis</summary>
+
 ```{targets recap-targets-list}
 list(
   ## Creating the DIABLO input
@@ -546,4 +543,5 @@ list(
   )
 )
 ```
+
 </details>

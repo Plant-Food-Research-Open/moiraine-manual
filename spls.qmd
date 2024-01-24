@@ -1,4 +1,4 @@
-# Data integration with sPLS {#sec-spls}
+# Integration with sPLS {#sec-spls}
 
 ```{r}
 #| child: "_setup.qmd"
@@ -96,7 +96,6 @@ spls_input_multilevel1 <- get_input_spls(
 
 The resulting design table that will be used by the `mixOmics` package is stored in the `multilevel` argument of the object returned by the `get_input_spls()` function. It consists of a data-frame with observations as rows, and an integer ID for the corresponding biological individual in the first column:
 
-
 ```{r multilevel-input-one-factor-res}
 #| echo: false
 
@@ -168,7 +167,7 @@ tar_read(spls_input) |> str()
 
 ## Choosing the number of latent components
 
-The first step when running an sPLS analysis is to determine the number of latent components to construct, which can be chosen using cross-validation. This is done by running an initial sPLS analysis on the datasets with no feature selection and a large number of latent components; for example we want to test up to four latent components.  We use for this the `spls_run()` function, which is a wrapper for the `mixOmics::spls()` function.
+The first step when running an sPLS analysis is to determine the number of latent components to construct, which can be chosen using cross-validation. This is done by running an initial sPLS analysis on the datasets with no feature selection and a large number of latent components; for example we want to test up to four latent components. We use for this the `spls_run()` function, which is a wrapper for the `mixOmics::spls()` function.
 
 ```{targets spls-novarsel}
 tar_target(

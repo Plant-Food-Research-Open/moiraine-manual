@@ -39,7 +39,7 @@
 <!-- get_latent_dimensions(tar_read(diablo_output_no_average)) -->
 <!-- ``` -->
 
-<!-- ### Samples plots -->
+<!-- ### Samples plots {#sec-interpretation-samples-scores} -->
 
 <!-- More generally, we can plot the samples in the subspace spanned by the different components using the `plot_samples_score()` function. This function takes as input the DIABLO result in standardised format (from the `get_output()` function), and creates a matrix of scatter-plots to compare all possible pairs of components. The function also accepts a MultiDataSet object as an optional input, which can be used to enrich the plot with information about the samples extracted from the samples metadata. The plots in the resulting matrix are redundant: the lower plots (below the diagonal) are just a rotated version of the upper plots (above the diagonal); this is useful to represent several properties of the samples in one plot. For more details, see the help of the function. Here, we'll show in the upper plots the bruising groups and replicate ID, and in the lower plots the parents of each sample. -->
 

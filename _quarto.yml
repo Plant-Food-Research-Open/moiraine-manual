@@ -16,12 +16,13 @@ book:
       - modifying_multidataset.qmd
       - preprocessing.qmd
       - prefiltering.qmd
-    - part: "Supervised integration"
-      chapters:
-      - diablo.qmd
     - part: "Unsupervised integration"
       chapters:
       - spls.qmd
+      - so2pls.qmd
+    - part: "Supervised integration"
+      chapters:
+      - diablo.qmd
     - part: "Results interpretation"
       chapters:
       - interpretation.qmd
@@ -33,6 +34,4 @@ format:
   html:
     theme: [cosmo, custom.scss]
     code-link: true
-
-editor: visual
 

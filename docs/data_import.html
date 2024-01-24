@@ -213,7 +213,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Supervised integration</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Unsupervised integration</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -221,14 +221,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data integration with DIABLO</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Unsupervised integration</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Supervised integration</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -236,7 +241,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data integration with sPLS</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -251,7 +256,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -318,7 +323,7 @@ div.csl-indent {
 <span><span class="co">## for documentation</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The first step of the pipeline is to read in the different omics datasets and associated metadata. Once imported into R, they will be combined in a <code>MultiDataSet</code> object from the <a href="https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html"><code>MultiDataSet</code> package</a> (<span class="citation" data-cites="hernandez-ferrer2017">Hernandez-Ferrer et al. (<a href="#ref-hernandez-ferrer2017" role="doc-biblioref">2017</a>)</span>) which will be used in the rest of the analysis pipeline.</p>
+<p>The first step of the pipeline is to read in the different omics datasets and associated metadata. Once imported into R, they will be combined in a <code>MultiDataSet</code> object from the <a href="https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html"><code>MultiDataSet</code> package</a> (<span class="citation" data-cites="hernandez-ferrer2017">Hernandez-Ferrer et al. (<a href="references.html#ref-hernandez-ferrer2017" role="doc-biblioref">2017</a>)</span>) which will be used in the rest of the analysis pipeline.</p>
 <p>For each omics dataset, we need to import:</p>
 <ul>
 <li>the dataset itself (i.e.&nbsp;the matrix of omics measurements);</li>
@@ -330,7 +335,7 @@ div.csl-indent {
 <p>Typically, omics datasets as well as associated metadata are stored in <code>csv</code> files, although there are some other file formats that <code>moiraine</code> can read, and we will see examples of this in the following sections.</p>
 <section id="the-example-dataset-files" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="the-example-dataset-files">
 <span class="header-section-number">3.1</span> The example dataset files</h2>
-<p>The dataset analysed this manual is presented in <a href="#sec-dataset"><span class="quarto-unresolved-ref">sec-dataset</span></a>. The associated files that we will use here are:</p>
+<p>The dataset analysed this manual is presented in <a href="example_dataset.html"><span>Chapter&nbsp;2</span></a>. The associated files that we will use here are:</p>
 <ul>
 <li>
 <p>Genomics data:</p>
@@ -374,7 +379,7 @@ div.csl-indent {
 <p>The created target, called <code>dataset_file_geno</code>, takes as value the path to the file:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">dataset_file_geno</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/698ccea8a547b0c524cdec13f467bd5e/moiraine/extdata/genomics_dataset.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/ea944811306c200792f0808f5fa53cec/moiraine/extdata/genomics_dataset.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The next step is to import this dataset in R. We use the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function for that, rather than the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> or similar functions, as it ensures that the data is imported with the correct format for further use with the <code>moiraine</code> package. When importing a dataset, we need to specify the path to the file, as well as the name of the column in the csv file that contains the row names (through the <code>col_id</code> argument). In addition, we need to specify whether the features are represented in rows in the csv file, or in columns. This is done through the argument <code>features_as_rows</code>. For example, we can load the genomics dataset through:</p>
 <div class="cell">
@@ -434,7 +439,7 @@ div.csl-indent {
 <span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">data_metabo</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  55 139</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>With this factory function, it is not possible to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>. If you want to control how the files are read, please use the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function directly instead, as shown in <a href="#sec-import-dataset-manual"><span class="quarto-unresolved-ref">sec-import-dataset-manual</span></a>.</p>
+<p>With this factory function, it is not possible to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>. If you want to control how the files are read, please use the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function directly instead, as shown in <a href="#sec-import-dataset-manual"><span>Section&nbsp;3.2.1</span></a>.</p>
 </section></section><section id="importing-the-features-metadata" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="importing-the-features-metadata">
 <span class="header-section-number">3.3</span> Importing the features metadata</h2>
 <p>Similarly to how we imported the datasets, there are two ways of importing features metadata: either manually, or using a target factory function. The two options are illustrated below.</p>
@@ -547,7 +552,7 @@ div.csl-indent {
 <span><span class="co">#&gt; HMDB00043  -7.9073179 7.827088e-13 3.913544e-12        DE downregulated</span></span>
 <span><span class="co">#&gt; HMDB00060  -0.4369834 6.628164e-01 7.439776e-01    Not DE        Not DE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Again, the targets factory function does not allow to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> (if you need them, please use <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> directly as we have done in <a href="#sec-import-fmeta-manual"><span class="quarto-unresolved-ref">sec-import-fmeta-manual</span></a>).</p>
+<p>Again, the targets factory function does not allow to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> (if you need them, please use <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> directly as we have done in <a href="#sec-import-fmeta-manual"><span>Section&nbsp;3.3.1</span></a>).</p>
 </section><section id="sec-import-fmeta-gff" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="sec-import-fmeta-gff">
 <span class="header-section-number">3.3.3</span> Importing features metadata from a GTF/GFF file</h3>
 <p>The <code>moiraine</code> package can also extract features metadata from a genome annotation file (<code>.gtf</code> or <code>.gff</code>). We’ll demonstrate that for the transcriptomics dataset, for which information about the position and name of the transcripts can be found in the genome annotation used to map the reads. The function is called <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff.html">import_fmetadata_gff()</a></code> (it is also the function you would use to read in information from a <code>.gtf</code> file). The type of information to extract from the annotation file is specified through the <code>feature_type</code> argument, which can be either <code>'genes'</code> or <code>'transcripts'</code>. In addition, if the function does not extract certain fields from the annotation file, these can be explicitly called using the <code>add_fields</code> parameter.</p>
@@ -851,7 +856,7 @@ div.csl-indent {
 </div>
 </section></section><section id="creating-the-multi-omics-set" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="creating-the-multi-omics-set">
 <span class="header-section-number">3.6</span> Creating the multi-omics set</h2>
-<p>Finally, we can combine the different omics sets into one multi-omics set object. <code>moiraine</code> makes use of the <a href="https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html"><code>MultiDataSet</code> package</a> for that. <code>MultiDataSet</code> (<span class="citation" data-cites="hernandez-ferrer2017">Hernandez-Ferrer et al. (<a href="#ref-hernandez-ferrer2017" role="doc-biblioref">2017</a>)</span>) implements a multi-omics data container that collects, in one R object, several omics datasets alongside their associated features and samples metadata. One of the main advantages of using a <code>MultiDataSet</code> container is that we can pass all of the information associated with a set of related omics datasets with only one R object. In addition, the <code>MultiDataSet</code> package implements a number of very useful functions. For example, it is possible to assess the samples that are common to several omics sets. This is particularly useful for data integration, as the <code>moiraine</code> package can automatically discard samples missing from one or more datasets prior to the integration step if needed. Note that sample matching between the different omics datasets is based on sample IDs, so they must be consistent between the different datasets.</p>
+<p>Finally, we can combine the different omics sets into one multi-omics set object. <code>moiraine</code> makes use of the <a href="https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html"><code>MultiDataSet</code> package</a> for that. <code>MultiDataSet</code> (<span class="citation" data-cites="hernandez-ferrer2017">Hernandez-Ferrer et al. (<a href="references.html#ref-hernandez-ferrer2017" role="doc-biblioref">2017</a>)</span>) implements a multi-omics data container that collects, in one R object, several omics datasets alongside their associated features and samples metadata. One of the main advantages of using a <code>MultiDataSet</code> container is that we can pass all of the information associated with a set of related omics datasets with only one R object. In addition, the <code>MultiDataSet</code> package implements a number of very useful functions. For example, it is possible to assess the samples that are common to several omics sets. This is particularly useful for data integration, as the <code>moiraine</code> package can automatically discard samples missing from one or more datasets prior to the integration step if needed. Note that sample matching between the different omics datasets is based on sample IDs, so they must be consistent between the different datasets.</p>
 <p>We will create the multi-omics set with the <code><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set()</a></code> function. It requires a list of the omics sets (that we created via either <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set()</a></code> or <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory()</a></code>) to include, and returns a <code>MultiDataSet::MultiDataSet-class</code> object.</p>
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
@@ -917,7 +922,7 @@ div.csl-indent {
 <span><span class="co">#&gt;     . metabolome+LCMS: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Importantly, the <code><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set()</a></code> function makes sure that samples metadata is consistent across the datasets for common samples. That is, if the same column (i.e.&nbsp;with the same name) is present in the samples metadata of several omics datasets, the values in this column must match for each sample present in all datasets. Otherwise, the function returns an error.</p>
-<p>In the following chapter on <a href="#sec-inspecting-multidataset">Inspecting the MultiDataSet object</a>, we will see how to handle the <code>MultiDataSet</code> object we just created. Alternatively, the <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/MultiDataSet/inst/doc/MultiDataSet.html">MultiDataSet package vignette</a> provides examples of constructing, querying and subsetting <code>MultiDataSet</code> objects.</p>
+<p>In the following chapter on <a href="inspecting_multidataset.html">Inspecting the MultiDataSet object</a>, we will see how to handle the <code>MultiDataSet</code> object we just created. Alternatively, the <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/MultiDataSet/inst/doc/MultiDataSet.html">MultiDataSet package vignette</a> provides examples of constructing, querying and subsetting <code>MultiDataSet</code> objects.</p>
 </section><section id="recap-targets-list" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="recap-targets-list">
 <span class="header-section-number">3.7</span> Recap – targets list</h2>
 <p>For convenience, here is the list of targets that we created in this section:</p>
@@ -1000,7 +1005,7 @@ Targets list for data import
 </div>
 </details>
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-hernandez-ferrer2017" class="csl-entry" role="doc-biblioentry">
 Hernandez-Ferrer, Carles, Carlos Ruiz-Arenas, Alba Beltran-Gomila, and Juan R. González. 2017. <span>“MultiDataSet: An r Package for Encapsulating Multiple Data Sets with Application to Omic Data Integration.”</span> <em>BMC Bioinformatics</em> 18 (1): 36. <a href="https://doi.org/10.1186/s12859-016-1455-1">https://doi.org/10.1186/s12859-016-1455-1</a>.
 </div>

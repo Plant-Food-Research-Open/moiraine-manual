@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>The moiraine R package user manual - 8&nbsp; Data integration with DIABLO</title>
+<title>The moiraine R package user manual - 10&nbsp; Integration with DIABLO</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,8 +89,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./spls.html" rel="next">
-<link href="./prefiltering.html" rel="prev">
+<link href="./interpretation.html" rel="next">
+<link href="./so2pls.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -123,7 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data integration with DIABLO</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -194,7 +194,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Supervised integration</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Unsupervised integration</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -202,14 +202,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data integration with DIABLO</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Unsupervised integration</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Supervised integration</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -217,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data integration with sPLS</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -232,7 +237,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -248,33 +253,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#what-is-diablo" id="toc-what-is-diablo" class="nav-link active" data-scroll-target="#what-is-diablo"><span class="toc-section-number">8.1</span>  What is DIABLO?</a></li>
-  <li><a href="#creating-the-diablo-input" id="toc-creating-the-diablo-input" class="nav-link" data-scroll-target="#creating-the-diablo-input"><span class="toc-section-number">8.2</span>  Creating the DIABLO input</a></li>
+<li><a href="#what-is-diablo" id="toc-what-is-diablo" class="nav-link active" data-scroll-target="#what-is-diablo"><span class="toc-section-number">10.1</span>  What is DIABLO?</a></li>
+  <li><a href="#creating-the-diablo-input" id="toc-creating-the-diablo-input" class="nav-link" data-scroll-target="#creating-the-diablo-input"><span class="toc-section-number">10.2</span>  Creating the DIABLO input</a></li>
   <li>
-<a href="#constructing-the-design-matrix" id="toc-constructing-the-design-matrix" class="nav-link" data-scroll-target="#constructing-the-design-matrix"><span class="toc-section-number">8.3</span>  Constructing the design matrix</a>
+<a href="#constructing-the-design-matrix" id="toc-constructing-the-design-matrix" class="nav-link" data-scroll-target="#constructing-the-design-matrix"><span class="toc-section-number">10.3</span>  Constructing the design matrix</a>
   <ul class="collapse">
-<li><a href="#predefined-design-matrices" id="toc-predefined-design-matrices" class="nav-link" data-scroll-target="#predefined-design-matrices"><span class="toc-section-number">8.3.1</span>  Predefined design matrices</a></li>
-  <li><a href="#estimating-the-design-matrix-through-pairwise-pls" id="toc-estimating-the-design-matrix-through-pairwise-pls" class="nav-link" data-scroll-target="#estimating-the-design-matrix-through-pairwise-pls"><span class="toc-section-number">8.3.2</span>  Estimating the design matrix through pairwise PLS</a></li>
+<li><a href="#predefined-design-matrices" id="toc-predefined-design-matrices" class="nav-link" data-scroll-target="#predefined-design-matrices"><span class="toc-section-number">10.3.1</span>  Predefined design matrices</a></li>
+  <li><a href="#estimating-the-design-matrix-through-pairwise-pls" id="toc-estimating-the-design-matrix-through-pairwise-pls" class="nav-link" data-scroll-target="#estimating-the-design-matrix-through-pairwise-pls"><span class="toc-section-number">10.3.2</span>  Estimating the design matrix through pairwise PLS</a></li>
   </ul>
 </li>
-  <li><a href="#choosing-the-number-of-latent-components" id="toc-choosing-the-number-of-latent-components" class="nav-link" data-scroll-target="#choosing-the-number-of-latent-components"><span class="toc-section-number">8.4</span>  Choosing the number of latent components</a></li>
-  <li><a href="#choosing-the-number-of-features-to-retain" id="toc-choosing-the-number-of-features-to-retain" class="nav-link" data-scroll-target="#choosing-the-number-of-features-to-retain"><span class="toc-section-number">8.5</span>  Choosing the number of features to retain</a></li>
-  <li><a href="#final-diablo-run" id="toc-final-diablo-run" class="nav-link" data-scroll-target="#final-diablo-run"><span class="toc-section-number">8.6</span>  Final DIABLO run</a></li>
+  <li><a href="#choosing-the-number-of-latent-components" id="toc-choosing-the-number-of-latent-components" class="nav-link" data-scroll-target="#choosing-the-number-of-latent-components"><span class="toc-section-number">10.4</span>  Choosing the number of latent components</a></li>
+  <li><a href="#choosing-the-number-of-features-to-retain" id="toc-choosing-the-number-of-features-to-retain" class="nav-link" data-scroll-target="#choosing-the-number-of-features-to-retain"><span class="toc-section-number">10.5</span>  Choosing the number of features to retain</a></li>
+  <li><a href="#final-diablo-run" id="toc-final-diablo-run" class="nav-link" data-scroll-target="#final-diablo-run"><span class="toc-section-number">10.6</span>  Final DIABLO run</a></li>
   <li>
-<a href="#results-interpretation" id="toc-results-interpretation" class="nav-link" data-scroll-target="#results-interpretation"><span class="toc-section-number">8.7</span>  Results interpretation</a>
+<a href="#results-interpretation" id="toc-results-interpretation" class="nav-link" data-scroll-target="#results-interpretation"><span class="toc-section-number">10.7</span>  Results interpretation</a>
   <ul class="collapse">
-<li><a href="#correlation-between-datasets" id="toc-correlation-between-datasets" class="nav-link" data-scroll-target="#correlation-between-datasets"><span class="toc-section-number">8.7.1</span>  Correlation between datasets</a></li>
-  <li><a href="#samples-projection-to-the-latent-component-space" id="toc-samples-projection-to-the-latent-component-space" class="nav-link" data-scroll-target="#samples-projection-to-the-latent-component-space"><span class="toc-section-number">8.7.2</span>  Samples projection to the latent component space</a></li>
-  <li><a href="#correlation-circle-plots" id="toc-correlation-circle-plots" class="nav-link" data-scroll-target="#correlation-circle-plots"><span class="toc-section-number">8.7.3</span>  Correlation circle plots</a></li>
-  <li><a href="#circos-plot" id="toc-circos-plot" class="nav-link" data-scroll-target="#circos-plot"><span class="toc-section-number">8.7.4</span>  Circos plot</a></li>
+<li><a href="#correlation-between-datasets" id="toc-correlation-between-datasets" class="nav-link" data-scroll-target="#correlation-between-datasets"><span class="toc-section-number">10.7.1</span>  Correlation between datasets</a></li>
+  <li><a href="#samples-projection-to-the-latent-component-space" id="toc-samples-projection-to-the-latent-component-space" class="nav-link" data-scroll-target="#samples-projection-to-the-latent-component-space"><span class="toc-section-number">10.7.2</span>  Samples projection to the latent component space</a></li>
+  <li><a href="#correlation-circle-plots" id="toc-correlation-circle-plots" class="nav-link" data-scroll-target="#correlation-circle-plots"><span class="toc-section-number">10.7.3</span>  Correlation circle plots</a></li>
+  <li><a href="#circos-plot" id="toc-circos-plot" class="nav-link" data-scroll-target="#circos-plot"><span class="toc-section-number">10.7.4</span>  Circos plot</a></li>
   </ul>
 </li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">8.8</span>  Recap – targets list</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">10.8</span>  Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-diablo" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data integration with DIABLO</span></span></h1>
+<h1 class="title"><span id="sec-diablo" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span></h1>
 </div>
 
 
@@ -308,20 +313,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
-</details><section id="what-is-diablo" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="what-is-diablo">
-<span class="header-section-number">8.1</span> What is DIABLO?</h2>
+</details><section id="what-is-diablo" class="level2" data-number="10.1"><h2 data-number="10.1" class="anchored" data-anchor-id="what-is-diablo">
+<span class="header-section-number">10.1</span> What is DIABLO?</h2>
 <p>DIABLO (for Data Integration Analysis for Biomarker discovery using Latent Components) is a multivariate approach to perform supervised data integration. Given two or more omics datasets for which measurements are taken on the same samples, DIABLO aims at selecting correlated features across the datasets that best discriminate between the different sample groups for a categorical outcome of interest.</p>
 <p>DIABLO works by iteratively constructing linear combinations of the features, called latent components, which maximise the correlation between the datasets and with the categorical outcome. In order to perform feature selection, the latent components are subjected to <span class="math inline">\(L1\)</span>-regularisation (or LASSO), i.e.&nbsp;the number of features included in the linear combination is constrained by the user. Moreover, the optimisation problem is weighted to allow the user to control the balance between maximising the correlation between omics datasets and discriminating between the outcome groups of interest.</p>
 <p>DIABLO requires as input the matrices of omics measurements, all with the same samples, as well as a factor variable indicating the outcome group for each sample. While the omics datasets are automatically centred and scaled by DIABLO, proper preprocessing and normalisation is assumed to be carried out by the user. Although the DIABLO algorithm can handle the presence of missing features, it will prohibit the use of cross-validation. It is thus recommended to perform data imputation prior to running a DIABLO analysis. Importantly, DIABLO tends to perform better when the number of features in the datasets is not too large. Therefore, it is highly recommended to perform some prefiltering prior to using DIABLO.</p>
-</section><section id="creating-the-diablo-input" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="creating-the-diablo-input">
-<span class="header-section-number">8.2</span> Creating the DIABLO input</h2>
+</section><section id="creating-the-diablo-input" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="creating-the-diablo-input">
+<span class="header-section-number">10.2</span> Creating the DIABLO input</h2>
 <p>The first step is to transform the <code>MultiDataSet</code> object into a suitable format for the <code>mixOmics</code> package. This is done with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_mixomics_supervised.html">get_input_mixomics_supervised()</a></code> function, which takes as input:</p>
 <ul>
 <li><p>a <code>MultiDataSet</code> object,</p></li>
 <li><p>the name of the column in the samples metadata table that corresponds to the categorical outcome of interest,</p></li>
 <li><p>optionally, the names of the datasets to include in the analysis. This is useful if we want to exclude one of more datasets from the analysis.</p></li>
 </ul>
-<p>In our case, we want to find differences between the healthy and diseased animals. We will use the multi-omics datasets that have gone through supervised prefiltering (i.e.&nbsp;we discarded the features least related with the disease status, as seen in <a href="#sec-prefiltering"><span class="quarto-unresolved-ref">sec-prefiltering</span></a>).</p>
+<p>In our case, we want to find differences between the healthy and diseased animals. We will use the multi-omics datasets that have gone through supervised prefiltering (i.e.&nbsp;we discarded the features least related with the disease status, as seen in <a href="prefiltering.html"><span>Chapter&nbsp;7</span></a>).</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_input</span>,</span>
@@ -358,12 +363,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;  $ Y         : Factor w/ 2 levels "BRD","Control": 2 2 2 2 1 2 2 2 2 2 ...</span></span>
 <span><span class="co">#&gt;   ..- attr(*, "names")= chr [1:135] "R21" "Y3660" "Y3243" "R5764" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="constructing-the-design-matrix" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="constructing-the-design-matrix">
-<span class="header-section-number">8.3</span> Constructing the design matrix</h2>
+</section><section id="constructing-the-design-matrix" class="level2" data-number="10.3"><h2 data-number="10.3" class="anchored" data-anchor-id="constructing-the-design-matrix">
+<span class="header-section-number">10.3</span> Constructing the design matrix</h2>
 <p>DIABLO relies on a design matrix to balance its two optimisation objectives: maximising the covariance between the omics datasets, and maximising the discrimination between the outcome categories. The design matrix is a matrix with one row and one column per dataset, plus a row and a column for the <code>"Y"</code> dataset, i.e.&nbsp;the categorical outcome. The values within each cell of the matrix indicate the ratio between the two objectives for this combination of dataset. A value of 0 means that we want to prioritise outcome discrimination, while a value of 1 indicates that we want to prioritise maximising the covariance between the two corresponding datasets. All values must be between 0 and 1.</p>
 <p>There are two options for constructing the design matrix, which we present below.</p>
-<section id="predefined-design-matrices" class="level3" data-number="8.3.1"><h3 data-number="8.3.1" class="anchored" data-anchor-id="predefined-design-matrices">
-<span class="header-section-number">8.3.1</span> Predefined design matrices</h3>
+<section id="predefined-design-matrices" class="level3" data-number="10.3.1"><h3 data-number="10.3.1" class="anchored" data-anchor-id="predefined-design-matrices">
+<span class="header-section-number">10.3.1</span> Predefined design matrices</h3>
 <p>A first option is to choose a strategy based on what we are trying to obtain from the integration:</p>
 <ul>
 <li>if we want to strike a balance between the two objectives (recommended option), we’ll constructed a “weighted full” design matrix that looks like this:</li>
@@ -399,8 +404,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; Y             1      1          1 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We will show how to use these pre-defined design matrices when running DIABLO.</p>
-</section><section id="estimating-the-design-matrix-through-pairwise-pls" class="level3" data-number="8.3.2"><h3 data-number="8.3.2" class="anchored" data-anchor-id="estimating-the-design-matrix-through-pairwise-pls">
-<span class="header-section-number">8.3.2</span> Estimating the design matrix through pairwise PLS</h3>
+</section><section id="estimating-the-design-matrix-through-pairwise-pls" class="level3" data-number="10.3.2"><h3 data-number="10.3.2" class="anchored" data-anchor-id="estimating-the-design-matrix-through-pairwise-pls">
+<span class="header-section-number">10.3.2</span> Estimating the design matrix through pairwise PLS</h3>
 <p>Alternatively, we can let the data guide the construction of the design matrix. This is achieved by assessing the correlation between each pair of datasets, through a <a href="https://mixomicsteam.github.io/Bookdown/pls.html">PLS</a> (Projection to Latent Structures) run. More specifically, the correlation between the datasets is computed as the correlation coefficient between the first component constructed for each dataset during the PLS run. Then, based on the correlation obtained between a pair of dataset, we can decide on a value to use for the design matrix. Typically, the following thresholds are recommended by the authors of the mixOmics package:</p>
 <ul>
 <li><p>correlation coefficient of 0.8 or above between two datasets: assign a value of 1 in the corresponding cell of the design matrix;</p></li>
@@ -460,8 +465,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; metabolome  0.1    1.0        0.0 1</span></span>
 <span><span class="co">#&gt; Y           1.0    1.0        1.0 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="choosing-the-number-of-latent-components" class="level2" data-number="8.4"><h2 data-number="8.4" class="anchored" data-anchor-id="choosing-the-number-of-latent-components">
-<span class="header-section-number">8.4</span> Choosing the number of latent components</h2>
+</section></section><section id="choosing-the-number-of-latent-components" class="level2" data-number="10.4"><h2 data-number="10.4" class="anchored" data-anchor-id="choosing-the-number-of-latent-components">
+<span class="header-section-number">10.4</span> Choosing the number of latent components</h2>
 <p>One important parameter that must be set when performing a DIABLO analysis is the number of latent components to construct for each dataset. The optimal number of components can be estimated by cross-validation, implemented in the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function. This function assesses the classification performance (i.e.&nbsp;how well the different outcome groups are separated) achieved by DIABLO for different numbers of latent components.</p>
 <p>Choosing the optimal number of latent components to construct is a multi-step process. The first step is to run DIABLO without feature selection, setting the number of latent components to the maximum value we wish to test. We recommend to set this to the number of groups in the categorical outcome + 2, which in our case equals 4; however this can be further refined after checking the results. For this example, we will set the maximum to 7. This is done through the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run()</a></code> function, which is a wrapper for the <code><a href="https://rdrr.io/pkg/mixOmics/man/block.splsda.html">mixOmics::block.splsda()</a></code> function. The function also requires as input the design matrix to be used; here we will use the one constructed from the PLS runs:</p>
 <div class="cell">
@@ -530,8 +535,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="choosing-the-number-of-features-to-retain" class="level2" data-number="8.5"><h2 data-number="8.5" class="anchored" data-anchor-id="choosing-the-number-of-features-to-retain">
-<span class="header-section-number">8.5</span> Choosing the number of features to retain</h2>
+</section><section id="choosing-the-number-of-features-to-retain" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="choosing-the-number-of-features-to-retain">
+<span class="header-section-number">10.5</span> Choosing the number of features to retain</h2>
 <p>The next parameter to set is the number of features to retain from the different datasets for each latent component. This is usually chosen by performing cross-validation on a grid of possible values. The range of values to test depends on the type of question we are trying to answer: selecting a larger number of features might lead to a better discrimination of the outcome groups, but will be hard to manually inspect for further interpretation.</p>
 <p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_tune.html">diablo_tune()</a></code> provides a wrapper around the <code><a href="https://rdrr.io/pkg/mixOmics/man/tune.html">mixOmics::tune()</a></code> function that performs this cross-validation. Some of the arguments are similar to the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function, e.g.&nbsp;<code>validation</code>, <code>folds</code>, <code>nrepeats</code> or <code>cpus</code>. In addition, we recommend setting the <code>dist</code> argument, which corresponds to the prediction distance metric used for performance assessment, to <code>"centroids.dist"</code> (or <code>"mahalanobis.dist"</code>).</p>
 <p>The <code>keepX_list</code> argument controls the grid of values to be tested as possible number of features to retain from each dataset. It should be in the form of a named list, with one element per dataset, and where each element is a vector of integers corresponding to the values to test. The names of the list should correspond to the names of the datasets in the <code>MultiDataSet</code> object. If no value is provided for <code>keepX_list</code>, six values ranging from 5 to 30 (by increments of 5) are tested for each dataset.</p>
@@ -582,8 +587,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 2 rnaseq                30            30            20            25   105</span></span>
 <span><span class="co">#&gt; 3 metabolome            10             5            30            10    55</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="final-diablo-run" class="level2" data-number="8.6"><h2 data-number="8.6" class="anchored" data-anchor-id="final-diablo-run">
-<span class="header-section-number">8.6</span> Final DIABLO run</h2>
+</section><section id="final-diablo-run" class="level2" data-number="10.6"><h2 data-number="10.6" class="anchored" data-anchor-id="final-diablo-run">
+<span class="header-section-number">10.6</span> Final DIABLO run</h2>
 <p>Once a value has been selected for all parameters, it is time to perform the final DIABLO run:</p>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
@@ -608,11 +613,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 1 ncomp     Number of latent component                                     4    </span></span>
 <span><span class="co">#&gt; 2 keepX     Number of features retained in each X for each latent compone… snps…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="results-interpretation" class="level2" data-number="8.7"><h2 data-number="8.7" class="anchored" data-anchor-id="results-interpretation">
-<span class="header-section-number">8.7</span> Results interpretation</h2>
-<p>In <a href="#sec-interpretation"><span class="quarto-unresolved-ref">sec-interpretation</span></a>, we show the different functionalities implemented in the <code>moiraine</code> package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the DIABLO-specific plots that can be generated to help interpret the results of a DIABLO run.</p>
-<section id="correlation-between-datasets" class="level3" data-number="8.7.1"><h3 data-number="8.7.1" class="anchored" data-anchor-id="correlation-between-datasets">
-<span class="header-section-number">8.7.1</span> Correlation between datasets</h3>
+</section><section id="results-interpretation" class="level2" data-number="10.7"><h2 data-number="10.7" class="anchored" data-anchor-id="results-interpretation">
+<span class="header-section-number">10.7</span> Results interpretation</h2>
+<p>In <a href="interpretation.html"><span>Chapter&nbsp;11</span></a>, we show the different functionalities implemented in the <code>moiraine</code> package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the DIABLO-specific plots that can be generated to help interpret the results of a DIABLO run.</p>
+<section id="correlation-between-datasets" class="level3" data-number="10.7.1"><h3 data-number="10.7.1" class="anchored" data-anchor-id="correlation-between-datasets">
+<span class="header-section-number">10.7.1</span> Correlation between datasets</h3>
 <p>First, we can assess how well the latent components correlate across the datasets. The <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot.html">diablo_plot()</a></code> function is adapted from the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotDiablo.html">mixOmics::plotDiablo()</a></code> function, and displays, for a given latent component (specified with the <code>ncomp</code> argument), the correlation between the samples coordinates for this latent component across the datasets. Additionally, it allows to assess how well the latent components discriminate the outcome groups in each dataset.</p>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
@@ -637,8 +642,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>For the first three latent components, the strongest correlation is observed between the transcriptomics and metabolomics components, while the lowest correlation is observed between the genomics and metabolomics components. Across all three datasets, the first latent component alone is able to separate quite clearly the control and diseased animals. Note that as each latent component maximises the correlation between the datasets, these plots inform us about co-variation across the datasets.</p>
-</section><section id="samples-projection-to-the-latent-component-space" class="level3" data-number="8.7.2"><h3 data-number="8.7.2" class="anchored" data-anchor-id="samples-projection-to-the-latent-component-space">
-<span class="header-section-number">8.7.2</span> Samples projection to the latent component space</h3>
+</section><section id="samples-projection-to-the-latent-component-space" class="level3" data-number="10.7.2"><h3 data-number="10.7.2" class="anchored" data-anchor-id="samples-projection-to-the-latent-component-space">
+<span class="header-section-number">10.7.2</span> Samples projection to the latent component space</h3>
 <p>We can also represent the samples in the subspace spanned by the latent components for each dataset, using the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotIndiv.html">mixOmics::plotIndiv()</a></code> function. For example, we can have a look at the samples coordinates for the first two latent components:</p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotIndiv.html">plotIndiv</a></span><span class="op">(</span></span>
@@ -668,8 +673,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">}</span> </span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="correlation-circle-plots" class="level3" data-number="8.7.3"><h3 data-number="8.7.3" class="anchored" data-anchor-id="correlation-circle-plots">
-<span class="header-section-number">8.7.3</span> Correlation circle plots</h3>
+</section><section id="correlation-circle-plots" class="level3" data-number="10.7.3"><h3 data-number="10.7.3" class="anchored" data-anchor-id="correlation-circle-plots">
+<span class="header-section-number">10.7.3</span> Correlation circle plots</h3>
 <p>The correlation circle plots produced by the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">mixOmics::plotVar()</a></code> function displays the contribution of the selected features to the different latent components. We will focus here on the first two latent components:</p>
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar</a></span><span class="op">(</span></span>
@@ -727,8 +732,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Note that if a dataset is not present in the list passed to <code>label_cols</code> (here, that is the case of the genomics dataset), the feature IDs will be used as labels.</p>
-</section><section id="circos-plot" class="level3" data-number="8.7.4"><h3 data-number="8.7.4" class="anchored" data-anchor-id="circos-plot">
-<span class="header-section-number">8.7.4</span> Circos plot</h3>
+</section><section id="circos-plot" class="level3" data-number="10.7.4"><h3 data-number="10.7.4" class="anchored" data-anchor-id="circos-plot">
+<span class="header-section-number">10.7.4</span> Circos plot</h3>
 <p>Lastly, it is possible to represent the correlation between features selected from different datasets, with the <code><a href="https://rdrr.io/pkg/mixOmics/man/circosPlot.html">mixOmics::circosPlot()</a></code> function. For ease of visualisation, it only displays correlations above a certain threshold (specified via the <code>cutoff</code> argument). By default, it displays the features selected for all latent components, but this can be controlled via the <code>comp</code> argument:</p>
 <div class="cell">
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/circosPlot.html">circosPlot</a></span><span class="op">(</span></span>
@@ -759,8 +764,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>This plot is useful to identify features across the datasets with high correlations.</p>
-</section></section><section id="recap-targets-list" class="level2" data-number="8.8"><h2 data-number="8.8" class="anchored" data-anchor-id="recap-targets-list">
-<span class="header-section-number">8.8</span> Recap – targets list</h2>
+</section></section><section id="recap-targets-list" class="level2" data-number="10.8"><h2 data-number="10.8" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">10.8</span> Recap – targets list</h2>
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for DIABLO analysis
@@ -980,13 +985,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./prefiltering.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></span>
+      <a href="./so2pls.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./spls.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data integration with sPLS</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./interpretation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
