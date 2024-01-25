@@ -4,6 +4,256 @@
 #| child: "_setup.qmd"
 ```
 
+```{r loading-packages}
+#| include: false
+
+library(targets)
+library(moiraine)
+library(purrr)
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+```
+
+```{r setup-visible}
+#| eval: false
+
+library(targets)
+library(moiraine)
+
+## For working with lists
+library(purrr)
+
+## For data-frames manipulation
+library(dplyr)
+
+## For colour palettes
+library(ggplot2)
+
+## For manipulating patchworks of plots
+library(patchwork)
+```
+
+<details>
+
+<summary>`_targets.R` script</summary>
+
+```{file targets-script}
+```
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+Tab content
+
+#### sO2PLS
+
+Tab content
+
+#### MOFA
+
+Tab content
+
+#### DIABLO
+
+Tab content
+:::
+
+</details>
+
+
+
+
+## Generating a standardised output
+
+Despite relying on very different statistical approaches, the different integration methods included in the pipeline all perform dimension reduction of the omics datasets through feature extraction. That is, they construct a small number of latent components/variables/dimensions (that we refer to as **latent dimensions** in the `moiraine` package) that capture as much information from the original datasets as possible. A dimension reduction approach typically returns, for each latent dimension constructed, two sets of values:
+
+* **Features weight**: the contribution of the features from the different omics dataset to the latent dimension. All methods included in the pipeline construct latent dimensions as linear combinations of the original features, and therefore the features contribution is quantified by their weight in the linear combination.
+
+* **Samples score**: the projection of the samples onto the latent dimension.
+
+In addition, the fraction or percentage of variance that each latent dimension explains in the different omics datasets is usually calculated.
+
+### `get_output` function
+
+
+In the `moiraine` package, the output of the different integration methods can be converted to a standardised output containing these three pieces of information (features weight, samples score and percentage of variance explained) stored in a consistent format. This enables us to construct functions for visualisation or analysis which can be applied to the results of any integration method, rather than having to implement one for each object type returned by the different integration packages.
+
+The `get_output()` function transforms the output from any integration package included in `moiraine` into an `output_dimension_reduction` object, which is a list with three tibbles: `features_weight`, `samples_score` and `variance_explained`:
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{targets get-output-spls}
+tar_target(
+  spls_output,
+  get_output(spls_final_run)
+)
+```
+
+```{r show-output-spls}
+tar_load(spls_output)
+spls_output
+```
+
+#### sO2PLS
+
+```{targets get-output-so2pls}
+tar_target(
+  so2pls_output,
+  get_output(so2pls_final_run)
+)
+```
+
+```{r show-output-so2pls}
+tar_load(so2pls_output)
+so2pls_output
+```
+
+#### MOFA
+
+```{targets get-output-mofa}
+tar_target(
+  mofa_output,
+  get_output(mofa_trained)
+)
+```
+
+```{r show-output-mofa}
+tar_load(mofa_output)
+mofa_output
+```
+
+#### DIABLO
+
+```{targets get-output-diablo}
+tar_target(
+  diablo_output,
+  get_output(diablo_final_run)
+)
+```
+
+```{r show-output-diablo}
+tar_load(diablo_output)
+diablo_output
+```
+:::
+
+The `features_weight` tibble contains one row per combination of feature and latent dimension. The ID of the features and the name of the dataset from which they originate are stored in the `feature_id` and `dataset` columns, respectively. The `latent_dimension` column gives the name of the latent dimension; this is a factor column. For each feature and latent dimension, the `weight` column shows the weight that was attributed to the feature for the corresponding latent dimension. In addition, the `importance` column contains the features importance score, which is computed as the absolute value of the features weight, divided by the maximum absolute weight across all features from the same omics dataset for the corresponding latent dimension. This importance score allows us to compare the contribution of the features across latent dimensions or integration methods, as the weight can be on different scales and thus cannot be directly compared. The importance scores range from 0 to 1. For any method performing feature selection (e.g. sPLS or DIABLO), features that were not selected for a given latent dimension are assigned a weight and importance score of 0.
+
+The `samples score` tibble contains for each sample (`sample_id`) and latent dimension (`latent_dimension`) the sample's coordinate for the corresponding latent dimension. 
+
+The `variance_explained` tibble gives for each latent dimension (`latent_dimension`) the proportion of variance explained (`prop_var_expl`) for each dataset (`dataset`). The values in `prop_var_expl` are between 0 and 1.
+
+For convenience, the `get_latent_dimensions()` function can be used on an `output_dimension_reduction` object to see the names of the latent dimensions (the levels used for the `latent_dimension` column in each tibble):
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{r show-latent-dimensions-spls}
+get_latent_dimensions(spls_output)
+```
+
+
+#### sO2PLS
+
+```{r show-latent-dimensions-so2pls}
+get_latent_dimensions(so2pls_output)
+```
+
+#### MOFA
+
+```{r show-latent-dimensions-mofa}
+get_latent_dimensions(mofa_output)
+```
+
+#### DIABLO
+
+```{r show-latent-dimensions-diablo}
+get_latent_dimensions(diablo_output)
+```
+:::
+
+::: {.callout-note}
+## Other methods covered by `get_output`
+
+Note that both PCA and sPLS-DA (the method used for supervised features preselection in @sec-prefiltering-supervised) are also both dimension reduction methods. Therefore, the `get_output` function also converts `pcaRes` objects (from `run_pca()` or `pcaMethods::pca()`) and `mixo_splsda` objects (from `run_splsda()` or `mixOmics::splsda()`).
+:::
+
+### Averaging latent dimensions over datasets
+
+While MOFA computes one score per sample for each latent dimension created, sPLS, DIABLO and sO2PLS all compute one score per dataset for each sample and latent dimension. For each latent dimension. the samples score obtained for the different datasets are then compared, to assess the agreement or covariation between datasets. Ideally, these scores should be highly correlated across datasets, since the methods aim at maximising the variation between datasets, but it is not always the case. However, when they are highly correlated, it becomes redundant to interpret the latent dimensions for each dataset.
+
+Instead, the `mixOmics` authors proposed a solution for `DIABLO`, which is to construct a weighted average space: for each latent component, the samples score are averaged over the different datasets. The weight is given per dataset and determined by how well the corresponding dataset discriminate between the samples group of interest. This way, rather than looking at samples score for each dataset for any given latent component, we can look at an average of them.
+
+The `get_output()` function uses this idea to construct, for the output of sPLS, sO2PLS and DIABLO a set of average samples score for each latent dimension, rather than returning a set of samples score per dataset. For DIABLO, the average is weighted as explained above, while for sPLS and sO2PLS each dataset is given equal weight in the average. This calculation can be disabled in the `get_output()` function to extract the dataset-specific samples score, by setting the `use_average_dimensions` parameter to `FALSE`. Note that this only affects the `samples_score` tibble in terms of dimensions, but the name of the latent dimensions will change to reflect the dataset to which they refer.
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{targets get-output-spls-no-average}
+tar_target(
+  spls_output_no_average,
+  get_output(spls_final_run, use_average_dimensions = FALSE)
+)
+```
+
+```{r show-output-spls-no-average}
+tar_load(spls_output_no_average)
+
+get_latent_dimensions(spls_output_no_average)
+
+nrow(spls_output$samples_score)
+nrow(spls_output_no_average$samples_score)
+```
+
+#### sO2PLS
+
+```{targets get-output-so2pls-no-average}
+tar_target(
+  so2pls_output_no_average,
+  get_output(so2pls_final_run, use_average_dimensions = FALSE)
+)
+```
+
+```{r show-output-so2pls-no-average}
+tar_load(so2pls_output_no_average)
+
+get_latent_dimensions(so2pls_output_no_average)
+
+nrow(so2pls_output$samples_score)
+nrow(so2pls_output_no_average$samples_score)
+```
+
+#### DIABLO
+
+```{targets get-output-diablo-no-average}
+tar_target(
+  diablo_output_no_average,
+  get_output(diablo_final_run, use_average_dimensions = FALSE)
+)
+```
+
+```{r show-output-diablo-no-average}
+tar_load(diablo_output_no_average)
+  
+get_latent_dimensions(diablo_output_no_average)
+
+nrow(diablo_output$samples_score)
+nrow(diablo_output_no_average$samples_score)
+```
+:::
+
+## Interpretation
+
+Interpreting the results of a dimension reduction method involves:
+
+* Understanding the source of the variation captured by each latent dimension: is a given latent dimension representing an important source of biological variation, such as effect of a treatment, or age of the samples? Or do they show a source of technical variation, for example highlighting a group of outlier samples with different omics profiles from the rest of the observations? Answering these questions allows us to identify which latent dimensions capture the biological phenomenon investigated, or whether there are some sources of noise that should be accounted for in follow-up experiments.
+
+* Investigating which omics features are driving the latent dimensions: once we have identified some latent dimensions of interest, we can look at the features that contribute the most to understand the molecular mechanisms or pathways involved. This is typically done after looking into the phenomenon captured by the latent dimensions, but can also help to identify it.
+
+
+
 <!-- ## DIABLO -->
 
 <!-- Some of the plots that will be used to interpret the results require us to transform the DIABLO result object into a standard "dimensions reduction output" object, through the `get_output()` function. The returned object contains the results of the DIABLO run stored in a standard way for the `moiraine` package, i.e. as a list with the samples scores for the different latent components stored in the `samples_score` element, the features loading for the latent components stored in the `features_weight` element, and the proportion of variance explained by each latent component in the corresponding dataset in the `variance_explained` element. -->

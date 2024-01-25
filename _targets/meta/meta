@@ -53,6 +53,7 @@ mo_set_de|stem|2b7e2ace37c0bed5|50f81c565a9dc6aa|1d4929f8d72b5561|1698094396||t1
 mo_set_transformed|stem|28334a82bdfebaa7|1a49152e06c5222d|6f732476e2857317|385723480||t19739.9580970037s|5c19986154657d81|57773059|rds|local|vector|||0.252||
 mo_set_with_names|stem|e64ebcd89ddb70bd|b88cddcfa5d2a267|6eebd2f68cb73320|-1640374052||t19738.0568285842s|593ace30823e21f2|36753195|rds|local|vector|||0.114||
 mofa_input|stem|4d8e1c14434288d1|3d5db0316055019b|b1ff01b4e620143d|1284502458||t19746.8899165855s|4110beb5e0ca03cd|877459|rds|local|vector|||0.201|Dataset snps is to be modelled with a poisson likelihood, but is not integer. Transforming to integer.|
+mofa_output|stem|5352fa96ef81a7b7|0d8c9707690b395c|e568211333f1077a|-1474909642||t19746.9922984972s|a3806d14d44620e6|524047|rds|local|vector|||0.733||
 mofa_trained|stem|f523901c69cc8163|ec971dccb1086e60|dec5748f700e63fc|1854191013||t19746.8912693121s|b341cd3de1b49e2f|1004645|rds|local|vector|||116.597|No output filename provided. Using tmpRtmpaM7XWKmofa_20240125102128.hdf5 to store the trained model.. Factors 1 are strongly correlated with the total number of expressed features for at least one of your omics. Such factors appear when there are differences in the total levels between your samples, sometimes because of poor normalisation in the preprocessing steps.|
 omicspls_input|stem|488cc165105ef587|5103f8e1eb31dfb4|3fe933389d7e1821|1468063698||t19746.0144579806s|8dac9e868840a7ff|957717|rds|local|vector|||0.009||
 pca_mats_list|pattern|c831051151e4add2|72b302a65c0920ed||1078442447||||12164806|rds|local|list||pca_mats_list_302d7473*pca_mats_list_84d36937*pca_mats_list_64d37e6c|0.09||
@@ -81,12 +82,16 @@ so2pls_cv_sparsity_plot|stem|b5b7db300d09f754|2bf66d7f84b86f7d|93dca9057097acdb|
 so2pls_cv_sparsity_res|stem|bbb19afe218657af|067919e1b7030d67|dca9de770ecaf520|44551085||t19746.0265823152s|5a7113535e3388cd|147|rds|local|vector|||0.001||
 so2pls_cv_sparsity_table|stem|781bb5699071e489|ec976e7fed4ebc35|aed3d19ef29685db|1893373008||t19746.0265830958s|0cca50742c16a705|215|rds|local|vector|||0.042||
 so2pls_final_run|stem|1b5fda3f0c9ef4de|16cefdd61090d51e|2dad9253d5d29425|-1731732847||t19746.0266013504s|b09eaec0c8fed384|140427|rds|local|vector|||1.555||
+so2pls_output|stem|a5eca781575f961d|c5a60834f955fae6|71196bf0103fc69c|236025425||t19746.9923031487s|c7ea9b7f646d2838|130837|rds|local|vector|||0.225||
+so2pls_output_no_average|stem|d5a8f2b14dec6fb7|b225132f8f3d4451|71196bf0103fc69c|-886261613||t19747.0777562921s|d3f8ef5c8e7df8b4|131975|rds|local|vector|||0.242||
 spls_final_run|stem|aa85c5b6a3d8ec0c|bd201898ff611d8b|ae125251e89a9069|-1455060732||t19745.8622943744s|87decae32b6cb84a|1828750|rds|local|vector|||0.024||
 spls_input|stem|822f9a95396547da|3096087fd4d5c989|cb02bfd15d457e4a|70678725||t19745.8585853016s|8f898ab1f7e895d8|838523|rds|local|vector|||0.029||
 spls_multilevel1|stem|21cb78d9bdf5ef8f|740ca0497728ae2d|15eb1ccc2d3995df|-1820918706||t19745.8585170022s|bbe0e43529942e5e|163|rds|local|vector|||0.25||
 spls_multilevel2|stem|27547dc59b1b797d|de611361e6a5ff7d|1cd1f9a9228aec67|-2126981166||t19745.8585179626s|c8c79f11dd07570f|276|rds|local|vector|||0.064||
 spls_novarsel|stem|2073bd192ac0dfda|30372f335fc03181|d6f3e150a3c8976b|-1501000619||t19745.8585960049s|fdd5d4e3f6846793|1911012|rds|local|vector|||0.782||
 spls_optim_ncomp|stem|868e446eec7768a0|b1383d8e0854aeaf|def8f3d8099ba68d|1415549958||t19745.8587854776s|ded833868582137a|50|rds|local|vector|||0||
+spls_output|stem|629ea9b921d70759|6f07c3949ff47eeb|cfb7c1c93cfa9d4d|546222073||t19746.9923001833s|5d631a45034ba74c|9842|rds|local|vector|||0.075||
+spls_output_no_average|stem|8d15e72f10ebca21|c5dea81b152a78a1|cfb7c1c93cfa9d4d|-304276829||t19747.0777529793s|639b123d18780fa9|12261|rds|local|vector|||0.1||
 spls_perf_plot|stem|4dcf242f5c9a1018|47637718d3ef1230|0d5a2d90554e3cd7|851070939||t19745.8587849226s|9b5a79b4b56b45a1|2952976|rds|local|vector|||0.033||
 spls_perf_res|stem|1a1bcbdff1925787|511d051310ac405a|7e0bf23b466860d6|67901905||t19745.8587796978s|2ba6a48a8b1bb66b|2366615|rds|local|vector|||15.534||
 spls_smeta1|stem|f28cc0eb8f9dc6a1|2aeb86c6eeb5ba67|a4e7b89125ffabc5|1796145472||t19745.8579963991s|c3cbfe28e1565b13|202|rds|local|vector|||1.645||

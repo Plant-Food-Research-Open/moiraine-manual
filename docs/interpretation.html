@@ -17,6 +17,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -192,7 +255,18 @@ ul.task-list li input[type="checkbox"] {
     </ul>
 </div>
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#generating-a-standardised-output" id="toc-generating-a-standardised-output" class="nav-link active" data-scroll-target="#generating-a-standardised-output"><span class="toc-section-number">12.1</span>  Generating a standardised output</a>
+  <ul class="collapse">
+<li><a href="#get_output-function" id="toc-get_output-function" class="nav-link" data-scroll-target="#get_output-function"><span class="toc-section-number">12.1.1</span>  <code>get_output</code> function</a></li>
+  <li><a href="#averaging-latent-dimensions-over-datasets" id="toc-averaging-latent-dimensions-over-datasets" class="nav-link" data-scroll-target="#averaging-latent-dimensions-over-datasets"><span class="toc-section-number">12.1.2</span>  Averaging latent dimensions over datasets</a></li>
+  </ul>
+</li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation"><span class="toc-section-number">12.2</span>  Interpretation</a></li>
+  </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -209,10 +283,469 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header><!-- ## DIABLO --><!-- Some of the plots that will be used to interpret the results require us to transform the DIABLO result object into a standard "dimensions reduction output" object, through the `get_output()` function. The returned object contains the results of the DIABLO run stored in a standard way for the `moiraine` package, i.e. as a list with the samples scores for the different latent components stored in the `samples_score` element, the features loading for the latent components stored in the `features_weight` element, and the proportion of variance explained by each latent component in the corresponding dataset in the `variance_explained` element. --><!-- ```{targets diablo-output} --><!-- tar_target( --><!--   diablo_output, --><!--   get_output(diablo_final_run) --><!-- ) --><!-- ``` --><!-- ```{r show-diablo-output} --><!-- tar_load(diablo_output) --><!-- diablo_output --><!-- ``` --><!-- Notice that in the `features_weight` table, the features loading for the latent components as computed by DIABLO is stored in the `weight` column. Then, a feature importance score is computed as `abs(weight) / abs(max(weight))`. It allows us to quickly filter the most important features, regardless of the sign of their contribution to the latent component and the scale of the loadings for the component. --><!-- By default, the `get_output` function will create a weighted average of each latent component across all datasets. This can be disabled by setting `use_average_dimensions = FALSE`, to extract the dataset-specific latent components. --><!-- ```{targets diablo-output-no-average} --><!-- tar_target( --><!--   diablo_output_no_average, --><!--   get_output(diablo_final_run, use_average_dimensions = FALSE) --><!-- ) --><!-- ``` --><!-- We can check which latent components are present with the `get_latent_dimensions()` function: --><!-- ```{r no-average-components} --><!-- get_latent_dimensions(diablo_output) --><!-- get_latent_dimensions(tar_read(diablo_output_no_average)) --><!-- ``` --><!-- ### Samples plots {#sec-interpretation-samples-scores} --><!-- More generally, we can plot the samples in the subspace spanned by the different components using the `plot_samples_score()` function. This function takes as input the DIABLO result in standardised format (from the `get_output()` function), and creates a matrix of scatter-plots to compare all possible pairs of components. The function also accepts a MultiDataSet object as an optional input, which can be used to enrich the plot with information about the samples extracted from the samples metadata. The plots in the resulting matrix are redundant: the lower plots (below the diagonal) are just a rotated version of the upper plots (above the diagonal); this is useful to represent several properties of the samples in one plot. For more details, see the help of the function. Here, we'll show in the upper plots the bruising groups and replicate ID, and in the lower plots the parents of each sample. --><!-- ```{r plot-samples-score-ggpairs} --><!-- #| fig.height = 10 --><!-- plot_samples_score( --><!--   diablo_output, --><!--   mo_data = tar_read(mo_set), --><!--   colour_upper = "status", --><!--   scale_colour_upper = scale_colour_brewer(palette = "Set1"), --><!--   shape_upper = "feedlot", --><!--   colour_lower = "geno_comp_cluster", --><!--   shape_lower = NULL --><!-- ) + --><!--   theme(legend.box = "vertical") --><!-- ``` --><!-- Remember, the `get_output()` function will by default compute a weighted average of the samples score across the datasets for each latent component, which is why we are seeing two latent components in the plot. --><!-- Two other related functions allow us to visualise the samples score in different ways. The `plot_samples_score_pair()` function creates a scatterplot of samples score for two user-selected latent components. The latent components must be selected by name, which we can find through: --><!-- ```{r latent-dimensions-levels} --><!-- get_latent_dimensions(diablo_output) --><!-- ``` --><!-- And, as for the previous example, the MultiDataSet object can be used to enrich the plot with samples properties: --><!-- ```{r plot-samples-score-pair} --><!-- plot_samples_score_pair( --><!--   diablo_output, --><!--   c("Component 1", "Component 2"), --><!--   mo_data = tar_read(mo_set), --><!--   colour_by = "status", --><!--   shape_by = "geno_comp_cluster" --><!-- ) + --><!--   scale_colour_brewer(palette = "Set1") --><!-- ``` --><!-- The `plot_samples_score_covariate()` function displays the samples score for each component against a samples covariate from the samples metadata. For example, to show the distribution of samples score between the different sibling groups, we can use: --><!-- ```{r plot-samples-score-covariate} --><!-- #| fig.height = 7, --><!-- #| fig.width = 8.5 --><!-- plot_samples_score_covariate( --><!--   diablo_output, --><!--   mo_data = tar_read(mo_set), --><!--   covariate = "status", --><!--   colour_by = "feedlot", --><!--   ncol = 1 --><!-- ) --><!-- ``` --><!-- Note that the function creates different plots depending on whether the covariate is categorical (as above) or numeric. For numerical variables, it will create scatterplots, e.g.: --><!-- ```{r plot-samples-score-covariate-numeric} --><!-- plot_samples_score_covariate( --><!--   diablo_output, --><!--   mo_data = tar_read(mo_set), --><!--   covariate = "day_on_feed", --><!--   colour_by = "feedlot", --><!--   latent_dimensions = "Component 1" --><!-- ) --><!-- ``` --><!-- ### Extracting the selected features --><!-- We can extract the features that were selected for the different latent components with the function `get_selected_features()`, which takes as input the DIABLO results in standardised format: --><!-- ```{r get-selected-features} --><!-- get_selected_features(diablo_output) |> --><!--   head() --><!-- ``` --><!-- The function returns a tibble indicating: --><!-- -   the features ID; --><!-- -   the dataset from which the features originate; --><!-- -   the latent component for which the features have been selected; --><!-- -   the features' loading for this latent component, i.e. their weight in the linear combination that constitutes the latent component; --><!-- - the features' importance score, i.e. their absolute weight divided by the maximum weight for the corresponding dataset and latent component. --><!-- By passing the original MultiDataSet object as input to this function, we can extract the feature metadata associated with the selected features: --><!-- ```{r get-selected-features-metadata} --><!-- get_selected_features( --><!--   diablo_output, --><!--   mo_data = tar_read(mo_set) --><!-- ) |> --><!--   head() --><!-- ``` --><!-- By default, the `get_selected_features()` function returns the selected features for all datasets and latent components, but we can focus on a subset of these by passing datasets or latent components names to the `datasets` and `latent_dimensions` parameters of the function. For example, let us get the selected features from the transcriptomics and metabolomics datasets for the first latent component: --><!-- ```{r get-selected-features-subset} --><!-- get_selected_features( --><!--   diablo_output, --><!--   latent_dimensions = "Component 1", --><!--   datasets = c("rnaseq", "metabolome"), --><!--   mo_data = tar_read(mo_set) --><!-- ) |> --><!--   head() --><!-- ``` --><!-- Alternatively, the `get_top_features()` function facilitates the extraction of the top contributing features per dataset and latent component. The function offers two options: --><!-- - select from each dataset the top N features that contribute the most to a latent component; N is set through the `n_features` argument of the function (note that if there are ties in the features importance all ties will be returned). --><!-- - select from each dataset all features that have an importance score equal to or greater than a certain threshold. The threshold is set through the `min_importance` argument of the function. --><!-- As for the `get_selected_features()` function, it is possible to focus on specific datasets and/or latent components, and to pass on a MultiDataSet object to extract features metadata. --><!-- ```{r get-top-features-n} --><!-- get_top_features(diablo_output, n_features = 3, mo_data = tar_read(mo_set)) |> --><!--   head() --><!-- ``` --><!-- ```{r get-top-features-min} --><!-- get_top_features(diablo_output, min_importance = 0.8, mo_data = tar_read(mo_set)) |> --><!--   head() --><!-- ``` --><!-- ### Visualising the top features --><!-- We can also look at the loading of the features from each dataset that most contribute to each of the latent components with the function `plot_top_features()`. The function takes as input the formatted DIABLO output. By default, feature IDs will be used as labels, but it is possible to make use of the feature metadata in our MultiDataSet object to label the features. In this example, we select columns from the feature metadata of the transcriptomics and metabolomics datasets to get more meaningful labels, but leave the SNPs' label to be their ID. --><!-- ```{r plot-top-features} --><!-- #| fig.width = 10, --><!-- #| fig.height = 7 --><!-- plot_top_features( --><!--   diablo_output, --><!--   mo_data = tar_read(mo_set), --><!--   label_cols = list( --><!--     "rnaseq" = "Name", --><!--     "metabolome" = "name" --><!--   ) --><!-- ) + --><!--   theme( --><!--     axis.text.y = element_text(size = 8) --><!--   ) --><!-- ``` --><!-- By default, the function displays the top 20 features per dataset and component, but that can be changed with the `n_features` dataset. If less than 20 features were selected for a given dataset and component, only the select features will be shown. --><!-- We can investigate further these features by looking at their measurements in the datasets, with the `plot_data_heatmap()` or `plot_data_covariate()` functions (more details in the vignettes on [Inspecting a MultiDataSet object](inspecting-multidataset.html#visualising-data)). We will extract the ID of the top 3 features from each dataset for component 1 with the `get_top_features()` that we saw in [the previous section](diablo-pipeline.html#extracting-the-selected-features): --><!-- ```{r get-top-features-list} --><!-- top_features <- get_top_features( --><!--   diablo_output, --><!--   n_features = 3, --><!--   latent_dimensions = "Component 1" --><!-- ) |>  --><!--   pull(feature_id) --><!-- top_features --><!-- ``` --><!-- We can visualise these features as a heatmap: --><!-- ```{r plot-data-heatmap-annotations, fig.width = 10} --><!-- plot_data_heatmap( --><!--   tar_read(mo_presel_supervised), --><!--   top_features, --><!--   center = TRUE, --><!--   scale = TRUE, --><!--   only_common_samples = TRUE, --><!--   show_column_names = FALSE, --><!--   samples_info = "status", --><!--   colours_list = list( --><!--     "status" = c("Control" = "gold", "BRD" = "lightblue") --><!--   ), --><!--   label_cols = list( --><!--     "rnaseq" = "Name", --><!--     "metabolome" = "name" --><!--   ) --><!-- ) --><!-- ``` --><!-- or a violin plot against samples bruising group: --><!-- ```{r plot-data-covariate-categorical, fig.height = 5} --><!-- plot_data_covariate( --><!--   tar_read(mo_presel_supervised),  --><!--   "status", --><!--   top_features, --><!--   only_common_samples = TRUE, --><!--   label_cols = list( --><!--     "rnaseq" = "Name", --><!--     "metabolome" = "name" --><!--   ) --><!-- ) --><!-- ``` --><!-- ### Comparing features importance between latent components --><!-- We can also compare the importance given to the features between any two latent components with the `plot_features_weight_pair()` function. --><!-- ```{r} --><!-- plot_features_weight_pair( --><!--   diablo_output, --><!--   c("Component 1", "Component 2"), --><!--   mo_data = tar_read(mo_set), --><!--   label_cols = list( --><!--     "rnaseq" = "Name", --><!--     "metabolome" = "name" --><!--   ) --><!-- ) --><!-- ``` --><!-- In this case, the plot is not extremely interesting, but allows us to quickly confirm that different features were selected for the two latent components. The top 5 features according to their consensus importance (see section about [methods comparison](methods-comparison.html#feature-consensus-importance)) are highlighted in red. --><!-- By default, the function plots the signed importance score of the features, i.e. their importance score to which the sign of their weight was added. This can be changed through the `features_metric` argument of the function. -->
+</header><div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## For working with lists</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## For data-frames manipulation</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## For colour palettes</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## For manipulating patchworks of plots</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<details><summary><code>_targets.R</code> script
+</summary><div class="cell">
+<div class="cell">
 
+</div>
+</div>
+<div class="panel-tabset" data-group="method">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">DIABLO</a></li>
+</ul>
+<div class="tab-content" data-group="method">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Tab content</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Tab content</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>Tab content</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>Tab content</p>
+</div>
+</div>
+</div>
+</details><section id="generating-a-standardised-output" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="generating-a-standardised-output">
+<span class="header-section-number">12.1</span> Generating a standardised output</h2>
+<section id="get_output-function" class="level3" data-number="12.1.1"><h3 data-number="12.1.1" class="anchored" data-anchor-id="get_output-function">
+<span class="header-section-number">12.1.1</span> <code>get_output</code> function</h3>
+<p>Despite relying on very different statistical approaches, the different integration methods included in the pipeline all perform dimension reduction of the omics datasets through feature extraction. That is, they construct a small number of latent components/variables/dimensions (that we refer to as <strong>latent dimensions</strong> in the <code>moiraine</code> package) that capture as much information from the original datasets as possible. A dimension reduction approach typically returns, for each latent dimension constructed, two sets of values:</p>
+<ul>
+<li><p><strong>Features weight</strong>: the contribution of the features from the different omics dataset to the latent dimension. All methods included in the pipeline construct latent dimensions as linear combinations of the original features, and therefore the features contribution is quantified by their weight in the linear combination.</p></li>
+<li><p><strong>Samples score</strong>: the projection of the samples onto the latent dimension.</p></li>
+</ul>
+<p>In addition, the fraction or percentage of variance that each latent dimension explains in the different omics datasets is usually calculated.</p>
+<p>In the <code>moiraine</code> package, the output of the different integration methods can be converted to a standardised output containing these three pieces of information (features weight, samples score and percentage of variance explained) stored in a consistent format. This enables us to construct functions for visualisation or analysis which can be applied to the results of any integration method, rather than having to implement one for each object type returned by the different integration packages.</p>
+<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function transforms the output from any integration package included in <code>moiraine</code> into an <code>output_dimension_reduction</code> object, which is a list with three tibbles: <code>features_weight</code>, <code>samples_score</code> and <code>variance_explained</code>:</p>
+<div class="panel-tabset" data-group="method">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">DIABLO</a></li>
+</ul>
+<div class="tab-content" data-group="method">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_output</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">spls_final_run</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
+<span><span class="va">spls_output</span></span>
+<span><span class="co">#&gt; $features_weight</span></span>
+<span><span class="co">#&gt; # A tibble: 2,098 × 5</span></span>
+<span><span class="co">#&gt;    feature_id         dataset latent_dimension weight importance</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;              &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 ENSBTAG00000000020 rnaseq  Component 1           0          0</span></span>
+<span><span class="co">#&gt;  2 ENSBTAG00000000046 rnaseq  Component 1           0          0</span></span>
+<span><span class="co">#&gt;  3 ENSBTAG00000000056 rnaseq  Component 1           0          0</span></span>
+<span><span class="co">#&gt;  4 ENSBTAG00000000061 rnaseq  Component 1           0          0</span></span>
+<span><span class="co">#&gt;  5 ENSBTAG00000000113 rnaseq  Component 1           0          0</span></span>
+<span><span class="co">#&gt;  6 ENSBTAG00000000149 rnaseq  Component 1           0          0</span></span>
+<span><span class="co">#&gt;  7 ENSBTAG00000000164 rnaseq  Component 1           0          0</span></span>
+<span><span class="co">#&gt;  8 ENSBTAG00000000205 rnaseq  Component 1           0          0</span></span>
+<span><span class="co">#&gt;  9 ENSBTAG00000000212 rnaseq  Component 1           0          0</span></span>
+<span><span class="co">#&gt; 10 ENSBTAG00000000289 rnaseq  Component 1           0          0</span></span>
+<span><span class="co">#&gt; # ℹ 2,088 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $samples_score</span></span>
+<span><span class="co">#&gt; # A tibble: 278 × 3</span></span>
+<span><span class="co">#&gt;    sample_id latent_dimension score</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;fct&gt;            &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 G1979     Component 1       3.54</span></span>
+<span><span class="co">#&gt;  2 G2500     Component 1       2.37</span></span>
+<span><span class="co">#&gt;  3 G3030     Component 1       6.47</span></span>
+<span><span class="co">#&gt;  4 G3068     Component 1       6.24</span></span>
+<span><span class="co">#&gt;  5 G3121     Component 1       3.51</span></span>
+<span><span class="co">#&gt;  6 G3315     Component 1      -4.75</span></span>
+<span><span class="co">#&gt;  7 G3473     Component 1      -5.03</span></span>
+<span><span class="co">#&gt;  8 G3474     Component 1      -4.85</span></span>
+<span><span class="co">#&gt;  9 G3550     Component 1       3.69</span></span>
+<span><span class="co">#&gt; 10 G3594     Component 1      -4.74</span></span>
+<span><span class="co">#&gt; # ℹ 268 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $variance_explained</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 3</span></span>
+<span><span class="co">#&gt;   latent_dimension dataset    prop_var_expl</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;            &lt;fct&gt;              &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 Component 1      rnaseq            0.204 </span></span>
+<span><span class="co">#&gt; 2 Component 1      metabolome        0.176 </span></span>
+<span><span class="co">#&gt; 3 Component 2      rnaseq            0.147 </span></span>
+<span><span class="co">#&gt; 4 Component 2      metabolome        0.0686</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "output_dimension_reduction"</span></span>
+<span><span class="co">#&gt; attr(,"method")</span></span>
+<span><span class="co">#&gt; [1] "sPLS"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">so2pls_output</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">)</span></span>
+<span><span class="va">so2pls_output</span></span>
+<span><span class="co">#&gt; $features_weight</span></span>
+<span><span class="co">#&gt; # A tibble: 8,117 × 5</span></span>
+<span><span class="co">#&gt;    feature_id         dataset latent_dimension  weight importance</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;              &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 ENSBTAG00000000020 rnaseq  joint component 1      0          0</span></span>
+<span><span class="co">#&gt;  2 ENSBTAG00000000046 rnaseq  joint component 1      0          0</span></span>
+<span><span class="co">#&gt;  3 ENSBTAG00000000056 rnaseq  joint component 1      0          0</span></span>
+<span><span class="co">#&gt;  4 ENSBTAG00000000061 rnaseq  joint component 1      0          0</span></span>
+<span><span class="co">#&gt;  5 ENSBTAG00000000113 rnaseq  joint component 1      0          0</span></span>
+<span><span class="co">#&gt;  6 ENSBTAG00000000149 rnaseq  joint component 1      0          0</span></span>
+<span><span class="co">#&gt;  7 ENSBTAG00000000164 rnaseq  joint component 1      0          0</span></span>
+<span><span class="co">#&gt;  8 ENSBTAG00000000205 rnaseq  joint component 1      0          0</span></span>
+<span><span class="co">#&gt;  9 ENSBTAG00000000212 rnaseq  joint component 1      0          0</span></span>
+<span><span class="co">#&gt; 10 ENSBTAG00000000289 rnaseq  joint component 1      0          0</span></span>
+<span><span class="co">#&gt; # ℹ 8,107 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $samples_score</span></span>
+<span><span class="co">#&gt; # A tibble: 1,390 × 3</span></span>
+<span><span class="co">#&gt;    sample_id latent_dimension  score</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;fct&gt;             &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 G1979     joint component 1 -3.86</span></span>
+<span><span class="co">#&gt;  2 G2500     joint component 1 -4.29</span></span>
+<span><span class="co">#&gt;  3 G3030     joint component 1 -8.02</span></span>
+<span><span class="co">#&gt;  4 G3068     joint component 1 -6.00</span></span>
+<span><span class="co">#&gt;  5 G3121     joint component 1 -5.82</span></span>
+<span><span class="co">#&gt;  6 G3315     joint component 1  8.51</span></span>
+<span><span class="co">#&gt;  7 G3473     joint component 1  7.08</span></span>
+<span><span class="co">#&gt;  8 G3474     joint component 1 10.7 </span></span>
+<span><span class="co">#&gt;  9 G3550     joint component 1 -3.54</span></span>
+<span><span class="co">#&gt; 10 G3594     joint component 1 10.5 </span></span>
+<span><span class="co">#&gt; # ℹ 1,380 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $variance_explained</span></span>
+<span><span class="co">#&gt; # A tibble: 11 × 3</span></span>
+<span><span class="co">#&gt;    latent_dimension                dataset    prop_var_expl</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;                           &lt;fct&gt;              &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 joint component 1               rnaseq            0.266 </span></span>
+<span><span class="co">#&gt;  2 joint component 1               metabolome        0.108 </span></span>
+<span><span class="co">#&gt;  3 rnaseq specific component 1     rnaseq            0.154 </span></span>
+<span><span class="co">#&gt;  4 rnaseq specific component 2     rnaseq            0.129 </span></span>
+<span><span class="co">#&gt;  5 rnaseq specific component 3     rnaseq            0.0521</span></span>
+<span><span class="co">#&gt;  6 rnaseq specific component 4     rnaseq            0.0157</span></span>
+<span><span class="co">#&gt;  7 rnaseq specific component 5     rnaseq            0.0301</span></span>
+<span><span class="co">#&gt;  8 rnaseq specific component 6     rnaseq            0.0163</span></span>
+<span><span class="co">#&gt;  9 rnaseq specific component 7     rnaseq            0.0114</span></span>
+<span><span class="co">#&gt; 10 metabolome specific component 1 metabolome        0.114 </span></span>
+<span><span class="co">#&gt; 11 metabolome specific component 2 metabolome        0.0822</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "output_dimension_reduction"</span></span>
+<span><span class="co">#&gt; attr(,"method")</span></span>
+<span><span class="co">#&gt; [1] "sO2PLS"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">mofa_output</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mofa_output</span><span class="op">)</span></span>
+<span><span class="va">mofa_output</span></span>
+<span><span class="co">#&gt; $features_weight</span></span>
+<span><span class="co">#&gt; # A tibble: 30,735 × 5</span></span>
+<span><span class="co">#&gt;    feature_id                  dataset latent_dimension     weight importance</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                       &lt;fct&gt;   &lt;fct&gt;                 &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 21-25977541-C-T-rs41974686  snps    Factor 1          0.000390      0.140 </span></span>
+<span><span class="co">#&gt;  2 22-51403583-A-C-rs210306176 snps    Factor 1          0.0000554     0.0199</span></span>
+<span><span class="co">#&gt;  3 24-12959068-G-T-rs381471286 snps    Factor 1          0.000274      0.0987</span></span>
+<span><span class="co">#&gt;  4 8-85224224-T-C-rs43565287   snps    Factor 1         -0.000510      0.184 </span></span>
+<span><span class="co">#&gt;  5 ARS-BFGL-BAC-16973          snps    Factor 1         -0.000913      0.328 </span></span>
+<span><span class="co">#&gt;  6 ARS-BFGL-BAC-19403          snps    Factor 1         -0.000516      0.185 </span></span>
+<span><span class="co">#&gt;  7 ARS-BFGL-BAC-2450           snps    Factor 1          0.000567      0.204 </span></span>
+<span><span class="co">#&gt;  8 ARS-BFGL-BAC-2600           snps    Factor 1         -0.0000356     0.0128</span></span>
+<span><span class="co">#&gt;  9 ARS-BFGL-BAC-27911          snps    Factor 1         -0.000588      0.212 </span></span>
+<span><span class="co">#&gt; 10 ARS-BFGL-BAC-35925          snps    Factor 1          0.000836      0.301 </span></span>
+<span><span class="co">#&gt; # ℹ 30,725 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $samples_score</span></span>
+<span><span class="co">#&gt; # A tibble: 2,160 × 3</span></span>
+<span><span class="co">#&gt;    sample_id latent_dimension score</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;fct&gt;            &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 G1979     Factor 1          1.94</span></span>
+<span><span class="co">#&gt;  2 G2500     Factor 1          2.02</span></span>
+<span><span class="co">#&gt;  3 G3030     Factor 1          3.38</span></span>
+<span><span class="co">#&gt;  4 G3068     Factor 1          3.68</span></span>
+<span><span class="co">#&gt;  5 G3121     Factor 1          1.56</span></span>
+<span><span class="co">#&gt;  6 G3315     Factor 1         -1.82</span></span>
+<span><span class="co">#&gt;  7 G3473     Factor 1         -2.65</span></span>
+<span><span class="co">#&gt;  8 G3474     Factor 1         -2.32</span></span>
+<span><span class="co">#&gt;  9 G3550     Factor 1          2.99</span></span>
+<span><span class="co">#&gt; 10 G3594     Factor 1         -1.89</span></span>
+<span><span class="co">#&gt; # ℹ 2,150 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $variance_explained</span></span>
+<span><span class="co">#&gt; # A tibble: 45 × 3</span></span>
+<span><span class="co">#&gt;    latent_dimension dataset    prop_var_expl</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;            &lt;fct&gt;              &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Factor 1         snps           0.000325 </span></span>
+<span><span class="co">#&gt;  2 Factor 1         rnaseq         0.496    </span></span>
+<span><span class="co">#&gt;  3 Factor 1         metabolome     0.0846   </span></span>
+<span><span class="co">#&gt;  4 Factor 2         snps           0.239    </span></span>
+<span><span class="co">#&gt;  5 Factor 2         rnaseq         0.000207 </span></span>
+<span><span class="co">#&gt;  6 Factor 2         metabolome     0.00671  </span></span>
+<span><span class="co">#&gt;  7 Factor 3         snps           0.000113 </span></span>
+<span><span class="co">#&gt;  8 Factor 3         rnaseq         0.199    </span></span>
+<span><span class="co">#&gt;  9 Factor 3         metabolome     0.0000529</span></span>
+<span><span class="co">#&gt; 10 Factor 4         snps           0.0000964</span></span>
+<span><span class="co">#&gt; # ℹ 35 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "output_dimension_reduction"</span></span>
+<span><span class="co">#&gt; attr(,"method")</span></span>
+<span><span class="co">#&gt; [1] "MOFA"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">diablo_output</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">diablo_final_run</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span></span>
+<span><span class="va">diablo_output</span></span>
+<span><span class="co">#&gt; $features_weight</span></span>
+<span><span class="co">#&gt; # A tibble: 8,196 × 5</span></span>
+<span><span class="co">#&gt;    feature_id                  dataset latent_dimension weight importance</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                       &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 21-25977541-C-T-rs41974686  snps    Component 1           0          0</span></span>
+<span><span class="co">#&gt;  2 22-51403583-A-C-rs210306176 snps    Component 1           0          0</span></span>
+<span><span class="co">#&gt;  3 24-12959068-G-T-rs381471286 snps    Component 1           0          0</span></span>
+<span><span class="co">#&gt;  4 8-85224224-T-C-rs43565287   snps    Component 1           0          0</span></span>
+<span><span class="co">#&gt;  5 ARS-BFGL-BAC-16973          snps    Component 1           0          0</span></span>
+<span><span class="co">#&gt;  6 ARS-BFGL-BAC-19403          snps    Component 1           0          0</span></span>
+<span><span class="co">#&gt;  7 ARS-BFGL-BAC-2450           snps    Component 1           0          0</span></span>
+<span><span class="co">#&gt;  8 ARS-BFGL-BAC-2600           snps    Component 1           0          0</span></span>
+<span><span class="co">#&gt;  9 ARS-BFGL-BAC-27911          snps    Component 1           0          0</span></span>
+<span><span class="co">#&gt; 10 ARS-BFGL-BAC-35925          snps    Component 1           0          0</span></span>
+<span><span class="co">#&gt; # ℹ 8,186 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $samples_score</span></span>
+<span><span class="co">#&gt; # A tibble: 540 × 3</span></span>
+<span><span class="co">#&gt;    sample_id latent_dimension score</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;fct&gt;            &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 G1979     Component 1       1.95</span></span>
+<span><span class="co">#&gt;  2 G2500     Component 1       1.43</span></span>
+<span><span class="co">#&gt;  3 G3030     Component 1       3.72</span></span>
+<span><span class="co">#&gt;  4 G3068     Component 1       3.70</span></span>
+<span><span class="co">#&gt;  5 G3121     Component 1       2.03</span></span>
+<span><span class="co">#&gt;  6 G3315     Component 1      -3.45</span></span>
+<span><span class="co">#&gt;  7 G3473     Component 1      -4.02</span></span>
+<span><span class="co">#&gt;  8 G3474     Component 1      -3.24</span></span>
+<span><span class="co">#&gt;  9 G3550     Component 1       2.43</span></span>
+<span><span class="co">#&gt; 10 G3594     Component 1      -2.49</span></span>
+<span><span class="co">#&gt; # ℹ 530 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $variance_explained</span></span>
+<span><span class="co">#&gt; # A tibble: 12 × 3</span></span>
+<span><span class="co">#&gt;    latent_dimension dataset    prop_var_expl</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;            &lt;fct&gt;              &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Component 1      snps              0.0778</span></span>
+<span><span class="co">#&gt;  2 Component 1      rnaseq            0.201 </span></span>
+<span><span class="co">#&gt;  3 Component 1      metabolome        0.166 </span></span>
+<span><span class="co">#&gt;  4 Component 2      snps              0.0188</span></span>
+<span><span class="co">#&gt;  5 Component 2      rnaseq            0.0830</span></span>
+<span><span class="co">#&gt;  6 Component 2      metabolome        0.0433</span></span>
+<span><span class="co">#&gt;  7 Component 3      snps              0.0177</span></span>
+<span><span class="co">#&gt;  8 Component 3      rnaseq            0.147 </span></span>
+<span><span class="co">#&gt;  9 Component 3      metabolome        0.0965</span></span>
+<span><span class="co">#&gt; 10 Component 4      snps              0.0147</span></span>
+<span><span class="co">#&gt; 11 Component 4      rnaseq            0.0603</span></span>
+<span><span class="co">#&gt; 12 Component 4      metabolome        0.0457</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "output_dimension_reduction"</span></span>
+<span><span class="co">#&gt; attr(,"method")</span></span>
+<span><span class="co">#&gt; [1] "DIABLO"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>The <code>features_weight</code> tibble contains one row per combination of feature and latent dimension. The ID of the features and the name of the dataset from which they originate are stored in the <code>feature_id</code> and <code>dataset</code> columns, respectively. The <code>latent_dimension</code> column gives the name of the latent dimension; this is a factor column. For each feature and latent dimension, the <code>weight</code> column shows the weight that was attributed to the feature for the corresponding latent dimension. In addition, the <code>importance</code> column contains the features importance score, which is computed as the absolute value of the features weight, divided by the maximum absolute weight across all features from the same omics dataset for the corresponding latent dimension. This importance score allows us to compare the contribution of the features across latent dimensions or integration methods, as the weight can be on different scales and thus cannot be directly compared. The importance scores range from 0 to 1. For any method performing feature selection (e.g.&nbsp;sPLS or DIABLO), features that were not selected for a given latent dimension are assigned a weight and importance score of 0.</p>
+<p>The <code>samples score</code> tibble contains for each sample (<code>sample_id</code>) and latent dimension (<code>latent_dimension</code>) the sample’s coordinate for the corresponding latent dimension.</p>
+<p>The <code>variance_explained</code> tibble gives for each latent dimension (<code>latent_dimension</code>) the proportion of variance explained (<code>prop_var_expl</code>) for each dataset (<code>dataset</code>). The values in <code>prop_var_expl</code> are between 0 and 1.</p>
+<p>For convenience, the <code><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions()</a></code> function can be used on an <code>output_dimension_reduction</code> object to see the names of the latent dimensions (the levels used for the <code>latent_dimension</code> column in each tibble):</p>
+<div class="panel-tabset" data-group="method">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">DIABLO</a></li>
+</ul>
+<div class="tab-content" data-group="method">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Component 1" "Component 2"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "joint component 1"               "rnaseq specific component 1"    </span></span>
+<span><span class="co">#&gt;  [3] "rnaseq specific component 2"     "rnaseq specific component 3"    </span></span>
+<span><span class="co">#&gt;  [5] "rnaseq specific component 4"     "rnaseq specific component 5"    </span></span>
+<span><span class="co">#&gt;  [7] "rnaseq specific component 6"     "rnaseq specific component 7"    </span></span>
+<span><span class="co">#&gt;  [9] "metabolome specific component 1" "metabolome specific component 2"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">mofa_output</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "Factor 1"  "Factor 2"  "Factor 3"  "Factor 4"  "Factor 5"  "Factor 6" </span></span>
+<span><span class="co">#&gt;  [7] "Factor 7"  "Factor 8"  "Factor 9"  "Factor 10" "Factor 11" "Factor 12"</span></span>
+<span><span class="co">#&gt; [13] "Factor 13" "Factor 14" "Factor 15"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Component 1" "Component 2" "Component 3" "Component 4"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Other methods covered by <code>get_output</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that both PCA and sPLS-DA (the method used for supervised features preselection in <a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;7.3.2</span></a>) are also both dimension reduction methods. Therefore, the <code>get_output</code> function also converts <code>pcaRes</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca.html">run_pca()</a></code> or <code><a href="https://rdrr.io/pkg/pcaMethods/man/pca.html">pcaMethods::pca()</a></code>) and <code>mixo_splsda</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_splsda.html">run_splsda()</a></code> or <code><a href="https://rdrr.io/pkg/mixOmics/man/splsda.html">mixOmics::splsda()</a></code>).</p>
+</div>
+</div>
+</section><section id="averaging-latent-dimensions-over-datasets" class="level3" data-number="12.1.2"><h3 data-number="12.1.2" class="anchored" data-anchor-id="averaging-latent-dimensions-over-datasets">
+<span class="header-section-number">12.1.2</span> Averaging latent dimensions over datasets</h3>
+<p>While MOFA computes one score per sample for each latent dimension created, sPLS, DIABLO and sO2PLS all compute one score per dataset for each sample and latent dimension. For each latent dimension. the samples score obtained for the different datasets are then compared, to assess the agreement or covariation between datasets. Ideally, these scores should be highly correlated across datasets, since the methods aim at maximising the variation between datasets, but it is not always the case. However, when they are highly correlated, it becomes redundant to interpret the latent dimensions for each dataset.</p>
+<p>Instead, the <code>mixOmics</code> authors proposed a solution for <code>DIABLO</code>, which is to construct a weighted average space: for each latent component, the samples score are averaged over the different datasets. The weight is given per dataset and determined by how well the corresponding dataset discriminate between the samples group of interest. This way, rather than looking at samples score for each dataset for any given latent component, we can look at an average of them.</p>
+<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function uses this idea to construct, for the output of sPLS, sO2PLS and DIABLO a set of average samples score for each latent dimension, rather than returning a set of samples score per dataset. For DIABLO, the average is weighted as explained above, while for sPLS and sO2PLS each dataset is given equal weight in the average. This calculation can be disabled in the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function to extract the dataset-specific samples score, by setting the <code>use_average_dimensions</code> parameter to <code>FALSE</code>. Note that this only affects the <code>samples_score</code> tibble in terms of dimensions, but the name of the latent dimensions will change to reflect the dataset to which they refer.</p>
+<div class="panel-tabset" data-group="method">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">DIABLO</a></li>
+</ul>
+<div class="tab-content" data-group="method">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">spls_output_no_average</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">spls_final_run</span>, use_average_dimensions <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">spls_output_no_average</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">spls_output_no_average</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "rnaseq Component 1"     "metabolome Component 1" "rnaseq Component 2"    </span></span>
+<span><span class="co">#&gt; [4] "metabolome Component 2"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">$</span><span class="va">samples_score</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 278</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">spls_output_no_average</span><span class="op">$</span><span class="va">samples_score</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 556</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">so2pls_output_no_average</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">so2pls_final_run</span>, use_average_dimensions <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_output_no_average</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">so2pls_output_no_average</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "rnaseq joint component 1"        "metabolome joint component 1"   </span></span>
+<span><span class="co">#&gt;  [3] "rnaseq specific component 1"     "rnaseq specific component 2"    </span></span>
+<span><span class="co">#&gt;  [5] "rnaseq specific component 3"     "rnaseq specific component 4"    </span></span>
+<span><span class="co">#&gt;  [7] "rnaseq specific component 5"     "rnaseq specific component 6"    </span></span>
+<span><span class="co">#&gt;  [9] "rnaseq specific component 7"     "metabolome specific component 1"</span></span>
+<span><span class="co">#&gt; [11] "metabolome specific component 2"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">$</span><span class="va">samples_score</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1390</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">so2pls_output_no_average</span><span class="op">$</span><span class="va">samples_score</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1529</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="va">diablo_output_no_average</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">diablo_final_run</span>, use_average_dimensions <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_output_no_average</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">diablo_output_no_average</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "snps Component 1"       "rnaseq Component 1"     "metabolome Component 1"</span></span>
+<span><span class="co">#&gt;  [4] "snps Component 2"       "rnaseq Component 2"     "metabolome Component 2"</span></span>
+<span><span class="co">#&gt;  [7] "snps Component 3"       "rnaseq Component 3"     "metabolome Component 3"</span></span>
+<span><span class="co">#&gt; [10] "snps Component 4"       "rnaseq Component 4"     "metabolome Component 4"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">$</span><span class="va">samples_score</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 540</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">diablo_output_no_average</span><span class="op">$</span><span class="va">samples_score</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1620</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="interpretation" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="interpretation">
+<span class="header-section-number">12.2</span> Interpretation</h2>
+<p>Interpreting the results of a dimension reduction method involves:</p>
+<ul>
+<li><p>Understanding the source of the variation captured by each latent dimension: is a given latent dimension representing an important source of biological variation, such as effect of a treatment, or age of the samples? Or do they show a source of technical variation, for example highlighting a group of outlier samples with different omics profiles from the rest of the observations? Answering these questions allows us to identify which latent dimensions capture the biological phenomenon investigated, or whether there are some sources of noise that should be accounted for in follow-up experiments.</p></li>
+<li><p>Investigating which omics features are driving the latent dimensions: once we have identified some latent dimensions of interest, we can look at the features that contribute the most to understand the molecular mechanisms or pathways involved. This is typically done after looking into the phenomenon captured by the latent dimensions, but can also help to identify it.</p></li>
+</ul>
+<!-- ## DIABLO --><!-- Some of the plots that will be used to interpret the results require us to transform the DIABLO result object into a standard "dimensions reduction output" object, through the `get_output()` function. The returned object contains the results of the DIABLO run stored in a standard way for the `moiraine` package, i.e. as a list with the samples scores for the different latent components stored in the `samples_score` element, the features loading for the latent components stored in the `features_weight` element, and the proportion of variance explained by each latent component in the corresponding dataset in the `variance_explained` element. --><!-- ```{targets diablo-output} --><!-- tar_target( --><!--   diablo_output, --><!--   get_output(diablo_final_run) --><!-- ) --><!-- ``` --><!-- ```{r show-diablo-output} --><!-- tar_load(diablo_output) --><!-- diablo_output --><!-- ``` --><!-- Notice that in the `features_weight` table, the features loading for the latent components as computed by DIABLO is stored in the `weight` column. Then, a feature importance score is computed as `abs(weight) / abs(max(weight))`. It allows us to quickly filter the most important features, regardless of the sign of their contribution to the latent component and the scale of the loadings for the component. --><!-- By default, the `get_output` function will create a weighted average of each latent component across all datasets. This can be disabled by setting `use_average_dimensions = FALSE`, to extract the dataset-specific latent components. --><!-- ```{targets diablo-output-no-average} --><!-- tar_target( --><!--   diablo_output_no_average, --><!--   get_output(diablo_final_run, use_average_dimensions = FALSE) --><!-- ) --><!-- ``` --><!-- We can check which latent components are present with the `get_latent_dimensions()` function: --><!-- ```{r no-average-components} --><!-- get_latent_dimensions(diablo_output) --><!-- get_latent_dimensions(tar_read(diablo_output_no_average)) --><!-- ``` --><!-- ### Samples plots {#sec-interpretation-samples-scores} --><!-- More generally, we can plot the samples in the subspace spanned by the different components using the `plot_samples_score()` function. This function takes as input the DIABLO result in standardised format (from the `get_output()` function), and creates a matrix of scatter-plots to compare all possible pairs of components. The function also accepts a MultiDataSet object as an optional input, which can be used to enrich the plot with information about the samples extracted from the samples metadata. The plots in the resulting matrix are redundant: the lower plots (below the diagonal) are just a rotated version of the upper plots (above the diagonal); this is useful to represent several properties of the samples in one plot. For more details, see the help of the function. Here, we'll show in the upper plots the bruising groups and replicate ID, and in the lower plots the parents of each sample. --><!-- ```{r plot-samples-score-ggpairs} --><!-- #| fig.height = 10 --><!-- plot_samples_score( --><!--   diablo_output, --><!--   mo_data = tar_read(mo_set), --><!--   colour_upper = "status", --><!--   scale_colour_upper = scale_colour_brewer(palette = "Set1"), --><!--   shape_upper = "feedlot", --><!--   colour_lower = "geno_comp_cluster", --><!--   shape_lower = NULL --><!-- ) + --><!--   theme(legend.box = "vertical") --><!-- ``` --><!-- Remember, the `get_output()` function will by default compute a weighted average of the samples score across the datasets for each latent component, which is why we are seeing two latent components in the plot. --><!-- Two other related functions allow us to visualise the samples score in different ways. The `plot_samples_score_pair()` function creates a scatterplot of samples score for two user-selected latent components. The latent components must be selected by name, which we can find through: --><!-- ```{r latent-dimensions-levels} --><!-- get_latent_dimensions(diablo_output) --><!-- ``` --><!-- And, as for the previous example, the MultiDataSet object can be used to enrich the plot with samples properties: --><!-- ```{r plot-samples-score-pair} --><!-- plot_samples_score_pair( --><!--   diablo_output, --><!--   c("Component 1", "Component 2"), --><!--   mo_data = tar_read(mo_set), --><!--   colour_by = "status", --><!--   shape_by = "geno_comp_cluster" --><!-- ) + --><!--   scale_colour_brewer(palette = "Set1") --><!-- ``` --><!-- The `plot_samples_score_covariate()` function displays the samples score for each component against a samples covariate from the samples metadata. For example, to show the distribution of samples score between the different sibling groups, we can use: --><!-- ```{r plot-samples-score-covariate} --><!-- #| fig.height = 7, --><!-- #| fig.width = 8.5 --><!-- plot_samples_score_covariate( --><!--   diablo_output, --><!--   mo_data = tar_read(mo_set), --><!--   covariate = "status", --><!--   colour_by = "feedlot", --><!--   ncol = 1 --><!-- ) --><!-- ``` --><!-- Note that the function creates different plots depending on whether the covariate is categorical (as above) or numeric. For numerical variables, it will create scatterplots, e.g.: --><!-- ```{r plot-samples-score-covariate-numeric} --><!-- plot_samples_score_covariate( --><!--   diablo_output, --><!--   mo_data = tar_read(mo_set), --><!--   covariate = "day_on_feed", --><!--   colour_by = "feedlot", --><!--   latent_dimensions = "Component 1" --><!-- ) --><!-- ``` --><!-- ### Extracting the selected features --><!-- We can extract the features that were selected for the different latent components with the function `get_selected_features()`, which takes as input the DIABLO results in standardised format: --><!-- ```{r get-selected-features} --><!-- get_selected_features(diablo_output) |> --><!--   head() --><!-- ``` --><!-- The function returns a tibble indicating: --><!-- -   the features ID; --><!-- -   the dataset from which the features originate; --><!-- -   the latent component for which the features have been selected; --><!-- -   the features' loading for this latent component, i.e. their weight in the linear combination that constitutes the latent component; --><!-- - the features' importance score, i.e. their absolute weight divided by the maximum weight for the corresponding dataset and latent component. --><!-- By passing the original MultiDataSet object as input to this function, we can extract the feature metadata associated with the selected features: --><!-- ```{r get-selected-features-metadata} --><!-- get_selected_features( --><!--   diablo_output, --><!--   mo_data = tar_read(mo_set) --><!-- ) |> --><!--   head() --><!-- ``` --><!-- By default, the `get_selected_features()` function returns the selected features for all datasets and latent components, but we can focus on a subset of these by passing datasets or latent components names to the `datasets` and `latent_dimensions` parameters of the function. For example, let us get the selected features from the transcriptomics and metabolomics datasets for the first latent component: --><!-- ```{r get-selected-features-subset} --><!-- get_selected_features( --><!--   diablo_output, --><!--   latent_dimensions = "Component 1", --><!--   datasets = c("rnaseq", "metabolome"), --><!--   mo_data = tar_read(mo_set) --><!-- ) |> --><!--   head() --><!-- ``` --><!-- Alternatively, the `get_top_features()` function facilitates the extraction of the top contributing features per dataset and latent component. The function offers two options: --><!-- - select from each dataset the top N features that contribute the most to a latent component; N is set through the `n_features` argument of the function (note that if there are ties in the features importance all ties will be returned). --><!-- - select from each dataset all features that have an importance score equal to or greater than a certain threshold. The threshold is set through the `min_importance` argument of the function. --><!-- As for the `get_selected_features()` function, it is possible to focus on specific datasets and/or latent components, and to pass on a MultiDataSet object to extract features metadata. --><!-- ```{r get-top-features-n} --><!-- get_top_features(diablo_output, n_features = 3, mo_data = tar_read(mo_set)) |> --><!--   head() --><!-- ``` --><!-- ```{r get-top-features-min} --><!-- get_top_features(diablo_output, min_importance = 0.8, mo_data = tar_read(mo_set)) |> --><!--   head() --><!-- ``` --><!-- ### Visualising the top features --><!-- We can also look at the loading of the features from each dataset that most contribute to each of the latent components with the function `plot_top_features()`. The function takes as input the formatted DIABLO output. By default, feature IDs will be used as labels, but it is possible to make use of the feature metadata in our MultiDataSet object to label the features. In this example, we select columns from the feature metadata of the transcriptomics and metabolomics datasets to get more meaningful labels, but leave the SNPs' label to be their ID. --><!-- ```{r plot-top-features} --><!-- #| fig.width = 10, --><!-- #| fig.height = 7 --><!-- plot_top_features( --><!--   diablo_output, --><!--   mo_data = tar_read(mo_set), --><!--   label_cols = list( --><!--     "rnaseq" = "Name", --><!--     "metabolome" = "name" --><!--   ) --><!-- ) + --><!--   theme( --><!--     axis.text.y = element_text(size = 8) --><!--   ) --><!-- ``` --><!-- By default, the function displays the top 20 features per dataset and component, but that can be changed with the `n_features` dataset. If less than 20 features were selected for a given dataset and component, only the select features will be shown. --><!-- We can investigate further these features by looking at their measurements in the datasets, with the `plot_data_heatmap()` or `plot_data_covariate()` functions (more details in the vignettes on [Inspecting a MultiDataSet object](inspecting-multidataset.html#visualising-data)). We will extract the ID of the top 3 features from each dataset for component 1 with the `get_top_features()` that we saw in [the previous section](diablo-pipeline.html#extracting-the-selected-features): --><!-- ```{r get-top-features-list} --><!-- top_features <- get_top_features( --><!--   diablo_output, --><!--   n_features = 3, --><!--   latent_dimensions = "Component 1" --><!-- ) |>  --><!--   pull(feature_id) --><!-- top_features --><!-- ``` --><!-- We can visualise these features as a heatmap: --><!-- ```{r plot-data-heatmap-annotations, fig.width = 10} --><!-- plot_data_heatmap( --><!--   tar_read(mo_presel_supervised), --><!--   top_features, --><!--   center = TRUE, --><!--   scale = TRUE, --><!--   only_common_samples = TRUE, --><!--   show_column_names = FALSE, --><!--   samples_info = "status", --><!--   colours_list = list( --><!--     "status" = c("Control" = "gold", "BRD" = "lightblue") --><!--   ), --><!--   label_cols = list( --><!--     "rnaseq" = "Name", --><!--     "metabolome" = "name" --><!--   ) --><!-- ) --><!-- ``` --><!-- or a violin plot against samples bruising group: --><!-- ```{r plot-data-covariate-categorical, fig.height = 5} --><!-- plot_data_covariate( --><!--   tar_read(mo_presel_supervised),  --><!--   "status", --><!--   top_features, --><!--   only_common_samples = TRUE, --><!--   label_cols = list( --><!--     "rnaseq" = "Name", --><!--     "metabolome" = "name" --><!--   ) --><!-- ) --><!-- ``` --><!-- ### Comparing features importance between latent components --><!-- We can also compare the importance given to the features between any two latent components with the `plot_features_weight_pair()` function. --><!-- ```{r} --><!-- plot_features_weight_pair( --><!--   diablo_output, --><!--   c("Component 1", "Component 2"), --><!--   mo_data = tar_read(mo_set), --><!--   label_cols = list( --><!--     "rnaseq" = "Name", --><!--     "metabolome" = "name" --><!--   ) --><!-- ) --><!-- ``` --><!-- In this case, the plot is not extremely interesting, but allows us to quickly confirm that different features were selected for the two latent components. The top 5 features according to their consensus importance (see section about [methods comparison](methods-comparison.html#feature-consensus-importance)) are highlighted in red. --><!-- By default, the function plots the signed importance score of the features, i.e. their importance score to which the sign of their weight was added. This can be changed through the `features_metric` argument of the function. -->
 
-</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

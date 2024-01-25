@@ -264,7 +264,7 @@ select_features_mad(mo_set_complete, "rnaseq", to_keep_n = 1000)
 select_features_mad(mo_set_complete, "rnaseq", to_keep_prop = 0.5)
 ```
 
-### Supervised features preselection
+### Supervised features preselection {#sec-prefiltering-supervised}
 
 Another approach to features preselection can be preferred when we are trying to assess the features most relevant to an outcome of interest or to differences between sample groups. In this scenario, prior to integrating the datasets, it could be useful to reduce the size of the datasets by filtering out the features that are least associated with the outcome of interest. In this case, we can use some single-omics feature selection method to perform a first "crude" prefiltering.
 

@@ -541,13 +541,38 @@ list(
   ## Results interpretation ----
   ##========================##
 
-  ## Formatting DIABLO output
+  ## Formatting outputs
+  tar_target(
+    spls_output,
+    get_output(spls_final_run)
+  ),
+
+  tar_target(
+    so2pls_output,
+    get_output(so2pls_final_run)
+  ),
+
+  tar_target(
+    mofa_output,
+    get_output(mofa_trained)
+  ),
+
   tar_target(
     diablo_output,
     get_output(diablo_final_run)
   ),
 
-  ## Formatting DIABLO output - individual latent dimensions
+  ## Formatting output - individual latent dimensions
+  tar_target(
+    spls_output_no_average,
+    get_output(spls_final_run, use_average_dimensions = FALSE)
+  ),
+
+  tar_target(
+    so2pls_output_no_average,
+    get_output(so2pls_final_run, use_average_dimensions = FALSE)
+  ),
+
   tar_target(
     diablo_output_no_average,
     get_output(diablo_final_run, use_average_dimensions = FALSE)
