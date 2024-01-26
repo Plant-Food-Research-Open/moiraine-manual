@@ -12,7 +12,11 @@ library(moiraine)
 library(purrr)
 library(dplyr)
 library(ggplot2)
+library(circlize)
 library(patchwork)
+
+## To avoid message when loading GGally
+library(GGally)
 ```
 
 ```{r setup-visible}
@@ -29,6 +33,7 @@ library(dplyr)
 
 ## For colour palettes
 library(ggplot2)
+library(circlize)
 
 ## For manipulating patchworks of plots
 library(patchwork)
@@ -62,9 +67,7 @@ Tab content
 </details>
 
 
-
-
-## Generating a standardised output
+## Dimension reduction methods
 
 Despite relying on very different statistical approaches, the different integration methods included in the pipeline all perform dimension reduction of the omics datasets through feature extraction. That is, they construct a small number of latent components/variables/dimensions (that we refer to as **latent dimensions** in the `moiraine` package) that capture as much information from the original datasets as possible. A dimension reduction approach typically returns, for each latent dimension constructed, two sets of values:
 
@@ -73,6 +76,14 @@ Despite relying on very different statistical approaches, the different integrat
 * **Samples score**: the projection of the samples onto the latent dimension.
 
 In addition, the fraction or percentage of variance that each latent dimension explains in the different omics datasets is usually calculated.
+
+Interpreting the results of a dimension reduction method involves:
+
+* Understanding the source of the variation captured by each latent dimension: is a given latent dimension representing an important source of biological variation, such as effect of a treatment, or age of the samples? Or do they show a source of technical variation, for example highlighting a group of outlier samples with different omics profiles from the rest of the observations? Answering these questions allows us to identify which latent dimensions capture the biological phenomenon investigated, or whether there are some sources of noise that should be accounted for in follow-up experiments.
+
+* Investigating which omics features are driving the latent dimensions: once we have identified some latent dimensions of interest, we can look at the features that contribute the most to understand the molecular mechanisms or pathways involved. This is typically done after looking into the phenomenon captured by the latent dimensions, but can also help to identify it.
+
+## Generating a standardised output
 
 ### `get_output` function
 
@@ -182,9 +193,9 @@ Note that both PCA and sPLS-DA (the method used for supervised features preselec
 
 ### Averaging latent dimensions over datasets
 
-While MOFA computes one score per sample for each latent dimension created, sPLS, DIABLO and sO2PLS all compute one score per dataset for each sample and latent dimension. For each latent dimension. the samples score obtained for the different datasets are then compared, to assess the agreement or covariation between datasets. Ideally, these scores should be highly correlated across datasets, since the methods aim at maximising the variation between datasets, but it is not always the case. However, when they are highly correlated, it becomes redundant to interpret the latent dimensions for each dataset.
+While MOFA computes one score per sample for each latent dimension created, sPLS, DIABLO and sO2PLS all compute one score per dataset for each sample and latent dimension. For each latent dimension, the samples score obtained for the different datasets are then compared, to assess the agreement or covariation between datasets. Ideally, these scores should be highly correlated across datasets, since the methods aim at maximising the variation between datasets, but it is not always the case. However, when they are highly correlated, it becomes redundant to interpret each dataset-specific version of the latent dimensions.
 
-Instead, the `mixOmics` authors proposed a solution for `DIABLO`, which is to construct a weighted average space: for each latent component, the samples score are averaged over the different datasets. The weight is given per dataset and determined by how well the corresponding dataset discriminate between the samples group of interest. This way, rather than looking at samples score for each dataset for any given latent component, we can look at an average of them.
+Instead, the `mixOmics` authors proposed a solution for `DIABLO`, which is to construct a weighted average space in which to represent the samples: for each latent component, the samples score are averaged over the different datasets. The weight attributed to each dataset is determined by how well the corresponding dataset discriminates between the samples group of interest. This way, rather than looking at samples score for each dataset for any given latent component, we can look at an average of them.
 
 The `get_output()` function uses this idea to construct, for the output of sPLS, sO2PLS and DIABLO a set of average samples score for each latent dimension, rather than returning a set of samples score per dataset. For DIABLO, the average is weighted as explained above, while for sPLS and sO2PLS each dataset is given equal weight in the average. This calculation can be disabled in the `get_output()` function to extract the dataset-specific samples score, by setting the `use_average_dimensions` parameter to `FALSE`. Note that this only affects the `samples_score` tibble in terms of dimensions, but the name of the latent dimensions will change to reflect the dataset to which they refer.
 
@@ -244,273 +255,916 @@ nrow(diablo_output_no_average$samples_score)
 ```
 :::
 
-## Interpretation
+## Percentage of variance explained
 
-Interpreting the results of a dimension reduction method involves:
+The first step in interpreting the results of a dimension reduction method is to assess how much variance is explained by the different latent dimensions for each dataset. The function `plot_variance_explained()` takes as input a `output_dimension_reduction` object and constructs a dataset-specific screeplot:
 
-* Understanding the source of the variation captured by each latent dimension: is a given latent dimension representing an important source of biological variation, such as effect of a treatment, or age of the samples? Or do they show a source of technical variation, for example highlighting a group of outlier samples with different omics profiles from the rest of the observations? Answering these questions allows us to identify which latent dimensions capture the biological phenomenon investigated, or whether there are some sources of noise that should be accounted for in follow-up experiments.
+::: {.panel-tabset group="method"}
+#### sPLS
 
-* Investigating which omics features are driving the latent dimensions: once we have identified some latent dimensions of interest, we can look at the features that contribute the most to understand the molecular mechanisms or pathways involved. This is typically done after looking into the phenomenon captured by the latent dimensions, but can also help to identify it.
+```{r plot-variance-explained-spls}
+plot_variance_explained(spls_output)
+```
 
 
+#### sO2PLS
 
-<!-- ## DIABLO -->
+```{r plot-variance-explained-so2pls}
+#| fig.height: 9
 
-<!-- Some of the plots that will be used to interpret the results require us to transform the DIABLO result object into a standard "dimensions reduction output" object, through the `get_output()` function. The returned object contains the results of the DIABLO run stored in a standard way for the `moiraine` package, i.e. as a list with the samples scores for the different latent components stored in the `samples_score` element, the features loading for the latent components stored in the `features_weight` element, and the proportion of variance explained by each latent component in the corresponding dataset in the `variance_explained` element. -->
+plot_variance_explained(so2pls_output, ncol = 1) +
+  theme(axis.text.x = element_text(size = 9, angle = 30, hjust = 1))
+```
 
-<!-- ```{targets diablo-output} -->
-<!-- tar_target( -->
-<!--   diablo_output, -->
-<!--   get_output(diablo_final_run) -->
-<!-- ) -->
-<!-- ``` -->
+#### MOFA
 
-<!-- ```{r show-diablo-output} -->
-<!-- tar_load(diablo_output) -->
+```{r plot-variance-explained-mofa}
+#| fig.height: 9
 
-<!-- diablo_output -->
-<!-- ``` -->
+plot_variance_explained(mofa_output, ncol = 1) +
+  theme(axis.text.x = element_text(size = 9, angle = 30, hjust = 1))
+```
 
-<!-- Notice that in the `features_weight` table, the features loading for the latent components as computed by DIABLO is stored in the `weight` column. Then, a feature importance score is computed as `abs(weight) / abs(max(weight))`. It allows us to quickly filter the most important features, regardless of the sign of their contribution to the latent component and the scale of the loadings for the component. -->
+#### DIABLO
 
-<!-- By default, the `get_output` function will create a weighted average of each latent component across all datasets. This can be disabled by setting `use_average_dimensions = FALSE`, to extract the dataset-specific latent components. -->
+```{r plot-variance-explained-diablo}
+#| fig.height: 8
 
-<!-- ```{targets diablo-output-no-average} -->
-<!-- tar_target( -->
-<!--   diablo_output_no_average, -->
-<!--   get_output(diablo_final_run, use_average_dimensions = FALSE) -->
-<!-- ) -->
-<!-- ``` -->
+plot_variance_explained(diablo_output, ncol = 2)
+```
+:::
 
-<!-- We can check which latent components are present with the `get_latent_dimensions()` function: -->
+## Samples plot {#sec-interpretation-samples-scores}
 
-<!-- ```{r no-average-components} -->
-<!-- get_latent_dimensions(diablo_output) -->
-<!-- get_latent_dimensions(tar_read(diablo_output_no_average)) -->
-<!-- ``` -->
 
-<!-- ### Samples plots {#sec-interpretation-samples-scores} -->
+To understand the phenomenon driving the variation represented by the different latent components, we can investigate the coordinates of the samples in the space spanned by these latent components, in conjunction with information that we have about the samples.
 
-<!-- More generally, we can plot the samples in the subspace spanned by the different components using the `plot_samples_score()` function. This function takes as input the DIABLO result in standardised format (from the `get_output()` function), and creates a matrix of scatter-plots to compare all possible pairs of components. The function also accepts a MultiDataSet object as an optional input, which can be used to enrich the plot with information about the samples extracted from the samples metadata. The plots in the resulting matrix are redundant: the lower plots (below the diagonal) are just a rotated version of the upper plots (above the diagonal); this is useful to represent several properties of the samples in one plot. For more details, see the help of the function. Here, we'll show in the upper plots the bruising groups and replicate ID, and in the lower plots the parents of each sample. -->
+### Matrix of scatter plots {#sec-interpretation-samples-ggpairs}
 
-<!-- ```{r plot-samples-score-ggpairs} -->
-<!-- #| fig.height = 10 -->
+The `plot_samples_score` function shows the samples plots in a matrix of scatter plots to show all possible two-by-two combinations of the latent dimensions. The plots in the resulting matrix are redundant: the lower plots (below the diagonal) are just a rotated version of the upper plots (above the diagonal). The function takes as input a `output_dimension_reduction` object. In addition, it accepts a `MultiDataSet` object to extract information about the samples that can then be used to customise the plot. Since the plots are redundant, different properties of the samples can be shown in the upper and lower plots. For example, we will colour the samples according to disease status in the upper plot, while representing some other covariate in the lower plot. We will use the shape of the points to illustrate gender in both upper and lower plot. By default, all latent dimensions are included in the plots, but it is possible to select some of them by passing their names to the `latent_dimensions` argument.
 
-<!-- plot_samples_score( -->
-<!--   diablo_output, -->
-<!--   mo_data = tar_read(mo_set), -->
-<!--   colour_upper = "status", -->
-<!--   scale_colour_upper = scale_colour_brewer(palette = "Set1"), -->
-<!--   shape_upper = "feedlot", -->
-<!--   colour_lower = "geno_comp_cluster", -->
-<!--   shape_lower = NULL -->
-<!-- ) + -->
-<!--   theme(legend.box = "vertical") -->
-<!-- ``` -->
+```{r load-mo-set-de}
+tar_load(mo_set_complete)
 
-<!-- Remember, the `get_output()` function will by default compute a weighted average of the samples score across the datasets for each latent component, which is why we are seeing two latent components in the plot. -->
+## Choosing colour palettes for the samples covariates
+palette_status <- scale_colour_brewer(palette = "Set1")
+palette_feedlot <- scale_colour_brewer(palette = "Set2")
+palette_geno_comp <- scale_colour_brewer(palette = "Dark2")
+palette_rnaseq_batch <- scale_colour_brewer(palette = "Paired")
 
-<!-- Two other related functions allow us to visualise the samples score in different ways. The `plot_samples_score_pair()` function creates a scatterplot of samples score for two user-selected latent components. The latent components must be selected by name, which we can find through: -->
+## For some plots will need both colour and fill
+palette_status_fill <- scale_colour_brewer(
+  palette = "Set1", 
+  aesthetics = c("colour", "fill")
+)
+```
 
-<!-- ```{r latent-dimensions-levels} -->
-<!-- get_latent_dimensions(diablo_output) -->
-<!-- ``` -->
 
-<!-- And, as for the previous example, the MultiDataSet object can be used to enrich the plot with samples properties: -->
+::: {.panel-tabset group="method"}
+#### sPLS
 
-<!-- ```{r plot-samples-score-pair} -->
-<!-- plot_samples_score_pair( -->
-<!--   diablo_output, -->
-<!--   c("Component 1", "Component 2"), -->
-<!--   mo_data = tar_read(mo_set), -->
-<!--   colour_by = "status", -->
-<!--   shape_by = "geno_comp_cluster" -->
-<!-- ) + -->
-<!--   scale_colour_brewer(palette = "Set1") -->
-<!-- ``` -->
+```{r spls-plot-samples-scores}
+#| fig.height: 9
 
-<!-- The `plot_samples_score_covariate()` function displays the samples score for each component against a samples covariate from the samples metadata. For example, to show the distribution of samples score between the different sibling groups, we can use: -->
+plot_samples_score(
+  spls_output,
+  mo_data = mo_set_complete,
+  colour_upper = "status",
+  scale_colour_upper = palette_status,
+  shape_upper = "gender",
+  colour_lower = "feedlot",
+  scale_colour_lower = palette_feedlot
+) +
+  theme(legend.box = "vertical")
+```
 
-<!-- ```{r plot-samples-score-covariate} -->
-<!-- #| fig.height = 7, -->
-<!-- #| fig.width = 8.5 -->
+Component 1 clearly splits the control and BRD animals, while component 2 seems to separate two samples from the rest.
 
-<!-- plot_samples_score_covariate( -->
-<!--   diablo_output, -->
-<!--   mo_data = tar_read(mo_set), -->
-<!--   covariate = "status", -->
-<!--   colour_by = "feedlot", -->
-<!--   ncol = 1 -->
-<!-- ) -->
-<!-- ``` -->
+#### sO2PLS
 
+Here we will focus on the joint components. Since there is only one, the function will instead display the samples score with a violin plot, and the properties selected for the upper plots will be used to customise the points:
 
-<!-- Note that the function creates different plots depending on whether the covariate is categorical (as above) or numeric. For numerical variables, it will create scatterplots, e.g.: -->
+```{r so2pls-plot-samples-scores}
+#| fig.height: 6
 
-<!-- ```{r plot-samples-score-covariate-numeric} -->
-<!-- plot_samples_score_covariate( -->
-<!--   diablo_output, -->
-<!--   mo_data = tar_read(mo_set), -->
-<!--   covariate = "day_on_feed", -->
-<!--   colour_by = "feedlot", -->
-<!--   latent_dimensions = "Component 1" -->
-<!-- ) -->
-<!-- ``` -->
+plot_samples_score(
+  so2pls_output,
+  latent_dimensions = "joint component 1",
+  mo_data = mo_set_complete,
+  colour_upper = "status",
+  scale_colour_upper = palette_status,
+  shape_upper = "gender",
+  colour_lower = "feedlot",
+  scale_colour_lower = palette_feedlot
+)
+```
+
+Joint component 1 separates the BRD and control animals, although some of them overlap.
+
+#### MOFA
+
+For clarity we will focus here on the first four factors:
+
+```{r mofa-plot-samples-scores}
+#| fig.height: 9
+
+plot_samples_score(
+  mofa_output,
+  latent_dimensions = paste("Factor", 1:4),
+  mo_data = mo_set_complete,
+  colour_upper = "status",
+  scale_colour_upper = palette_status,
+  shape_upper = "gender",
+  colour_lower = "geno_comp_cluster",
+  scale_colour_lower = palette_geno_comp
+) +
+  theme(legend.box = "vertical")
+```
+
+Factor 1 clearly separates the control and BRD animals. Factor 2 separates samples from the genomics composition cluster K1 from the other two. None of the factors are separating the animals by gender, indicating that this covariate does not have a strong effect in the omics measurements.
+
+#### DIABLO
+
+```{r diablo-plot-samples-scores}
+#| fig.height: 9
+
+plot_samples_score(
+  diablo_output,
+  mo_data = mo_set_complete,
+  colour_upper = "status",
+  scale_colour_upper = palette_status,
+  shape_upper = "gender",
+  colour_lower = "rnaseq_batch",
+  scale_colour_lower = palette_rnaseq_batch
+) +
+  theme(legend.box = "vertical")
+```
+
+As DIABLO is a supervised method, it is no surprise that the first component clearly separate the two disease status groups. The second latent component separates samples according to the RNAseq batch. From this plot it is not clear what components 3 and 4 represent.
+:::
+
+### Scatter plot for pair of latent dimensions {#sec-interpretation-samples-pair}
+
+We can also focus on a specific pair of latent dimensions and represent the samples in the space spanned by these two dimensions, with the `plot_samples_score_pair()` function. The two latent dimensions to represent are selected by passing their names to the function. This function also accepts a `MultiDataSet` object, whose samples metadata will be used to customise the plot.
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{r spls-plot-samples-score-pair}
+plot_samples_score_pair(
+  spls_output,
+  paste("Component", 1:2),
+  mo_data = mo_set_complete,
+  colour_by = "status",
+  shape_by = "gender"
+) +
+  palette_status
+```
+
+
+#### sO2PLS
+
+To showcase this function, we will look at the first two RNAseq-specific latent components:
+
+```{r so2pls-plot-samples-score-pair}
+plot_samples_score_pair(
+  so2pls_output,
+  paste("rnaseq specific component", 1:2),
+  mo_data = mo_set_complete,
+  colour_by = "status",
+  shape_by = "gender"
+) +
+  palette_status
+```
+
+These two specific components are not related to disease status or gender.
+
+#### MOFA
+
+```{r mofa-plot-samples-score-pair}
+plot_samples_score_pair(
+  mofa_output,
+  paste("Factor", 1:2),
+  mo_data = mo_set_complete,
+  colour_by = "status",
+  shape_by = "geno_comp_cluster"
+) +
+  palette_status
+```
+
+We see that these first two factors discriminate the disease status groups and the genomics composition clusters.
+
+#### DIABLO
+
+```{r diablo-plot-samples-score-pair}
+plot_samples_score_pair(
+  diablo_output,
+  paste("Component", 1:2),
+  mo_data = mo_set_complete,
+  colour_by = "status",
+  shape_by = "rnaseq_batch"
+) +
+  palette_status
+```
+
+We see that these first two components discriminate the disease status groups and the RNAseq batches.
+:::
+
+### Samples score vs covariate {#sec-interpretation-samples-covariate}
+
+Lastly, we can try plot the samples score for each latent dimension against a samples covariate of interest, with the `plot_samples_score_covariate()` function. This is useful to focus on one dimension at a time rather than pairs of them. By default, the function displays all latent dimensions, but we can focus on a subset of them through the `latent_dimensions` arguments. The function needs a `MultiDataSet` object to extract information about the samples. The plot generated will depend on whether the covariate of interest is categorical or continuous. We will show both options below. In addition to the main covariate of interest that will be displayed on the x-axis, the colour and shape of the points can be further customised according to other samples properties.
+
+First, with a categorical covariate:
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{r spls-plot-samples-score-covariate-cat}
+plot_samples_score_covariate(
+  spls_output,
+  mo_set_complete,
+  "status",
+  colour_by = "status"
+) +
+  palette_status_fill
+```
+
+
+#### sO2PLS
+
+For clarity we will focus on the first joint component only.
+
+```{r so2pls-plot-samples-score-covariate-cat}
+plot_samples_score_covariate(
+  so2pls_output,
+  mo_set_complete,
+  "status",
+  colour_by = "status",
+  latent_dimensions = "joint component 1"
+) +
+  palette_status_fill
+```
+
+#### MOFA
+
+For clarity we will focus on the first two factors only.
+
+```{r mofa-plot-samples-score-covariate-cat}
+plot_samples_score_covariate(
+  mofa_output,
+  mo_set_complete,
+  "status",
+  colour_by = "status",
+  shape_by = "geno_comp_cluster",
+  latent_dimensions = paste("Factor", 1:2)
+) +
+  palette_status_fill
+```
+
+#### DIABLO
+
+For clarity we will focus on the first two components only.
+
+```{r diablo-plot-samples-score-covariate-cat}
+plot_samples_score_covariate(
+  diablo_output,
+  mo_set_complete,
+  "status",
+  colour_by = "status",
+  shape_by = "rnaseq_batch",
+  latent_dimensions = paste("Component", 1:2)
+) +
+  palette_status_fill
+```
+:::
+
+
+Now, with a continuous covariate:
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{r spls-plot-samples-score-covariate-cont}
+plot_samples_score_covariate(
+  spls_output,
+  mo_set_complete,
+  "day_on_feed",
+  colour_by = "status"
+) +
+  palette_status_fill
+```
+
+
+#### sO2PLS
+
+For clarity we will focus on the first joint component only.
+
+```{r so2pls-plot-samples-score-covariate-cont}
+plot_samples_score_covariate(
+  so2pls_output,
+  mo_set_complete,
+  "day_on_feed",
+  colour_by = "status",
+  latent_dimensions = "joint component 1"
+) +
+  palette_status_fill
+```
+
+#### MOFA
+
+For clarity we will focus on the first two factors only.
+
+```{r mofa-plot-samples-score-covariate-cont}
+plot_samples_score_covariate(
+  mofa_output,
+  mo_set_complete,
+  "day_on_feed",
+  colour_by = "status",
+  shape_by = "geno_comp_cluster",
+  latent_dimensions = paste("Factor", 1:2)
+) +
+  palette_status_fill
+```
+
+#### DIABLO
+
+For clarity we will focus on the first two components only.
+
+```{r diablo-plot-samples-score-covariate-cont}
+plot_samples_score_covariate(
+  diablo_output,
+  mo_set_complete,
+  "day_on_feed",
+  colour_by = "status",
+  shape_by = "rnaseq_batch",
+  latent_dimensions = paste("Component", 1:2)
+) +
+  palette_status_fill
+```
+:::
+
+## Feature plots
+
+Next, we can have a look at the features contributing to each latent dimensions.
+
+### Features weight distribution {#sec-interpretation-features-distr}
+
+We can start by looking at the distribution of features weight for each latent dimension across the datasets, with the `plot_features_weight_distr()` function. Again, the function takes a `output_dimension_reduction` object as first input; by default it will show all latent dimensions and datasets, but they can be specified through the `latent_dimensions` and `datasets` arguments. The function shows by default the distribution of the "signed" importance scores, i.e. the features weights normalised by the highest absolute weight value for the corresponding latent dimension and dataset, but we can also show the distribution of importance scores (which are absolute values) and non-transformed features weight (through the `features_metric` argument). Note that the function returns a [patchwork](https://patchwork.data-imaginist.com/) of ggplots.
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{r spls-plot-features-weight-distr}
+plot_features_weight_distr(spls_output)
+```
+
+As sPLS performs feature selection, most of the weights are equal to 0.
+
+#### sO2PLS
+
+```{r so2pls-plot-features-weight-distr}
+#| fig.height: 15
+
+plot_features_weight_distr(so2pls_output) +
+  ## showing two plots per column (from patchwork package)
+  plot_layout(ncol = 2)
+```
+
+As sO2PLS performs feature selection, most of the weights are equal to 0.
+
+#### MOFA
+
+We will only look at factors 1 to 4 for clarity:
+
+```{r mofa-plot-features-weight-distr}
+#| fig.height: 15
+
+plot_features_weight_distr(
+  mofa_output,
+  latent_dimensions = paste("Factor", 1:4)
+) +
+  ## showing two plots per column (from patchwork package)
+  plot_layout(ncol = 1)
+```
+
+We can see for example for factor 1 that only a couple of metabolites have an importance score above 0.5, this small number of features are driving the variation captured by factor 1.
+
+#### DIABLO
+
+```{r diablo-plot-features-weight-distr}
+#| fig.height: 15
+
+plot_features_weight_distr(
+  diablo_output
+) +
+  ## showing two plots per column (from patchwork package)
+  plot_layout(ncol = 1)
+```
+
+As DIABLO performs feature selection, most of the weights are equal to zero.
+
+:::
+
+### Comparing features importance between latent components
+
+We can also compare the importance score given to the features between any two latent dimensions with the `plot_features_weight_pair()` function.
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{r spls-features-weight-pair}
+plot_features_weight_pair(
+  spls_output,
+  paste("Component", 1:2),
+  mo_data = mo_set_complete,
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  )
+)
+```
+
+#### sO2PLS
+
+```{r so2pls-features-weight-pair}
+plot_features_weight_pair(
+  so2pls_output,
+  paste("rnaseq specific component", 1:2),
+  mo_data = mo_set_complete,
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  )
+)
+```
+
+#### MOFA
+
+```{r mofa-features-weight-pair}
+plot_features_weight_pair(
+  mofa_output,
+  paste("Factor", 1:2),
+  mo_data = mo_set_complete,
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  )
+)
+```
+
+#### DIABLO
+
+```{r diablo-features-weight-pair}
+plot_features_weight_pair(
+  diablo_output,
+  paste("Component", 1:2),
+  mo_data = mo_set_complete,
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  )
+)
+```
+:::
+
+In this case, the plots are not extremely interesting, but allows us to quickly confirm that different latent dimensions capture different aspects of the data. The top 5 features according to their consensus importance score (see @sec-comparison-consensus) are highlighted in red.
+
+By default, the function plots the signed importance score of the features, i.e. their importance score to which the sign of their weight was added. This can be changed through the `features_metric` argument of the function.
+
+
+### Plotting top features weight  {#sec-interpretation-features-top-plot}
+
+We can then investigate which features are assigned the highest weights for each latent dimension. These are the features driving the variation captured by the latent components. This is done with the `plot_top_features()` function. By default, the feature IDs will be used as labels in the plot, but by passing a `MultiDataSet` object to the function we can use a column from the features metadata table instead. To do so, we need to pass a named list to the `label_cols` argument; the names of the elements in the list should correspond to dataset names in the `MultiDataSet` object, and the value should be the name of the column in the features metadata table of the corresponding dataset to use as feature label. The number of features displayed controlled through the `top_n` argument (the default value is 20). Note that a lower number of features is selected for a certain dataset and latent dimension, only the selected features will be displayed. Again, the function returns a [patchwork](https://patchwork.data-imaginist.com/) of ggplots.
+
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{r spls-plot-top-features}
+#| fig.height: 8
+
+plot_top_features(
+  spls_output,
+  mo_data = mo_set_complete,
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  )
+)
+```
+
+We can see that citric acid and D-mannose have an importance score close to 1 for component 1. Citric acid has a negative weight, meaning that its abundance is negatively correlated with component 1, while D-mannose has a positive weight, so its abundance is positively correlated with component 1. For the second component, only two genes have an importance score above 0.5.
+
+
+#### sO2PLS
+
+We will focus on joint component 1:
+
+```{r so2pls-plot-top-features}
+plot_top_features(
+  so2pls_output,
+  mo_data = mo_set_complete,
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  ),
+  latent_dimensions = "joint component 1"
+)
+```
+
+While all top 20 genes have an importance score about 0.5 for joint component 1, only citric acid is given a high importance score for joint component 1 in the metabolomics dataset.
+
+#### MOFA
+
+We will focus on the first two factors here:
+
+```{r mofa-plot-top-features}
+#| fig.width: 10
+#| fig.height: 8
+
+plot_top_features(
+  mofa_output,
+  mo_data = mo_set_complete,
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  ),
+  latent_dimensions = paste("Factor", 1:2)
+)
+```
+
+For factor 1, citric acid is the only metabolite with an importance score above 0.75, while in the genomics dataset four markers have a high importance score, and most of the top 20 genes have an importance score aroung 0.7 or higher.
 
-<!-- ### Extracting the selected features -->
+#### DIABLO
+
+For clarity, we will focus on the first two latent components:
 
-<!-- We can extract the features that were selected for the different latent components with the function `get_selected_features()`, which takes as input the DIABLO results in standardised format: -->
+```{r diablo-plot-top-features}
+#| fig.height: 8
 
-<!-- ```{r get-selected-features} -->
-<!-- get_selected_features(diablo_output) |> -->
-<!--   head() -->
-<!-- ``` -->
+plot_top_features(
+  diablo_output,
+  mo_data = mo_set_complete,
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  ),
+  latent_dimensions = paste("Component", 1:2)
+)
+```
 
-<!-- The function returns a tibble indicating: -->
+For component 1, we can see three markers from the genomics dataset and three genes with a high importance score. From the metabolomics dataset, less than 20 features were retained.
 
-<!-- -   the features ID; -->
+:::
 
-<!-- -   the dataset from which the features originate; -->
+### Extracting top features {#sec-interpretation-features-top-table}
 
-<!-- -   the latent component for which the features have been selected; -->
+It is also possible to extract information about the top contributing features as a table with the function `get_top_features()`. The function offers two options:
 
-<!-- -   the features' loading for this latent component, i.e. their weight in the linear combination that constitutes the latent component; -->
+-   Returns for each dataset the top N features contributing to the latent dimensions of interest. N is specified through the `n_features` argument;
 
-<!-- - the features' importance score, i.e. their absolute weight divided by the maximum weight for the corresponding dataset and latent component. -->
+-   Returns for each dataset features whose importance score is at least equal to a certain threshold. The threshold is specified through the `min_importance` argument.
 
-<!-- By passing the original MultiDataSet object as input to this function, we can extract the feature metadata associated with the selected features: -->
+The first option is preferred when many features contribute to a given factor. The second option has been implemented for cases where some latent dimensions are driven by a small number of features (so for example in the top 10 contributing features, only 3 features would actually have a high importance score). By default, the function returns the top contributing features from all datasets for all latent dimensions, but we can focus on some datasets and/or latent dimensions of interest by passing their names to the `datasets` and `latent_dimensions` arguments of the function. Additionally, we can pass to the function a MultiDataSet object (through the `mo_data` argument); the function will extract information about the features from the features metadata.
 
-<!-- ```{r get-selected-features-metadata} -->
-<!-- get_selected_features( -->
-<!--   diablo_output, -->
-<!--   mo_data = tar_read(mo_set) -->
-<!-- ) |> -->
-<!--   head() -->
-<!-- ``` -->
+We illustrate the two possible options below. For the second option, we add features information to the table:
 
-<!-- By default, the `get_selected_features()` function returns the selected features for all datasets and latent components, but we can focus on a subset of these by passing datasets or latent components names to the `datasets` and `latent_dimensions` parameters of the function. For example, let us get the selected features from the transcriptomics and metabolomics datasets for the first latent component: -->
+::: {.panel-tabset group="method"}
+#### sPLS
 
-<!-- ```{r get-selected-features-subset} -->
-<!-- get_selected_features( -->
-<!--   diablo_output, -->
-<!--   latent_dimensions = "Component 1", -->
-<!--   datasets = c("rnaseq", "metabolome"), -->
-<!--   mo_data = tar_read(mo_set) -->
-<!-- ) |> -->
-<!--   head() -->
-<!-- ``` -->
+```{r spls-get-top-features}
+get_top_features(spls_output, n_features = 3) |> 
+  head()
 
-<!-- Alternatively, the `get_top_features()` function facilitates the extraction of the top contributing features per dataset and latent component. The function offers two options: -->
+get_top_features(
+  spls_output,
+  min_importance = 0.8,
+  mo_data = tar_read(mo_set)
+) |> 
+  head()
+```
 
-<!-- - select from each dataset the top N features that contribute the most to a latent component; N is set through the `n_features` argument of the function (note that if there are ties in the features importance all ties will be returned). -->
+#### sO2PLS
 
-<!-- - select from each dataset all features that have an importance score equal to or greater than a certain threshold. The threshold is set through the `min_importance` argument of the function. -->
+```{r so2pls-get-top-features}
+get_top_features(so2pls_output, n_features = 3) |> 
+  head()
 
-<!-- As for the `get_selected_features()` function, it is possible to focus on specific datasets and/or latent components, and to pass on a MultiDataSet object to extract features metadata. -->
+get_top_features(
+  so2pls_output,
+  min_importance = 0.8,
+  mo_data = tar_read(mo_set)
+) |> 
+  head()
+```
 
-<!-- ```{r get-top-features-n} -->
-<!-- get_top_features(diablo_output, n_features = 3, mo_data = tar_read(mo_set)) |> -->
-<!--   head() -->
-<!-- ``` -->
+#### MOFA
 
+```{r mofa-get-top-features}
+get_top_features(mofa_output, n_features = 3) |> 
+  head()
 
-<!-- ```{r get-top-features-min} -->
-<!-- get_top_features(diablo_output, min_importance = 0.8, mo_data = tar_read(mo_set)) |> -->
-<!--   head() -->
-<!-- ``` -->
+get_top_features(
+  mofa_output,
+  min_importance = 0.8,
+  mo_data = tar_read(mo_set)
+) |> 
+  head()
+```
 
+#### DIABLO
 
-<!-- ### Visualising the top features -->
+```{r diablo-get-top-features}
+get_top_features(diablo_output, n_features = 3) |> 
+  head()
 
-<!-- We can also look at the loading of the features from each dataset that most contribute to each of the latent components with the function `plot_top_features()`. The function takes as input the formatted DIABLO output. By default, feature IDs will be used as labels, but it is possible to make use of the feature metadata in our MultiDataSet object to label the features. In this example, we select columns from the feature metadata of the transcriptomics and metabolomics datasets to get more meaningful labels, but leave the SNPs' label to be their ID. -->
+get_top_features(
+  diablo_output,
+  min_importance = 0.8,
+  mo_data = tar_read(mo_set)
+) |> 
+  head()
+```
+:::
 
-<!-- ```{r plot-top-features} -->
-<!-- #| fig.width = 10, -->
-<!-- #| fig.height = 7 -->
 
-<!-- plot_top_features( -->
-<!--   diablo_output, -->
-<!--   mo_data = tar_read(mo_set), -->
-<!--   label_cols = list( -->
-<!--     "rnaseq" = "Name", -->
-<!--     "metabolome" = "name" -->
-<!--   ) -->
-<!-- ) + -->
-<!--   theme( -->
-<!--     axis.text.y = element_text(size = 8) -->
-<!--   ) -->
-<!-- ``` -->
 
-<!-- By default, the function displays the top 20 features per dataset and component, but that can be changed with the `n_features` dataset. If less than 20 features were selected for a given dataset and component, only the select features will be shown. -->
+### Extracting the selected features {#sec-interpretation-features-selected}
 
+For methods that perform feature selection (i.e. sPLS, sO2PLS and DIABLO), we can extract information about the selected features with the `get_selected_features()` function. As with `get_top_features()`, if a `MultiDataSet` object is passed to the function, it will extract information about the features from the features metadata tables and return them. If applied to the results of a methods that do not perform feature selection, all features will be returned.
 
-<!-- We can investigate further these features by looking at their measurements in the datasets, with the `plot_data_heatmap()` or `plot_data_covariate()` functions (more details in the vignettes on [Inspecting a MultiDataSet object](inspecting-multidataset.html#visualising-data)). We will extract the ID of the top 3 features from each dataset for component 1 with the `get_top_features()` that we saw in [the previous section](diablo-pipeline.html#extracting-the-selected-features): -->
 
-<!-- ```{r get-top-features-list} -->
-<!-- top_features <- get_top_features( -->
-<!--   diablo_output, -->
-<!--   n_features = 3, -->
-<!--   latent_dimensions = "Component 1" -->
-<!-- ) |>  -->
-<!--   pull(feature_id) -->
+::: {.panel-tabset group="method"}
+#### sPLS
 
-<!-- top_features -->
-<!-- ``` -->
+```{r spls-get-selected-features}
+selected_features <- get_selected_features(spls_output) 
 
+dim(selected_features)
+head(selected_features)
+```
 
-<!-- We can visualise these features as a heatmap: -->
+#### sO2PLS
 
-<!-- ```{r plot-data-heatmap-annotations, fig.width = 10} -->
-<!-- plot_data_heatmap( -->
-<!--   tar_read(mo_presel_supervised), -->
-<!--   top_features, -->
-<!--   center = TRUE, -->
-<!--   scale = TRUE, -->
-<!--   only_common_samples = TRUE, -->
-<!--   show_column_names = FALSE, -->
-<!--   samples_info = "status", -->
-<!--   colours_list = list( -->
-<!--     "status" = c("Control" = "gold", "BRD" = "lightblue") -->
-<!--   ), -->
-<!--   label_cols = list( -->
-<!--     "rnaseq" = "Name", -->
-<!--     "metabolome" = "name" -->
-<!--   ) -->
-<!-- ) -->
-<!-- ``` -->
+```{r so2pls-get-selected-features}
+selected_features <- get_selected_features(so2pls_output) 
 
-<!-- or a violin plot against samples bruising group: -->
+dim(selected_features)
+head(selected_features)
+```
 
-<!-- ```{r plot-data-covariate-categorical, fig.height = 5} -->
-<!-- plot_data_covariate( -->
-<!--   tar_read(mo_presel_supervised),  -->
-<!--   "status", -->
-<!--   top_features, -->
-<!--   only_common_samples = TRUE, -->
-<!--   label_cols = list( -->
-<!--     "rnaseq" = "Name", -->
-<!--     "metabolome" = "name" -->
-<!--   ) -->
-<!-- ) -->
-<!-- ``` -->
+#### MOFA
 
+```{r mofa-get-selected-features}
+selected_features <- get_selected_features(mofa_output) 
+
+dim(selected_features)
+head(selected_features)
+```
+
+#### DIABLO
 
-<!-- ### Comparing features importance between latent components -->
+```{r diablo-get-selected-features}
+selected_features <- get_selected_features(diablo_output) 
 
-<!-- We can also compare the importance given to the features between any two latent components with the `plot_features_weight_pair()` function. -->
+dim(selected_features)
+head(selected_features)
+```
+:::
 
-<!-- ```{r} -->
-<!-- plot_features_weight_pair( -->
-<!--   diablo_output, -->
-<!--   c("Component 1", "Component 2"), -->
-<!--   mo_data = tar_read(mo_set), -->
-<!--   label_cols = list( -->
-<!--     "rnaseq" = "Name", -->
-<!--     "metabolome" = "name" -->
-<!--   ) -->
-<!-- ) -->
-<!-- ``` -->
+### Features measurements {#sec-interpretation-features-meas}
+
+Finally, we can investigate further some features of interest using the functions shown in @sec-inspecting-plot-data. For the example, we will extract the top 3 contributing features from each dataset for the first latent dimension generated with the methods:
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{r spls-pull-top-features}
+spls_top_features <- get_top_features(
+  spls_output,
+  n_features = 3,
+  latent_dimensions = "Component 1"
+) |> 
+  pull(feature_id)
+
+spls_top_features
+```
+
+
+#### sO2PLS
+
+```{r so2pls-pull-top-features}
+so2pls_top_features <- get_top_features(
+  so2pls_output,
+  n_features = 3,
+  latent_dimensions = "joint component 1"
+) |> 
+  pull(feature_id)
+
+so2pls_top_features
+```
+
+#### MOFA
+
+```{r mofa-pull-top-features}
+mofa_top_features <- get_top_features(
+  mofa_output,
+  n_features = 3,
+  latent_dimensions = "Factor 1"
+) |> 
+  pull(feature_id)
+
+mofa_top_features
+```
+
+#### DIABLO
+
+```{r diablo-pull-top-features}
+diablo_top_features <- get_top_features(
+  diablo_output,
+  n_features = 3,
+  latent_dimensions = "Component 1"
+) |> 
+  pull(feature_id)
+
+diablo_top_features
+```
+:::
+
+We can use the `plot_data_heatmap()` function to visualise the measurements for the features across the samples as a heatmap. By passing a `MultiDataSet` object to the function, we can add information about the samples and the features around the heatmap, and change the label used for the features.
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{r spls-plot-top-features-heatmap}
+#| fig.width: 10
+#| fig.height: 4
+
+plot_data_heatmap(
+  mo_set_complete,
+  spls_top_features,
+  center = TRUE,
+  scale = TRUE,
+  show_column_names = FALSE,
+  only_common_samples = TRUE,
+  samples_info = c("status", "day_on_feed"),
+  features_info = c("chromosome"),
+  colours_list = list(
+    "status" = c("Control" = "gold", "BRD" = "lightblue"),
+    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3"))
+  ),
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  ),
+  truncate = 20
+)
+```
+
+
+#### sO2PLS
+
+```{r so2pls-plot-top-features-heatmap}
+#| fig.width: 10
+#| fig.height: 4
+
+plot_data_heatmap(
+  mo_set_complete,
+  so2pls_top_features,
+  center = TRUE,
+  scale = TRUE,
+  show_column_names = FALSE,
+  only_common_samples = TRUE,
+  samples_info = c("status", "day_on_feed"),
+  features_info = c("chromosome"),
+  colours_list = list(
+    "status" = c("Control" = "gold", "BRD" = "lightblue"),
+    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3"))
+  ),
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  ),
+  truncate = 20
+)
+```
+
+#### MOFA
+
+```{r mofa-plot-top-features-heatmap}
+#| fig.width: 10
+#| fig.height: 6
+
+plot_data_heatmap(
+  mo_set_complete,
+  mofa_top_features,
+  center = TRUE,
+  scale = TRUE,
+  show_column_names = FALSE,
+  only_common_samples = TRUE,
+  samples_info = c("status", "day_on_feed"),
+  features_info = c("chromosome"),
+  colours_list = list(
+    "status" = c("Control" = "gold", "BRD" = "lightblue"),
+    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3"))
+  ),
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  ),
+  truncate = 20
+)
+```
+
+#### DIABLO
+
+```{r diablo-plot-top-features-heatmap}
+#| fig.width: 10
+#| fig.height: 6
+
+plot_data_heatmap(
+  mo_set_complete,
+  diablo_top_features,
+  center = TRUE,
+  scale = TRUE,
+  show_column_names = FALSE,
+  only_common_samples = TRUE,
+  samples_info = c("status", "day_on_feed"),
+  features_info = c("chromosome"),
+  colours_list = list(
+    "status" = c("Control" = "gold", "BRD" = "lightblue"),
+    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3"))
+  ),
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  ),
+  truncate = 20
+)
+```
+:::
+
+Alternatively, we can display the features’ measurements against some samples covariate, with the `plot_data_covariate()` function:
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{r spls-plot-top-features-covariate}
+plot_data_covariate(
+  mo_set_complete,
+  "status",
+  spls_top_features,
+  only_common_samples = TRUE,
+  label_cols = list(
+    "rnaseq" = "Name", 
+    "metabolome" = "name"
+  )
+)
+```
+
+#### sO2PLS
+
+```{r so2pls-plot-top-features-covariate}
+plot_data_covariate(
+  mo_set_complete,
+  "status",
+  so2pls_top_features,
+  only_common_samples = TRUE,
+  label_cols = list(
+    "rnaseq" = "Name", 
+    "metabolome" = "name"
+  )
+)
+```
+
+#### MOFA
+
+```{r mofa-plot-top-features-covariate}
+plot_data_covariate(
+  mo_set_complete,
+  "status",
+  mofa_top_features,
+  only_common_samples = TRUE,
+  label_cols = list(
+    "rnaseq" = "Name", 
+    "metabolome" = "name"
+  )
+)
+```
+
+#### DIABLO
+
+```{r diablo-plot-top-features-covariate}
+plot_data_covariate(
+  mo_set_complete,
+  "status",
+  diablo_top_features,
+  only_common_samples = TRUE,
+  label_cols = list(
+    "rnaseq" = "Name", 
+    "metabolome" = "name"
+  )
+)
+```
+:::
 
-<!-- In this case, the plot is not extremely interesting, but allows us to quickly confirm that different features were selected for the two latent components. The top 5 features according to their consensus importance (see section about [methods comparison](methods-comparison.html#feature-consensus-importance)) are highlighted in red. -->
-
-<!-- By default, the function plots the signed importance score of the features, i.e. their importance score to which the sign of their weight was added. This can be changed through the `features_metric` argument of the function. -->

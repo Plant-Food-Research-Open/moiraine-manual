@@ -185,7 +185,7 @@ The function returns an invisible character vector containing the messages print
 
 In @sec-preprocessing, we will see how to impute missing values.
 
-## Visualising the datasets
+## Visualising the datasets {#sec-inspecting-plot-data}
 
 Once the omics datasets are stored in a `MultiDataSet` object, we can easily visualise the measurements for a set of features of interest. As an example, we will randomly select three features from each of the omics datasets:
 
@@ -304,7 +304,7 @@ plot_data_covariate(
   "status",
   random_features,
   only_common_samples = TRUE,
-  colour_by = "feedlot",
+  colour_by = "gender",
   shape_by = "feedlot"
 )
 

@@ -503,9 +503,9 @@ Note
 <section id="variance-explained" class="level3" data-number="10.5.1"><h3 data-number="10.5.1" class="anchored" data-anchor-id="variance-explained">
 <span class="header-section-number">10.5.1</span> Variance explained</h3>
 <p>When training the model, MOFA2 constructs latent factors, which are sparse combination of the features, and which represent main axes of variation shared across all or a subsets of the datasets. One of the first steps to take when analysing the trained model is to assess the amount of variance in the datasets explained by each factor; similarly to what we would do when running a PCA.</p>
-<p>The function <code><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained()</a></code> from <code>MOFA2</code> displays the percentage of variance in each dataset explained by each factor as a heatmap. The <code>x</code> and <code>y</code> arguments (and also <code>split_by</code> argument when using the multi-group framework) control whether the factors or the datasets should be represented as the rows or columns in the heatmap:</p>
+<p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained()</a></code> from <code>MOFA2</code> displays the percentage of variance in each dataset explained by each factor as a heatmap. The <code>x</code> and <code>y</code> arguments (and also <code>split_by</code> argument when using the multi-group framework) control whether the factors or the datasets should be represented as the rows or columns in the heatmap:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
 <span>  <span class="va">mofa_trained</span>,</span>
 <span>  x <span class="op">=</span> <span class="st">"view"</span>,  <span class="co">## datasets on the x-axis</span></span>
 <span>  y <span class="op">=</span> <span class="st">"factor"</span> <span class="co">## factors on the y-axis</span></span>
@@ -515,9 +515,9 @@ Note
 </div>
 </div>
 <p>Here, we see that factor 1 explains a lot (almost 50%) of variation in the transcriptomics dataset, a little (around 10%) in the metabolomics dataset and almost none in the genomics dataset. Factor 2 explains around 20% of variation in the genomics dataset, and none in the other datasets. Factors 3 and 4 seem specificto the transcriptomics datasets, and factors 5 to 15 explain very little variation; seeing this, we could re-train the MOFA model by setting the number of factors to 4 or 5.</p>
-<p>In addition, the <code><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained()</a></code> function can create a second plot displaying the total percentage of variance explained by all the factors for each dataset, if the argument <code>plot_total</code> is set to <code>TRUE</code> :</p>
+<p>In addition, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained()</a></code> function can create a second plot displaying the total percentage of variance explained by all the factors for each dataset, if the argument <code>plot_total</code> is set to <code>TRUE</code> :</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
 <span>  <span class="va">mofa_trained</span>,</span>
 <span>  x <span class="op">=</span> <span class="st">"view"</span>,</span>
 <span>  y <span class="op">=</span> <span class="st">"factor"</span>,</span>
@@ -638,7 +638,7 @@ Targets list for MOFA analysis
 <span>  <span class="co">## Plots of variance explained</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_var_explained_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_trained</span>,</span>
 <span>      x <span class="op">=</span> <span class="st">"view"</span>,  <span class="co">## datasets on the x-axis</span></span>
 <span>      y <span class="op">=</span> <span class="st">"factor"</span> <span class="co">## factors on the y-axis</span></span>
@@ -646,7 +646,7 @@ Targets list for MOFA analysis
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_total_var_explained_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/MOFA2/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_trained</span>,</span>
 <span>      x <span class="op">=</span> <span class="st">"view"</span>,</span>
 <span>      y <span class="op">=</span> <span class="st">"factor"</span>,</span>
