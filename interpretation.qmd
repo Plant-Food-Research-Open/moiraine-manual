@@ -1168,3 +1168,278 @@ plot_data_covariate(
 ```
 :::
 
+## Recap -- targets list
+
+For convenience, here is the list of targets that we created in this section:
+
+<details>
+
+<summary>Targets list for results interpretation</summary>
+
+In the targets script, before the targets list, we will add the following code to create the colour palettes used in some of the plots:
+
+```{targets targets-preamble}
+## In the preamble of the _targets.R script
+
+## Choosing colour palettes for the samples covariates
+palette_status <- scale_colour_brewer(palette = "Set1")
+palette_feedlot <- scale_colour_brewer(palette = "Set2")
+palette_geno_comp <- scale_colour_brewer(palette = "Dark2")
+palette_rnaseq_batch <- scale_colour_brewer(palette = "Paired")
+```
+
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{targets spls-recap-targets-list}
+list(
+  ## Generating standardised output
+  tar_target(
+    spls_output,
+    get_output(spls_final_run)
+  ),
+  
+  ## Percentage of variance explained
+  tar_target(
+    spls_plot_variance_explained,
+    plot_variance_explained(spls_output)
+  ),
+  
+  ## Samples score matrix plot
+  tar_target(
+    spls_samples_scores_plot,
+    plot_samples_score(
+      spls_output,
+      mo_data = mo_set_complete,
+      colour_upper = "status",
+      scale_colour_upper = palette_status,
+      shape_upper = "gender",
+      colour_lower = "feedlot",
+      scale_colour_lower = palette_feedlot
+    ) +
+      theme(legend.box = "vertical")
+  ),
+  
+  ## Distribution of features weight
+  tar_target(
+    spls_features_weight_distribution,
+    plot_features_weight_distr(spls_output)
+  ),
+  
+  ## Plot of top contributing features
+  tar_target(
+    spls_top_features_plot,
+    plot_top_features(
+      spls_output,
+      mo_data = mo_set_complete,
+      label_cols = list(
+        "rnaseq" = "Name",
+        "metabolome" = "name"
+      )
+    )
+  ),
+  
+  ## Table of selected features
+  tar_target(
+    spls_selected_features,
+    get_selected_features(spls_output)
+  )
+)
+```
+
+#### sO2PLS
+
+```{targets so2pls-recap-targets-list}
+list(
+  ## Generating standardised output
+  tar_target(
+    so2pls_output,
+    get_output(so2pls_final_run)
+  ),
+  
+  ## Percentage of variance explained
+  tar_target(
+    so2pls_plot_variance_explained,
+    plot_variance_explained(so2pls_output, ncol = 1) +
+      theme(axis.text.x = element_text(size = 9, angle = 30, hjust = 1))
+  ),
+  
+  ## Samples score matrix plot
+  tar_target(
+    so2pls_samples_scores_plot,
+    plot_samples_score(
+      so2pls_output,
+      latent_dimensions = "joint component 1",
+      mo_data = mo_set_complete,
+      colour_upper = "status",
+      scale_colour_upper = palette_status,
+      shape_upper = "gender"
+    )
+  ),
+  
+  ## Distribution of features weight
+  tar_target(
+    so2pls_features_weight_distribution,
+    plot_features_weight_distr(so2pls_output) +
+      plot_layout(ncol = 2)
+  ),
+  
+  ## Plot of top contributing features
+  tar_target(
+    so2pls_top_features_plot,
+    plot_top_features(
+      so2pls_output,
+      mo_data = mo_set_complete,
+      label_cols = list(
+        "rnaseq" = "Name",
+        "metabolome" = "name"
+      )
+    )
+  ),
+  
+  ## Table of selected features
+  tar_target(
+    so2pls_selected_features,
+    get_selected_features(
+      so2pls_output,
+      latent_dimensions = "joint component 1"
+    )
+  )
+)
+```
+
+#### MOFA
+
+```{targets mofa-recap-targets-list}
+list(
+  ## Generating standardised output
+  tar_target(
+    mofa_output,
+    get_output(mofa_trained)
+  ),
+  
+  ## Percentage of variance explained
+  tar_target(
+    mofa_plot_variance_explained,
+    plot_variance_explained(mofa_output, ncol = 1) +
+      theme(axis.text.x = element_text(size = 9, angle = 30, hjust = 1))
+  ),
+  
+  ## Samples score matrix plot
+  tar_target(
+    mofa_samples_scores_plot,
+    plot_samples_score(
+      mofa_output,
+      latent_dimensions = paste("Factor", 1:4),
+      mo_data = mo_set_complete,
+      colour_upper = "status",
+      scale_colour_upper = palette_status,
+      shape_upper = "gender",
+      colour_lower = "geno_comp_cluster",
+      scale_colour_lower = palette_geno_comp
+    ) +
+      theme(legend.box = "vertical")
+  ),
+  
+  ## Distribution of features weight
+  tar_target(
+    mofa_features_weight_distribution,
+    plot_features_weight_distr(
+      mofa_output,
+      latent_dimensions = paste("Factor", 1:4)
+    ) +
+      plot_layout(ncol = 1)
+  ),
+  
+  ## Plot of top contributing features
+  tar_target(
+    mofa_top_features_plot,
+    plot_top_features(
+      mofa_output,
+      mo_data = mo_set_complete,
+      label_cols = list(
+        "rnaseq" = "Name",
+        "metabolome" = "name"
+      ),
+      latent_dimensions = paste("Factor", 1:2)
+    )
+  ),
+  
+  ## Table of top contributing features
+  tar_target(
+    mofa_top_features,
+    get_top_features(
+      mofa_output,
+      min_importance = 0.8,
+      mo_data = mo_set_complete
+    )
+  )
+)
+```
+
+#### DIABLO
+
+```{targets diablo-recap-targets-list}
+list(
+  ## Generating standardised output
+  tar_target(
+    diablo_output,
+    get_output(diablo_final_run)
+  ),
+  
+  ## Percentage of variance explained
+  tar_target(
+    diablo_plot_variance_explained,
+    plot_variance_explained(diablo_output, ncol = 2)
+  ),
+  
+  ## Samples score matrix plot
+  tar_target(
+    diablo_samples_scores_plot,
+    plot_samples_score(
+      diablo_output,
+      mo_data = mo_set_complete,
+      colour_upper = "status",
+      scale_colour_upper = palette_status,
+      shape_upper = "gender",
+      colour_lower = "rnaseq_batch",
+      scale_colour_lower = palette_rnaseq_batch
+    ) +
+      theme(legend.box = "vertical")
+  ),
+  
+  ## Distribution of features weight
+  tar_target(
+    diablo_features_weight_distribution,
+    plot_features_weight_distr(
+      diablo_output
+    ) +
+      plot_layout(ncol = 1)
+  ),
+  
+  ## Plot of top contributing features
+  tar_target(
+    diablo_top_features_plot,
+    plot_top_features(
+      diablo_output,
+      mo_data = mo_set_complete,
+      label_cols = list(
+        "rnaseq" = "Name",
+        "metabolome" = "name"
+      ),
+      latent_dimensions = paste("Component", 1:2)
+    )
+  ),
+  
+  ## Table of top contributing features
+  tar_target(
+    diablo_selected_features,
+    get_selected_features(diablo_output) 
+  )
+)
+```
+
+:::
+
+</details>

@@ -89,7 +89,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./evaluation.html" rel="next">
 <link href="./diablo.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -245,6 +245,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./interpretation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item">
@@ -286,6 +291,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#sec-interpretation-features-meas" id="toc-sec-interpretation-features-meas" class="nav-link" data-scroll-target="#sec-interpretation-features-meas"><span class="toc-section-number">12.5.6</span>  Features measurements</a></li>
   </ul>
 </li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">12.6</span>  Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -1908,9 +1914,280 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
+</section></section><section id="recap-targets-list" class="level2" data-number="12.6"><h2 data-number="12.6" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">12.6</span> Recap – targets list</h2>
+<p>For convenience, here is the list of targets that we created in this section:</p>
+<details><summary>
+Targets list for results interpretation
+</summary><p>In the targets script, before the targets list, we will add the following code to create the colour palettes used in some of the plots:</p>
+<div class="cell">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## In the preamble of the _targets.R script</span></span>
+<span></span>
+<span><span class="co">## Choosing colour palettes for the samples covariates</span></span>
+<span><span class="va">palette_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span></span>
+<span><span class="va">palette_feedlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set2"</span><span class="op">)</span></span>
+<span><span class="va">palette_geno_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span></span>
+<span><span class="va">palette_rnaseq_batch</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Paired"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="panel-tabset" data-group="method">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-3" role="tab" aria-controls="tabset-17-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-4" role="tab" aria-controls="tabset-17-4" aria-selected="false">DIABLO</a></li>
+</ul>
+<div class="tab-content" data-group="method">
+<div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="co">## Generating standardised output</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_output</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">spls_final_run</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Percentage of variance explained</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_plot_variance_explained</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Samples score matrix plot</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_samples_scores_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
+<span>      <span class="va">spls_output</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
+<span>      colour_upper <span class="op">=</span> <span class="st">"status"</span>,</span>
+<span>      scale_colour_upper <span class="op">=</span> <span class="va">palette_status</span>,</span>
+<span>      shape_upper <span class="op">=</span> <span class="st">"gender"</span>,</span>
+<span>      colour_lower <span class="op">=</span> <span class="st">"feedlot"</span>,</span>
+<span>      scale_colour_lower <span class="op">=</span> <span class="va">palette_feedlot</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.box <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Distribution of features weight</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_features_weight_distribution</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Plot of top contributing features</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_top_features_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
+<span>      <span class="va">spls_output</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
+<span>      label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>        <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>        <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Table of selected features</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">spls_selected_features</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-17-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="co">## Generating standardised output</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_output</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Percentage of variance explained</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_plot_variance_explained</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">so2pls_output</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">9</span>, angle <span class="op">=</span> <span class="fl">30</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Samples score matrix plot</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_samples_scores_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
+<span>      <span class="va">so2pls_output</span>,</span>
+<span>      latent_dimensions <span class="op">=</span> <span class="st">"joint component 1"</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
+<span>      colour_upper <span class="op">=</span> <span class="st">"status"</span>,</span>
+<span>      scale_colour_upper <span class="op">=</span> <span class="va">palette_status</span>,</span>
+<span>      shape_upper <span class="op">=</span> <span class="st">"gender"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Distribution of features weight</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_features_weight_distribution</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Plot of top contributing features</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_top_features_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
+<span>      <span class="va">so2pls_output</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
+<span>      label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>        <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>        <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Table of selected features</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">so2pls_selected_features</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span></span>
+<span>      <span class="va">so2pls_output</span>,</span>
+<span>      latent_dimensions <span class="op">=</span> <span class="st">"joint component 1"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-17-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-3-tab">
+<div class="cell">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="co">## Generating standardised output</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_output</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Percentage of variance explained</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_plot_variance_explained</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">mofa_output</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">9</span>, angle <span class="op">=</span> <span class="fl">30</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Samples score matrix plot</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_samples_scores_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
+<span>      <span class="va">mofa_output</span>,</span>
+<span>      latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
+<span>      colour_upper <span class="op">=</span> <span class="st">"status"</span>,</span>
+<span>      scale_colour_upper <span class="op">=</span> <span class="va">palette_status</span>,</span>
+<span>      shape_upper <span class="op">=</span> <span class="st">"gender"</span>,</span>
+<span>      colour_lower <span class="op">=</span> <span class="st">"geno_comp_cluster"</span>,</span>
+<span>      scale_colour_lower <span class="op">=</span> <span class="va">palette_geno_comp</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.box <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Distribution of features weight</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_features_weight_distribution</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span></span>
+<span>      <span class="va">mofa_output</span>,</span>
+<span>      latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Plot of top contributing features</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_top_features_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
+<span>      <span class="va">mofa_output</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
+<span>      label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>        <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>        <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Table of top contributing features</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">mofa_top_features</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
+<span>      <span class="va">mofa_output</span>,</span>
+<span>      min_importance <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-17-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-4-tab">
+<div class="cell">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="co">## Generating standardised output</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">diablo_output</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">diablo_final_run</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Percentage of variance explained</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">diablo_plot_variance_explained</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">diablo_output</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Samples score matrix plot</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">diablo_samples_scores_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
+<span>      <span class="va">diablo_output</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
+<span>      colour_upper <span class="op">=</span> <span class="st">"status"</span>,</span>
+<span>      scale_colour_upper <span class="op">=</span> <span class="va">palette_status</span>,</span>
+<span>      shape_upper <span class="op">=</span> <span class="st">"gender"</span>,</span>
+<span>      colour_lower <span class="op">=</span> <span class="st">"rnaseq_batch"</span>,</span>
+<span>      scale_colour_lower <span class="op">=</span> <span class="va">palette_rnaseq_batch</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.box <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Distribution of features weight</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">diablo_features_weight_distribution</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span></span>
+<span>      <span class="va">diablo_output</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Plot of top contributing features</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">diablo_top_features_plot</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
+<span>      <span class="va">diablo_output</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
+<span>      label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>        <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>        <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co">## Table of top contributing features</span></span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>    <span class="va">diablo_selected_features</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</details>
 
-
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2048,8 +2325,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./evaluation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
