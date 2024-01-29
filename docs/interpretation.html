@@ -320,12 +320,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">## For manipulating patchworks of plots</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>In the previous chapters, we have applied different integration tools to our example multi-omics dataset. In each of these chapters, we have shown some method-specific visualisations that could be used to interpret the integration results. With the <code>moiraine</code> package, it is possible to use method-agnostic functions to inspect and interpret these results. These functionalities make use of the metadata in the <code>MultiDataSet</code> object to enrich plots and other summary outputs with information about the samples and the omics features, and allow users to obtain consistent visualisations across the integration methods used.</p>
 <details><summary><code>_targets.R</code> script
 </summary><div class="cell">
 <div class="cell">
 
 </div>
 </div>
+</details><section id="dimension-reduction-methods" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="dimension-reduction-methods">
+<span class="header-section-number">12.1</span> Dimension reduction methods</h2>
+<p>Despite relying on very different statistical approaches, the different integration methods included in the pipeline all perform dimension reduction of the omics datasets through feature extraction. That is, they construct a small number of latent components/variables/dimensions (that we refer to as <strong>latent dimensions</strong> in the <code>moiraine</code> package) that capture as much information from the original datasets as possible. A dimension reduction approach typically returns, for each latent dimension constructed, two sets of values:</p>
+<ul>
+<li><p><strong>Features weight</strong>: the contribution of the features from the different omics datasets to the latent dimension. All methods included in the pipeline construct latent dimensions as linear combinations of the original features, and therefore the features contribution is quantified by their weight in the linear combination for the corresponding latent dimension.</p></li>
+<li><p><strong>Samples score</strong>: the projection of the samples onto the latent dimension.</p></li>
+</ul>
+<p>In addition, the fraction or percentage of variance that each latent dimension explains in the different omics datasets is usually calculated.</p>
+<p>Interpreting the results of a dimension reduction method involves:</p>
+<ul>
+<li><p>Understanding the source of the variation captured by each latent dimension: is a given latent dimension representing an important source of biological variation, such as effect of a treatment, or age of the samples? Or do they show a source of technical variation, for example highlighting a group of outlier samples with different omics profiles from the rest of the observations? Answering these questions allows us to identify which latent dimensions capture the biological phenomenon investigated, or whether there are some sources of noise that should be accounted for in follow-up experiments.</p></li>
+<li><p>Investigating which omics features are driving the latent dimensions: once we have identified some latent dimensions of interest, we can look at the features that contribute the most to these dimensions, in order to understand the molecular mechanisms or pathways involved. This is typically done after looking into the phenomenon captured by the latent dimensions, but can also help to identify it.</p></li>
+</ul></section><section id="generating-a-standardised-output" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="generating-a-standardised-output">
+<span class="header-section-number">12.2</span> Generating a standardised output</h2>
+<section id="get_output-function" class="level3" data-number="12.2.1"><h3 data-number="12.2.1" class="anchored" data-anchor-id="get_output-function">
+<span class="header-section-number">12.2.1</span> <code>get_output</code> function</h3>
+<p>In the <code>moiraine</code> package, the output of the different integration methods can be converted to a standardised output containing the pieces of information (features weight, samples score and percentage of variance explained) characteristic of dimension reduction methods, stored in a consistent format. This enables us to use functions for visualisation or analysis that can be applied to the results of any integration method, rather than having to implement one for each object type returned by the different integration packages.</p>
+<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function transforms the output from any integration package included in <code>moiraine</code> into an <code>output_dimension_reduction</code> object, which is a list with three tibbles: <code>features_weight</code>, <code>samples_score</code> and <code>variance_explained</code>:</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">sPLS</a></li>
@@ -335,46 +354,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="tab-content" data-group="method">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Tab content</p>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Tab content</p>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p>Tab content</p>
-</div>
-<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<p>Tab content</p>
-</div>
-</div>
-</div>
-</details><section id="dimension-reduction-methods" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="dimension-reduction-methods">
-<span class="header-section-number">12.1</span> Dimension reduction methods</h2>
-<p>Despite relying on very different statistical approaches, the different integration methods included in the pipeline all perform dimension reduction of the omics datasets through feature extraction. That is, they construct a small number of latent components/variables/dimensions (that we refer to as <strong>latent dimensions</strong> in the <code>moiraine</code> package) that capture as much information from the original datasets as possible. A dimension reduction approach typically returns, for each latent dimension constructed, two sets of values:</p>
-<ul>
-<li><p><strong>Features weight</strong>: the contribution of the features from the different omics dataset to the latent dimension. All methods included in the pipeline construct latent dimensions as linear combinations of the original features, and therefore the features contribution is quantified by their weight in the linear combination.</p></li>
-<li><p><strong>Samples score</strong>: the projection of the samples onto the latent dimension.</p></li>
-</ul>
-<p>In addition, the fraction or percentage of variance that each latent dimension explains in the different omics datasets is usually calculated.</p>
-<p>Interpreting the results of a dimension reduction method involves:</p>
-<ul>
-<li><p>Understanding the source of the variation captured by each latent dimension: is a given latent dimension representing an important source of biological variation, such as effect of a treatment, or age of the samples? Or do they show a source of technical variation, for example highlighting a group of outlier samples with different omics profiles from the rest of the observations? Answering these questions allows us to identify which latent dimensions capture the biological phenomenon investigated, or whether there are some sources of noise that should be accounted for in follow-up experiments.</p></li>
-<li><p>Investigating which omics features are driving the latent dimensions: once we have identified some latent dimensions of interest, we can look at the features that contribute the most to understand the molecular mechanisms or pathways involved. This is typically done after looking into the phenomenon captured by the latent dimensions, but can also help to identify it.</p></li>
-</ul></section><section id="generating-a-standardised-output" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="generating-a-standardised-output">
-<span class="header-section-number">12.2</span> Generating a standardised output</h2>
-<section id="get_output-function" class="level3" data-number="12.2.1"><h3 data-number="12.2.1" class="anchored" data-anchor-id="get_output-function">
-<span class="header-section-number">12.2.1</span> <code>get_output</code> function</h3>
-<p>In the <code>moiraine</code> package, the output of the different integration methods can be converted to a standardised output containing these three pieces of information (features weight, samples score and percentage of variance explained) stored in a consistent format. This enables us to construct functions for visualisation or analysis which can be applied to the results of any integration method, rather than having to implement one for each object type returned by the different integration packages.</p>
-<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function transforms the output from any integration package included in <code>moiraine</code> into an <code>output_dimension_reduction</code> object, which is a list with three tibbles: <code>features_weight</code>, <code>samples_score</code> and <code>variance_explained</code>:</p>
-<div class="panel-tabset" data-group="method">
-<ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">DIABLO</a></li>
-</ul>
-<div class="tab-content" data-group="method">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_output</span>,</span>
@@ -431,7 +410,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; [1] "sPLS"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_output</span>,</span>
@@ -495,7 +474,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; [1] "sO2PLS"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">mofa_output</span>,</span>
@@ -559,7 +538,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; [1] "MOFA"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output</span>,</span>
@@ -626,25 +605,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>The <code>features_weight</code> tibble contains one row per combination of feature and latent dimension. The ID of the features and the name of the dataset from which they originate are stored in the <code>feature_id</code> and <code>dataset</code> columns, respectively. The <code>latent_dimension</code> column gives the name of the latent dimension; this is a factor column. For each feature and latent dimension, the <code>weight</code> column shows the weight that was attributed to the feature for the corresponding latent dimension. In addition, the <code>importance</code> column contains the features importance score, which is computed as the absolute value of the features weight, divided by the maximum absolute weight across all features from the same omics dataset for the corresponding latent dimension. This importance score allows us to compare the contribution of the features across latent dimensions or integration methods, as the weight can be on different scales and thus cannot be directly compared. The importance scores range from 0 to 1. For any method performing feature selection (e.g.&nbsp;sPLS or DIABLO), features that were not selected for a given latent dimension are assigned a weight and importance score of 0.</p>
+<p>The <code>features_weight</code> tibble contains one row per combination of feature and latent dimension. The ID of the features and the name of the dataset from which they originate are stored in the <code>feature_id</code> and <code>dataset</code> columns, respectively. The <code>latent_dimension</code> column gives the name of the latent dimension; this is a factor column. For each feature and latent dimension, the <code>weight</code> column shows the weight that was attributed to the feature for the corresponding latent dimension. In addition, the <code>importance</code> column contains the features <strong>importance score</strong>, which is computed as the absolute value of the features weight, divided by the maximum absolute weight across all features from the same omics dataset for the corresponding latent dimension. This importance score allows us to compare the contribution of the features across latent dimensions or integration methods, as the weight can be on different scales and thus cannot be directly compared. The importance scores range from 0 to 1. For any method performing feature selection (e.g.&nbsp;sPLS or DIABLO), features that were not selected for a given latent dimension are assigned a weight and importance score of 0.</p>
 <p>The <code>samples score</code> tibble contains for each sample (<code>sample_id</code>) and latent dimension (<code>latent_dimension</code>) the sample’s coordinate for the corresponding latent dimension.</p>
 <p>The <code>variance_explained</code> tibble gives for each latent dimension (<code>latent_dimension</code>) the proportion of variance explained (<code>prop_var_expl</code>) for each dataset (<code>dataset</code>). The values in <code>prop_var_expl</code> are between 0 and 1.</p>
 <p>For convenience, the <code><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions()</a></code> function can be used on an <code>output_dimension_reduction</code> object to see the names of the latent dimensions (the levels used for the <code>latent_dimension</code> column in each tibble):</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Component 1" "Component 2"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "joint component 1"               "rnaseq specific component 1"    </span></span>
@@ -654,7 +633,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;  [9] "metabolome specific component 1" "metabolome specific component 2"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">mofa_output</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "Factor 1"  "Factor 2"  "Factor 3"  "Factor 4"  "Factor 5"  "Factor 6" </span></span>
@@ -662,7 +641,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; [13] "Factor 13" "Factor 14" "Factor 15"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Component 1" "Component 2" "Component 3" "Component 4"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -680,22 +659,22 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note that both PCA and sPLS-DA (the method used for supervised features preselection in <a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;7.3.2</span></a>) are also both dimension reduction methods. Therefore, the <code>get_output</code> function also converts <code>pcaRes</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca.html">run_pca()</a></code> or <code><a href="https://rdrr.io/pkg/pcaMethods/man/pca.html">pcaMethods::pca()</a></code>) and <code>mixo_splsda</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_splsda.html">run_splsda()</a></code> or <code><a href="https://rdrr.io/pkg/mixOmics/man/splsda.html">mixOmics::splsda()</a></code>).</p>
+<p>Note that both PCA and sPLS-DA (the method used for supervised features preselection in <a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;7.3.2</span></a>) are also dimension reduction methods. Therefore, the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function also converts <code>pcaRes</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca.html">run_pca()</a></code> or <code><a href="https://rdrr.io/pkg/pcaMethods/man/pca.html">pcaMethods::pca()</a></code>) and <code>mixo_splsda</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_splsda.html">run_splsda()</a></code> or <code><a href="https://rdrr.io/pkg/mixOmics/man/splsda.html">mixOmics::splsda()</a></code>) into <code>output_dimension_reduction</code> objects.</p>
 </div>
 </div>
 </section><section id="averaging-latent-dimensions-over-datasets" class="level3" data-number="12.2.2"><h3 data-number="12.2.2" class="anchored" data-anchor-id="averaging-latent-dimensions-over-datasets">
 <span class="header-section-number">12.2.2</span> Averaging latent dimensions over datasets</h3>
-<p>While MOFA computes one score per sample for each latent dimension created, sPLS, DIABLO and sO2PLS all compute one score per dataset for each sample and latent dimension. For each latent dimension, the samples score obtained for the different datasets are then compared, to assess the agreement or covariation between datasets. Ideally, these scores should be highly correlated across datasets, since the methods aim at maximising the variation between datasets, but it is not always the case. However, when they are highly correlated, it becomes redundant to interpret each dataset-specific version of the latent dimensions.</p>
+<p>While MOFA computes one score per sample for each latent dimension created, sPLS, sO2PLS and DIABLO all compute one score per dataset for each sample and latent dimension. For each latent dimension, the samples score obtained for the different datasets are then compared, to assess the agreement or covariation between datasets. Ideally, these scores should be highly correlated across datasets, since the methods aim at maximising the variation between datasets, but it is not always the case. However, when they are highly correlated, it becomes redundant to interpret each dataset-specific version of the latent dimensions.</p>
 <p>Instead, the <code>mixOmics</code> authors proposed a solution for <code>DIABLO</code>, which is to construct a weighted average space in which to represent the samples: for each latent component, the samples score are averaged over the different datasets. The weight attributed to each dataset is determined by how well the corresponding dataset discriminates between the samples group of interest. This way, rather than looking at samples score for each dataset for any given latent component, we can look at an average of them.</p>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function uses this idea to construct, for the output of sPLS, sO2PLS and DIABLO a set of average samples score for each latent dimension, rather than returning a set of samples score per dataset. For DIABLO, the average is weighted as explained above, while for sPLS and sO2PLS each dataset is given equal weight in the average. This calculation can be disabled in the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function to extract the dataset-specific samples score, by setting the <code>use_average_dimensions</code> parameter to <code>FALSE</code>. Note that this only affects the <code>samples_score</code> tibble in terms of dimensions, but the name of the latent dimensions will change to reflect the dataset to which they refer.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_output_no_average</span>,</span>
@@ -715,7 +694,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; [1] 556</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_output_no_average</span>,</span>
@@ -739,7 +718,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; [1] 1529</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output_no_average</span>,</span>
@@ -768,13 +747,13 @@ Other methods covered by <code>get_output</code>
 <p>The first step in interpreting the results of a dimension reduction method is to assess how much variance is explained by the different latent dimensions for each dataset. The function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained()</a></code> takes as input a <code>output_dimension_reduction</code> object and constructs a dataset-specific screeplot:</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-4" role="tab" aria-controls="tabset-5-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-4" role="tab" aria-controls="tabset-4-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -782,7 +761,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">so2pls_output</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">9</span>, angle <span class="op">=</span> <span class="fl">30</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -791,7 +770,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">mofa_output</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">9</span>, angle <span class="op">=</span> <span class="fl">30</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -800,7 +779,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-5-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-4-tab">
+<div id="tabset-4-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">diablo_output</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -812,10 +791,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </section><section id="sec-interpretation-samples-scores" class="level2" data-number="12.4"><h2 data-number="12.4" class="anchored" data-anchor-id="sec-interpretation-samples-scores">
 <span class="header-section-number">12.4</span> Samples plot</h2>
-<p>To understand the phenomenon driving the variation represented by the different latent components, we can investigate the coordinates of the samples in the space spanned by these latent components, in conjunction with information that we have about the samples.</p>
-<section id="sec-interpretation-samples-ggpairs" class="level3" data-number="12.4.1"><h3 data-number="12.4.1" class="anchored" data-anchor-id="sec-interpretation-samples-ggpairs">
-<span class="header-section-number">12.4.1</span> Matrix of scatter plots</h3>
-<p>The <code>plot_samples_score</code> function shows the samples plots in a matrix of scatter plots to show all possible two-by-two combinations of the latent dimensions. The plots in the resulting matrix are redundant: the lower plots (below the diagonal) are just a rotated version of the upper plots (above the diagonal). The function takes as input a <code>output_dimension_reduction</code> object. In addition, it accepts a <code>MultiDataSet</code> object to extract information about the samples that can then be used to customise the plot. Since the plots are redundant, different properties of the samples can be shown in the upper and lower plots. For example, we will colour the samples according to disease status in the upper plot, while representing some other covariate in the lower plot. We will use the shape of the points to illustrate gender in both upper and lower plot. By default, all latent dimensions are included in the plots, but it is possible to select some of them by passing their names to the <code>latent_dimensions</code> argument.</p>
+<p>To understand the phenomenon driving the variation represented by the different latent components, we can investigate the coordinates of the samples in the space spanned by these latent components, in combination with information that we have about the samples.</p>
+<p>We will start by loading the <code>MultiDataSet</code> object and generating some custom colour palettes for different samples covariates of interest, that we will use in the rest of the section.</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
 <span></span>
@@ -831,15 +808,18 @@ Other methods covered by <code>get_output</code>
 <span>  aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"colour"</span>, <span class="st">"fill"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="sec-interpretation-samples-ggpairs" class="level3" data-number="12.4.1"><h3 data-number="12.4.1" class="anchored" data-anchor-id="sec-interpretation-samples-ggpairs">
+<span class="header-section-number">12.4.1</span> Matrix of scatter plots</h3>
+<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score()</a></code> function shows the samples score in a matrix of scatter plots that represent all possible two-by-two combinations of the latent dimensions. The plots in the resulting matrix are redundant: the lower plots (below the diagonal) are just a rotated version of the upper plots (above the diagonal). The function takes as input an <code>output_dimension_reduction</code> object. In addition, it accepts a <code>MultiDataSet</code> object to extract information about the samples that can then be used to customise the plot. Since the plots are redundant, different properties of the samples can be shown in the upper and lower plots. For example, we will colour the samples according to disease status in the upper plots, while representing some other covariate in the lower plots. We will use the shape of the points to illustrate gender in both upper and lower plots. By default, all latent dimensions are included in the plots, but it is possible to select some of them by passing their names to the <code>latent_dimensions</code> argument. There are more options to further customise the plot, which are shown in the function’s help.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-4" role="tab" aria-controls="tabset-6-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-4" role="tab" aria-controls="tabset-5-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_output</span>,</span>
@@ -855,10 +835,10 @@ Other methods covered by <code>get_output</code>
 <p><img src="interpretation_files/figure-html/spls-plot-samples-scores-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>Component 1 clearly splits the control and BRD animals, while component 2 seems to separate two samples from the rest.</p>
+<p>Component 1 clearly splits the control and BRD animals, while component 2 seems to separate two samples from the rest. There is no clear separation of the samples by feedlot or gender.</p>
 </div>
-<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-<p>Here we will focus on the joint components. Since there is only one, the function will instead display the samples score with a violin plot, and the properties selected for the upper plots will be used to customise the points:</p>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<p>Here we will focus on the joint components. Since there is only one, instead of a matrix of scatterplot, the function will display the samples score with a violin plot, and the properties selected for the upper plots will be used to customise the points:</p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_output</span>,</span>
@@ -879,7 +859,7 @@ Other methods covered by <code>get_output</code>
 </div>
 <p>Joint component 1 separates the BRD and control animals, although some of them overlap.</p>
 </div>
-<div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
+<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
 <p>For clarity we will focus here on the first four factors:</p>
 <div class="cell">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
@@ -897,9 +877,9 @@ Other methods covered by <code>get_output</code>
 <p><img src="interpretation_files/figure-html/mofa-plot-samples-scores-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>Factor 1 clearly separates the control and BRD animals. Factor 2 separates samples from the genomics composition cluster K1 from the other two. None of the factors are separating the animals by gender, indicating that this covariate does not have a strong effect in the omics measurements.</p>
+<p>Factor 1 clearly separates the control and BRD animals. Factor 2 separates samples from the genomics composition cluster K1 from the other two clusters. None of the factors are separating the animals by gender, indicating that this covariate does not have a strong effect in the omics measurements.</p>
 </div>
-<div id="tabset-6-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-4-tab">
+<div id="tabset-5-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output</span>,</span>
@@ -915,22 +895,22 @@ Other methods covered by <code>get_output</code>
 <p><img src="interpretation_files/figure-html/diablo-plot-samples-scores-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>As DIABLO is a supervised method, it is no surprise that the first component clearly separate the two disease status groups. The second latent component separates samples according to the RNAseq batch. From this plot it is not clear what components 3 and 4 represent.</p>
+<p>As DIABLO is a supervised method, it is no surprise that the first component clearly separates the two disease status groups. The second latent component separates samples according to the RNAseq batch. From this plot it is not clear what components 3 and 4 represent.</p>
 </div>
 </div>
 </div>
 </section><section id="sec-interpretation-samples-pair" class="level3" data-number="12.4.2"><h3 data-number="12.4.2" class="anchored" data-anchor-id="sec-interpretation-samples-pair">
 <span class="header-section-number">12.4.2</span> Scatter plot for pair of latent dimensions</h3>
-<p>We can also focus on a specific pair of latent dimensions and represent the samples in the space spanned by these two dimensions, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair()</a></code> function. The two latent dimensions to represent are selected by passing their names to the function. This function also accepts a <code>MultiDataSet</code> object, whose samples metadata will be used to customise the plot.</p>
+<p>We can also focus on a specific pair of latent dimensions and represent the samples in the space spanned by these two dimensions, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair()</a></code> function. The two latent dimensions to plot are selected by passing their names to the function. This function also accepts a <code>MultiDataSet</code> object, whose samples metadata will be used to customise the plot.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-4" role="tab" aria-controls="tabset-7-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-4" role="tab" aria-controls="tabset-6-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_output</span>,</span>
@@ -944,8 +924,9 @@ Other methods covered by <code>get_output</code>
 <p><img src="interpretation_files/figure-html/spls-plot-samples-score-pair-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+<p>The two disease status groups are well separated in this space.</p>
 </div>
-<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <p>To showcase this function, we will look at the first two RNAseq-specific latent components:</p>
 <div class="cell">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
@@ -962,7 +943,7 @@ Other methods covered by <code>get_output</code>
 </div>
 <p>These two specific components are not related to disease status or gender.</p>
 </div>
-<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
+<div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
 <div class="cell">
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">mofa_output</span>,</span>
@@ -978,7 +959,7 @@ Other methods covered by <code>get_output</code>
 </div>
 <p>We see that these first two factors discriminate the disease status groups and the genomics composition clusters.</p>
 </div>
-<div id="tabset-7-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-4-tab">
+<div id="tabset-6-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output</span>,</span>
@@ -998,17 +979,17 @@ Other methods covered by <code>get_output</code>
 </div>
 </section><section id="sec-interpretation-samples-covariate" class="level3" data-number="12.4.3"><h3 data-number="12.4.3" class="anchored" data-anchor-id="sec-interpretation-samples-covariate">
 <span class="header-section-number">12.4.3</span> Samples score vs covariate</h3>
-<p>Lastly, we can try plot the samples score for each latent dimension against a samples covariate of interest, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate()</a></code> function. This is useful to focus on one dimension at a time rather than pairs of them. By default, the function displays all latent dimensions, but we can focus on a subset of them through the <code>latent_dimensions</code> arguments. The function needs a <code>MultiDataSet</code> object to extract information about the samples. The plot generated will depend on whether the covariate of interest is categorical or continuous. We will show both options below. In addition to the main covariate of interest that will be displayed on the x-axis, the colour and shape of the points can be further customised according to other samples properties.</p>
+<p>Lastly, we can plot the samples score for each latent dimension against a samples covariate of interest, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate()</a></code> function. This is useful to focus on one dimension at a time rather than pairs of them. By default, the function displays all latent dimensions, but we can focus on a subset of them through the <code>latent_dimensions</code> arguments. The function needs a <code>MultiDataSet</code> object to extract information about the samples. The plot generated will depend on whether the covariate of interest is categorical or continuous. We will show both options below. In addition to the main covariate of interest that will be displayed on the x-axis, the colour and shape of the points can be further customised according to other samples properties.</p>
 <p>First, with a categorical covariate:</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-4" role="tab" aria-controls="tabset-8-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-4" role="tab" aria-controls="tabset-7-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_output</span>,</span>
@@ -1022,7 +1003,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
 <p>For clarity we will focus on the first joint component only.</p>
 <div class="cell">
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate</a></span><span class="op">(</span></span>
@@ -1038,7 +1019,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-8-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-3-tab">
+<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
 <p>For clarity we will focus on the first two factors only.</p>
 <div class="cell">
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate</a></span><span class="op">(</span></span>
@@ -1055,7 +1036,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-8-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-4-tab">
+<div id="tabset-7-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-4-tab">
 <p>For clarity we will focus on the first two components only.</p>
 <div class="cell">
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate</a></span><span class="op">(</span></span>
@@ -1077,13 +1058,13 @@ Other methods covered by <code>get_output</code>
 <p>Now, with a continuous covariate:</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-3" role="tab" aria-controls="tabset-9-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-4" role="tab" aria-controls="tabset-9-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-4" role="tab" aria-controls="tabset-8-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_output</span>,</span>
@@ -1097,7 +1078,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
 <p>For clarity we will focus on the first joint component only.</p>
 <div class="cell">
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate</a></span><span class="op">(</span></span>
@@ -1113,7 +1094,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-9-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-3-tab">
+<div id="tabset-8-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-3-tab">
 <p>For clarity we will focus on the first two factors only.</p>
 <div class="cell">
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate</a></span><span class="op">(</span></span>
@@ -1132,7 +1113,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-9-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-4-tab">
+<div id="tabset-8-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-4-tab">
 <p>For clarity we will focus on the first two components only.</p>
 <div class="cell">
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate</a></span><span class="op">(</span></span>
@@ -1153,19 +1134,19 @@ Other methods covered by <code>get_output</code>
 </div>
 </section></section><section id="feature-plots" class="level2" data-number="12.5"><h2 data-number="12.5" class="anchored" data-anchor-id="feature-plots">
 <span class="header-section-number">12.5</span> Feature plots</h2>
-<p>Next, we can have a look at the features contributing to each latent dimensions.</p>
+<p>Next, we can have a look at the features contributing to each latent dimension.</p>
 <section id="sec-interpretation-features-distr" class="level3" data-number="12.5.1"><h3 data-number="12.5.1" class="anchored" data-anchor-id="sec-interpretation-features-distr">
 <span class="header-section-number">12.5.1</span> Features weight distribution</h3>
-<p>We can start by looking at the distribution of features weight for each latent dimension across the datasets, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr()</a></code> function. Again, the function takes a <code>output_dimension_reduction</code> object as first input; by default it will show all latent dimensions and datasets, but they can be specified through the <code>latent_dimensions</code> and <code>datasets</code> arguments. The function shows by default the distribution of the “signed” importance scores, i.e.&nbsp;the features weights normalised by the highest absolute weight value for the corresponding latent dimension and dataset, but we can also show the distribution of importance scores (which are absolute values) and non-transformed features weight (through the <code>features_metric</code> argument). Note that the function returns a <a href="https://patchwork.data-imaginist.com/">patchwork</a> of ggplots.</p>
+<p>We can start by looking at the distribution of features weight for each latent dimension across the datasets, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr()</a></code> function. Again, the function takes an <code>output_dimension_reduction</code> object as first input; by default it will show all latent dimensions and datasets, but they can be specified through the <code>latent_dimensions</code> and <code>datasets</code> arguments. The function shows by default the distribution of the “signed” importance scores, i.e.&nbsp;the features weights normalised by the highest absolute weight value for the corresponding latent dimension and dataset, but we can also show the distribution of importance scores (which are absolute values) and non-transformed features weight (through the <code>features_metric</code> argument). Note that the function returns a <a href="https://patchwork.data-imaginist.com/">patchwork</a> of ggplots.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-3" role="tab" aria-controls="tabset-10-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-4" role="tab" aria-controls="tabset-10-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-3" role="tab" aria-controls="tabset-9-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-4" role="tab" aria-controls="tabset-9-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1174,7 +1155,7 @@ Other methods covered by <code>get_output</code>
 </div>
 <p>As sPLS performs feature selection, most of the weights are equal to 0.</p>
 </div>
-<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co">## showing two plots per column (from patchwork package)</span></span>
@@ -1183,16 +1164,16 @@ Other methods covered by <code>get_output</code>
 <p><img src="interpretation_files/figure-html/so2pls-plot-features-weight-distr-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>As sO2PLS performs feature selection, most of the weights are equal to 0.</p>
+<p>As sO2PLS performs feature selection for the joint components, most of the weights are equal to 0 for joint component 1.</p>
 </div>
-<div id="tabset-10-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-3-tab">
+<div id="tabset-9-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-3-tab">
 <p>We will only look at factors 1 to 4 for clarity:</p>
 <div class="cell">
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span></span>
 <span>  <span class="va">mofa_output</span>,</span>
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="co">## showing two plots per column (from patchwork package)</span></span>
+<span>  <span class="co">## showing one plot per column (from patchwork package)</span></span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="interpretation_files/figure-html/mofa-plot-features-weight-distr-1.png" class="img-fluid" width="768"></p>
@@ -1200,12 +1181,12 @@ Other methods covered by <code>get_output</code>
 </div>
 <p>We can see for example for factor 1 that only a couple of metabolites have an importance score above 0.5, this small number of features are driving the variation captured by factor 1.</p>
 </div>
-<div id="tabset-10-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-4-tab">
+<div id="tabset-9-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output</span></span>
 <span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="co">## showing two plots per column (from patchwork package)</span></span>
+<span>  <span class="co">## showing one plot per column (from patchwork package)</span></span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="interpretation_files/figure-html/diablo-plot-features-weight-distr-1.png" class="img-fluid" width="768"></p>
@@ -1220,13 +1201,13 @@ Other methods covered by <code>get_output</code>
 <p>We can also compare the importance score given to the features between any two latent dimensions with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-3" role="tab" aria-controls="tabset-11-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-4" role="tab" aria-controls="tabset-11-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-3" role="tab" aria-controls="tabset-10-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-4" role="tab" aria-controls="tabset-10-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_output</span>,</span>
@@ -1241,8 +1222,9 @@ Other methods covered by <code>get_output</code>
 <p><img src="interpretation_files/figure-html/spls-features-weight-pair-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+<p>All genes and most metabolites selected for the two components are different.</p>
 </div>
-<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_output</span>,</span>
@@ -1257,8 +1239,9 @@ Other methods covered by <code>get_output</code>
 <p><img src="interpretation_files/figure-html/so2pls-features-weight-pair-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+<p>The plot shows an interesting pattern: it seems that for the genes with a negative weight for the first RNAseq-specific component, their importance score for this component is highly correlated with their importance score for the second RNAseq-specific component, except that for the second one they have a positive weight. For the genes with a positive weight for the first RNAseq-specific component, their importance score for this component is highly correlated with their importance score for the second RNAseq-specific component, in which they are also given a positive weight.</p>
 </div>
-<div id="tabset-11-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-3-tab">
+<div id="tabset-10-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-3-tab">
 <div class="cell">
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">mofa_output</span>,</span>
@@ -1273,8 +1256,9 @@ Other methods covered by <code>get_output</code>
 <p><img src="interpretation_files/figure-html/mofa-features-weight-pair-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+<p>We can see that the genomic markers are mostly given weights of opposite signs for the first two MOFA factors (e.g.&nbsp;positive weight for factor 1 and negative weight for factor 2). For the transcriptomics and metabolomics datasets, the importance score are mostly uncorrelated between the first two factors.</p>
 </div>
-<div id="tabset-11-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-4-tab">
+<div id="tabset-10-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output</span>,</span>
@@ -1289,23 +1273,25 @@ Other methods covered by <code>get_output</code>
 <p><img src="interpretation_files/figure-html/diablo-features-weight-pair-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+<p>We can see that different features were selected for the first two latent components from each omics dataset.</p>
 </div>
 </div>
 </div>
-<p>In this case, the plots are not extremely interesting, but allows us to quickly confirm that different latent dimensions capture different aspects of the data. The top 5 features according to their consensus importance score (see <span class="quarto-unresolved-ref">?sec-comparison-consensus</span>) are highlighted in red.</p>
-<p>By default, the function plots the signed importance score of the features, i.e.&nbsp;their importance score to which the sign of their weight was added. This can be changed through the <code>features_metric</code> argument of the function.</p>
+<p>These plots allow us to quickly check whether different latent dimensions capture different or related aspects of the data. The top 5 features according to their consensus importance score (see <span class="quarto-unresolved-ref">?sec-comparison-consensus</span>) are highlighted in red.</p>
+<p>By default, the function shows the signed importance score of the features, i.e.&nbsp;their importance score to which the sign of their weight was added. This can be changed through the <code>features_metric</code> argument of the function.</p>
 </section><section id="sec-interpretation-features-top-plot" class="level3" data-number="12.5.3"><h3 data-number="12.5.3" class="anchored" data-anchor-id="sec-interpretation-features-top-plot">
 <span class="header-section-number">12.5.3</span> Plotting top features weight</h3>
-<p>We can then investigate which features are assigned the highest weights for each latent dimension. These are the features driving the variation captured by the latent components. This is done with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features()</a></code> function. By default, the feature IDs will be used as labels in the plot, but by passing a <code>MultiDataSet</code> object to the function we can use a column from the features metadata table instead. To do so, we need to pass a named list to the <code>label_cols</code> argument; the names of the elements in the list should correspond to dataset names in the <code>MultiDataSet</code> object, and the value should be the name of the column in the features metadata table of the corresponding dataset to use as feature label. The number of features displayed controlled through the <code>top_n</code> argument (the default value is 20). Note that a lower number of features is selected for a certain dataset and latent dimension, only the selected features will be displayed. Again, the function returns a <a href="https://patchwork.data-imaginist.com/">patchwork</a> of ggplots.</p>
+<p>We can then investigate which features are assigned the highest weights for each latent dimension. These are the features driving the variation captured by the latent components. This is done with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features()</a></code> function.</p>
+<p>By default, the feature IDs will be used as labels in the plot, but by passing a <code>MultiDataSet</code> object to the function we can use a column from the features metadata table instead. To do so, we need to pass a named list to the <code>label_cols</code> argument: the names of the elements in the list should correspond to dataset names in the <code>MultiDataSet</code> object, and the value should be the name of the column in the features metadata table of the corresponding dataset to use as feature label. The number of features displayed is controlled through the <code>top_n</code> argument (the default value is 20). Note that if a lower number of features is selected for a certain dataset and latent dimension, only the selected features will be displayed. Again, the function returns a <a href="https://patchwork.data-imaginist.com/">patchwork</a> of ggplots.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-3" role="tab" aria-controls="tabset-12-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-4" role="tab" aria-controls="tabset-12-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-3" role="tab" aria-controls="tabset-11-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-4" role="tab" aria-controls="tabset-11-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
+<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_output</span>,</span>
@@ -1321,7 +1307,7 @@ Other methods covered by <code>get_output</code>
 </div>
 <p>We can see that citric acid and D-mannose have an importance score close to 1 for component 1. Citric acid has a negative weight, meaning that its abundance is negatively correlated with component 1, while D-mannose has a positive weight, so its abundance is positively correlated with component 1. For the second component, only two genes have an importance score above 0.5.</p>
 </div>
-<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
+<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
 <p>We will focus on joint component 1:</p>
 <div class="cell">
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
@@ -1337,9 +1323,9 @@ Other methods covered by <code>get_output</code>
 <p><img src="interpretation_files/figure-html/so2pls-plot-top-features-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>While all top 20 genes have an importance score about 0.5 for joint component 1, only citric acid is given a high importance score for joint component 1 in the metabolomics dataset.</p>
+<p>While all top 20 genes have an importance score above 0.5 for joint component 1, only citric acid is given a high importance score for joint component 1 in the metabolomics dataset.</p>
 </div>
-<div id="tabset-12-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-3-tab">
+<div id="tabset-11-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-3-tab">
 <p>We will focus on the first two factors here:</p>
 <div class="cell">
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
@@ -1357,7 +1343,7 @@ Other methods covered by <code>get_output</code>
 </div>
 <p>For factor 1, citric acid is the only metabolite with an importance score above 0.75, while in the genomics dataset four markers have a high importance score, and most of the top 20 genes have an importance score aroung 0.7 or higher.</p>
 </div>
-<div id="tabset-12-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-4-tab">
+<div id="tabset-11-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-4-tab">
 <p>For clarity, we will focus on the first two latent components:</p>
 <div class="cell">
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
@@ -1381,20 +1367,20 @@ Other methods covered by <code>get_output</code>
 <span class="header-section-number">12.5.4</span> Extracting top features</h3>
 <p>It is also possible to extract information about the top contributing features as a table with the function <code><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features()</a></code>. The function offers two options:</p>
 <ul>
-<li><p>Returns for each dataset the top N features contributing to the latent dimensions of interest. N is specified through the <code>n_features</code> argument;</p></li>
-<li><p>Returns for each dataset features whose importance score is at least equal to a certain threshold. The threshold is specified through the <code>min_importance</code> argument.</p></li>
+<li><p>Return for each dataset the top N features contributing to the latent dimensions of interest. N is specified through the <code>n_features</code> argument;</p></li>
+<li><p>Return for each dataset features whose importance score is at least equal to a certain threshold. The threshold is specified through the <code>min_importance</code> argument.</p></li>
 </ul>
-<p>The first option is preferred when many features contribute to a given factor. The second option has been implemented for cases where some latent dimensions are driven by a small number of features (so for example in the top 10 contributing features, only 3 features would actually have a high importance score). By default, the function returns the top contributing features from all datasets for all latent dimensions, but we can focus on some datasets and/or latent dimensions of interest by passing their names to the <code>datasets</code> and <code>latent_dimensions</code> arguments of the function. Additionally, we can pass to the function a MultiDataSet object (through the <code>mo_data</code> argument); the function will extract information about the features from the features metadata.</p>
+<p>The first option is preferred when many features contribute to a given factor. The second option has been implemented for cases where some latent dimensions are driven by a small number of features (so for example in the top 10 contributing features, only 3 features would actually have a high importance score). By default, the function returns the top contributing features from all datasets for all latent dimensions, but we can focus on some datasets and/or latent dimensions of interest by passing their names to the <code>datasets</code> and <code>latent_dimensions</code> arguments of the function. Additionally, we can pass to the function a <code>MultiDataSet</code> object (through the <code>mo_data</code> argument); the function will extract information about the features from the features metadata.</p>
 <p>We illustrate the two possible options below. For the second option, we add features information to the table:</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-3" role="tab" aria-controls="tabset-13-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-4" role="tab" aria-controls="tabset-13-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-3" role="tab" aria-controls="tabset-12-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-4" role="tab" aria-controls="tabset-12-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
+<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span><span class="va">spls_output</span>, n_features <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1412,28 +1398,28 @@ Other methods covered by <code>get_output</code>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_output</span>,</span>
 <span>  min_importance <span class="op">=</span> <span class="fl">0.8</span>,</span>
-<span>  mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 27</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 31</span></span>
 <span><span class="co">#&gt; # Groups:   latent_dimension, dataset [1]</span></span>
-<span><span class="co">#&gt;   feature_id       dataset latent_dimension weight importance chromosome p_value</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;            &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ENSBTAG00000018… rnaseq  Component 1       0.308      1     16              NA</span></span>
-<span><span class="co">#&gt; 2 ENSBTAG00000031… rnaseq  Component 1       0.306      0.994 7               NA</span></span>
-<span><span class="co">#&gt; 3 ENSBTAG00000022… rnaseq  Component 1       0.291      0.946 26              NA</span></span>
-<span><span class="co">#&gt; 4 ENSBTAG00000046… rnaseq  Component 1       0.287      0.932 23              NA</span></span>
-<span><span class="co">#&gt; 5 ENSBTAG00000050… rnaseq  Component 1       0.283      0.920 26              NA</span></span>
-<span><span class="co">#&gt; 6 ENSBTAG00000049… rnaseq  Component 1       0.274      0.890 15              NA</span></span>
-<span><span class="co">#&gt; # ℹ 20 more variables: start &lt;int&gt;, end &lt;int&gt;, width &lt;int&gt;, strand &lt;fct&gt;,</span></span>
-<span><span class="co">#&gt; #   Name &lt;chr&gt;, description &lt;chr&gt;, hmdb_id &lt;chr&gt;, name &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt;   feature_id      dataset latent_dimension weight importance chromosome  p_value</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;           &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 ENSBTAG0000001… rnaseq  Component 1       0.308      1     16         7.14e-31</span></span>
+<span><span class="co">#&gt; 2 ENSBTAG0000003… rnaseq  Component 1       0.306      0.994 7          1.22e-35</span></span>
+<span><span class="co">#&gt; 3 ENSBTAG0000002… rnaseq  Component 1       0.291      0.946 26         1.79e-33</span></span>
+<span><span class="co">#&gt; 4 ENSBTAG0000004… rnaseq  Component 1       0.287      0.932 23         7.19e-34</span></span>
+<span><span class="co">#&gt; 5 ENSBTAG0000005… rnaseq  Component 1       0.283      0.920 26         2.54e-33</span></span>
+<span><span class="co">#&gt; 6 ENSBTAG0000004… rnaseq  Component 1       0.274      0.890 15         4.14e-36</span></span>
+<span><span class="co">#&gt; # ℹ 24 more variables: fdr &lt;dbl&gt;, start &lt;int&gt;, end &lt;int&gt;, width &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   strand &lt;fct&gt;, Name &lt;chr&gt;, description &lt;chr&gt;, log_fc &lt;dbl&gt;, log_cpm &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   f &lt;dbl&gt;, de_signif &lt;chr&gt;, de_status &lt;chr&gt;, hmdb_id &lt;chr&gt;, name &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   chemical_formula &lt;chr&gt;, monisotopic_molecular_weight &lt;dbl&gt;,</span></span>
 <span><span class="co">#&gt; #   cas_registry_number &lt;chr&gt;, smiles &lt;chr&gt;, inchikey &lt;chr&gt;, kegg_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   direct_parent &lt;chr&gt;, super_class &lt;chr&gt;, t_value &lt;dbl&gt;, padj &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   de_signif &lt;chr&gt;, de_status &lt;chr&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; #   direct_parent &lt;chr&gt;, super_class &lt;chr&gt;, t_value &lt;dbl&gt;, padj &lt;dbl&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
+<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span><span class="va">so2pls_output</span>, n_features <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1451,28 +1437,28 @@ Other methods covered by <code>get_output</code>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_output</span>,</span>
 <span>  min_importance <span class="op">=</span> <span class="fl">0.8</span>,</span>
-<span>  mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 27</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 31</span></span>
 <span><span class="co">#&gt; # Groups:   latent_dimension, dataset [1]</span></span>
-<span><span class="co">#&gt;   feature_id       dataset latent_dimension weight importance chromosome p_value</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;            &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ENSBTAG00000048… rnaseq  joint component… -0.263      1     24              NA</span></span>
-<span><span class="co">#&gt; 2 ENSBTAG00000049… rnaseq  joint component… -0.263      0.997 NKLS02001…      NA</span></span>
-<span><span class="co">#&gt; 3 ENSBTAG00000039… rnaseq  joint component… -0.243      0.921 NKLS02001…      NA</span></span>
-<span><span class="co">#&gt; 4 ENSBTAG00000031… rnaseq  joint component… -0.241      0.915 7               NA</span></span>
-<span><span class="co">#&gt; 5 ENSBTAG00000022… rnaseq  joint component… -0.223      0.848 26              NA</span></span>
-<span><span class="co">#&gt; 6 ENSBTAG00000006… rnaseq  joint component… -0.220      0.837 11              NA</span></span>
-<span><span class="co">#&gt; # ℹ 20 more variables: start &lt;int&gt;, end &lt;int&gt;, width &lt;int&gt;, strand &lt;fct&gt;,</span></span>
-<span><span class="co">#&gt; #   Name &lt;chr&gt;, description &lt;chr&gt;, hmdb_id &lt;chr&gt;, name &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt;   feature_id      dataset latent_dimension weight importance chromosome  p_value</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;           &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 ENSBTAG0000004… rnaseq  joint component… -0.263      1     24         5.43e-27</span></span>
+<span><span class="co">#&gt; 2 ENSBTAG0000004… rnaseq  joint component… -0.263      0.997 NKLS02001… 1.14e-27</span></span>
+<span><span class="co">#&gt; 3 ENSBTAG0000003… rnaseq  joint component… -0.243      0.921 NKLS02001… 1.45e-28</span></span>
+<span><span class="co">#&gt; 4 ENSBTAG0000003… rnaseq  joint component… -0.241      0.915 7          1.22e-35</span></span>
+<span><span class="co">#&gt; 5 ENSBTAG0000002… rnaseq  joint component… -0.223      0.848 26         1.79e-33</span></span>
+<span><span class="co">#&gt; 6 ENSBTAG0000000… rnaseq  joint component… -0.220      0.837 11         4.69e-28</span></span>
+<span><span class="co">#&gt; # ℹ 24 more variables: fdr &lt;dbl&gt;, start &lt;int&gt;, end &lt;int&gt;, width &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   strand &lt;fct&gt;, Name &lt;chr&gt;, description &lt;chr&gt;, log_fc &lt;dbl&gt;, log_cpm &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   f &lt;dbl&gt;, de_signif &lt;chr&gt;, de_status &lt;chr&gt;, hmdb_id &lt;chr&gt;, name &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   chemical_formula &lt;chr&gt;, monisotopic_molecular_weight &lt;dbl&gt;,</span></span>
 <span><span class="co">#&gt; #   cas_registry_number &lt;chr&gt;, smiles &lt;chr&gt;, inchikey &lt;chr&gt;, kegg_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   direct_parent &lt;chr&gt;, super_class &lt;chr&gt;, t_value &lt;dbl&gt;, padj &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   de_signif &lt;chr&gt;, de_status &lt;chr&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; #   direct_parent &lt;chr&gt;, super_class &lt;chr&gt;, t_value &lt;dbl&gt;, padj &lt;dbl&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-13-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-3-tab">
+<div id="tabset-12-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-3-tab">
 <div class="cell">
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span><span class="va">mofa_output</span>, n_features <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1490,10 +1476,10 @@ Other methods covered by <code>get_output</code>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">mofa_output</span>,</span>
 <span>  min_importance <span class="op">=</span> <span class="fl">0.8</span>,</span>
-<span>  mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 37</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 40</span></span>
 <span><span class="co">#&gt; # Groups:   latent_dimension, dataset [2]</span></span>
 <span><span class="co">#&gt;   feature_id    dataset latent_dimension   weight importance chromosome position</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;         &lt;fct&gt;   &lt;fct&gt;               &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;</span></span>
@@ -1503,16 +1489,16 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; 4 BovineHD2700… snps    Factor 1         -0.00233      0.837 27           3.57e7</span></span>
 <span><span class="co">#&gt; 5 ENSBTAG00000… rnaseq  Factor 1          1.88         1     NKLS02001…  NA     </span></span>
 <span><span class="co">#&gt; 6 ENSBTAG00000… rnaseq  Factor 1          1.88         1.00  24          NA     </span></span>
-<span><span class="co">#&gt; # ℹ 30 more variables: gen_train_score &lt;dbl&gt;, ref &lt;chr&gt;, alt &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; # ℹ 33 more variables: gen_train_score &lt;dbl&gt;, ref &lt;chr&gt;, alt &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   ilmn_strand &lt;chr&gt;, customer_strand &lt;chr&gt;, norm_id &lt;dbl&gt;, qtl_type &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   qtl_effect &lt;dbl&gt;, p_value &lt;dbl&gt;, fdr &lt;dbl&gt;, start &lt;int&gt;, end &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   width &lt;int&gt;, strand &lt;fct&gt;, Name &lt;chr&gt;, description &lt;chr&gt;, hmdb_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   width &lt;int&gt;, strand &lt;fct&gt;, Name &lt;chr&gt;, description &lt;chr&gt;, log_fc &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   log_cpm &lt;dbl&gt;, f &lt;dbl&gt;, de_signif &lt;chr&gt;, de_status &lt;chr&gt;, hmdb_id &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   name &lt;chr&gt;, chemical_formula &lt;chr&gt;, monisotopic_molecular_weight &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   cas_registry_number &lt;chr&gt;, smiles &lt;chr&gt;, inchikey &lt;chr&gt;, kegg_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   direct_parent &lt;chr&gt;, super_class &lt;chr&gt;, t_value &lt;dbl&gt;, padj &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; #   cas_registry_number &lt;chr&gt;, smiles &lt;chr&gt;, inchikey &lt;chr&gt;, kegg_id &lt;chr&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-13-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-4-tab">
+<div id="tabset-12-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span><span class="va">diablo_output</span>, n_features <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1530,10 +1516,10 @@ Other methods covered by <code>get_output</code>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output</span>,</span>
 <span>  min_importance <span class="op">=</span> <span class="fl">0.8</span>,</span>
-<span>  mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 37</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 40</span></span>
 <span><span class="co">#&gt; # Groups:   latent_dimension, dataset [3]</span></span>
 <span><span class="co">#&gt;   feature_id      dataset latent_dimension weight importance chromosome position</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;           &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;</span></span>
@@ -1543,29 +1529,29 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; 4 HMDB00094       metabo… Component 1      -0.492      1     &lt;NA&gt;        NA     </span></span>
 <span><span class="co">#&gt; 5 HMDB00042       metabo… Component 1      -0.422      0.859 &lt;NA&gt;        NA     </span></span>
 <span><span class="co">#&gt; 6 HMDB00169       metabo… Component 1       0.403      0.820 &lt;NA&gt;        NA     </span></span>
-<span><span class="co">#&gt; # ℹ 30 more variables: gen_train_score &lt;dbl&gt;, ref &lt;chr&gt;, alt &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; # ℹ 33 more variables: gen_train_score &lt;dbl&gt;, ref &lt;chr&gt;, alt &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   ilmn_strand &lt;chr&gt;, customer_strand &lt;chr&gt;, norm_id &lt;dbl&gt;, qtl_type &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   qtl_effect &lt;dbl&gt;, p_value &lt;dbl&gt;, fdr &lt;dbl&gt;, start &lt;int&gt;, end &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   width &lt;int&gt;, strand &lt;fct&gt;, Name &lt;chr&gt;, description &lt;chr&gt;, hmdb_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   width &lt;int&gt;, strand &lt;fct&gt;, Name &lt;chr&gt;, description &lt;chr&gt;, log_fc &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   log_cpm &lt;dbl&gt;, f &lt;dbl&gt;, de_signif &lt;chr&gt;, de_status &lt;chr&gt;, hmdb_id &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   name &lt;chr&gt;, chemical_formula &lt;chr&gt;, monisotopic_molecular_weight &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   cas_registry_number &lt;chr&gt;, smiles &lt;chr&gt;, inchikey &lt;chr&gt;, kegg_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   direct_parent &lt;chr&gt;, super_class &lt;chr&gt;, t_value &lt;dbl&gt;, padj &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; #   cas_registry_number &lt;chr&gt;, smiles &lt;chr&gt;, inchikey &lt;chr&gt;, kegg_id &lt;chr&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 </section><section id="sec-interpretation-features-selected" class="level3" data-number="12.5.5"><h3 data-number="12.5.5" class="anchored" data-anchor-id="sec-interpretation-features-selected">
 <span class="header-section-number">12.5.5</span> Extracting the selected features</h3>
-<p>For methods that perform feature selection (i.e.&nbsp;sPLS, sO2PLS and DIABLO), we can extract information about the selected features with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features()</a></code> function. As with <code><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features()</a></code>, if a <code>MultiDataSet</code> object is passed to the function, it will extract information about the features from the features metadata tables and return them. If applied to the results of a methods that do not perform feature selection, all features will be returned.</p>
+<p>For methods that perform feature selection (i.e.&nbsp;sPLS, sO2PLS and DIABLO), we can extract information about the selected features with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features()</a></code> function. As with <code><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features()</a></code>, if a <code>MultiDataSet</code> object is passed to the function, it will extract information about the features from the features metadata tables and return them. If applied to the results of a method that does not perform feature selection, all features will be returned.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-3" role="tab" aria-controls="tabset-14-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-4" role="tab" aria-controls="tabset-14-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-3" role="tab" aria-controls="tabset-13-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-4" role="tab" aria-controls="tabset-13-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
+<div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">selected_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span> </span>
 <span></span>
@@ -1583,7 +1569,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; 6 ENSBTAG00000049888 rnaseq  Component 1       0.274      0.890</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
+<div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">selected_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">)</span> </span>
 <span></span>
@@ -1601,7 +1587,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; 6 ENSBTAG00000006343 rnaseq  joint component 1 -0.220      0.837</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-14-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-3-tab">
+<div id="tabset-13-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-3-tab">
 <div class="cell">
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">selected_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">mofa_output</span><span class="op">)</span> </span>
 <span></span>
@@ -1619,7 +1605,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; 6 BovineHD2100007115     snps    Factor 1          0.00196      0.706</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-14-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-4-tab">
+<div id="tabset-13-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">selected_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span> </span>
 <span></span>
@@ -1644,13 +1630,13 @@ Other methods covered by <code>get_output</code>
 <p>Finally, we can investigate further some features of interest using the functions shown in <a href="inspecting_multidataset.html#sec-inspecting-plot-data"><span>Section&nbsp;4.5</span></a>. For the example, we will extract the top 3 contributing features from each dataset for the first latent dimension generated with the methods:</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-3" role="tab" aria-controls="tabset-15-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-4" role="tab" aria-controls="tabset-15-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-3" role="tab" aria-controls="tabset-14-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-4" role="tab" aria-controls="tabset-14-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
+<div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">spls_top_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_output</span>,</span>
@@ -1664,7 +1650,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; [4] "HMDB00094"          "HMDB00169"          "HMDB00159"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
+<div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">so2pls_top_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_output</span>,</span>
@@ -1678,7 +1664,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; [4] "HMDB00094"          "HMDB00042"          "HMDB00357"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-15-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-3-tab">
+<div id="tabset-14-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-3-tab">
 <div class="cell">
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mofa_top_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">mofa_output</span>,</span>
@@ -1693,7 +1679,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; [7] "HMDB00094"              "HMDB00042"              "HMDB00357"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-15-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-4-tab">
+<div id="tabset-14-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">diablo_top_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output</span>,</span>
@@ -1713,13 +1699,13 @@ Other methods covered by <code>get_output</code>
 <p>We can use the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> function to visualise the measurements for the features across the samples as a heatmap. By passing a <code>MultiDataSet</code> object to the function, we can add information about the samples and the features around the heatmap, and change the label used for the features.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-3" role="tab" aria-controls="tabset-16-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-4" role="tab" aria-controls="tabset-16-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-3" role="tab" aria-controls="tabset-15-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-4" role="tab" aria-controls="tabset-15-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
+<div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_complete</span>,</span>
@@ -1745,7 +1731,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
+<div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_complete</span>,</span>
@@ -1771,7 +1757,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-16-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-3-tab">
+<div id="tabset-15-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-3-tab">
 <div class="cell">
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_complete</span>,</span>
@@ -1809,7 +1795,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-16-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-4-tab">
+<div id="tabset-15-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_complete</span>,</span>
@@ -1846,13 +1832,13 @@ Other methods covered by <code>get_output</code>
 <p>Alternatively, we can display the features’ measurements against some samples covariate, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate()</a></code> function:</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true">sPLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false">sO2PLS</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-3" role="tab" aria-controls="tabset-17-3" aria-selected="false">MOFA</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-4" role="tab" aria-controls="tabset-17-4" aria-selected="false">DIABLO</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">sPLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false">sO2PLS</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-3" role="tab" aria-controls="tabset-16-3" aria-selected="false">MOFA</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-4" role="tab" aria-controls="tabset-16-4" aria-selected="false">DIABLO</a></li>
 </ul>
 <div class="tab-content" data-group="method">
-<div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
+<div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_complete</span>,</span>
@@ -1869,7 +1855,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-17-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-2-tab">
+<div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_complete</span>,</span>
@@ -1886,7 +1872,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-17-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-3-tab">
+<div id="tabset-16-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-3-tab">
 <div class="cell">
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_complete</span>,</span>
@@ -1903,7 +1889,7 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<div id="tabset-17-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-4-tab">
+<div id="tabset-16-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-4-tab">
 <div class="cell">
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_complete</span>,</span>
