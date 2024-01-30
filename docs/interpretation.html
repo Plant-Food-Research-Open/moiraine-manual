@@ -263,9 +263,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#dimension-reduction-methods" id="toc-dimension-reduction-methods" class="nav-link active" data-scroll-target="#dimension-reduction-methods"><span class="toc-section-number">12.1</span>  Dimension reduction methods</a></li>
+<li><a href="#sec-interpretation-dim-reduction" id="toc-sec-interpretation-dim-reduction" class="nav-link active" data-scroll-target="#sec-interpretation-dim-reduction"><span class="toc-section-number">12.1</span>  Dimension reduction methods</a></li>
   <li>
-<a href="#generating-a-standardised-output" id="toc-generating-a-standardised-output" class="nav-link" data-scroll-target="#generating-a-standardised-output"><span class="toc-section-number">12.2</span>  Generating a standardised output</a>
+<a href="#sec-interpretation-standard-output" id="toc-sec-interpretation-standard-output" class="nav-link" data-scroll-target="#sec-interpretation-standard-output"><span class="toc-section-number">12.2</span>  Generating a standardised output</a>
   <ul class="collapse">
 <li><a href="#get_output-function" id="toc-get_output-function" class="nav-link" data-scroll-target="#get_output-function"><span class="toc-section-number">12.2.1</span>  <code>get_output</code> function</a></li>
   <li><a href="#averaging-latent-dimensions-over-datasets" id="toc-averaging-latent-dimensions-over-datasets" class="nav-link" data-scroll-target="#averaging-latent-dimensions-over-datasets"><span class="toc-section-number">12.2.2</span>  Averaging latent dimensions over datasets</a></li>
@@ -333,7 +333,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
-</details><section id="dimension-reduction-methods" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="dimension-reduction-methods">
+</details><section id="sec-interpretation-dim-reduction" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="sec-interpretation-dim-reduction">
 <span class="header-section-number">12.1</span> Dimension reduction methods</h2>
 <p>Despite relying on very different statistical approaches, the different integration methods included in the pipeline all perform dimension reduction of the omics datasets through feature extraction. That is, they construct a small number of latent components/variables/dimensions (that we refer to as <strong>latent dimensions</strong> in the <code>moiraine</code> package) that capture as much information from the original datasets as possible. A dimension reduction approach typically returns, for each latent dimension constructed, two sets of values:</p>
 <ul>
@@ -345,7 +345,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Understanding the source of the variation captured by each latent dimension: is a given latent dimension representing an important source of biological variation, such as effect of a treatment, or age of the samples? Or do they show a source of technical variation, for example highlighting a group of outlier samples with different omics profiles from the rest of the observations? Answering these questions allows us to identify which latent dimensions capture the biological phenomenon investigated, or whether there are some sources of noise that should be accounted for in follow-up experiments.</p></li>
 <li><p>Investigating which omics features are driving the latent dimensions: once we have identified some latent dimensions of interest, we can look at the features that contribute the most to these dimensions, in order to understand the molecular mechanisms or pathways involved. This is typically done after looking into the phenomenon captured by the latent dimensions, but can also help to identify it.</p></li>
-</ul></section><section id="generating-a-standardised-output" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="generating-a-standardised-output">
+</ul></section><section id="sec-interpretation-standard-output" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="sec-interpretation-standard-output">
 <span class="header-section-number">12.2</span> Generating a standardised output</h2>
 <section id="get_output-function" class="level3" data-number="12.2.1"><h3 data-number="12.2.1" class="anchored" data-anchor-id="get_output-function">
 <span class="header-section-number">12.2.1</span> <code>get_output</code> function</h3>

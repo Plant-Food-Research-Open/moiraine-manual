@@ -27,6 +27,7 @@ book:
     - part: "Results interpretation"
       chapters:
       - interpretation.qmd
+      - evaluation.qmd
     - references.qmd
 
 bibliography: references.bib

@@ -576,5 +576,137 @@ list(
   tar_target(
     diablo_output_no_average,
     get_output(diablo_final_run, use_average_dimensions = FALSE)
+  ),
+
+  ##====================##
+  ## Results evaluation ----
+  ##====================##
+
+  ## Creating features sets from features metadata
+  tar_target(
+    sets_single_omics,
+    make_feature_sets_from_fm(
+      mo_set_complete,
+      col_names = list(
+        "snps" = "qtl_type",
+        "rnaseq" = "de_status",
+        "metabolome" = "de_status"
+      )
+    )
+  ),
+
+  tar_target(
+    sets_single_omics_merged,
+    make_feature_sets_from_fm(
+      mo_set_complete,
+      col_names = list(
+        "snps" = "qtl_type",
+        "rnaseq" = "de_status",
+        "metabolome" = "de_status"
+      ),
+      combine_omics_sets = TRUE
+    )
+  ),
+
+  ## Reading GO annotation file
+  tar_target(
+    rnaseq_go_terms_file,
+    system.file(
+      "extdata/transcriptomics_go_annotation.csv",
+      package = "moiraine"
+    ),
+    format = "file"
+  ),
+
+  tar_target(
+    rnaseq_go_df,
+    read_csv(rnaseq_go_terms_file) |>
+      filter(go_domain == "Biological process")
+  ),
+
+  ## Making GO terms sets
+  tar_target(
+    go_sets,
+    make_feature_sets_from_df(
+      rnaseq_go_df,
+      col_id = "gene_id",
+      col_set = "go_id"
+    )
+  ),
+
+  ## Filtering GO term sets against measured features
+  tar_target(
+    go_sets_filtered,
+    reduce_feature_sets_data(go_sets, mo_set_complete)
+  ),
+
+  ## Checking genes GO term sets against datasets
+  tar_target(
+    go_sets_check,
+    check_feature_sets(
+      go_sets_filtered,
+      mo_set_complete,
+      datasets = "rnaseq"
+    )
+  ),
+
+  ## Table of information about GO terms
+  tar_target(
+    go_sets_info,
+    rnaseq_go_df |>
+      dplyr::select(go_id, go_name) |>
+      dplyr::distinct()
+  ),
+
+  ## DIABLO latent components enrichment analysis
+  tar_target(
+    diablo_enrichment_results,
+    evaluate_method_enrichment(
+      diablo_output,
+      go_sets_filtered,
+      datasets = "rnaseq",
+      use_abs = TRUE,
+      min_set_size = 10,
+      add_missing_features = TRUE,
+      mo_data = mo_set_complete,
+      sets_info_df = go_sets_info,
+      col_set = "go_id"
+    )
+  ),
+
+  tar_target(
+    mofa_enrichment_results,
+    evaluate_method_enrichment(
+      mofa_output,
+      go_sets_filtered,
+      datasets = "rnaseq",
+      latent_dimensions = paste("Factor", 1:3),
+      use_abs = TRUE,
+      min_set_size = 10,
+      add_missing_features = TRUE,
+      mo_data = mo_set_complete,
+      sets_info_df = go_sets_info,
+      col_set = "go_id"
+    )
+  ),
+
+  ## Assessing samples clustering
+  tar_target(
+    diablo_silhouette,
+    compute_samples_silhouette(
+      diablo_output,
+      mo_set_complete,
+      "status"
+    )
+  ),
+
+  tar_target(
+    mofa_silhouette,
+    compute_samples_silhouette(
+      mofa_output,
+      mo_set_complete,
+      "status",
+      latent_dimensions = paste("Factor", 1:3)
+    )
   )
 )

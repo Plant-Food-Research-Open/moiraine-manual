@@ -52,7 +52,7 @@ In the previous chapters, we have applied different integration tools to our exa
 </details>
 
 
-## Dimension reduction methods
+## Dimension reduction methods {#sec-interpretation-dim-reduction}
 
 Despite relying on very different statistical approaches, the different integration methods included in the pipeline all perform dimension reduction of the omics datasets through feature extraction. That is, they construct a small number of latent components/variables/dimensions (that we refer to as **latent dimensions** in the `moiraine` package) that capture as much information from the original datasets as possible. A dimension reduction approach typically returns, for each latent dimension constructed, two sets of values:
 
@@ -68,7 +68,7 @@ Interpreting the results of a dimension reduction method involves:
 
 * Investigating which omics features are driving the latent dimensions: once we have identified some latent dimensions of interest, we can look at the features that contribute the most to these dimensions, in order to understand the molecular mechanisms or pathways involved. This is typically done after looking into the phenomenon captured by the latent dimensions, but can also help to identify it.
 
-## Generating a standardised output
+## Generating a standardised output {#sec-interpretation-standard-output}
 
 ### `get_output` function
 
