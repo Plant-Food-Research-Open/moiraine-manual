@@ -7,7 +7,7 @@ dataset_file_metabo|stem|175ac2cf6405fbad|329023e2cb3679f0|ef46db3751d8e999|1190
 dataset_file_transcripto|stem|71a95dd921de2179|0d1f9fe3b43bf37d|ef46db3751d8e999|-658525691|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/7e39d6614134fc474e6b85ec2516a5b6/moiraine/extdata/transcriptomics_dataset.csv|t19747.8725053287s|92b17bfefe92cde3|10702704|file|local|vector|||0.001||
 dataset_names_pca|stem|b7dcb1f702f808d7|cbd5b838d68f1692|ed471008ce8c9ddc|-1982688821||t19739.9580991333s|abbdb7fe746336f0|76|rds|local|vector||dataset_names_pca_266715e9*dataset_names_pca_90c252f2*dataset_names_pca_a29776a2|0||
 diablo_design_matrix|stem|29c6a413f89d3f67|348c9ac4eba4001a|9bfafd062325ed6e|1135312759||t19744.9620132827s|82d1d1c4d23d6aba|150|rds|local|vector|||0.001||
-diablo_enrichment_results|stem|b8add7455acc6833|b259d94f2e6c5a21|68314894d3203443|-595620765||t19751.9117782366s|9032421d23a7d9a5|625717|rds|local|vector|||27.615||
+diablo_enrichment_results|stem|9722628774f6fef0|b259d94f2e6c5a21|7878ff644e224051|-595620765||t19752.0894347721s|952c625ddd4d270b|620549|rds|local|vector|||25.829||
 diablo_final_run|stem|b299f53f75cc3c4f|23964c06fd68be70|ee3fac541fa5e2dd|-1601141966||t19744.9989792927s|99991ea38374c569|1124171|rds|local|vector|||0.178||
 diablo_input|stem|bc575282a1a9df6c|fd9ebf83f0d8e4ec|400124e1b0a7b165|-869543617||t19744.9619621332s|d034cfac3ae24f77|885435|rds|local|vector|||0.216||
 diablo_novarsel|stem|6885b6b8c1d7aa2b|8fe852be6b9b41f7|e4904a9c1f54ff87|1830706287||t19744.962018169s|ff8972ff77713186|1244891|rds|local|vector|||0.278||
@@ -34,7 +34,7 @@ fmetadata_transcripto|stem|452e3b635689568a|588e73874bd5990b|af559c33c19b2822|65
 go_sets|stem|7ffdf222c8840aa7|8580bd9122b00498|ee58bfe05e566ecf|-177269063||t19751.9104659231s|7dd38b896d946406|318175|rds|local|vector|||6.328||
 go_sets_check|stem|b3cc2e9a1878cf1d|6a4bb9a9d74ee435|ccb517aecd7bbb68|1026252608||t19751.9105428209s|dcfb5579c9d2f932|290|rds|local|vector|||0.181||
 go_sets_filtered|stem|7ffdf222c8840aa7|43b67965f64e9cb0|d89b0c185100311e|-1735543738||t19751.9105373066s|7dd38b896d946406|318175|rds|local|vector|||0.109||
-go_sets_info|stem|5aa11e446219c268|e40fc7827b014a44|6c037923b9a22254|-1420349921||t19751.9103916869s|11ffb0b56d019614|147923|rds|local|vector|||0.012||
+go_sets_info|stem|06fb22289ecd8b6c|50994798d8f91463|dddf22893782b9e9|-1420349921||t19752.0879908277s|7bc8d1bae53808ec|146002|rds|local|vector|||0.01||
 individual_mad_values|pattern|ee9ffe6e9abbd0a3|3f62ad91dcfdbb43||1752911574||||470374|rds|local|list||individual_mad_values_0bdea42a*individual_mad_values_19c0eba7|3.671||
 individual_mad_values_0bdea42a|branch|60eab505e8c4eb51|3f62ad91dcfdbb43|103f3778e612df50|1893534945||t19740.1249913993s|7131e0c89f528eea|264412|rds|local|list|individual_mad_values||2.119||
 individual_mad_values_19c0eba7|branch|1bcf124bd938c5ce|3f62ad91dcfdbb43|890fb9082e14e05e|-468269286||t19740.1250105147s|58d8c0b1cd192884|205962|rds|local|list|individual_mad_values||1.552||
@@ -58,12 +58,17 @@ mo_set_complete|stem|d79178dd6687be97|d76a85ef218e0cef|952f06b34b51e191|17398688
 mo_set_de|stem|2b7e2ace37c0bed5|50f81c565a9dc6aa|1d4929f8d72b5561|1698094396||t19739.0034448046s|fa7930e7b638c680|37442539|rds|local|vector|||0.167|rnaseq dataset 1594 feature IDs missing from df dataframe.|
 mo_set_transformed|stem|28334a82bdfebaa7|1a49152e06c5222d|6f732476e2857317|385723480||t19739.9580970037s|5c19986154657d81|57773059|rds|local|vector|||0.252||
 mo_set_with_names|stem|e64ebcd89ddb70bd|b88cddcfa5d2a267|6eebd2f68cb73320|-1640374052||t19738.0568285842s|593ace30823e21f2|36753195|rds|local|vector|||0.114||
-mofa_enrichment_results|stem|affa02e187f802e7|ef7cc36ac210afd1|99741ff76eed439f|-518223786||t19751.9108470572s|a19cbbdd8c7db8b7|522818|rds|local|vector|||26.11||
+mofa_enrichment_results|stem|78eaab1a0af03fee|ef7cc36ac210afd1|af559c033d9d4f74|-518223786||t19752.0891323677s|a872b808d80823e1|518071|rds|local|vector|||23.964||
 mofa_input|stem|4d8e1c14434288d1|3d5db0316055019b|b1ff01b4e620143d|1284502458||t19746.8899165855s|4110beb5e0ca03cd|877459|rds|local|vector|||0.201|Dataset snps is to be modelled with a poisson likelihood, but is not integer. Transforming to integer.|
 mofa_output|stem|5352fa96ef81a7b7|0d8c9707690b395c|e568211333f1077a|-1474909642||t19746.9922984972s|a3806d14d44620e6|524047|rds|local|vector|||0.733||
 mofa_silhouette|stem|38befb8909ac2f5d|b3993a50258515a0|2df9226a5487985b|1827622905||t19751.9114556258s|b9df5b0bdaebf8f4|2178|rds|local|vector|||0.07||
 mofa_trained|stem|f523901c69cc8163|ec971dccb1086e60|dec5748f700e63fc|1854191013||t19746.8912693121s|b341cd3de1b49e2f|1004645|rds|local|vector|||116.597|No output filename provided. Using tmpRtmpaM7XWKmofa_20240125102128.hdf5 to store the trained model.. Factors 1 are strongly correlated with the total number of expressed features for at least one of your omics. Such factors appear when there are differences in the total levels between your samples, sometimes because of poor normalisation in the preprocessing steps.|
+mofa_unsupervised_input|stem|0a98089dfc907e05|1e3b7d3a004de239|ac3a834977ed6c4c|1599690320||t19752.0880774623s|0ebbdb36aed1ab69|1862241|rds|local|vector|||0.377|Dataset snps is to be modelled with a poisson likelihood, but is not integer. Transforming to integer.. Some views have a lot of features, it is recommended to perform a more stringent feature selection before creating the MOFA object....|
+mofa_unsupervised_output|stem|263b6a873e1194a4|ac7643002dc78394|5d9397e54d59a2ff|-1183302440||t19752.0887987343s|0f63368c8e1c580a|3341559|rds|local|vector|||0.552||
+mofa_unsupervised_trained|stem|423f9880f08a7437|738e097555904346|ba546a349afa5a2a|-100222010||t19752.0887865648s|ef8edaa43b7a4126|2866074|rds|local|vector|||60.337|No output filename provided. Using tmpRtmpQAfSIqmofa_20240130150649.hdf5 to store the trained model.. Factors 1 are strongly correlated with the total number of expressed features for at least one of your omics. Such factors appear when there are differences in the total levels between your samples, sometimes because of poor normalisation in the preprocessing steps.|
 omicspls_input|stem|488cc165105ef587|5103f8e1eb31dfb4|3fe933389d7e1821|1468063698||t19746.0144579806s|8dac9e868840a7ff|957717|rds|local|vector|||0.009||
+output_list|stem|4a1015dc0956fb48|7dfe1dad22716f50|50d53cde1679035e|1051331949||t19752.0891342382s|f1fc0566a26ef70a|718723|rds|local|vector|||0.001||
+output_list_mofa|stem|5211b4817442846b|b3dd9f735a60c26a|74a746a8e356ffa7|-162484418||t19752.0888057577s|18a087dd760dc5f0|3871242|rds|local|vector|||0.001||
 pca_mats_list|pattern|c831051151e4add2|72b302a65c0920ed||1078442447||||12164806|rds|local|list||pca_mats_list_302d7473*pca_mats_list_84d36937*pca_mats_list_64d37e6c|0.09||
 pca_mats_list_302d7473|branch|e839c68784be56c5|72b302a65c0920ed|0f98021e133aac1d|-46563577||t19739.9581108254s|1b793e6da03f6fbf|1616638|rds|local|list|pca_mats_list||0.072||
 pca_mats_list_64d37e6c|branch|ee5587d92df571f6|72b302a65c0920ed|515ffe317be4aadd|31292255||t19739.9581241653s|73622126bd00a83a|30830|rds|local|list|pca_mats_list||0.001||

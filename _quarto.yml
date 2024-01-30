@@ -28,6 +28,7 @@ book:
       chapters:
       - interpretation.qmd
       - evaluation.qmd
+      - comparison.qmd
     - references.qmd
 
 bibliography: references.bib

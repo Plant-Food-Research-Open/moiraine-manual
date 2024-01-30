@@ -141,6 +141,36 @@ The `samples score` tibble contains for each sample (`sample_id`) and latent dim
 
 The `variance_explained` tibble gives for each latent dimension (`latent_dimension`) the proportion of variance explained (`prop_var_expl`) for each dataset (`dataset`). The values in `prop_var_expl` are between 0 and 1.
 
+In addition, the name of the integration method used to obtain these results is stored in the `method` attribute of the `output_dimension_reduction` object:
+
+::: {.panel-tabset group="method"}
+#### sPLS
+
+```{r show-method-attr-spls}
+attr(spls_output, "method")
+```
+
+
+#### sO2PLS
+
+```{r show-method-attr-so2pls}
+attr(so2pls_output, "method")
+```
+
+#### MOFA
+
+```{r show-method-attr-mofa}
+attr(mofa_output, "method")
+```
+
+#### DIABLO
+
+```{r show-method-attr-diablo}
+attr(diablo_output, "method")
+```
+:::
+
+
 For convenience, the `get_latent_dimensions()` function can be used on an `output_dimension_reduction` object to see the names of the latent dimensions (the levels used for the `latent_dimension` column in each tibble):
 
 ::: {.panel-tabset group="method"}

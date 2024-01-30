@@ -1,0 +1,452 @@
+# Comparing the integration results {#sec-comparison}
+
+```{r}
+#| child: "_setup.qmd"
+```
+
+```{r loading-packages}
+#| include: false
+
+library(targets)
+library(moiraine)
+library(purrr)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r setup-visible}
+#| eval: false
+
+library(targets)
+library(moiraine)
+
+## For data-frames manipulation
+library(dplyr)
+
+## For colour palettes
+library(ggplot2)
+```
+
+As different integration methods use different statistical approaches and make different assumptions about the data, it can be very interesting to apply them to a same multi-omics dataset and compare the results. In this chapter, we will see how the `moiraine` package can be used to compare the results from different integration methods.
+
+As a reminder, here is what the `_targets.R` script should look like so far:
+
+<details>
+  <summary>`_targets.R` script</summary>
+
+```{file targets-script}
+```
+</details>
+
+## Introduction
+
+As explained in @sec-interpretation-dim-reduction, the integration tools all perform dimension reduction of the omics datasets, and therefore all construct latent dimensions which can be described in terms of their features weight and their samples score. Therefore, we can compare the results of different integration methods in terms of their latent dimensions, by comparing either the latent dimensions' samples score, or their features weight. When comparing the methods in terms of their latent dimensions' samples score, we are answering the question: *are the different methods capturing the same trends from the datasets?* By comparing them from the point of view of their latent dimensions' features weight, we are instead answering a slightly different question: *are the different methods highlighting similar sets of features as driving variation in the datasets?* Of course, these comparisons are related, as two latent dimensions that identify very different trends in the data will most likely give high importance to very different sets of features.
+
+Note that, although this chapter mainly considers a comparison of different integration methods, we could also compare the results of a same integration method obtained with different input (e.g. to assess the impact of datasets preprocessing on the integration results). To illustrate this, we will run a second MOFA analysis, but this time using the datasets that have been prefiltered to only retain the most variable features (@sec-prefiltering-unsupervised), as opposed to the supervised prefiltering results that we have used in the main analysis (@sec-prefiltering-unsupervised). 
+
+```{targets mofa-unsupervised}
+list(
+  ## Creating the input object for the MOFA pipeline
+  ## using the unsupervised preselection results
+  tar_target(
+    mofa_unsupervised_input,
+    get_input_mofa(
+      mo_presel_unsupervised,
+      options_list = list(
+        data_options = list(scale_views = TRUE),
+        model_options = list(
+          likelihoods = c(
+            "snps" = "poisson",
+            "rnaseq" = "gaussian",
+            "metabolome" = "gaussian")
+        ),
+        training_options = list(seed = 72)
+      ),
+      only_common_samples = FALSE
+    )
+  ),
+  
+  ## Training the model with the MOFA algorithm
+  tar_target(
+    mofa_unsupervised_trained,
+    run_mofa(
+      mofa_unsupervised_input,
+      save_data = TRUE,
+      use_basilisk = TRUE
+    )
+  ),
+  
+  ## Formatting MOFA output
+  tar_target(
+    mofa_unsupervised_output,
+    get_output(mofa_unsupervised_trained)
+  )
+)
+```
+
+
+## Extracting integration results
+
+The first step in order to compare the results from different methods is to convert them to a standardised format with the `get_output()` function, which we did in @sec-interpretation. The function returns an `output_dimension_reduction` object which contains information about the latent dimensions' features weight and samples score, as well as a summary of the percentage of variance explained for each dataset. The `output_dimension_reduction` object created also has an attribute called `method`, which contains the name of the integration method used:
+
+```{r show-output-method}
+attr(tar_read(mofa_output), "method")
+```
+
+
+To facilitate comparisons, we will combine these objects into a list:
+
+```{targets output-list}
+tar_target(
+  output_list,
+  list(spls_output, so2pls_output, mofa_output, diablo_output)
+)
+```
+
+This list will be the input of most of the functions that we will showcase in this vignette. 
+
+
+```{r read-output-list}
+tar_load(output_list)
+```
+
+You can notice that we didn't give any name to the elements of the list that we just created. When comparing results from different integration methods, the comparison functions implemented in `moiraine` automatically extract the name of the method from each object (as shown above), and use this as labels in the plots. However, when we want to compare several results from a same integration method, we need to give unique names to the different elements in the output list, e.g.:
+
+```{targets output-list-mofa}
+tar_target(
+  output_list_mofa,
+  list(
+    "MOFA (supervised pref.)" = mofa_output,
+    "MOFA (unsupervised pref.)" = mofa_unsupervised_output
+  )
+)
+```
+
+```{r read-output-list-mofa}
+tar_load(output_list_mofa)
+```
+
+
+## Clustered correlation heatmaps
+
+We can visualise the correlation between the samples score and features weight of the different latent dimensions constructed by the methods as a heatmap, using the `comparison_heatmap_corr()` function. The main input parameter of the function is a list of `output_dimension_reduction` objects, which we constructed in the previous section:
+
+```{r comparison-heatmap-corr, fig.width = 8, fig.height = 7.5}
+comparison_heatmap_corr(output_list)
+```
+
+The function generates two half-heatmaps. The heatmap on the left is a visualisation of the correlation between the features weight of the different latent dimensions; the one on the right shows the correlation between their samples score. Since correlation matrices are symmetric, only one triangle of each matrix is represented. The rows and columns of the heatmaps each correspond to one of the latent dimensions generated by one of the integration methods. Their name is abbreviated (C stands for component, F for Factor, JC for joint component, MSC for metabolome-specific component). The method through which each latent dimension was generated is indicated next to its name as a coloured annotation (here green for DIABLO, orange for MOFA and blue for sO2PLS). In each heatmap, the rows and columns have been ordered according to a clustering performed on the correlation matrix, so that the latent components most similar (in terms of samples score or features weight) are next to each other.
+
+By default, the function represents all of the latent dimensions generated by each method, but the parameter `latent_dimensions` allows us to select only the ones we are interested in comparing. It accepts a named list, where each element gives for an integration method the latent dimensions to use. The names of the list must correspond to methods name. For example, we have seen that in the MOFA results, only factors 1 to 7 convey interesting information, so we want to focus on these, and compare them to all latent dimensions from DIABLO and sO2PLs:
+
+```{r comparison-heatmap-corr-subset, fig.width = 8, fig.height = 7.5}
+comparison_heatmap_corr(
+  output_list,
+  latent_dimensions = list("MOFA" = paste0("Factor ", 1:4))
+)
+```
+
+From the heatmaps, we can see that some latent dimensions constructed by the different methods seem to capture similar trends in the data. For example, MOFA factor 1 and sO2PLS joint component 3 are moderately positively correlated, both in terms of samples score and features weight, while MOFA factor 5 and sO2PLS metabolome-specific component 1 are negatively correlated. Note that the sign of the correlation is interesting but not very important. We can also see some latent dimensions that seem correlated with respect to one metric but not the other. For example, the samples score of MOFA factor 3 and sO2PLS metabolome-specific component 2 are strongly correlated, but their features weight is only moderately correlated. On the contrary, DIABLO component 1 and sO2PLS joint component 1 have strongly correlated features weight, but their samples score are not correlated. 
+
+When using the function to compare the results of the two MOFA runs, the names that we gave to the list of output will be used as method name, and these are the names to use in order to select some latent dimensions of interest. For example:
+
+```{r comparison-heatmap-corr-mofa, fig.width = 7, fig.height = 6}
+comparison_heatmap_corr(
+  output_list_mofa,
+  latent_dimensions = list(
+    "MOFA (supervised pref.)" = paste0("Factor ", 1:5),
+    "MOFA (unsupervised pref.)" = paste0("Factor ", 1:5)
+  )
+)
+```
+
+## A note about missing features
+
+Typically, when comparing the output of different integration methods, we assume that the same input data was used for each method. However, when we are instead comparing the impact of data preprocessing on the integration results, it is possible that not all features are present in the input data for each fo the methods. This is for example the case when assessing the impact of different prefiltering settings (e.g. supervised vs unsupervised) on the results of a particular integration method. It is also the case if we are comparing the integration results when using different subset of omics data as input: in our example, both DIABLO and MOFA were used on the three omics datasets (genomics, transcriptomics and metabolomics), while sO2PLS was run on the transcriptomics and metabolomics datasets only. If that is the case, some features will have no weight in some of the results we are comparing (as they are not in the input data analysed by the integration method). There are two approaches to deal with that: 
+
+* Approach 1: remove these features from the comparison. The correlation between the features weight will only be calculated using the features that are assigned a weight by all methods that we are comparing. This is the default approach used by `comparison_heatmap_corr()` and other comparison functions.
+
+* Approach 2: the features that are assigned a weight by some methods but not others are retained for the comparison, and the missing weights are replaced with zero values. 
+
+The problem with approach 2 is that it might artificially decrease the computed correlation coefficients, which is why approach 1 is the default in this package. However, approach 2 may reveal interesting patterns and therefore was also implemented. 
+
+In `comparison_heatmap_corr()` and other comparison functions where relevant, the choice between these two approaches is controlled by the `include_missing_features` parameter. The first approach is selected with `include_missing_features = FALSE`, while the second approach is selected with `include_missing_features = TRUE`.
+
+Note that the first approach does not remove features that were discarded as a result of feature selection by one of the integration method, but only features that were not in the input data for the integration method. For example, sO2PLS performs feature selection for the joint components, and as a consequence the features that are not selected as assigned a weight of 0. These features are not impacted by the choice of approach.
+
+## Correlation matrices
+
+We can obtain the correlation coefficients displayed in the heatmaps with the `get_features_weight_correlation()` and `get_samples_score_correlation()` functions:
+
+```{r get-corr-mat}
+get_samples_score_correlation(output_list)[1:5, 1:5]
+
+get_features_weight_correlation(output_list)[1:5, 1:5]
+```
+
+Note that the formatting of the row and column names is designed for easier handling in the various plotting functions.
+
+## Pairwise comparisons
+
+While the `comparison_heatmap_corr()` function can handle any number of methods to compare (in our example it was 3), the heatmap can become difficult to interpret. As an alternative option, it is possible to visualise the correlation between the latent dimensions of any two methods. This is what the function `comparison_plot_correlation()` is for. It also takes as input a list of methods' output, but the list must be of length 2 only. For example, we will compare the results of MOFA and sO2PLS:
+
+```{r comparison-plot-correlation, fig.width = 10, fig.height = 10}
+comparison_plot_correlation(output_list[2:3])
+```
+
+As with `comparison_heatmap_corr()`, the function displays the correlation between the latent dimensions' samples score on the left, and between their features weight on the right, but using correlation plots rather than heatmaps. By default, only correlation coefficients above 0.2 have their value displayed (for better clarity), but this can be customised through the `min_show_corr` argument.
+
+By default, the function plots both samples score correlations and features weight correlation, but it is possible to display only one of them by setting the `by` argument to either `samples` or `features`. In addition, as for the heatmap plotting function, it is possible to focus on certain latent dimensions by passing a named list of latent dimensions name to the `latent_dimensions` argument:
+
+```{r comparison-plot-correlation-subset, fig.width = 10, fig.height = 6}
+comparison_plot_correlation(
+  output_list[2:3],
+  by = "samples",
+  latent_dimensions = list(
+    "MOFA" = paste0("Factor ", 1:5),
+    "sO2PLS" = "joint component 1"
+  )
+)
+```
+
+## Comparing samples score
+
+The correlation plots shown above provide a useful summary of the similarity between the latent dimensions constructed by different methods. We can then investigate further how any two latent dimensions (from two different methods) are related. One way to do so is to plot their samples score in a scatterplot. In other vignettes^[See relevant sections in vignettes on data integration with [DIABLO](diablo-pipeline.html#samples-projection-to-the-latent-component-space), [MOFA](mofa-pipeline.html#factors-association-with-samples-covariates) or [sO2PLS](so2pls-pipeline.html#sample-plots)], the function `plot_samples_score_pair()` has been used to display the samples score of two latent dimensions from the result of an integration method, e.g.:
+
+```{r plot-samples-score-pair-diablo, fig.height = 7}
+plot_samples_score_pair(
+  tar_read(diablo_output),
+  c("Component 1", "Component 2"),
+  mo_data = tar_read(mo_set),
+  colour_by = "status"
+) +
+  scale_colour_brewer(palette = "Set1")
+```
+
+This function can also be used to compare the samples score of two latent components from two different methods. This is done by passing to the function a list of length 2 containing the output of two different methods. The name of the latent dimensions to compare are provided as a named list, where each name corresponds to either the name of the method (if the input list is not named) or the name of the element in the input list. So for example, to compare MOFA factor 3 and sO2PLS joint component 1:
+
+```{r plot-samples-score-pair, fig.height = 7}
+plot_samples_score_pair(
+  output_list[2:3],
+  list("MOFA" = "Factor 3", "sO2PLS" = "joint component 1"),
+  mo_data = tar_read(mo_set),
+  colour_by = "status"
+) +
+  scale_colour_brewer(palette = "Set1")
+```
+
+We can see that the samples score of the two latent dimensions are strongly negatively correlated, implying that the two latent dimensions capture a similar trend in the data.
+
+## Comparing features weight
+
+In a similar way, we can compare the features weight or importance of two latent components from two different integration methods. In other vignettes, the function `plot_features_weight_pair()` has been used to display the features weight of two latent dimensions from the result of an integration method, e.g.:
+
+```{r plot-features_weight-pair-mofa}
+plot_features_weight_pair(
+  tar_read(mofa_output),
+  c("Factor 1", "Factor 2"),
+  mo_data = tar_read(mo_set),
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  )
+)
+```
+
+This function can also be used to compare the features weight of two latent components from two different methods. This is done by passing to the function a list of length 2 containing the output of two different methods. The name of the latent dimensions to compare are provided as a named list, where each name corresponds to either the name of the method (if the input list is not named) or the name of the element in the input list. We will again compare MOFA factor 3 and sO2PLS joint component 1. We will focus on features from the transcriptomics and metabolomics dataset since sO2PLS was run on these two only (we could achieve the same result by setting `include_missing_features` to `TRUE`):
+
+```{r plot-features-weight-pair}
+plot_features_weight_pair(
+  output_list[2:3],
+  list("MOFA" = "Factor 3", "sO2PLS" = "joint component 1"),
+  datasets = c("rnaseq", "metabolome"),
+  mo_data = tar_read(mo_set),
+  features_metric = "importance",
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  )
+)
+```
+
+We can see that while MOFA factor 3 and sO2PLS joint component 1 give similar importance to the compounds from the metabolomics dataset, they identify very different transcripts as being most important. By default, the function plots the features signed importance (i.e. importance score to which the sign of their weight was added), but in this case it makes sense to look at their (non-signed) importance score, which we have done by setting the `features_metric` argument to `'importance'`. Note that we can also compare their raw weight, by setting `features_metric` to `'weight'`. If that is the case, keep in mind that the weights from different latent dimensions live on different scales, so the raw values are not directly comparable (but the features ranking and weight sign are):
+
+```{r plot-features-weight-raw}
+plot_features_weight_pair(
+  output_list[2:3],
+  list("MOFA" = "Factor 3", "sO2PLS" = "joint component 1"),
+  features_metric = "weight",
+  datasets = c("rnaseq", "metabolome"),
+  mo_data = tar_read(mo_set),
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  )
+)
+```
+
+
+By default, the `plot_features_weight_pair()` function uses the geometric consensus importance metric (more details in the next section) to highlight the 5 features identified as most important by both methods. Both the number of features highlighted and the metric used can be controlled, through the `top_n` and `metric` arguments, respectively. In the following section, we will expand on the concept of consensus importance and the different metrics available.
+
+## Feature consensus importance {#sec-comparison-consensus}
+
+### Possible metrics
+
+When comparing the results of several integration methods, we might find that several methods uncover similar trends in the datasets (through the latent dimensions they construct). For these latent dimensions, it is interesting to assess which features are consistently selected by the different methods as driving these trends. We can do so by summarising the importance given to each feature by the different integration methods, by computing their consensus importance score. Different metrics can be used to compute the consensus importance score. With $s_j^i$ denoting the importance score of feature $j$ from method $i$, $i = 1 \dots n_i$ (more specifically, from one latent dimension constructed by an integration method), the following metrics are implemented in the package:
+
+* Geometric mean (`geometric`): calculated as $CI_j^G = \exp\left(\frac{1}{n_i} \sum\limits_i \log(s_j^i)\right)$
+
+* Harmonic mean (`harmonic`): calculated as $CI_j^H = \frac{1}{\frac{1}{n_i}\sum\limits_i\frac{1}{s_j^i}}$
+
+* L2 norm (`l2`): calculated as $CI_j^{L2} = \sqrt{\sum\limits_i (s_j^i)^2}$
+
+* Average (`average`): calculated as $CI_j^A = \frac{1}{n_i} \sum\limits_i s_j^i$
+
+* Product (`product`): calculated as $CI_j^P = \prod\limits_i s_j^i$
+
+* Minimum (`min`): calculated as $CI_j^{min} = \min\limits_i(s_j^i)$
+
+* Maximum (`max`): calculated as $CI_j^{max} = \max\limits_i(s_j^i)$
+
+The difference between these metrics can be visualised in the simple case where features are assigned two different importance scores, e.g. by two different integration methods:
+
+```{r show-consensus-importance, fig.height = 7}
+show_consensus_metrics()
+```
+
+In the plots, the consensus importance values have been normalised so that the highest value is 1. As we can see, metrics such as the geometric mean, harmonic mean, product or minimum will give higher consensus scores to features that are consistently assigned a high importance score across all methods, while features that have high a high importance score with one method but low score with the other will get a lower consensus score. Conversely, metrics such as the l2-norm or maximum prioritise features that are given a high importance score by at least one method, regardless of their importance score with other methods.
+
+### Computing features' consensus importance score
+
+The function `compute_consensus_importance()` takes as input a list of output objects from different integration methods, as well as a named list indicating which latent dimension from each output object should be considered. By default, the geometric mean is used, but this can be changed through the `metric` argument.
+
+```{r compute-consenus-importance}
+consensus_df <- compute_consensus_importance(
+  output_list[2:3],
+  list("MOFA" = "Factor 3", "sO2PLS" = "joint component 1")
+)
+
+consensus_df
+```
+
+To help compare the data-frame with the plots created in the previous section, we will add the features label to the consensus importance data-frame.
+
+```{r adding-features-labels}
+features_labels_df <- get_features_labels(
+  tar_read(mo_set),
+  list("rnaseq" = "Name",
+       "metabolome" = "name")
+)
+
+consensus_df <- consensus_df |> 
+  left_join(features_labels_df, by = c("dataset", "feature_id"))
+
+consensus_df |> 
+  group_by(dataset) |> 
+  slice_max(importance, n = 5)
+```
+
+We can see that, using the geometric mean, the feature from the transcriptomics dataset that is given the highest consensus importance is the transcript `PGSC0003DMG400023508` that encodes a kinase. This is because its importance score is somewhat consistent between the two latent dimensions. Other transcripts that are given high importance by one method have a low importance score with the other method. Note that with a metric such as the average consensus, the top features from each latent dimensions are instead selected. The metric chosen matters less when the latent dimensions compared are in strong agreement, as it is the case for the importance score of the metabolic compounds: 
+
+```{r compute-consensus-importance-average}
+compute_consensus_importance(
+  output_list[2:3],
+  list("MOFA" = "Factor 3", "sO2PLS" = "joint component 1"),
+  metric = "average"
+) |> 
+  left_join(features_labels_df, by = c("dataset", "feature_id")) |> 
+  group_by(dataset) |> 
+  slice_max(importance, n = 5)
+```
+
+In the `plot_features_weight_pair()` function, we can specify which metric should be used for the consensus importance to highlight the top features. For example, we can illustrate the top features according to the average consensus metric:
+
+```{r plot-features-weight-average}
+plot_features_weight_pair(
+  output_list[2:3],
+  list("MOFA" = "Factor 3", "sO2PLS" = "joint component 1"),
+  metric = "average",
+  datasets = c("rnaseq", "metabolome"),
+  mo_data = tar_read(mo_set),
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  )
+)
+```
+
+## Recap -- targets list
+
+Although we didn't create any new target for the plots in this section, we can turn some plots into targets. 
+
+<details>
+  <summary>Targets list for comparing different integration methods' output</summary>
+  
+
+```{targets recap-targets-list}
+list(
+  ## Creating a list of integration methods output objects
+  tar_target(
+    output_list,
+    list(diablo_output, mofa_output, so2pls_output)
+  ),
+  
+  ## Heatmap for comparison of integration methods output
+  tar_target(
+    comparison_methods_heatmap_plot,
+    comparison_heatmap_corr(output_list)
+  ),
+  
+  ## Correlation plot for comparison of MOFA and sO2PLS results
+  tar_target(
+    mofa_so2pls_correlation_plot,
+    comparison_plot_correlation(output_list[2:3])
+  ),
+  
+  ## Comparison of samples score for MOFA factor 1 and sO2PLS joint component 1
+  tar_target(
+    mofa_so2pls_samples_score_comparison_plot,
+    plot_samples_score_pair(
+      output_list[2:3],
+      list("MOFA" = "Factor 1", "sO2PLS" = "joint component 1"),
+      mo_data = tar_read(mo_set),
+      colour_by = "bruising_group"
+    ) +
+      scale_colour_brewer(palette = "Set1")
+  ),
+  
+  ## Comparison of features weight for MOFA factor 1 and sO2PLS joint component 1
+  tar_target(
+    mofa_so2pls_features_weight_comparison_plot,
+    plot_features_weight_pair(
+      output_list[2:3],
+      list("MOFA" = "Factor 3", "sO2PLS" = "joint component 1"),
+      datasets = c("rnaseq", "metabolome"),
+      mo_data = tar_read(mo_set),
+      label_cols = list(
+        "rnaseq" = "gene_name",
+        "metabolome" = "comp_name"
+      )
+    )
+  ),
+  
+  ## Table of features' consensus importance for MOFA factor 1 and sO2PLS joint
+  ## component 1
+  tar_target(
+    mofa_so2pls_features_weight_consensus_importance,
+    compute_consensus_importance(
+      output_list[2:3],
+      list("MOFA" = "Factor 3", "sO2PLS" = "joint component 1")
+    ) |> 
+      left_join(
+        get_features_labels(
+          mo_set,
+          list("rnaseq" = "gene_name",
+               "metabolome" = "comp_name")
+        ),
+        by = c("dataset", "feature_id")
+      )
+  )
+)
+```
+</details>

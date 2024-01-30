@@ -708,5 +708,59 @@ list(
       "status",
       latent_dimensions = paste("Factor", 1:3)
     )
+  ),
+
+  ##====================##
+  ## Results comparison ----
+  ##====================##
+
+  ## Creating the input object for the MOFA pipeline
+  ## using the unsupervised preselection results
+  tar_target(
+    mofa_unsupervised_input,
+    get_input_mofa(
+      mo_presel_unsupervised,
+      options_list = list(
+        data_options = list(scale_views = TRUE),
+        model_options = list(
+          likelihoods = c(
+            "snps" = "poisson",
+            "rnaseq" = "gaussian",
+            "metabolome" = "gaussian")
+        ),
+        training_options = list(seed = 72)
+      ),
+      only_common_samples = FALSE
+    )
+  ),
+
+  ## Training the model with the MOFA algorithm
+  tar_target(
+    mofa_unsupervised_trained,
+    run_mofa(
+      mofa_unsupervised_input,
+      save_data = TRUE,
+      use_basilisk = TRUE
+    )
+  ),
+
+  ## Formatting MOFA output
+  tar_target(
+    mofa_unsupervised_output,
+    get_output(mofa_unsupervised_trained)
+  ),
+
+  ## List of formatted output
+  tar_target(
+    output_list,
+    list(spls_output, so2pls_output, mofa_output, diablo_output)
+  ),
+
+  tar_target(
+    output_list_mofa,
+    list(
+      "MOFA (supervised pref.)" = mofa_output,
+      "MOFA (unsupervised pref.)" = mofa_unsupervised_output
+    )
   )
 )
