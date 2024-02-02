@@ -108,7 +108,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./comparison.html" rel="next">
 <link href="./interpretation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -269,6 +269,11 @@ div.csl-indent {
   <a href="./evaluation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item">
@@ -339,7 +344,7 @@ div.csl-indent {
 </div>
 </details><section id="introduction" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="introduction">
 <span class="header-section-number">13.1</span> Introduction</h2>
-<p>Evaluating the results of a multi-omics integration analysis is not an easy task, mainly because when analysing biological data there is no ground truth about the underlying biological mechanisms at play. However, it is possible to gain some measure of confidence in our results by comparing them to what we already know about the biological system studied, or to other analyses (typically single-omics analyses) performed on the dataset. In the latter case, this can also show us what insights are gained by analysing the omics datasets together that would have been missed by looking at each omics dataset separately. Note that in this vignette, we refer to the <strong>evaluation</strong> of an integration method as comparison with prior knowledge or previous studies, while in <span class="quarto-unresolved-ref">?sec-comparison</span> we will talk about the <strong>comparison</strong> of results obtained with different integration tools.</p>
+<p>Evaluating the results of a multi-omics integration analysis is not an easy task, mainly because when analysing biological data there is no ground truth about the underlying biological mechanisms at play. However, it is possible to gain some measure of confidence in our results by comparing them to what we already know about the biological system studied, or to other analyses (typically single-omics analyses) performed on the dataset. In the latter case, this can also show us what insights are gained by analysing the omics datasets together that would have been missed by looking at each omics dataset separately. Note that in this vignette, we refer to the <strong>evaluation</strong> of an integration method as comparison with prior knowledge or previous studies, while in <a href="comparison.html"><span>Chapter&nbsp;14</span></a> we will talk about the <strong>comparison</strong> of results obtained with different integration tools.</p>
 <p>When evaluating integration results, we can compare the features contribution (see <a href="interpretation.html#sec-interpretation-dim-reduction"><span>Section&nbsp;12.1</span></a>) to some prior information that we have about the features: for example, their score in a differential expression analysis, whether they were found differentially expressed or not, or the group to which they belong (e.g.&nbsp;biological pathway or chemical class). On the other hand, we can assess whether the latent dimensions created separate different sample groups (e.g.&nbsp;control vs treatment, or different time points).</p>
 <p>For this vignette, we will use the results from the DIABLO (<a href="diablo.html"><span>Chapter&nbsp;11</span></a>) and MOFA (<a href="mofa.html"><span>Chapter&nbsp;10</span></a>) analyses as examples. We will use the dimension reduction output objects that we created in <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>, which contains the results of the DIABLO and MOFA runs stored in a standardised format (<a href="interpretation.html#sec-interpretation-standard-output"><span>Section&nbsp;12.2</span></a>):</p>
 <div class="cell">
@@ -727,15 +732,15 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">go_sets_info</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
-<span><span class="co">#&gt;   go_id      go_domain          go_name                                         </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;              &lt;chr&gt;                                           </span></span>
-<span><span class="co">#&gt; 1 GO:0006468 Biological process protein phosphorylation                         </span></span>
-<span><span class="co">#&gt; 2 GO:0007165 Biological process signal transduction                             </span></span>
-<span><span class="co">#&gt; 3 GO:0031623 Biological process receptor internalization                        </span></span>
-<span><span class="co">#&gt; 4 GO:0006813 Biological process potassium ion transport                         </span></span>
-<span><span class="co">#&gt; 5 GO:0006355 Biological process regulation of DNA-templated transcription       </span></span>
-<span><span class="co">#&gt; 6 GO:0006357 Biological process regulation of transcription by RNA polymerase II</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
+<span><span class="co">#&gt;   go_id      go_name                                         </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;                                           </span></span>
+<span><span class="co">#&gt; 1 GO:0006468 protein phosphorylation                         </span></span>
+<span><span class="co">#&gt; 2 GO:0007165 signal transduction                             </span></span>
+<span><span class="co">#&gt; 3 GO:0031623 receptor internalization                        </span></span>
+<span><span class="co">#&gt; 4 GO:0006813 potassium ion transport                         </span></span>
+<span><span class="co">#&gt; 5 GO:0006355 regulation of DNA-templated transcription       </span></span>
+<span><span class="co">#&gt; 6 GO:0006357 regulation of transcription by RNA polymerase II</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can run the enrichment analysis:</p>
 <div class="cell">
@@ -758,15 +763,15 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">diablo_enrichment_results</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
-<span><span class="co">#&gt;   latent_dimension set_id stat_mean pvalue adj_pvalue set_size go_domain go_name</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;            &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 Component 3      GO:00…     1.23   0.114      0.608       24 Biologic… synapt…</span></span>
-<span><span class="co">#&gt; 2 Component 3      GO:00…     0.993  0.165      0.608       24 Biologic… hetero…</span></span>
-<span><span class="co">#&gt; 3 Component 3      GO:00…     0.969  0.168      0.608      100 Biologic… dephos…</span></span>
-<span><span class="co">#&gt; 4 Component 3      GO:00…     0.984  0.169      0.608       20 Biologic… negati…</span></span>
-<span><span class="co">#&gt; 5 Component 3      GO:00…     0.968  0.169      0.608       40 Biologic… positi…</span></span>
-<span><span class="co">#&gt; 6 Component 3      GO:00…     0.957  0.170      0.608      138 Biologic… protei…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # A tibble: 6 × 7</span></span>
+<span><span class="co">#&gt;   latent_dimension set_id     stat_mean pvalue adj_pvalue set_size go_name      </span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;            &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;        </span></span>
+<span><span class="co">#&gt; 1 Component 3      GO:0035249     1.23   0.114      0.608       24 synaptic tra…</span></span>
+<span><span class="co">#&gt; 2 Component 3      GO:0007157     0.993  0.165      0.608       24 heterophilic…</span></span>
+<span><span class="co">#&gt; 3 Component 3      GO:0016311     0.969  0.168      0.608      100 dephosphoryl…</span></span>
+<span><span class="co">#&gt; 4 Component 3      GO:0045930     0.984  0.169      0.608       20 negative reg…</span></span>
+<span><span class="co">#&gt; 5 Component 3      GO:0045666     0.968  0.169      0.608       40 positive reg…</span></span>
+<span><span class="co">#&gt; 6 Component 3      GO:0006470     0.957  0.170      0.608      138 protein deph…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In that case, unsurprisingly, neither of the latent components were enriched for any GO term. This makes sense since DIABLO performed a strong feature selection, so very few genes had non-null weights. We can repeat the enrichment with the MOFA integration results to show more interesting results. We will run the enrichment only for the first three factors for conciseness:</p>
 <div class="cell">
@@ -791,32 +796,30 @@ div.csl-indent {
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mofa_enrichment_results</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mofa_enrichment_results</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
-<span><span class="co">#&gt;   latent_dimension set_id     stat_mean   pvalue adj_pvalue set_size go_domain  </span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 7</span></span>
+<span><span class="co">#&gt;   latent_dimension set_id     stat_mean   pvalue adj_pvalue set_size go_name    </span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;            &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;      </span></span>
-<span><span class="co">#&gt; 1 Factor 3         GO:0031424      4.13 0.000275      0.548       20 Biological…</span></span>
-<span><span class="co">#&gt; 2 Factor 3         GO:0045109      3.59 0.000713      0.711       25 Biological…</span></span>
-<span><span class="co">#&gt; 3 Factor 3         GO:0030855      2.56 0.00648       0.767       56 Biological…</span></span>
-<span><span class="co">#&gt; 4 Factor 3         GO:0031069      2.07 0.0246        0.767       25 Biological…</span></span>
-<span><span class="co">#&gt; 5 Factor 3         GO:0030216      1.89 0.0320        0.767       49 Biological…</span></span>
-<span><span class="co">#&gt; 6 Factor 3         GO:0098609      1.82 0.0350        0.767      120 Biological…</span></span>
-<span><span class="co">#&gt; # ℹ 1 more variable: go_name &lt;chr&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 Factor 3         GO:0031424      4.13 0.000275      0.548       20 keratiniza…</span></span>
+<span><span class="co">#&gt; 2 Factor 3         GO:0045109      3.59 0.000713      0.711       25 intermedia…</span></span>
+<span><span class="co">#&gt; 3 Factor 3         GO:0030855      2.56 0.00648       0.767       56 epithelial…</span></span>
+<span><span class="co">#&gt; 4 Factor 3         GO:0031069      2.07 0.0246        0.767       25 hair folli…</span></span>
+<span><span class="co">#&gt; 5 Factor 3         GO:0030216      1.89 0.0320        0.767       49 keratinocy…</span></span>
+<span><span class="co">#&gt; 6 Factor 3         GO:0098609      1.82 0.0350        0.767      120 cell-cell …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can see for example that MOFA factor 3 seems enriched in genes associated with the keratinization GO term (<code>GO:0031424</code>). For factor 1 (the factor separating the healthy and infected animals), the keratinization term also yields the smallest p-value, together with several GO terms related to inflammation (even though after correction for multiple testing these p-values are no longer significant):</p>
 <div class="cell">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mofa_enrichment_results</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">latent_dimension</span> <span class="op">==</span> <span class="st">"Factor 1"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
-<span><span class="co">#&gt;   latent_dimension set_id     stat_mean  pvalue adj_pvalue set_size go_domain   </span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 7</span></span>
+<span><span class="co">#&gt;   latent_dimension set_id     stat_mean  pvalue adj_pvalue set_size go_name     </span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;            &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       </span></span>
-<span><span class="co">#&gt; 1 Factor 1         GO:0031424      2.75 0.00461      0.786       20 Biological …</span></span>
-<span><span class="co">#&gt; 2 Factor 1         GO:0045109      2.47 0.00867      0.786       25 Biological …</span></span>
-<span><span class="co">#&gt; 3 Factor 1         GO:0010951      2.15 0.0208       0.786       25 Biological …</span></span>
-<span><span class="co">#&gt; 4 Factor 1         GO:0006954      1.86 0.0317       0.786      165 Biological …</span></span>
-<span><span class="co">#&gt; 5 Factor 1         GO:0050727      1.75 0.0424       0.786       56 Biological …</span></span>
-<span><span class="co">#&gt; 6 Factor 1         GO:0007166      1.62 0.0534       0.786      138 Biological …</span></span>
-<span><span class="co">#&gt; # ℹ 1 more variable: go_name &lt;chr&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 Factor 1         GO:0031424      2.75 0.00461      0.786       20 keratinizat…</span></span>
+<span><span class="co">#&gt; 2 Factor 1         GO:0045109      2.47 0.00867      0.786       25 intermediat…</span></span>
+<span><span class="co">#&gt; 3 Factor 1         GO:0010951      2.15 0.0208       0.786       25 negative re…</span></span>
+<span><span class="co">#&gt; 4 Factor 1         GO:0006954      1.86 0.0317       0.786      165 inflammator…</span></span>
+<span><span class="co">#&gt; 5 Factor 1         GO:0050727      1.75 0.0424       0.786       56 regulation …</span></span>
+<span><span class="co">#&gt; 6 Factor 1         GO:0007166      1.62 0.0534       0.786      138 cell surfac…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="plotting-features-weight-for-feature-sets" class="level3" data-number="13.3.5"><h3 data-number="13.3.5" class="anchored" data-anchor-id="plotting-features-weight-for-feature-sets">
 <span class="header-section-number">13.3.5</span> Plotting features weight for feature sets</h3>
@@ -1253,8 +1256,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./comparison.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

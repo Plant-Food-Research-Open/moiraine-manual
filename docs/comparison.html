@@ -311,7 +311,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">## For colour palettes</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this vignette, we assume that the multi-omics datasets have been analysed with at least two different integration methods (see vignettes on data integration with <a href="diablo-pipeline.html">DIABLO</a>, <a href="mofa-pipeline.html">MOFA</a> and <a href="so2pls-pipeline.html">sO2PLS</a>). We will show here how to compare the results of these different methods.</p>
+<p>As different integration methods use different statistical approaches and make different assumptions about the data, it can be very interesting to apply them to a same multi-omics dataset and compare the results. In this chapter, we will see how the <code>moiraine</code> package can be used to compare the results from different integration methods.</p>
 <p>As a reminder, here is what the <code>_targets.R</code> script should look like so far:</p>
 <details><summary><code>_targets.R</code> script
 </summary><div class="cell">
@@ -321,13 +321,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </details><section id="introduction" class="level2" data-number="14.1"><h2 data-number="14.1" class="anchored" data-anchor-id="introduction">
 <span class="header-section-number">14.1</span> Introduction</h2>
-<p>Despite relying on very different statistical approaches, the different integration methods included in the pipeline all perform dimension reduction through feature extraction. That is, they construct a small number of latent features/variables/dimensions (that we refer to as <strong>latent dimensions</strong> in the package) that capture as much information from the original datasets as possible. A dimension reduction approach typically returns, for each latent dimension constructed, two quantities:</p>
-<ul>
-<li><p><strong>Features weight</strong>: the contribution of the features from the different omics dataset to the latent dimension. sPLS, DIABLO, MOFA and sO2PLS all construct latent dimensions as linear combinations of the original features, and therefore the features contribution is quantified by their weight in the linear combination.</p></li>
-<li><p><strong>Samples score</strong>: the projection of the samples onto the latent dimension.</p></li>
-</ul>
-<p>Therefore, we can compare the results of different integration methods in terms of the latent dimensions that they construct. This can be done by comparing either the latent dimensions’ samples score, or their features weight. When comparing the methods in terms of their latent dimensions’ samples score, we are answering the question: <em>are the different methods capturing the same trends from the datasets?</em> By comparing them from the point of view of their latent dimensions’ features weight, we are instead answering a slightly different question: <em>are the different methods highlighting similar sets of features as driving variation in the datasets?</em> Of course, these comparisons are related, as two latent dimensions that identify very different trends in the data will give high importance to very different sets of features.</p>
-<p>Note that, although this vignette mainly considers a comparison of different integration methods, we could also compare the results of a same integration method obtained with different input (e.g.&nbsp;to assess the impact of datasets preprocessing on the integration results). To illustrate this, let us run a second MOFA analysis, but this time using the datasets that have been prefiltered to only <a href="prefiltering.html#unsupervised-features-preselection">retain the most variable features</a>, as opposed to the <a href="prefiltering.html#supervised-features-preselection">supervised prefiltering</a> results that we have used in the main analysis.</p>
+<p>As explained in <a href="interpretation.html#sec-interpretation-dim-reduction"><span>Section&nbsp;12.1</span></a>, the integration tools considered in <code>moiraine</code> all perform dimension reduction of the omics datasets, and therefore all construct latent dimensions which can be described in terms of their features weight and their samples score. Therefore, we can compare the results of different integration methods in terms of their latent dimensions, by comparing either the latent dimensions’ samples score, or their features weight. When comparing the samples score, we are answering the question: <em>are the different methods capturing the same trends from the datasets?</em> By comparing features weight, we are instead answering a slightly different question: <em>are the different methods highlighting similar sets of features as driving variation in the datasets?</em> Of course, these comparisons are related, as two latent dimensions that identify very different trends in the data will most likely give high importance to very different sets of features.</p>
+<p>Note that, although this chapter mainly considers a comparison of different integration methods, we could also compare the results of a same integration but with different pre-processing options (e.g.&nbsp;to assess the impact of datasets normalisation or pre-filtering on the integration results). To illustrate this, we will run a second MOFA analysis, but this time using the datasets that have been pre-filtered to retain the most variable features (<a href="prefiltering.html#sec-prefiltering-unsupervised"><span>Section&nbsp;7.3.1</span></a>), as opposed to the supervised pre-filtering results that we have used in the main analysis (<a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;7.3.2</span></a>).</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Creating the input object for the MOFA pipeline</span></span>
@@ -369,68 +364,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section><section id="extracting-integration-results" class="level2" data-number="14.2"><h2 data-number="14.2" class="anchored" data-anchor-id="extracting-integration-results">
 <span class="header-section-number">14.2</span> Extracting integration results</h2>
-<p>The first step in order to compare the results from different methods is to convert them to a standardised format. This is done via the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function, which has already been presented in the vignettes corresponding to each integration method. As a reminder, the function <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> takes as input the results of one of the integration methods supported by the package, and returns the samples score and features weight for the latent dimensions generated by a method in a standardised and consistent format. In the previous vignettes, we created the following targets for this purpose:</p>
+<p>The first step in order to compare the results from different methods is to convert them to a standardised format with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function, which we did in <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>. The function returns an <code>output_dimension_reduction</code> object which contains information about the latent dimensions’ features weight and samples score, as well as a summary of the percentage of variance explained for each dataset. The <code>output_dimension_reduction</code> object created also has an attribute called <code>method</code>, which contains the name of the integration method used:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>  <span class="co">## Formatting DIABLO output</span></span>
-<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
-<span>    <span class="va">diablo_output</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">diablo_final_run</span><span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  </span>
-<span>  <span class="co">## Formatting MOFA output</span></span>
-<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
-<span>    <span class="va">mofa_output</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  </span>
-<span>  <span class="co">## Formatting sO2PLS output</span></span>
-<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
-<span>    <span class="va">so2pls_output</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The resulting objects are all of class <code>output_dimension_reduction</code>, which is a list with elements <code>samples_score</code>, <code>features_weight</code> and <code>variance_explained</code>, each of them a tibble:</p>
-<div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; List of 3</span></span>
-<span><span class="co">#&gt;  $ features_weight   : tibble [8,196 × 5] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;   ..$ feature_id      : chr [1:8196] "21-25977541-C-T-rs41974686" "22-51403583-A-C-rs210306176" "24-12959068-G-T-rs381471286" "8-85224224-T-C-rs43565287" ...</span></span>
-<span><span class="co">#&gt;   ..$ dataset         : Factor w/ 3 levels "snps","rnaseq",..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
-<span><span class="co">#&gt;   ..$ latent_dimension: Factor w/ 4 levels "Component 1",..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
-<span><span class="co">#&gt;   ..$ weight          : num [1:8196] 0 0 0 0 0 0 0 0 0 0 ...</span></span>
-<span><span class="co">#&gt;   ..$ importance      : num [1:8196] 0 0 0 0 0 0 0 0 0 0 ...</span></span>
-<span><span class="co">#&gt;  $ samples_score     : tibble [540 × 3] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;   ..$ sample_id       : chr [1:540] "G1979" "G2500" "G3030" "G3068" ...</span></span>
-<span><span class="co">#&gt;   ..$ latent_dimension: Factor w/ 4 levels "Component 1",..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
-<span><span class="co">#&gt;   ..$ score           : num [1:540] 1.95 1.43 3.72 3.7 2.03 ...</span></span>
-<span><span class="co">#&gt;  $ variance_explained: tibble [12 × 3] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;   ..$ latent_dimension: Factor w/ 4 levels "Component 1",..: 1 1 1 2 2 2 3 3 3 4 ...</span></span>
-<span><span class="co">#&gt;   ..$ dataset         : Factor w/ 3 levels "snps","rnaseq",..: 1 2 3 1 2 3 1 2 3 1 ...</span></span>
-<span><span class="co">#&gt;   ..$ prop_var_expl   : num [1:12] 0.0778 0.201 0.1655 0.0188 0.083 ...</span></span>
-<span><span class="co">#&gt;  - attr(*, "class")= chr "output_dimension_reduction"</span></span>
-<span><span class="co">#&gt;  - attr(*, "method")= chr "DIABLO"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Note that each of the <code>output_dimension_reduction</code> objects has an attribute called <code>method</code>, which contains the name of the method used:</p>
-<div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mofa_output</span><span class="op">)</span>, <span class="st">"method"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "MOFA"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">diablo_output</span>, <span class="st">"method"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "DIABLO"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To facilitate comparisons, we will combine these objects into a list:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">spls_output</span>, <span class="va">so2pls_output</span>, <span class="va">mofa_output</span>, <span class="va">diablo_output</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This list will be the input of most of the functions that we will showcase in this vignette.</p>
+<p>This list will be the input of most of the functions that we will showcase in this chapter.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You can notice that we didn’t give any name to the elements of the list of outputs that we just created. When comparing results from different integration methods, the comparison functions that we will use in this vignette automatically extract the name of the method from each object (as shown above), and use this as name for the results. However, when we want to compare several results from a same integration method, we need to give unique names to the different elements in the output list, e.g.:</p>
+<p>You can notice that we didn’t give any name to the elements of the list that we just created. When comparing results from different integration methods, the comparison functions implemented in <code>moiraine</code> automatically extract the name of the method from each object (as shown above), and use this as labels in the plots. However, when we want to compare several results from a same integration method, we need to give unique names to the different elements in the output list, e.g.:</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list_mofa</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"MOFA (supervised pref.)"</span> <span class="op">=</span> <span class="va">mofa_output</span>,</span>
@@ -439,44 +392,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">output_list_mofa</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">output_list_mofa</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="clustered-correlation-heatmaps" class="level2" data-number="14.3"><h2 data-number="14.3" class="anchored" data-anchor-id="clustered-correlation-heatmaps">
 <span class="header-section-number">14.3</span> Clustered correlation heatmaps</h2>
-<p>We can visualise the correlation between the samples score and features weight of the different latent dimensions constructed by the methods as a heatmap, using the <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> function. The main input parameter of the function is a list of <code>output_dimension_reduction</code> objects, which we constructed in the previous section:</p>
+<p>We can visualise the correlation between the samples score and features weight of the different latent dimensions constructed by the integration methods as a heatmap, using the <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> function. The main input parameter of the function is a list of <code>output_dimension_reduction</code> objects, which we constructed in the previous section:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span></span>
-<span><span class="co">#&gt; No legend element is put in the last 1 column under `ncol = 3`, maybe</span></span>
-<span><span class="co">#&gt; you should set `by_row = TRUE`? Reset `ncol` to 2.</span></span>
-<span><span class="co">#&gt; No legend element is put in the last 1 column under `ncol = 3`, maybe</span></span>
-<span><span class="co">#&gt; you should set `by_row = TRUE`? Reset `ncol` to 2.</span></span>
-<span><span class="co">#&gt; No legend element is put in the last 1 column under `ncol = 3`, maybe</span></span>
-<span><span class="co">#&gt; you should set `by_row = TRUE`? Reset `ncol` to 2.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span><span class="va">output_list</span>, legend_ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="comparison_files/figure-html/comparison-heatmap-corr-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>The function generates two half-heatmaps. The heatmap on the left is a visualisation of the correlation between the features weight of the different latent dimensions; the one on the right shows the correlation between their samples score. Since correlation matrices are symmetric, only one triangle of each matrix is represented. The rows and columns of the heatmaps each correspond to one of the latent dimensions generated by one of the integration methods. Their name is abbreviated (C stands for component, F for Factor, JC for joint component, MSC for metabolome-specific component). The method through which each latent dimension was generated is indicated next to its name as a coloured annotation (here green for DIABLO, orange for MOFA and blue for sO2PLS). In each heatmap, the rows and columns have been ordered according to a clustering performed on the correlation matrix, so that the latent components most similar (in terms of samples score or features weight) are next to each other.</p>
-<p>By default, the function represents all of the latent dimensions generated by each method, but the parameter <code>latent_dimensions</code> allows us to select only the ones we are interested in comparing. It accepts a named list, where each element gives for an integration method the latent dimensions to use. The names of the list must correspond to methods name. For example, we have seen that in the MOFA results, only factors 1 to 7 convey interesting information, so we want to focus on these, and compare them to all latent dimensions from DIABLO and sO2PLs:</p>
+<p>The function generates two half-heatmaps. The heatmap on the left is a visualisation of the correlation between the features weight of the different latent dimensions; the one on the right shows the correlation between their samples score. Since correlation matrices are symmetric, only one triangle of each matrix is represented. The rows and columns of the heatmaps each correspond to one of the latent dimensions generated by one of the integration methods. Their name is abbreviated (C stands for component, F for Factor, JC for joint component, RSC for rnaseq-specific component and MSC for metabolome-specific component). The method through which each latent dimension was generated is indicated next to its name as a coloured annotation. In each heatmap, the rows and columns have been ordered according to a clustering performed on the correlation matrix, so that the latent dimensions most similar (in terms of samples score or features weight) are next to each other.</p>
+<p>By default, the function represents all of the latent dimensions generated by each method, but the <code>latent_dimensions</code> parameter allows us to select only the ones we are interested in comparing. It accepts a named list, where each element gives for an integration method the latent dimensions to use. The names of the list must correspond to methods name. For example, we will look at all latent dimensions from sPLS and DIABLO, but restrict to only the first four MOFA factors, and only the joint component and first two dataset-specific components for sO2PLS:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list</span>,</span>
-<span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Factor "</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; No legend element is put in the last 1 column under `ncol = 3`, maybe</span></span>
-<span><span class="co">#&gt; you should set `by_row = TRUE`? Reset `ncol` to 2.</span></span>
-<span><span class="co">#&gt; No legend element is put in the last 1 column under `ncol = 3`, maybe</span></span>
-<span><span class="co">#&gt; you should set `by_row = TRUE`? Reset `ncol` to 2.</span></span>
-<span><span class="co">#&gt; No legend element is put in the last 1 column under `ncol = 3`, maybe</span></span>
-<span><span class="co">#&gt; you should set `by_row = TRUE`? Reset `ncol` to 2.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>      <span class="st">"joint component 1"</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"metabolome specific component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"rnaseq specific component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="st">"MOFA"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="comparison_files/figure-html/comparison-heatmap-corr-subset-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>From the heatmaps, we can see that some latent dimensions constructed by the different methods seem to capture similar trends in the data. For example, MOFA factor 1 and sO2PLS joint component 3 are moderately positively correlated, both in terms of samples score and features weight, while MOFA factor 5 and sO2PLS metabolome-specific component 1 are negatively correlated. Note that the sign of the correlation is interesting but not very important. We can also see some latent dimensions that seem correlated with respect to one metric but not the other. For example, the samples score of MOFA factor 3 and sO2PLS metabolome-specific component 2 are strongly correlated, but their features weight is only moderately correlated. On the contrary, DIABLO component 1 and sO2PLS joint component 1 have strongly correlated features weight, but their samples score are not correlated.</p>
+<p>From the heatmaps, we can see that some latent dimensions constructed by the different methods seem to capture similar trends in the data. For example, MOFA factor 1, sPLS component 1, DIABLO component 1 and sO2PLS joint component 1 are all strongly correlated in terms of their samples score. Their correlation in terms of features weight is a bit lower, which is due to the fact that some methods perform features selection, therefore all non-selected features are given a weight of 0. Note that the sign of the correlation is interesting but not very important. We can also see some latent dimensions that seem correlated with respect to one metric but not the other. For example, there is a strong correlation between the samples score of MOFA factor 4 and sPLS component 2, but this is not reflected in their features weight. Again, that can be because one method performs latent selection and not the other. On the other hand, the correlation between sPLS component 2 and DIABLO component 2 is stronger when looking at their features weight than at their samples score.</p>
 <p>When using the function to compare the results of the two MOFA runs, the names that we gave to the list of output will be used as method name, and these are the names to use in order to select some latent dimensions of interest. For example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list_mofa</span>,</span>
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"MOFA (supervised pref.)"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Factor "</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,</span>
@@ -489,9 +437,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section><section id="a-note-about-missing-features" class="level2" data-number="14.4"><h2 data-number="14.4" class="anchored" data-anchor-id="a-note-about-missing-features">
 <span class="header-section-number">14.4</span> A note about missing features</h2>
-<p>Typically, when comparing the output of different integration methods, we assume that the same input data was used for each method. However, when we are instead comparing the impact of data preprocessing on the integration results, it is possible that not all features are present in the input data for each fo the methods. This is for example the case when assessing the impact of different prefiltering settings (e.g.&nbsp;supervised vs unsupervised) on the results of a particular integration method. It is also the case if we are comparing the integration results when using different subset of omics data as input: in our example, both DIABLO and MOFA were used on the three omics datasets (genomics, transcriptomics and metabolomics), while sO2PLS was run on the transcriptomics and metabolomics datasets only. If that is the case, some features will have no weight in some of the results we are comparing (as they are not in the input data analysed by the integration method). There are two approaches to deal with that:</p>
+<p>Typically, when comparing the output of different integration methods, we assume that the same input data was used for each method. However, when we are instead comparing the impact of data pre-processing on the integration results, it is possible that not all features are present in the input data for each of the methods. This is for example the case when assessing the impact of different prefiltering settings (e.g.&nbsp;supervised vs unsupervised) on the results of a particular integration method. It is also the case if we are comparing the integration results when using different subset of omics data as input: in our example, both DIABLO and MOFA were used on the three omics datasets (genomics, transcriptomics and metabolomics), while sPLS and sO2PLS were run on the transcriptomics and metabolomics datasets only. If that is the case, some features will have no weight in some of the results we are comparing (as they are not in the input data analysed by the integration method). There are two approaches to deal with that:</p>
 <ul>
-<li><p>Approach 1: remove these features from the comparison. The correlation between the features weight will only be calculated using the features that are assigned a weight by all methods that we are comparing. This is the default approach used by <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> and other comparison functions.</p></li>
+<li><p>Approach 1: remove these features from the comparison. The correlation between the features weight of any two latent dimensions will only be calculated using the features that are assigned a weight by both latent dimensions. This is the default approach used by <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> and other comparison functions.</p></li>
 <li><p>Approach 2: the features that are assigned a weight by some methods but not others are retained for the comparison, and the missing weights are replaced with zero values.</p></li>
 </ul>
 <p>The problem with approach 2 is that it might artificially decrease the computed correlation coefficients, which is why approach 1 is the default in this package. However, approach 2 may reveal interesting patterns and therefore was also implemented.</p>
@@ -501,7 +449,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">14.5</span> Correlation matrices</h2>
 <p>We can obtain the correlation coefficients displayed in the heatmaps with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_features_weight_correlation.html">get_features_weight_correlation()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples_score_correlation.html">get_samples_score_correlation()</a></code> functions:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_score_correlation.html">get_samples_score_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_score_correlation.html">get_samples_score_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="co">#&gt;                                      sPLS___Component 1 sPLS___Component 2</span></span>
 <span><span class="co">#&gt; sPLS___Component 1                          1.000000000        0.008626929</span></span>
 <span><span class="co">#&gt; sPLS___Component 2                          0.008626929        1.000000000</span></span>
@@ -556,9 +504,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that the formatting of the row and column names is designed for easier handling in the various plotting functions.</p>
 </section><section id="pairwise-comparisons" class="level2" data-number="14.6"><h2 data-number="14.6" class="anchored" data-anchor-id="pairwise-comparisons">
 <span class="header-section-number">14.6</span> Pairwise comparisons</h2>
-<p>While the <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> function can handle any number of methods to compare (in our example it was 3), the heatmap can become difficult to interpret. As an alternative option, it is possible to visualise the correlation between the latent dimensions of any two methods. This is what the function <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation()</a></code> is for. It also takes as input a list of methods’ output, but the list must be of length 2 only. For example, we will compare the results of MOFA and sO2PLS:</p>
+<p>While the <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> function can handle any number of methods to compare (in our example it was 4), the heatmap can become difficult to interpret. As an alternative option, it is possible to visualise the correlation between the latent dimensions of any two methods. This is what the function <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation()</a></code> is for. It also takes as input a list of methods’ output, but the list must only contain two elements. For example, we will compare the results of sPLS and sO2PLS:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="comparison_files/figure-html/comparison-plot-correlation-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -566,12 +514,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As with <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code>, the function displays the correlation between the latent dimensions’ samples score on the left, and between their features weight on the right, but using correlation plots rather than heatmaps. By default, only correlation coefficients above 0.2 have their value displayed (for better clarity), but this can be customised through the <code>min_show_corr</code> argument.</p>
 <p>By default, the function plots both samples score correlations and features weight correlation, but it is possible to display only one of them by setting the <code>by</code> argument to either <code>samples</code> or <code>features</code>. In addition, as for the heatmap plotting function, it is possible to focus on certain latent dimensions by passing a named list of latent dimensions name to the <code>latent_dimensions</code> argument:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span></span>
-<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span></span>
+<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  by <span class="op">=</span> <span class="st">"samples"</span>,</span>
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>    <span class="st">"MOFA"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Factor "</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,</span>
-<span>    <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="st">"joint component 1"</span></span>
+<span>    <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"joint component 1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"rnaseq specific component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -580,12 +527,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section><section id="comparing-samples-score" class="level2" data-number="14.7"><h2 data-number="14.7" class="anchored" data-anchor-id="comparing-samples-score">
 <span class="header-section-number">14.7</span> Comparing samples score</h2>
-<p>The correlation plots shown above provide a useful summary of the similarity between the latent dimensions constructed by different methods. We can then investigate further how any two latent dimensions (from two different methods) are related. One way to do so is to plot their samples score in a scatterplot. In other vignettes<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, the function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair()</a></code> has been used to display the samples score of two latent dimensions from the result of an integration method, e.g.:</p>
+<p>The correlation plots shown above provide a useful summary of the similarity between the latent dimensions constructed by different integration methods. We can then investigate further how any two latent dimensions (from two different integration methods) are related. One way to do so is to compare their samples score in a scatterplot. In <a href="interpretation.html#sec-interpretation-samples-pair"><span>Section&nbsp;12.4.2</span></a>, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair()</a></code> function has been used to display the samples score of two latent dimensions from the result of an integration method, e.g.:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
+<span>  <span class="va">diablo_output</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Component 1"</span>, <span class="st">"Component 2"</span><span class="op">)</span>,</span>
-<span>  mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
+<span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>  colour_by <span class="op">=</span> <span class="st">"status"</span></span>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -593,29 +542,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="comparison_files/figure-html/plot-samples-score-pair-diablo-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>This function can also be used to compare the samples score of two latent components from two different methods. This is done by passing to the function a list of length 2 containing the output of two different methods. The name of the latent dimensions to compare are provided as a named list, where each name corresponds to either the name of the method (if the input list is not named) or the name of the element in the input list. So for example, to compare MOFA factor 3 and sO2PLS joint component 1:</p>
+<p>This function can also be used to compare the samples score of two latent dimensions from two integration different methods. This is done by passing to the function a list of length 2 containing the output of two different methods. The name of the latent dimensions to compare are provided as a named list, where each name corresponds to either the name of the method (if the input list is not named) or the name of the element in the input list. So for example, to compare the first latent dimension of MOFA and DIABLO:</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
-<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 3"</span>, <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="st">"joint component 1"</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
+<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
 <span>  colour_by <span class="op">=</span> <span class="st">"status"</span></span>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 5 rows containing missing values (`geom_point()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Warning: Removed 9 rows containing missing values (`geom_point()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="comparison_files/figure-html/plot-samples-score-pair-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>We can see that the samples score of the two latent dimensions are strongly negatively correlated, implying that the two latent dimensions capture a similar trend in the data.</p>
+<p>We can see that the samples score of the two latent dimensions are strongly correlated, showing that the two latent dimensions capture a similar trend in the data.</p>
 </section><section id="comparing-features-weight" class="level2" data-number="14.8"><h2 data-number="14.8" class="anchored" data-anchor-id="comparing-features-weight">
 <span class="header-section-number">14.8</span> Comparing features weight</h2>
-<p>In a similar way, we can compare the features weight or importance of two latent components from two different integration methods. In other vignettes, the function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> has been used to display the features weight of two latent dimensions from the result of an integration method, e.g.:</p>
+<p>In a similar way, we can compare the features importance score of two latent dimensions from two different integration methods. In <a href="interpretation.html#sec-interpretation-features-pair"><span>Section&nbsp;12.5.2</span></a>, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function has been used to display the features weight or importance score of two latent dimensions from the result of an integration method, e.g.:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mofa_output</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Factor 1"</span>, <span class="st">"Factor 2"</span><span class="op">)</span>,</span>
-<span>  mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
+<span>  <span class="va">diablo_output</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Component 1"</span>, <span class="st">"Component 2"</span><span class="op">)</span>,</span>
+<span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
 <span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
@@ -625,12 +574,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="comparison_files/figure-html/plot-features_weight-pair-mofa-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>This function can also be used to compare the features weight of two latent components from two different methods. This is done by passing to the function a list of length 2 containing the output of two different methods. The name of the latent dimensions to compare are provided as a named list, where each name corresponds to either the name of the method (if the input list is not named) or the name of the element in the input list. We will again compare MOFA factor 3 and sO2PLS joint component 1. We will focus on features from the transcriptomics and metabolomics dataset since sO2PLS was run on these two only (we could achieve the same result by setting <code>include_missing_features</code> to <code>TRUE</code>):</p>
+<p>This function can also be used to compare the features weight of two latent dimensions from two different integration methods. This is done by passing to the function a list of length 2 containing the output of two different methods. The name of the latent dimensions to compare are provided as a named list, where each name corresponds to either the name of the method (if the input list is not named) or the name of the element in the input list. We will again compare MOFA factor 1 and DIABLO component 1:</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
-<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 3"</span>, <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="st">"joint component 1"</span><span class="op">)</span>,</span>
-<span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
+<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
 <span>  features_metric <span class="op">=</span> <span class="st">"importance"</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -642,11 +590,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="comparison_files/figure-html/plot-features-weight-pair-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>We can see that while MOFA factor 3 and sO2PLS joint component 1 give similar importance to the compounds from the metabolomics dataset, they identify very different transcripts as being most important. By default, the function plots the features signed importance (i.e.&nbsp;importance score to which the sign of their weight was added), but in this case it makes sense to look at their (non-signed) importance score, which we have done by setting the <code>features_metric</code> argument to <code>'importance'</code>. Note that we can also compare their raw weight, by setting <code>features_metric</code> to <code>'weight'</code>. If that is the case, keep in mind that the weights from different latent dimensions live on different scales, so the raw values are not directly comparable (but the features ranking and weight sign are):</p>
+<p>We can see that while MOFA and DIABLO identify the same metabolites as being the most important to separate healthy and infected animals, the genomic markers and genes that are given the highest importance score by MOFA are not selected with DIABLO.</p>
+<p>By default, the function plots the features signed importance (i.e.&nbsp;importance score to which the sign of their weight was added), but in this case it makes sense to look at their (non-signed) importance score, which we have done by setting the <code>features_metric</code> argument to <code>'importance'</code>. Note that we can also compare their raw weight, by setting <code>features_metric</code> to <code>'weight'</code>. If that is the case, keep in mind that the weights from different latent dimensions live on different scales, so the raw values are not directly comparable (but the features ranking and weight sign are). We can also focus on a subset of datasets by passing their name to the <code>datasets</code> argument:</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
-<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 3"</span>, <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="st">"joint component 1"</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
+<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>  features_metric <span class="op">=</span> <span class="st">"weight"</span>,</span>
 <span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
@@ -664,7 +613,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">14.9</span> Feature consensus importance</h2>
 <section id="possible-metrics" class="level3" data-number="14.9.1"><h3 data-number="14.9.1" class="anchored" data-anchor-id="possible-metrics">
 <span class="header-section-number">14.9.1</span> Possible metrics</h3>
-<p>When comparing the results of several integration methods, we might find that several methods uncover similar trends in the datasets (through the latent dimensions they construct). For these latent dimensions, it is interesting to assess which features are consistently selected by the different methods as driving these trends. We can do so by summarising the importance given to each feature by the different integration methods, by computing their consensus importance score. Different metrics can be used to compute the consensus importance score. With <span class="math inline">\(s_j^i\)</span> denoting the importance score of feature <span class="math inline">\(j\)</span> from method <span class="math inline">\(i\)</span>, <span class="math inline">\(i = 1 \dots n_i\)</span> (more specifically, from one latent dimension constructed by an integration method), the following metrics are implemented in the package:</p>
+<p>When comparing the results of several integration methods, we might find that several methods uncover similar trends in the datasets, through the latent dimensions they construct. For these latent dimensions, it is interesting to assess which features are consistently selected by the different methods as driving these trends. We can do so by computing the consensus importance score of the features, which summarises the importance given to the features by the different integration methods. Different metrics can be used to compute the consensus importance score. With <span class="math inline">\(s_j^i\)</span> denoting the importance score of feature <span class="math inline">\(j\)</span> from method <span class="math inline">\(i\)</span>, <span class="math inline">\(i = 1 \dots n_i\)</span> (more specifically, from one latent dimension constructed by the integration method), the following metrics are implemented in the package:</p>
 <ul>
 <li><p>Geometric mean (<code>geometric</code>): calculated as <span class="math inline">\(CI_j^G = \exp\left(\frac{1}{n_i} \sum\limits_i \log(s_j^i)\right)\)</span></p></li>
 <li><p>Harmonic mean (<code>harmonic</code>): calculated as <span class="math inline">\(CI_j^H = \frac{1}{\frac{1}{n_i}\sum\limits_i\frac{1}{s_j^i}}\)</span></p></li>
@@ -676,41 +625,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>The difference between these metrics can be visualised in the simple case where features are assigned two different importance scores, e.g.&nbsp;by two different integration methods:</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/show_consensus_metrics.html">show_consensus_metrics</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/show_consensus_metrics.html">show_consensus_metrics</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="comparison_files/figure-html/show-consensus-importance-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>In the plots, the consensus importance values have been normalised so that the highest value is 1. As we can see, metrics such as the geometric mean, harmonic mean, product or minimum will give higher consensus scores to features that are consistently assigned a high importance score across all methods, while features that have high a high importance score with one method but low score with the other will get a lower consensus score. Conversely, metrics such as the l2-norm or maximum prioritise features that are given a high importance score by at least one method, regardless of their importance score with other methods.</p>
+<p>In the plots, the consensus importance values have been normalised so that the highest value is 1. As we can see, metrics such as the geometric mean, harmonic mean, product or minimum will give higher consensus scores to features that are consistently assigned a high importance score across all methods, while features that have high importance score with one method but low score with the other will get a lower consensus score. Conversely, metrics such as the L2-norm or maximum prioritise features that are given a high importance score by at least one method, regardless of their importance score with other methods.</p>
 </section><section id="computing-features-consensus-importance-score" class="level3" data-number="14.9.2"><h3 data-number="14.9.2" class="anchored" data-anchor-id="computing-features-consensus-importance-score">
 <span class="header-section-number">14.9.2</span> Computing features’ consensus importance score</h3>
 <p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance()</a></code> takes as input a list of output objects from different integration methods, as well as a named list indicating which latent dimension from each output object should be considered. By default, the geometric mean is used, but this can be changed through the <code>metric</code> argument.</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">consensus_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
-<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 3"</span>, <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="st">"joint component 1"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">consensus_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
+<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">consensus_df</span></span>
-<span><span class="co">#&gt; # A tibble: 1,049 × 3</span></span>
+<span><span class="co">#&gt; # A tibble: 2,049 × 3</span></span>
 <span><span class="co">#&gt;    dataset feature_id         importance</span></span>
 <span><span class="co">#&gt;    &lt;fct&gt;   &lt;chr&gt;                   &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 rnaseq  ENSBTAG00000031647      1    </span></span>
-<span><span class="co">#&gt;  2 rnaseq  ENSBTAG00000048835      0.937</span></span>
-<span><span class="co">#&gt;  3 rnaseq  ENSBTAG00000049569      0.921</span></span>
-<span><span class="co">#&gt;  4 rnaseq  ENSBTAG00000039037      0.875</span></span>
-<span><span class="co">#&gt;  5 rnaseq  ENSBTAG00000008951      0.873</span></span>
-<span><span class="co">#&gt;  6 rnaseq  ENSBTAG00000051132      0.792</span></span>
-<span><span class="co">#&gt;  7 rnaseq  ENSBTAG00000052012      0.774</span></span>
-<span><span class="co">#&gt;  8 rnaseq  ENSBTAG00000046158      0.767</span></span>
-<span><span class="co">#&gt;  9 rnaseq  ENSBTAG00000006343      0.729</span></span>
-<span><span class="co">#&gt; 10 rnaseq  ENSBTAG00000019627      0.723</span></span>
-<span><span class="co">#&gt; # ℹ 1,039 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;  1 snps    ARS-BFGL-NGS-27468      1    </span></span>
+<span><span class="co">#&gt;  2 snps    BovineHD2300010006      0.911</span></span>
+<span><span class="co">#&gt;  3 snps    BovineHD0300000351      0.676</span></span>
+<span><span class="co">#&gt;  4 snps    BovineHD0900026231      0.619</span></span>
+<span><span class="co">#&gt;  5 snps    BovineHD0600028258      0.524</span></span>
+<span><span class="co">#&gt;  6 snps    BTA-118330-no-rs        0.472</span></span>
+<span><span class="co">#&gt;  7 snps    BovineHD1100030384      0.466</span></span>
+<span><span class="co">#&gt;  8 snps    BovineHD1800016801      0.449</span></span>
+<span><span class="co">#&gt;  9 snps    ARS-BFGL-NGS-84112      0.404</span></span>
+<span><span class="co">#&gt; 10 snps    BovineHD1900011146      0.363</span></span>
+<span><span class="co">#&gt; # ℹ 2,039 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To help compare the data-frame with the plots created in the previous section, we will add the features label to the consensus importance data-frame.</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">features_labels_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_labels.html">get_features_labels</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">features_labels_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_labels.html">get_features_labels</a></span><span class="op">(</span></span>
+<span>  <span class="va">mo_set_complete</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
 <span>       <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -721,54 +670,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="va">consensus_df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">importance</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 10 × 4</span></span>
-<span><span class="co">#&gt; # Groups:   dataset [2]</span></span>
+<span><span class="co">#&gt; # A tibble: 15 × 4</span></span>
+<span><span class="co">#&gt; # Groups:   dataset [3]</span></span>
 <span><span class="co">#&gt;    dataset    feature_id         importance label                </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;                </span></span>
 <span><span class="co">#&gt;  1 metabolome HMDB00094               1     Citric acid          </span></span>
-<span><span class="co">#&gt;  2 metabolome HMDB00042               0.756 Acetic acid          </span></span>
-<span><span class="co">#&gt;  3 metabolome HMDB00357               0.677 3-Hydroxybutyric acid</span></span>
-<span><span class="co">#&gt;  4 metabolome HMDB00169               0.562 D-Mannose            </span></span>
-<span><span class="co">#&gt;  5 metabolome HMDB00641               0.502 L-Glutamine          </span></span>
-<span><span class="co">#&gt;  6 rnaseq     ENSBTAG00000031647      1     LRG1                 </span></span>
-<span><span class="co">#&gt;  7 rnaseq     ENSBTAG00000048835      0.937 ENSBTAG00000048835   </span></span>
-<span><span class="co">#&gt;  8 rnaseq     ENSBTAG00000049569      0.921 ENSBTAG00000049569   </span></span>
-<span><span class="co">#&gt;  9 rnaseq     ENSBTAG00000039037      0.875 SERPINB4             </span></span>
-<span><span class="co">#&gt; 10 rnaseq     ENSBTAG00000008951      0.873 ALPL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;  2 metabolome HMDB00042               0.706 Acetic acid          </span></span>
+<span><span class="co">#&gt;  3 metabolome HMDB00169               0.626 D-Mannose            </span></span>
+<span><span class="co">#&gt;  4 metabolome HMDB00148               0.524 L-Glutamic acid      </span></span>
+<span><span class="co">#&gt;  5 metabolome HMDB00357               0.495 3-Hydroxybutyric acid</span></span>
+<span><span class="co">#&gt;  6 rnaseq     ENSBTAG00000022715      1     ENSBTAG00000022715   </span></span>
+<span><span class="co">#&gt;  7 rnaseq     ENSBTAG00000050618      0.864 ENSBTAG00000050618   </span></span>
+<span><span class="co">#&gt;  8 rnaseq     ENSBTAG00000049888      0.670 ENSBTAG00000049888   </span></span>
+<span><span class="co">#&gt;  9 rnaseq     ENSBTAG00000049808      0.667 IL3RA                </span></span>
+<span><span class="co">#&gt; 10 rnaseq     ENSBTAG00000050206      0.646 ENSBTAG00000050206   </span></span>
+<span><span class="co">#&gt; 11 snps       ARS-BFGL-NGS-27468      1     ARS-BFGL-NGS-27468   </span></span>
+<span><span class="co">#&gt; 12 snps       BovineHD2300010006      0.911 BovineHD2300010006   </span></span>
+<span><span class="co">#&gt; 13 snps       BovineHD0300000351      0.676 BovineHD0300000351   </span></span>
+<span><span class="co">#&gt; 14 snps       BovineHD0900026231      0.619 BovineHD0900026231   </span></span>
+<span><span class="co">#&gt; 15 snps       BovineHD0600028258      0.524 BovineHD0600028258</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can see that, using the geometric mean, the feature from the transcriptomics dataset that is given the highest consensus importance is the transcript <code>PGSC0003DMG400023508</code> that encodes a kinase. This is because its importance score is somewhat consistent between the two latent dimensions. Other transcripts that are given high importance by one method have a low importance score with the other method. Note that with a metric such as the average consensus, the top features from each latent dimensions are instead selected. The metric chosen matters less when the latent dimensions compared are in strong agreement, as it is the case for the importance score of the metabolic compounds:</p>
+<p>We can see that, using the geometric mean, the feature from the metabolomics dataset that is given the highest consensus importance is citric acid. Note that the metric chosen matters less when the latent dimensions compared are in strong agreement, as it is the case here:</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
-<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 3"</span>, <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="st">"joint component 1"</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
+<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>  metric <span class="op">=</span> <span class="st">"average"</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">features_labels_df</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dataset"</span>, <span class="st">"feature_id"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">importance</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 10 × 4</span></span>
-<span><span class="co">#&gt; # Groups:   dataset [2]</span></span>
-<span><span class="co">#&gt;    dataset    feature_id         importance label             </span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;             </span></span>
-<span><span class="co">#&gt;  1 metabolome HMDB00094               1     Citric acid       </span></span>
-<span><span class="co">#&gt;  2 metabolome HMDB00294               0.827 Urea              </span></span>
-<span><span class="co">#&gt;  3 metabolome HMDB00064               0.718 Creatine          </span></span>
-<span><span class="co">#&gt;  4 metabolome HMDB00122               0.696 D-Glucose         </span></span>
-<span><span class="co">#&gt;  5 metabolome HMDB00691               0.684 Malonic acid      </span></span>
-<span><span class="co">#&gt;  6 rnaseq     ENSBTAG00000048835      1     ENSBTAG00000048835</span></span>
-<span><span class="co">#&gt;  7 rnaseq     ENSBTAG00000049569      0.995 ENSBTAG00000049569</span></span>
-<span><span class="co">#&gt;  8 rnaseq     ENSBTAG00000031647      0.938 LRG1              </span></span>
-<span><span class="co">#&gt;  9 rnaseq     ENSBTAG00000000619      0.930 KRT74             </span></span>
-<span><span class="co">#&gt; 10 rnaseq     ENSBTAG00000039037      0.923 SERPINB4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # A tibble: 15 × 4</span></span>
+<span><span class="co">#&gt; # Groups:   dataset [3]</span></span>
+<span><span class="co">#&gt;    dataset    feature_id             importance label                 </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;                       &lt;dbl&gt; &lt;chr&gt;                 </span></span>
+<span><span class="co">#&gt;  1 metabolome HMDB00094                   1     Citric acid           </span></span>
+<span><span class="co">#&gt;  2 metabolome HMDB00042                   0.720 Acetic acid           </span></span>
+<span><span class="co">#&gt;  3 metabolome HMDB00169                   0.649 D-Mannose             </span></span>
+<span><span class="co">#&gt;  4 metabolome HMDB00148                   0.544 L-Glutamic acid       </span></span>
+<span><span class="co">#&gt;  5 metabolome HMDB00357                   0.499 3-Hydroxybutyric acid </span></span>
+<span><span class="co">#&gt;  6 rnaseq     ENSBTAG00000022715          1     ENSBTAG00000022715    </span></span>
+<span><span class="co">#&gt;  7 rnaseq     ENSBTAG00000050618          0.859 ENSBTAG00000050618    </span></span>
+<span><span class="co">#&gt;  8 rnaseq     ENSBTAG00000049808          0.673 IL3RA                 </span></span>
+<span><span class="co">#&gt;  9 rnaseq     ENSBTAG00000049888          0.668 ENSBTAG00000049888    </span></span>
+<span><span class="co">#&gt; 10 rnaseq     ENSBTAG00000050206          0.648 ENSBTAG00000050206    </span></span>
+<span><span class="co">#&gt; 11 snps       ARS-BFGL-NGS-27468          1     ARS-BFGL-NGS-27468    </span></span>
+<span><span class="co">#&gt; 12 snps       BovineHD2300010006          0.887 BovineHD2300010006    </span></span>
+<span><span class="co">#&gt; 13 snps       BovineHD0300000351          0.653 BovineHD0300000351    </span></span>
+<span><span class="co">#&gt; 14 snps       BovineHD0100032240          0.646 BovineHD0100032240    </span></span>
+<span><span class="co">#&gt; 15 snps       Hapmap55381-rs29025399      0.646 Hapmap55381-rs29025399</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function, we can specify which metric should be used for the consensus importance to highlight the top features. For example, we can illustrate the top features according to the average consensus metric:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
-<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 3"</span>, <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="st">"joint component 1"</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
+<span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>  metric <span class="op">=</span> <span class="st">"average"</span>,</span>
 <span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span>,</span>
-<span>  mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
+<span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
 <span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
@@ -780,15 +739,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section></section><section id="recap-targets-list" class="level2" data-number="14.10"><h2 data-number="14.10" class="anchored" data-anchor-id="recap-targets-list">
 <span class="header-section-number">14.10</span> Recap – targets list</h2>
-<p>Although we didn’t create any new target for the plots in this section, we can turn some plots into targets.</p>
+<p>Although we didn’t create many new target for the plots in this chapter, we can turn some plots into targets.</p>
 <details><summary>
 Targets list for comparing different integration methods’ output
 </summary><div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Creating a list of integration methods output objects</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">output_list</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">diablo_output</span>, <span class="va">mofa_output</span>, <span class="va">so2pls_output</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">spls_output</span>, <span class="va">so2pls_output</span>, <span class="va">mofa_output</span>, <span class="va">diablo_output</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Heatmap for comparison of integration methods output</span></span>
@@ -797,20 +756,20 @@ Targets list for comparing different integration methods’ output
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
-<span>  <span class="co">## Correlation plot for comparison of MOFA and sO2PLS results</span></span>
+<span>  <span class="co">## Correlation plot for comparison of sPLS and sO2PLS results</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_so2pls_correlation_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
-<span>  <span class="co">## Comparison of samples score for MOFA factor 1 and sO2PLS joint component 1</span></span>
+<span>  <span class="co">## Comparison of samples score for MOFA factor 1 and DIABLO component 1</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_so2pls_samples_score_comparison_plot</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
-<span>      <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="st">"joint component 1"</span><span class="op">)</span>,</span>
-<span>      mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
-<span>      colour_by <span class="op">=</span> <span class="st">"bruising_group"</span></span>
+<span>      <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
+<span>      colour_by <span class="op">=</span> <span class="st">"status"</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
@@ -819,13 +778,12 @@ Targets list for comparing different integration methods’ output
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_so2pls_features_weight_comparison_plot</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
-<span>      <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 3"</span>, <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="st">"joint component 1"</span><span class="op">)</span>,</span>
-<span>      datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span>,</span>
-<span>      mo_data <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
+<span>      <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
+<span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>      label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>        <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"gene_name"</span>,</span>
-<span>        <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"comp_name"</span></span>
+<span>        <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>        <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
@@ -835,14 +793,14 @@ Targets list for comparing different integration methods’ output
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_so2pls_features_weight_consensus_importance</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
-<span>      <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 3"</span>, <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="st">"joint component 1"</span><span class="op">)</span></span>
+<span>      <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
 <span>        <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_labels.html">get_features_labels</a></span><span class="op">(</span></span>
 <span>          <span class="va">mo_set</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"gene_name"</span>,</span>
-<span>               <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"comp_name"</span><span class="op">)</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>               <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span></span>
 <span>        <span class="op">)</span>,</span>
 <span>        by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dataset"</span>, <span class="st">"feature_id"</span><span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
@@ -851,10 +809,7 @@ Targets list for comparing different integration methods’ output
 </div>
 </details>
 
-</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
-<ol>
-<li id="fn1"><p>See relevant sections in vignettes on data integration with <a href="diablo-pipeline.html#samples-projection-to-the-latent-component-space">DIABLO</a>, <a href="mofa-pipeline.html#factors-association-with-samples-covariates">MOFA</a> or <a href="so2pls-pipeline.html#sample-plots">sO2PLS</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

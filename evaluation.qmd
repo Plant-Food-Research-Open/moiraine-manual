@@ -430,6 +430,7 @@ We can dig into the results of the enrichment by visualising the distribution of
 
 ```{r plot-features-weight-set}
 #| fig.height: 8
+
 plot_features_weight_set(
   mofa_output,
   go_sets_filtered[["GO:0031424"]],
@@ -445,6 +446,7 @@ In the resulting plot, we can see for each dataset (in this case, we're only loo
 
 ```{r plot-features-weight-set-with-missing}
 #| fig.height: 8
+
 plot_features_weight_set(
   mofa_output,
   go_sets_filtered[["GO:0031424"]],

@@ -269,6 +269,11 @@ div.csl-indent {
   <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item">
@@ -300,7 +305,7 @@ div.csl-indent {
   <li>
 <a href="#features-preselection" id="toc-features-preselection" class="nav-link" data-scroll-target="#features-preselection"><span class="toc-section-number">7.3</span>  Features preselection</a>
   <ul class="collapse">
-<li><a href="#unsupervised-features-preselection" id="toc-unsupervised-features-preselection" class="nav-link" data-scroll-target="#unsupervised-features-preselection"><span class="toc-section-number">7.3.1</span>  Unsupervised features preselection</a></li>
+<li><a href="#sec-prefiltering-unsupervised" id="toc-sec-prefiltering-unsupervised" class="nav-link" data-scroll-target="#sec-prefiltering-unsupervised"><span class="toc-section-number">7.3.1</span>  Unsupervised features preselection</a></li>
   <li><a href="#sec-prefiltering-supervised" id="toc-sec-prefiltering-supervised" class="nav-link" data-scroll-target="#sec-prefiltering-supervised"><span class="toc-section-number">7.3.2</span>  Supervised features preselection</a></li>
   </ul>
 </li>
@@ -492,7 +497,7 @@ div.csl-indent {
 </section></section><section id="features-preselection" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="features-preselection">
 <span class="header-section-number">7.3</span> Features preselection</h2>
 <p>In the previous section, we saw how to restrict the <code>MultiDataSet</code> object to a set of features of interest. However, in a typical integration workflow, we instead want to reduce the dimensions of the omics datasets through a data-centric method that discards features least relevant to the biological problem of interest. Here, we present two approaches for features preselection: an unsupervised approach, which relies only on the omics measurements, and a supervised approach, which accounts for information we have about the samples. The choice between these two approaches will depend on the research question being investigated. Note that this preselection step is distinct from the data cleaning process that should be applied to each omics dataset, in which features with low expression or high missing values are removed. This ideally should be done before the multi-omics integration workflow constructed with <code>moiraine</code>, although it can be integrated in the analysis pipeline.</p>
-<section id="unsupervised-features-preselection" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="unsupervised-features-preselection">
+<section id="sec-prefiltering-unsupervised" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="sec-prefiltering-unsupervised">
 <span class="header-section-number">7.3.1</span> Unsupervised features preselection</h3>
 <p>In order to reduce the number of features in the omics datasets, one option is to only retain the most variable features from each dataset. We refer to this approach as unsupervised preselection, as it only relies on the omics measurements to discard irrelevant features. In the package, two metrics of feature variability are implemented: the <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> (COV), and the <a href="https://en.wikipedia.org/wiki/Median_absolute_deviation">Median Absolute Deviation</a> (MAD). Careful consideration is required when determining which of these metrics should be used to select the most variable features, as each has some drawbacks. In particular:</p>
 <ul>

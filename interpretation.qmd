@@ -684,7 +684,7 @@ As DIABLO performs feature selection, most of the weights are equal to zero.
 
 :::
 
-### Comparing features importance between latent components
+### Comparing features importance between latent components {#sec-interpretation-features-pair}
 
 We can also compare the importance score given to the features between any two latent dimensions with the `plot_features_weight_pair()` function.
 
