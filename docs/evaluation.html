@@ -364,7 +364,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span><span class="op">[[</span><span class="st">"snps"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">qtl_type</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] NA           "cis eQTL"   "trans eQTL" "QTL"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "non signif." "cis eQTL"    "trans eQTL"  "QTL"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For the transcriptomics and metabolomics dataset, a differential expression (DE) analysis was performed on each of them to compare control and BRD animals. The resulting adjusted p-value, log2-fold change or t-value, status (upregulated, downregulated or not differentially expressed) and significance (differentially expressed or not) of each gene or compound are recorded in each dataset’s features metadata:</p>
 <div class="cell">
@@ -420,33 +420,31 @@ div.csl-indent {
 <span></span>
 <span><span class="va">diablo_evaluation_counts_table</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">latent_dimension</span> <span class="op">==</span> <span class="st">"Component 1"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 9 × 6</span></span>
+<span><span class="co">#&gt; # A tibble: 8 × 6</span></span>
 <span><span class="co">#&gt;   method latent_dimension dataset    feature_label selected not_selected</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt;            &lt;fct&gt;      &lt;chr&gt;            &lt;int&gt;        &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 DIABLO Component 1      snps       cis eQTL             1            2</span></span>
-<span><span class="co">#&gt; 2 DIABLO Component 1      snps       QTL                  1            0</span></span>
-<span><span class="co">#&gt; 3 DIABLO Component 1      snps       trans eQTL           1            3</span></span>
-<span><span class="co">#&gt; 4 DIABLO Component 1      snps       &lt;NA&gt;                22          970</span></span>
+<span><span class="co">#&gt; 2 DIABLO Component 1      snps       non signif.         22          970</span></span>
+<span><span class="co">#&gt; 3 DIABLO Component 1      snps       QTL                  1            0</span></span>
+<span><span class="co">#&gt; 4 DIABLO Component 1      snps       trans eQTL           1            3</span></span>
 <span><span class="co">#&gt; 5 DIABLO Component 1      rnaseq     DE                  20           55</span></span>
-<span><span class="co">#&gt; 6 DIABLO Component 1      rnaseq     Not DE              10          782</span></span>
-<span><span class="co">#&gt; 7 DIABLO Component 1      rnaseq     &lt;NA&gt;                 0          127</span></span>
-<span><span class="co">#&gt; 8 DIABLO Component 1      metabolome DE                  10           20</span></span>
-<span><span class="co">#&gt; 9 DIABLO Component 1      metabolome Not DE               0           25</span></span>
+<span><span class="co">#&gt; 6 DIABLO Component 1      rnaseq     Not DE              10          909</span></span>
+<span><span class="co">#&gt; 7 DIABLO Component 1      metabolome DE                  10           20</span></span>
+<span><span class="co">#&gt; 8 DIABLO Component 1      metabolome Not DE               0           25</span></span>
 <span></span>
 <span><span class="va">diablo_evaluation_counts_table</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">latent_dimension</span> <span class="op">==</span> <span class="st">"Component 2"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 9 × 6</span></span>
+<span><span class="co">#&gt; # A tibble: 8 × 6</span></span>
 <span><span class="co">#&gt;   method latent_dimension dataset    feature_label selected not_selected</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt;            &lt;fct&gt;      &lt;chr&gt;            &lt;int&gt;        &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 DIABLO Component 2      snps       cis eQTL             0            3</span></span>
-<span><span class="co">#&gt; 2 DIABLO Component 2      snps       QTL                  0            1</span></span>
-<span><span class="co">#&gt; 3 DIABLO Component 2      snps       trans eQTL           0            4</span></span>
-<span><span class="co">#&gt; 4 DIABLO Component 2      snps       &lt;NA&gt;                25          967</span></span>
+<span><span class="co">#&gt; 2 DIABLO Component 2      snps       non signif.         25          967</span></span>
+<span><span class="co">#&gt; 3 DIABLO Component 2      snps       QTL                  0            1</span></span>
+<span><span class="co">#&gt; 4 DIABLO Component 2      snps       trans eQTL           0            4</span></span>
 <span><span class="co">#&gt; 5 DIABLO Component 2      rnaseq     DE                   0           75</span></span>
-<span><span class="co">#&gt; 6 DIABLO Component 2      rnaseq     Not DE              30          762</span></span>
-<span><span class="co">#&gt; 7 DIABLO Component 2      rnaseq     &lt;NA&gt;                 0          127</span></span>
-<span><span class="co">#&gt; 8 DIABLO Component 2      metabolome DE                   3           27</span></span>
-<span><span class="co">#&gt; 9 DIABLO Component 2      metabolome Not DE               2           23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6 DIABLO Component 2      rnaseq     Not DE              30          889</span></span>
+<span><span class="co">#&gt; 7 DIABLO Component 2      metabolome DE                   3           27</span></span>
+<span><span class="co">#&gt; 8 DIABLO Component 2      metabolome Not DE               2           23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can see that for the first latent component, only three out of the eight (e)QTLs were selected <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>; two-third of the genes selected were found differentially expressed; and all ten of the selected compounds were found differentially expressed. Conversely, for the second latent component, none of the selected markers were QTLs, and none of the selected genes were differentially expressed. This makes sense, as the DIABLO analysis was run with the goal of separating the control and infected animals; therefore it makes sense that the features selected for the first latent component, which is the one best able to separate the groups, are the features detected as differentially expressed. On the contrary, the second latent component is constructed to be orthogonal to the first one, therefore the features selected will likely not be differentially expressed.</p>
 <p>With this function, we can focus on only some datasets, by changing which datasets are present in the list passed to <code>col_names</code>. Similarly, we can select specific latent dimensions through the <code>latent_dimensions</code> parameter. For example, let us count the number of DE genes selected with the first latent component:</p>
@@ -457,12 +455,11 @@ div.csl-indent {
 <span>  col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"de_signif"</span><span class="op">)</span>,</span>
 <span>  latent_dimensions <span class="op">=</span> <span class="st">"Component 1"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 6</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 6</span></span>
 <span><span class="co">#&gt;   method latent_dimension dataset feature_label selected not_selected</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt;            &lt;fct&gt;   &lt;chr&gt;            &lt;int&gt;        &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 DIABLO Component 1      rnaseq  DE                  20           55</span></span>
-<span><span class="co">#&gt; 2 DIABLO Component 1      rnaseq  Not DE              10          782</span></span>
-<span><span class="co">#&gt; 3 DIABLO Component 1      rnaseq  &lt;NA&gt;                NA          127</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 2 DIABLO Component 1      rnaseq  Not DE              10          909</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that this function is useful for integration methods that perform feature selection, such as DIABLO or sO2PLS, but will be irrelevant for methods that do not perform feature selection (for example MOFA tends to assign a non-null weight to most features).</p>
 </section><section id="plotting-features-weight-against-a-covariate" class="level3" data-number="13.2.2"><h3 data-number="13.2.2" class="anchored" data-anchor-id="plotting-features-weight-against-a-covariate">
@@ -573,13 +570,12 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">sets_single_omics</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; List of 11</span></span>
-<span><span class="co">#&gt;  $ NA - snps                 : chr [1:23000] "1_41768691" "10-27008241-A-C-rs42918694" "10-37505419-T-C-rs136559242" "10-49904259-G-A-rs471723345" ...</span></span>
+<span><span class="co">#&gt; List of 10</span></span>
+<span><span class="co">#&gt;  $ non signif.               : chr [1:23000] "1_41768691" "10-27008241-A-C-rs42918694" "10-37505419-T-C-rs136559242" "10-49904259-G-A-rs471723345" ...</span></span>
 <span><span class="co">#&gt;  $ cis eQTL                  : chr [1:31] "ARS-BFGL-BAC-13210" "ARS-BFGL-NGS-113310" "ARS-BFGL-NGS-5022" "ARS-BFGL-NGS-59463" ...</span></span>
 <span><span class="co">#&gt;  $ trans eQTL                : chr [1:4] "ARS-BFGL-NGS-80280" "BovineHD0100032240" "BovineHD2300010006" "Hapmap55381-rs29025399"</span></span>
 <span><span class="co">#&gt;  $ QTL                       : chr "BovineHD1800016801"</span></span>
-<span><span class="co">#&gt;  $ Not DE - rnaseq           : chr [1:18630] "ENSBTAG00000000005" "ENSBTAG00000000008" "ENSBTAG00000000009" "ENSBTAG00000000010" ...</span></span>
-<span><span class="co">#&gt;  $ NA - rnaseq               : chr [1:1594] "ENSBTAG00000000029" "ENSBTAG00000000071" "ENSBTAG00000000102" "ENSBTAG00000000106" ...</span></span>
+<span><span class="co">#&gt;  $ Not DE - rnaseq           : chr [1:20224] "ENSBTAG00000000005" "ENSBTAG00000000008" "ENSBTAG00000000009" "ENSBTAG00000000010" ...</span></span>
 <span><span class="co">#&gt;  $ upregulated - rnaseq      : chr [1:102] "ENSBTAG00000000377" "ENSBTAG00000000783" "ENSBTAG00000001051" "ENSBTAG00000001785" ...</span></span>
 <span><span class="co">#&gt;  $ downregulated - rnaseq    : chr [1:9] "ENSBTAG00000001032" "ENSBTAG00000004824" "ENSBTAG00000011990" "ENSBTAG00000012403" ...</span></span>
 <span><span class="co">#&gt;  $ Not DE - metabolome       : chr [1:25] "HMDB00001" "HMDB00008" "HMDB00060" "HMDB00097" ...</span></span>
@@ -605,11 +601,11 @@ div.csl-indent {
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">sets_single_omics_merged</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 7</span></span>
-<span><span class="co">#&gt;  $ NA           : chr [1:24594] "1_41768691" "10-27008241-A-C-rs42918694" "10-37505419-T-C-rs136559242" "10-49904259-G-A-rs471723345" ...</span></span>
+<span><span class="co">#&gt;  $ non signif.  : chr [1:23000] "1_41768691" "10-27008241-A-C-rs42918694" "10-37505419-T-C-rs136559242" "10-49904259-G-A-rs471723345" ...</span></span>
 <span><span class="co">#&gt;  $ cis eQTL     : chr [1:31] "ARS-BFGL-BAC-13210" "ARS-BFGL-NGS-113310" "ARS-BFGL-NGS-5022" "ARS-BFGL-NGS-59463" ...</span></span>
 <span><span class="co">#&gt;  $ trans eQTL   : chr [1:4] "ARS-BFGL-NGS-80280" "BovineHD0100032240" "BovineHD2300010006" "Hapmap55381-rs29025399"</span></span>
 <span><span class="co">#&gt;  $ QTL          : chr "BovineHD1800016801"</span></span>
-<span><span class="co">#&gt;  $ Not DE       : chr [1:18655] "ENSBTAG00000000005" "ENSBTAG00000000008" "ENSBTAG00000000009" "ENSBTAG00000000010" ...</span></span>
+<span><span class="co">#&gt;  $ Not DE       : chr [1:20249] "ENSBTAG00000000005" "ENSBTAG00000000008" "ENSBTAG00000000009" "ENSBTAG00000000010" ...</span></span>
 <span><span class="co">#&gt;  $ upregulated  : chr [1:112] "ENSBTAG00000000377" "ENSBTAG00000000783" "ENSBTAG00000001051" "ENSBTAG00000001785" ...</span></span>
 <span><span class="co">#&gt;  $ downregulated: chr [1:29] "ENSBTAG00000001032" "ENSBTAG00000004824" "ENSBTAG00000011990" "ENSBTAG00000012403" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

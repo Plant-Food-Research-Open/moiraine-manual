@@ -394,7 +394,7 @@ div.csl-indent {
 <p>The created target, called <code>dataset_file_geno</code>, takes as value the path to the file:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">dataset_file_geno</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/7e39d6614134fc474e6b85ec2516a5b6/moiraine/extdata/genomics_dataset.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/fb476bd1efef272b4f6140013017b2d2/moiraine/extdata/genomics_dataset.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The next step is to import this dataset in R. We use the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function for that, rather than the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> or similar functions, as it ensures that the data is imported with the correct format for further use with the <code>moiraine</code> package. When importing a dataset, we need to specify the path to the file, as well as the name of the column in the csv file that contains the row names (through the <code>col_id</code> argument). In addition, we need to specify whether the features are represented in rows in the csv file, or in columns. This is done through the argument <code>features_as_rows</code>. For example, we can load the genomics dataset through:</p>
 <div class="cell">
@@ -496,13 +496,13 @@ div.csl-indent {
 <span><span class="co">#&gt; 10-49904259-G-A-rs471723345           0.7970   A   G         TOP</span></span>
 <span><span class="co">#&gt; 1-109550832-G-A-rs209732846           0.8909   T   C         BOT</span></span>
 <span><span class="co">#&gt; 11-104555023-A-G-rs109353933          0.8673   T   C         BOT</span></span>
-<span><span class="co">#&gt;                              customer_strand norm_id qtl_type qtl_effect</span></span>
-<span><span class="co">#&gt; 1_41768691                               BOT       2     &lt;NA&gt;         NA</span></span>
-<span><span class="co">#&gt; 10-27008241-A-C-rs42918694               TOP       1     &lt;NA&gt;         NA</span></span>
-<span><span class="co">#&gt; 10-37505419-T-C-rs136559242              BOT       1     &lt;NA&gt;         NA</span></span>
-<span><span class="co">#&gt; 10-49904259-G-A-rs471723345              TOP       2     &lt;NA&gt;         NA</span></span>
-<span><span class="co">#&gt; 1-109550832-G-A-rs209732846              TOP       3     &lt;NA&gt;         NA</span></span>
-<span><span class="co">#&gt; 11-104555023-A-G-rs109353933             TOP       1     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt;                              customer_strand norm_id    qtl_type qtl_effect</span></span>
+<span><span class="co">#&gt; 1_41768691                               BOT       2 non signif.         NA</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694               TOP       1 non signif.         NA</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242              BOT       1 non signif.         NA</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345              TOP       2 non signif.         NA</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846              TOP       3 non signif.         NA</span></span>
+<span><span class="co">#&gt; 11-104555023-A-G-rs109353933             TOP       1 non signif.         NA</span></span>
 <span><span class="co">#&gt;                              p_value fdr</span></span>
 <span><span class="co">#&gt; 1_41768691                        NA  NA</span></span>
 <span><span class="co">#&gt; 10-27008241-A-C-rs42918694        NA  NA</span></span>
@@ -762,13 +762,13 @@ div.csl-indent {
 <span><span class="co">#&gt; 10-49904259-G-A-rs471723345           0.7970   A   G         TOP</span></span>
 <span><span class="co">#&gt; 1-109550832-G-A-rs209732846           0.8909   T   C         BOT</span></span>
 <span><span class="co">#&gt; 11-104555023-A-G-rs109353933          0.8673   T   C         BOT</span></span>
-<span><span class="co">#&gt;                              customer_strand norm_id qtl_type qtl_effect</span></span>
-<span><span class="co">#&gt; 1_41768691                               BOT       2     &lt;NA&gt;         NA</span></span>
-<span><span class="co">#&gt; 10-27008241-A-C-rs42918694               TOP       1     &lt;NA&gt;         NA</span></span>
-<span><span class="co">#&gt; 10-37505419-T-C-rs136559242              BOT       1     &lt;NA&gt;         NA</span></span>
-<span><span class="co">#&gt; 10-49904259-G-A-rs471723345              TOP       2     &lt;NA&gt;         NA</span></span>
-<span><span class="co">#&gt; 1-109550832-G-A-rs209732846              TOP       3     &lt;NA&gt;         NA</span></span>
-<span><span class="co">#&gt; 11-104555023-A-G-rs109353933             TOP       1     &lt;NA&gt;         NA</span></span>
+<span><span class="co">#&gt;                              customer_strand norm_id    qtl_type qtl_effect</span></span>
+<span><span class="co">#&gt; 1_41768691                               BOT       2 non signif.         NA</span></span>
+<span><span class="co">#&gt; 10-27008241-A-C-rs42918694               TOP       1 non signif.         NA</span></span>
+<span><span class="co">#&gt; 10-37505419-T-C-rs136559242              BOT       1 non signif.         NA</span></span>
+<span><span class="co">#&gt; 10-49904259-G-A-rs471723345              TOP       2 non signif.         NA</span></span>
+<span><span class="co">#&gt; 1-109550832-G-A-rs209732846              TOP       3 non signif.         NA</span></span>
+<span><span class="co">#&gt; 11-104555023-A-G-rs109353933             TOP       1 non signif.         NA</span></span>
 <span><span class="co">#&gt;                              p_value fdr</span></span>
 <span><span class="co">#&gt; 1_41768691                        NA  NA</span></span>
 <span><span class="co">#&gt; 10-27008241-A-C-rs42918694        NA  NA</span></span>

@@ -2108,7 +2108,7 @@
       "RemoteUsername": "PlantandFoodResearch",
       "RemoteRepo": "moiraine",
       "RemoteRef": "main",
-      "RemoteSha": "e419657211bee543eb747f23a012d6360c202374",
+      "RemoteSha": "a7dc1abdd789040eb814e90ac11a8ab3bbda1ba9",
       "Requirements": [
         "Biobase",
         "ComplexHeatmap",
@@ -2146,7 +2146,7 @@
         "tidyselect",
         "utils"
       ],
-      "Hash": "374510e4d81eb0e4c39d632b2b65ad28"
+      "Hash": "fb476bd1efef272b4f6140013017b2d2"
     },
     "munsell": {
       "Package": "munsell",

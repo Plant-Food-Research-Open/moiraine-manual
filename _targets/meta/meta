@@ -2,14 +2,14 @@ name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iterat
 data_geno|stem|6c35052b46564eaa|2f6d6fac438e0c68|8846e09db8d257d5|-676849289||t19737.0760777314s|c999686471cd2bf1|1616600|rds|local|vector|||1.47||
 data_metabo|stem|d373e47b182755db|91ad6cfa4064ca3b|a8b88e2a622ece40|-1296975954||t19737.0760063898s|6044e0195a090f92|19248|rds|local|vector|||1.715||
 data_transcripto|stem|3f48590934bb1333|5d10bc167155482a|69f2986da2408dad|196911606||t19737.076051425s|a0d23620354f1de9|6494110|rds|local|vector|||1.74||
-dataset_file_geno|stem|af97a53623d6e7de|3b1c97c08470627d|ef46db3751d8e999|1960638429|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/374510e4d81eb0e4c39d632b2b65ad28/moiraine/extdata/genomics_dataset.csv|t19755.0560160261s|20566495b664ffb4|6850822|file|local|vector|||0||
-dataset_file_metabo|stem|175ac2cf6405fbad|fac79514e3d2c1b3|ef46db3751d8e999|1190506623|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/374510e4d81eb0e4c39d632b2b65ad28/moiraine/extdata/metabolomics_dataset.csv|t19755.0560163373s|c4e0ec1268286261|35815|file|local|vector|||0||
-dataset_file_transcripto|stem|71a95dd921de2179|453af68db7520e53|ef46db3751d8e999|-658525691|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/374510e4d81eb0e4c39d632b2b65ad28/moiraine/extdata/transcriptomics_dataset.csv|t19755.0560166078s|92b17bfefe92cde3|10702704|file|local|vector|||0||
-dataset_names_pca|stem|b7dcb1f702f808d7|cbd5b838d68f1692|ed471008ce8c9ddc|-1982688821||t19739.9580991333s|abbdb7fe746336f0|76|rds|local|vector||dataset_names_pca_266715e9*dataset_names_pca_90c252f2*dataset_names_pca_a29776a2|0||
+dataset_file_geno|stem|af97a53623d6e7de|184c3e8fedeae7be|ef46db3751d8e999|1960638429|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/fb476bd1efef272b4f6140013017b2d2/moiraine/extdata/genomics_dataset.csv|t19760.8101875749s|20566495b664ffb4|6850822|file|local|vector|||0.001||
+dataset_file_metabo|stem|175ac2cf6405fbad|a83d109058e2283e|ef46db3751d8e999|1190506623|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/fb476bd1efef272b4f6140013017b2d2/moiraine/extdata/metabolomics_dataset.csv|t19760.8101880575s|c4e0ec1268286261|35815|file|local|vector|||0||
+dataset_file_transcripto|stem|71a95dd921de2179|84a2124bad6e0027|ef46db3751d8e999|-658525691|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/fb476bd1efef272b4f6140013017b2d2/moiraine/extdata/transcriptomics_dataset.csv|t19760.8101889915s|92b17bfefe92cde3|10702704|file|local|vector|||0||
+dataset_names_pca|stem|b7dcb1f702f808d7|cbd5b838d68f1692|af610eec90adc4f0|-1982688821||t19760.9112392474s|abbdb7fe746336f0|76|rds|local|vector||dataset_names_pca_266715e9*dataset_names_pca_90c252f2*dataset_names_pca_a29776a2|0.001||
 diablo_design_matrix|stem|29c6a413f89d3f67|348c9ac4eba4001a|9bfafd062325ed6e|1135312759||t19744.9620132827s|82d1d1c4d23d6aba|150|rds|local|vector|||0.001||
-diablo_enrichment_results|stem|9722628774f6fef0|b259d94f2e6c5a21|7878ff644e224051|-595620765||t19752.0894347721s|952c625ddd4d270b|620549|rds|local|vector|||25.829||
+diablo_enrichment_results|stem|aacf368d1c4d57bd|b259d94f2e6c5a21|5e637d31f008e23c|-595620765||t19760.9137385968s|4ab2901c8137265d|620547|rds|local|vector|||29.411||
 diablo_final_run|stem|b299f53f75cc3c4f|23964c06fd68be70|ee3fac541fa5e2dd|-1601141966||t19744.9989792927s|99991ea38374c569|1124171|rds|local|vector|||0.178||
-diablo_input|stem|bc575282a1a9df6c|fd9ebf83f0d8e4ec|400124e1b0a7b165|-869543617||t19744.9619621332s|d034cfac3ae24f77|885435|rds|local|vector|||0.216||
+diablo_input|stem|bc575282a1a9df6c|fd9ebf83f0d8e4ec|5cdbfead4c9c12b6|-869543617||t19760.9120500097s|d034cfac3ae24f77|885435|rds|local|vector|||0.103||
 diablo_novarsel|stem|6885b6b8c1d7aa2b|8fe852be6b9b41f7|e4904a9c1f54ff87|1830706287||t19744.962018169s|ff8972ff77713186|1244891|rds|local|vector|||0.278||
 diablo_optim_ncomp|stem|a6a461d869af0842|3e60197686968000|cc3567e78258484e|1771925836||t19744.9629324703s|b6d2e014b07bc296|51|rds|local|vector|||0||
 diablo_output|stem|910f8382868fc0dc|d4fcd06d6c43c791|4f5c341e56db42f4|1691982822||t19744.999026812s|1e27b08d2c1b7391|50404|rds|local|vector|||0.147||
@@ -22,25 +22,25 @@ diablo_pls_runs_list|pattern|2f971b2365c57f8f|077baa4499ed4701||168769497||||325
 diablo_pls_runs_list_05fb1980|branch|8978e06a81d82296|077baa4499ed4701|808ab8ab13dfe87e|-315925453||t19744.9620049862s|86afaa552152ea05|1183467|rds|local|list|diablo_pls_runs_list||0.819||
 diablo_pls_runs_list_1b4ec539|branch|13c6844f5914d08d|077baa4499ed4701|552562782a9af1fc|-1523597582||t19744.9620080562s|5660a35f35395807|295070|rds|local|list|diablo_pls_runs_list||0.014||
 diablo_pls_runs_list_4f48d450|branch|3a05360ad3f5dae7|077baa4499ed4701|347c6916a5b7a039|-2051876326||t19744.9620113311s|b76452bf69dba440|1777952|rds|local|list|diablo_pls_runs_list||0.016||
-diablo_silhouette|stem|d684b4319ba75c8f|470351f586cde546|a3f1118815f284c3|1878372648||t19751.9117791012s|ef4fd13b3d44973b|2072|rds|local|vector|||0.048||
+diablo_silhouette|stem|d684b4319ba75c8f|470351f586cde546|c55858bde5192d45|1878372648||t19760.9133943549s|ef4fd13b3d44973b|2072|rds|local|vector|||0.096||
 diablo_tune_plot|stem|b615a21be99179e9|8cf07375c3b3d80f|f4985a8965dde29e|-311548008||t19744.9990244999s|c965ce08dcbcf633|1386462|rds|local|vector|||3.082||
 diablo_tune_res|stem|3c54bb7e00a94d6c|2e74485360175d64|50019954d23c4902|1659021768||t19744.9989759177s|2dabcffb297d71a5|8626|rds|local|vector|||3113.796||
-fmetadata_file_geno|stem|0d4f9d1abe758d58|8ac42325af16f9cc|0fce92a88a7882f5|987449262|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/a0cb1ab1c9bfde027266aa5d81f33617/moiraine/extdata/genomics_features_info.csv|t19737.0751431053s|e86eccc6c1038d8e|1462543|file|local|vector|||0.007||
-fmetadata_file_metabo|stem|ce74bd2201a2d6ed|e2c11a77fe45b231|ef46db3751d8e999|-1426493726|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/374510e4d81eb0e4c39d632b2b65ad28/moiraine/extdata/metabolomics_features_info.csv|t19755.0560163722s|9cb4cce6003c5d85|13765|file|local|vector|||9.091||
-fmetadata_file_transcripto|stem|5b0c736c6e2b1870|09300d99d043a94f|ef46db3751d8e999|1741435395|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/374510e4d81eb0e4c39d632b2b65ad28/moiraine/extdata/bos_taurus_gene_model.gff3|t19755.0560149143s|3c1bc2cfc685286e|47182268|file|local|vector|||0.001||
-fmetadata_geno|stem|6e05fc065a44eb05|6063db1a29e2c1f0|adbbfaf18ae42144|1845751809||t19737.9062294664s|7228e160b348b511|410111|rds|local|vector|||0.222||
+fmetadata_file_geno|stem|96f99116ff2c3d57|8ac42325af16f9cc|0fce92a88a7882f5|987449262|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/fb476bd1efef272b4f6140013017b2d2/moiraine/extdata/genomics_features_info.csv|t19760.8101878463s|b7283f11c3e630c2|1669543|file|local|vector|||5.507||
+fmetadata_file_metabo|stem|ce74bd2201a2d6ed|6185196bd5c98385|ef46db3751d8e999|-1426493726|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/fb476bd1efef272b4f6140013017b2d2/moiraine/extdata/metabolomics_features_info.csv|t19760.8101881967s|9cb4cce6003c5d85|13765|file|local|vector|||8.858||
+fmetadata_file_transcripto|stem|5b0c736c6e2b1870|2bbfffcc26f89d9e|ef46db3751d8e999|1741435395|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/fb476bd1efef272b4f6140013017b2d2/moiraine/extdata/bos_taurus_gene_model.gff3|t19760.8101869821s|3c1bc2cfc685286e|47182268|file|local|vector|||0||
+fmetadata_geno|stem|af6163b7d5aaacbc|6063db1a29e2c1f0|8816cfeb0b7b301c|1845751809||t19760.9099848469s|bdab355fb509891d|411494|rds|local|vector|||2.523||
 fmetadata_metabo|stem|2fa264d9731315ae|6530e474805c7677|40a14803581cc40c|-1710108544||t19737.9062248138s|ebd621d71b90c5fd|5459|rds|local|vector|||0.879||
 fmetadata_transcripto|stem|452e3b635689568a|588e73874bd5990b|af559c33c19b2822|650025152||t19737.9129876928s|90da4f7e51eb50af|869252|rds|local|vector|||17.12||
 go_sets|stem|7ffdf222c8840aa7|8580bd9122b00498|ee58bfe05e566ecf|-177269063||t19751.9104659231s|7dd38b896d946406|318175|rds|local|vector|||6.328||
-go_sets_check|stem|b3cc2e9a1878cf1d|6a4bb9a9d74ee435|ccb517aecd7bbb68|1026252608||t19751.9105428209s|dcfb5579c9d2f932|290|rds|local|vector|||0.181||
-go_sets_filtered|stem|7ffdf222c8840aa7|43b67965f64e9cb0|d89b0c185100311e|-1735543738||t19751.9105373066s|7dd38b896d946406|318175|rds|local|vector|||0.109||
+go_sets_check|stem|b3cc2e9a1878cf1d|6a4bb9a9d74ee435|771b13ed81d15ea7|1026252608||t19760.9115991717s|dcfb5579c9d2f932|290|rds|local|vector|||0.201||
+go_sets_filtered|stem|7ffdf222c8840aa7|43b67965f64e9cb0|62f1d6311addd553|-1735543738||t19760.9115500225s|7dd38b896d946406|318175|rds|local|vector|||0.136||
 go_sets_info|stem|06fb22289ecd8b6c|50994798d8f91463|dddf22893782b9e9|-1420349921||t19752.0879908277s|7bc8d1bae53808ec|146002|rds|local|vector|||0.01||
 individual_mad_values|pattern|ee9ffe6e9abbd0a3|3f62ad91dcfdbb43||1752911574||||470374|rds|local|list||individual_mad_values_0bdea42a*individual_mad_values_19c0eba7|3.671||
 individual_mad_values_0bdea42a|branch|60eab505e8c4eb51|3f62ad91dcfdbb43|103f3778e612df50|1893534945||t19740.1249913993s|7131e0c89f528eea|264412|rds|local|list|individual_mad_values||2.119||
 individual_mad_values_19c0eba7|branch|1bcf124bd938c5ce|3f62ad91dcfdbb43|890fb9082e14e05e|-468269286||t19740.1250105147s|58d8c0b1cd192884|205962|rds|local|list|individual_mad_values||1.552||
 individual_splsda_input|pattern|ca51724e7fc9b01a|c418d56ed8b0f203||-857610826||||19561155|rds|local|list||individual_splsda_input_a82e0f4d*individual_splsda_input_de775b91|0.979||
-individual_splsda_input_a82e0f4d|branch|50a9706cdd4ee9ee|c418d56ed8b0f203|3d975cbfe46cb92f|-1738760641||t19740.1249540103s|45fe49aa9993b4c7|17963767|rds|local|list|individual_splsda_input||0.78||
-individual_splsda_input_de775b91|branch|ff75668f2223658d|c418d56ed8b0f203|7e765ea9d1c0fe72|-369917504||t19740.1249655874s|d033c0fd6f86b5d4|1597388|rds|local|list|individual_splsda_input||0.199||
+individual_splsda_input_a82e0f4d|branch|50a9706cdd4ee9ee|c418d56ed8b0f203|2b2a1da503e4dcb0|-1738760641||t19760.9115288554s|45fe49aa9993b4c7|17963767|rds|local|list|individual_splsda_input||0.127||
+individual_splsda_input_de775b91|branch|ff75668f2223658d|c418d56ed8b0f203|17779bdbc448ea6b|-369917504||t19760.9115446407s|d033c0fd6f86b5d4|1597388|rds|local|list|individual_splsda_input||0.204||
 individual_splsda_perf|pattern|0f4d33c035a896d1|f44bca7322f5e277||376579575||||1135907|rds|local|list||individual_splsda_perf_68d22d74*individual_splsda_perf_746586a5|741.811||
 individual_splsda_perf_68d22d74|branch|25dab618328e5358|f44bca7322f5e277|9eeeb150a92bad87|1791752001||t19740.1294384258s|78630102424ba791|570340|rds|local|list|individual_splsda_perf||382.493||
 individual_splsda_perf_746586a5|branch|ca46d907d7ee14e8|f44bca7322f5e277|da53f8a8641b68d0|-1591100874||t19740.1335981715s|6c8318840804f011|565567|rds|local|list|individual_splsda_perf||359.318||
@@ -48,46 +48,46 @@ individual_splsda_run|pattern|cb3de8caf946c3ab|daafd73eccc1a544||-1224126645||||
 individual_splsda_run_4a7ecf19|branch|7e0a4e3d819dd4ca|daafd73eccc1a544|abdf9eca33556041|-1795274176||t19740.1338336227s|fd667fed47369bab|4784480|rds|local|list|individual_splsda_run||0.23||
 individual_splsda_run_fe6f99fe|branch|a6649100bc6735a0|daafd73eccc1a544|ee8b0e2f484e553f|-1795258471||t19740.1338116932s|188f2d9203e75714|39581349|rds|local|list|individual_splsda_run||1.264||
 mad_mat|pattern|92b78979f76d8b34|c1c091fc70d5003a||696742516||||12225589|rds|local|list||mad_mat_e428ef62*mad_mat_d5a0e3cc|0.678||
-mad_mat_d5a0e3cc|branch|d409110391e22abd|c1c091fc70d5003a|0f5214dd429ab4b5|663985671||t19740.1249311603s|3a25ff56c2ab5341|1708251|rds|local|list|mad_mat||0.079||
-mad_mat_e428ef62|branch|bd51023c181a45d9|c1c091fc70d5003a|a422ad2cf0af16e2|588923247||t19740.1249194966s|473ba920375be136|10517338|rds|local|list|mad_mat||0.599||
+mad_mat_d5a0e3cc|branch|d409110391e22abd|c1c091fc70d5003a|e562cb6a47e3a5e5|663985671||t19760.9115952651s|3a25ff56c2ab5341|1708251|rds|local|list|mad_mat||0.006||
+mad_mat_e428ef62|branch|bd51023c181a45d9|c1c091fc70d5003a|daa0b1f22cefb3f5|588923247||t19760.9115828414s|473ba920375be136|10517338|rds|local|list|mad_mat||0.013||
 mad_spec|stem|c2896ffc95a5b772|a46ba617a0df9ac6|6f5c7957329b075c|1673929129||t19740.1248336064s|23174e8584d69801|187|rds|local|group||mad_spec_c265bd27*mad_spec_8726ff93|2.09||
-mo_presel_supervised|stem|f66d9afd466bd3b1|ad2976ef3ac5c859|bd407bd4520956a2|853638321||t19740.1340079833s|61292318bd232cfd|64512076|rds|local|vector|||0.047||
-mo_presel_unsupervised|stem|b3cbe0b3f9cae9ac|e5ed7b9ba6a9375c|51696773836559a6|912108120||t19740.1337679073s|f1f252f4aac6c91f|65942855|rds|local|vector|||0.108||
-mo_set|stem|1d4d54ce13ecca5d|3230a4751cf4b45d|9b77a47f05b21c4c|-1876565291||t19738.0556140068s|8b6cf5ea29453dd2|36753599|rds|local|vector|||0.117||
-mo_set_complete|stem|d79178dd6687be97|d76a85ef218e0cef|952f06b34b51e191|1739868812||t19739.9583289432s|8817fe0bcb68c9f4|65894487|rds|local|vector|||0.331||
-mo_set_de|stem|2b7e2ace37c0bed5|50f81c565a9dc6aa|1d4929f8d72b5561|1698094396||t19739.0034448046s|fa7930e7b638c680|37442539|rds|local|vector|||0.167|rnaseq dataset 1594 feature IDs missing from df dataframe.|
-mo_set_transformed|stem|28334a82bdfebaa7|1a49152e06c5222d|6f732476e2857317|385723480||t19739.9580970037s|5c19986154657d81|57773059|rds|local|vector|||0.252||
-mo_set_with_names|stem|e64ebcd89ddb70bd|b88cddcfa5d2a267|6eebd2f68cb73320|-1640374052||t19738.0568285842s|593ace30823e21f2|36753195|rds|local|vector|||0.114||
-mofa_enrichment_results|stem|78eaab1a0af03fee|ef7cc36ac210afd1|af559c033d9d4f74|-518223786||t19752.0891323677s|a872b808d80823e1|518071|rds|local|vector|||23.964||
-mofa_input|stem|4d8e1c14434288d1|3d5db0316055019b|b1ff01b4e620143d|1284502458||t19746.8899165855s|4110beb5e0ca03cd|877459|rds|local|vector|||0.201|Dataset snps is to be modelled with a poisson likelihood, but is not integer. Transforming to integer.|
-mofa_output|stem|5352fa96ef81a7b7|0d8c9707690b395c|e568211333f1077a|-1474909642||t19746.9922984972s|a3806d14d44620e6|524047|rds|local|vector|||0.733||
-mofa_silhouette|stem|38befb8909ac2f5d|b3993a50258515a0|2df9226a5487985b|1827622905||t19751.9114556258s|b9df5b0bdaebf8f4|2178|rds|local|vector|||0.07||
-mofa_trained|stem|f523901c69cc8163|ec971dccb1086e60|dec5748f700e63fc|1854191013||t19746.8912693121s|b341cd3de1b49e2f|1004645|rds|local|vector|||116.597|No output filename provided. Using tmpRtmpaM7XWKmofa_20240125102128.hdf5 to store the trained model.. Factors 1 are strongly correlated with the total number of expressed features for at least one of your omics. Such factors appear when there are differences in the total levels between your samples, sometimes because of poor normalisation in the preprocessing steps.|
-mofa_unsupervised_input|stem|0a98089dfc907e05|1e3b7d3a004de239|ac3a834977ed6c4c|1599690320||t19752.0880774623s|0ebbdb36aed1ab69|1862241|rds|local|vector|||0.377|Dataset snps is to be modelled with a poisson likelihood, but is not integer. Transforming to integer.. Some views have a lot of features, it is recommended to perform a more stringent feature selection before creating the MOFA object....|
-mofa_unsupervised_output|stem|263b6a873e1194a4|ac7643002dc78394|5d9397e54d59a2ff|-1183302440||t19752.0887987343s|0f63368c8e1c580a|3341559|rds|local|vector|||0.552||
-mofa_unsupervised_trained|stem|423f9880f08a7437|738e097555904346|ba546a349afa5a2a|-100222010||t19752.0887865648s|ef8edaa43b7a4126|2866074|rds|local|vector|||60.337|No output filename provided. Using tmpRtmpQAfSIqmofa_20240130150649.hdf5 to store the trained model.. Factors 1 are strongly correlated with the total number of expressed features for at least one of your omics. Such factors appear when there are differences in the total levels between your samples, sometimes because of poor normalisation in the preprocessing steps.|
-omicspls_input|stem|488cc165105ef587|5103f8e1eb31dfb4|3fe933389d7e1821|1468063698||t19746.0144579806s|8dac9e868840a7ff|957717|rds|local|vector|||0.009||
-output_list|stem|4a1015dc0956fb48|7dfe1dad22716f50|50d53cde1679035e|1051331949||t19752.0891342382s|f1fc0566a26ef70a|718723|rds|local|vector|||0.001||
-output_list_mofa|stem|5211b4817442846b|b3dd9f735a60c26a|74a746a8e356ffa7|-162484418||t19752.0888057577s|18a087dd760dc5f0|3871242|rds|local|vector|||0.001||
+mo_presel_supervised|stem|8b875da2b4ccefe8|ad2976ef3ac5c859|b5f9643988c4d793|853638321||t19760.912012458s|c8f6dac29fb6dfde|64173732|rds|local|vector|||0.064||
+mo_presel_unsupervised|stem|bdab4c7113254bc5|e5ed7b9ba6a9375c|4d3a0f38bb8b31a6|912108120||t19760.9118005069s|247f47ce1e11a6ad|65504942|rds|local|vector|||0.088||
+mo_set|stem|4af4caf2029afc65|3230a4751cf4b45d|ae36701bccbefb3a|-1876565291||t19760.9103262217s|11af84f3bb84b257|36740447|rds|local|vector|||0.151||
+mo_set_complete|stem|ef49fedec6c2a6ee|d76a85ef218e0cef|7a23c14ec1380e61|1739868812||t19760.9115062799s|0fe0565a78b432a0|65454774|rds|local|vector|||1.285||
+mo_set_de|stem|50a16a083d9e1583|50f81c565a9dc6aa|59b27fe5699505cd|1698094396||t19760.9104758811s|c8c295ab8638ca27|37519429|rds|local|vector|||0.248||
+mo_set_transformed|stem|322fb64587b275fd|1a49152e06c5222d|b073975aedab211e|385723480||t19760.911233169s|df7a4660c8f4b0b4|57371488|rds|local|vector|||0.322||
+mo_set_with_names|stem|9ba6c3d68f30b760|b88cddcfa5d2a267|5a4d4660e143860a|-1640374052||t19760.9101850219s|5b036bf7c0ec24c0|36742890|rds|local|vector|||0.109||
+mofa_enrichment_results|stem|c30cfb639b70ea41|ef7cc36ac210afd1|595b61df14fdd2f6|-518223786||t19760.9133911577s|72b3d4834a95f43c|518039|rds|local|vector|||25.136||
+mofa_input|stem|1e230b468f72f1dc|3d5db0316055019b|8cc660f94be2d3c0|1284502458||t19760.9120570073s|c081e1451c717fc9|877186|rds|local|vector|||0.183|Dataset snps is to be modelled with a poisson likelihood, but is not integer. Transforming to integer.|
+mofa_output|stem|832991eafaf5e2b8|0d8c9707690b395c|22865685f5985822|-1474909642||t19760.9130925397s|12b786fd3304177d|523964|rds|local|vector|||0.181||
+mofa_silhouette|stem|42be4e75631b7ba3|b3993a50258515a0|61d2b841058949ce|1827622905||t19760.9130977988s|3263f05a43d601fa|2171|rds|local|vector|||0.331||
+mofa_trained|stem|d42d9b1fe0c5b714|ec971dccb1086e60|e09b842c9958ed5b|1854191013||t19760.9130578127s|eab845adeca5ce35|1004237|rds|local|vector|||5.995|No output filename provided. Using tmpRtmpXFuTOemofa_20240208105441.hdf5 to store the trained model.. Factors 1 are strongly correlated with the total number of expressed features for at least one of your omics. Such factors appear when there are differences in the total levels between your samples, sometimes because of poor normalisation in the preprocessing steps.|
+mofa_unsupervised_input|stem|dd9f4a92794d2b40|1e3b7d3a004de239|ea8efee1e5e6b51c|1599690320||t19760.9120442137s|365ab1683d49c10d|1863094|rds|local|vector|||1.397|Dataset snps is to be modelled with a poisson likelihood, but is not integer. Transforming to integer.. Some views have a lot of features, it is recommended to perform a more stringent feature selection before creating the MOFA object....|
+mofa_unsupervised_output|stem|d94bca90cdb4ad4e|ac7643002dc78394|d139ddefe70aec2d|-1183302440||t19760.9130879317s|42f43c3905742086|3341737|rds|local|vector|||1.795||
+mofa_unsupervised_trained|stem|3df12eba9ea6bf35|738e097555904346|e33076f4f3f49a07|-100222010||t19760.9129840522s|9f7a1239d2f6dacc|2867122|rds|local|vector|||78.881|No output filename provided. Using tmpRtmpXFuTOemofa_20240208105321.hdf5 to store the trained model.. Factors 1 are strongly correlated with the total number of expressed features for at least one of your omics. Such factors appear when there are differences in the total levels between your samples, sometimes because of poor normalisation in the preprocessing steps.|
+omicspls_input|stem|488cc165105ef587|5103f8e1eb31dfb4|7b97f60ab0fe03b0|1468063698||t19760.9120467713s|8dac9e868840a7ff|957717|rds|local|vector|||0.008||
+output_list|stem|c7a3e3c14900a5ab|7dfe1dad22716f50|edb4856bd89681aa|1051331949||t19760.8171251591s|ce4e8d1e45c7f38c|718611|rds|local|vector|||0||
+output_list_mofa|stem|548c1ad8cf923c8c|b3dd9f735a60c26a|960e8522407d7750|-162484418||t19760.8168319398s|7174064e9e187a05|3871404|rds|local|vector|||0.001||
 pca_mats_list|pattern|c831051151e4add2|72b302a65c0920ed||1078442447||||12164806|rds|local|list||pca_mats_list_302d7473*pca_mats_list_84d36937*pca_mats_list_64d37e6c|0.09||
-pca_mats_list_302d7473|branch|e839c68784be56c5|72b302a65c0920ed|0f98021e133aac1d|-46563577||t19739.9581108254s|1b793e6da03f6fbf|1616638|rds|local|list|pca_mats_list||0.072||
-pca_mats_list_64d37e6c|branch|ee5587d92df571f6|72b302a65c0920ed|515ffe317be4aadd|31292255||t19739.9581241653s|73622126bd00a83a|30830|rds|local|list|pca_mats_list||0.001||
-pca_mats_list_84d36937|branch|bd51023c181a45d9|72b302a65c0920ed|e27f6ba6c7a2844e|427986228||t19739.9581229363s|473ba920375be136|10517338|rds|local|list|pca_mats_list||0.017||
+pca_mats_list_302d7473|branch|e839c68784be56c5|72b302a65c0920ed|36d25fb386b57c86|-46563577||t19760.9112518596s|1b793e6da03f6fbf|1616638|rds|local|list|pca_mats_list||0.015||
+pca_mats_list_64d37e6c|branch|ee5587d92df571f6|72b302a65c0920ed|bd3427499db985c1|31292255||t19760.9112670563s|73622126bd00a83a|30830|rds|local|list|pca_mats_list||0.001||
+pca_mats_list_84d36937|branch|bd51023c181a45d9|72b302a65c0920ed|5755ba948e236dd2|427986228||t19760.9112650514s|473ba920375be136|10517338|rds|local|list|pca_mats_list||0.006||
 pca_runs_list|pattern|1a2e2f85dc6ad23b|54876449cf65c389||823147665||||51897|rds|local|list||pca_runs_list_74d71ae8*pca_runs_list_71fd94b4*pca_runs_list_559272f0|0.949||
 pca_runs_list_559272f0|branch|34ed84837089d5b3|54876449cf65c389|97c3be9a932c6998|543096987||t19739.9581361475s|1a6f14b0ab9eae14|51897|rds|local|list|pca_runs_list||0.949||
 pca_runs_list_71fd94b4|branch|cebdffa9f5582b5a|54876449cf65c389|a0a7b01d4aec147f|2040141543||t19739.0658292644s|a331ada14cb628e2|19878383|rds|local|list|pca_runs_list||1.406||
 pca_runs_list_74d71ae8|branch|120c796514a127df|54876449cf65c389|8bad1210ebde9da0|1379536384||t19739.0657990151s|67033f5f3480d9ec|3746254|rds|local|list|pca_runs_list||193.805||
-rnaseq_de_res_df|stem|ce4a697cd33652ca|518ea4983babaf6b|2842dca2da1c0ff8|-2101569842||t19739.0032623849s|ede16ea5ac2dbdca|754990|rds|local|vector|||4.685||
-rnaseq_de_res_file|stem|200c15aa31f72486|c4cb79c8aa9f6731|0fce92a88a7882f5|2074595899|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/a0cb1ab1c9bfde027266aa5d81f33617/moiraine/extdata/transcriptomics_de_results.csv|t19737.0751439619s|1bac4f09e291f89f|2468491|file|local|vector|||0.057||
+rnaseq_de_res_df|stem|4b9d0d74f4be0eb1|518ea4983babaf6b|da2a628b885490e0|-2101569842||t19760.9099928214s|4218e4ac289eaf50|761485|rds|local|vector|||0.514||
+rnaseq_de_res_file|stem|02151c0e67f0ec93|c4cb79c8aa9f6731|0fce92a88a7882f5|2074595899|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/fb476bd1efef272b4f6140013017b2d2/moiraine/extdata/transcriptomics_de_results.csv|t19760.810189284s|94ce911f55c943c2|2531122|file|local|vector|||0.018||
 rnaseq_go_df|stem|24af4f9441f38297|6f6bcef47e41e0c8|c05fd6c9e17f9bb0|-1266498262||t19751.910390816s|318949ab3b22ee5c|943165|rds|local|vector|||1.685||
 rnaseq_go_terms_file|stem|c0341c2d582dc5df|9a90238124a851b5|0fce92a88a7882f5|929094615|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/7e39d6614134fc474e6b85ec2516a5b6/moiraine/extdata/transcriptomics_go_annotation.csv|t19747.8725059398s|a457916072655f7b|14795612|file|local|vector|||0.004||
-set_geno|stem|b9a63471a2bae355|6d0f65ce2b5dfcc3|53cc5826dcb4a6d2|1285324786||t19738.0475523002s|19e8c5270d1eb961|2173155|rds|local|vector|||1.075|5 samples in samples metadata not in dataset, will be removed from metadata.|
-set_metabo|stem|0d94569ea56d374d|c474bc703c42933a|608f12a275630935|1932753424||t19738.0474809317s|ed98fcecc594d702|29765|rds|local|vector|||0.06|5 samples in samples metadata not in dataset, will be removed from metadata.|
-set_transcripto|stem|a34ee2565470dabc|ab4282af2718b58e|4a163e482e11d826|1396440415||t19738.0475239992s|5602925ca953b1da|7190802|rds|local|vector|||0.972|7272 features in feature metadata not in dataset, will be removed from metadata.. 1 samples in samples metadata not in dataset, will be removed from metadata.|
-sets_single_omics|stem|6c9d7b9ce5692904|f6ad7105f54099d1|1f67dbd346185358|-1183795778||t19751.910540475s|e8277a3f81b8307a|151813|rds|local|vector|||0.109||
-sets_single_omics_merged|stem|b86357759a164f38|302296f4fb29a59b|1f67dbd346185358|-1233894373||t19751.91053864s|da3ba92b97994370|151530|rds|local|vector|||0.06||
-smetadata_all|stem|ab53a5d6797cc718|6b4aea71b616cb74|a19772ceb5ec11de|-937728991||t19737.9793081304s|f1652d5360365c83|4520|rds|local|vector|||0.784||
-smetadata_file_all|stem|334b548c7e00bff1|36b6e66ff33bcdb8|ef46db3751d8e999|1816987930|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/374510e4d81eb0e4c39d632b2b65ad28/moiraine/extdata/samples_info.csv|t19755.0560164018s|70b525cc81b75a3d|7970|file|local|vector|||0||
+set_geno|stem|1c5e2e32e046fa05|6d0f65ce2b5dfcc3|398cbd8161dd2584|1285324786||t19760.910027823s|0a2ac61851821322|2174735|rds|local|vector|||0.742|5 samples in samples metadata not in dataset, will be removed from metadata.|
+set_metabo|stem|0d94569ea56d374d|c474bc703c42933a|b8f2b77ffe971256|1932753424||t19760.8133196047s|ed98fcecc594d702|29765|rds|local|vector|||0.072|5 samples in samples metadata not in dataset, will be removed from metadata.|
+set_transcripto|stem|eff105e2bc2ed1af|ab4282af2718b58e|ef42e38ef7b96a2f|1396440415||t19760.8133633043s|647f77abcb7e52df|7190799|rds|local|vector|||0.067|7272 features in feature metadata not in dataset, will be removed from metadata.. 1 samples in samples metadata not in dataset, will be removed from metadata.|
+sets_single_omics|stem|aa2717544717bc25|f6ad7105f54099d1|59d155d021f79e4e|-1183795778||t19760.9115663861s|ffa22187a12eb2d6|150741|rds|local|vector|||1.289||
+sets_single_omics_merged|stem|4930cd9ca4e789ff|302296f4fb29a59b|59d155d021f79e4e|-1233894373||t19760.9115693456s|c4e46b53c2403add|150687|rds|local|vector|||0.097||
+smetadata_all|stem|74e26063c5a54133|6b4aea71b616cb74|514e9844c1f15272|-937728991||t19760.8132782248s|de1050be8c5f2839|4519|rds|local|vector|||3.157||
+smetadata_file_all|stem|73ff2a067875b30c|ab2f33a5d0cd266e|ef46db3751d8e999|1816987930|/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/fb476bd1efef272b4f6140013017b2d2/moiraine/extdata/samples_info.csv|t19760.8101883293s|37af6ec94ad72ffc|7968|file|local|vector|||0||
 so2pls_cv|stem|01c3e0f6ea779863|21e77ca6aee4664c|2fe8bf94339f8db8|1111841932||t19746.0262490569s|58772b208bb3c33b|420|rds|local|vector|||341.124||
 so2pls_cv_adj|stem|462835eb42a1a462|fd93850ca6adee40|0f6ca247cd6a95ea|710052968||t19746.0222975888s|71e695e858e0833c|250|rds|local|vector|||474.616||
 so2pls_cv_adj_plot|stem|048bba2eb50ed68a|9e2bdae32bcd502a|60b2a8e2ed9491fe|-2142098915||t19746.026251263s|4a215a353ab56115|130449|rds|local|vector|||0.109||
@@ -102,7 +102,7 @@ so2pls_final_run|stem|1b5fda3f0c9ef4de|16cefdd61090d51e|2dad9253d5d29425|-173173
 so2pls_output|stem|a5eca781575f961d|c5a60834f955fae6|71196bf0103fc69c|236025425||t19746.9923031487s|c7ea9b7f646d2838|130837|rds|local|vector|||0.225||
 so2pls_output_no_average|stem|d5a8f2b14dec6fb7|b225132f8f3d4451|71196bf0103fc69c|-886261613||t19747.0777562921s|d3f8ef5c8e7df8b4|131975|rds|local|vector|||0.242||
 spls_final_run|stem|aa85c5b6a3d8ec0c|bd201898ff611d8b|ae125251e89a9069|-1455060732||t19745.8622943744s|87decae32b6cb84a|1828750|rds|local|vector|||0.024||
-spls_input|stem|822f9a95396547da|3096087fd4d5c989|cb02bfd15d457e4a|70678725||t19745.8585853016s|8f898ab1f7e895d8|838523|rds|local|vector|||0.029||
+spls_input|stem|822f9a95396547da|3096087fd4d5c989|521c2f143a3ba49c|70678725||t19760.9120525951s|8f898ab1f7e895d8|838523|rds|local|vector|||0.053||
 spls_multilevel1|stem|21cb78d9bdf5ef8f|740ca0497728ae2d|15eb1ccc2d3995df|-1820918706||t19745.8585170022s|bbe0e43529942e5e|163|rds|local|vector|||0.25||
 spls_multilevel2|stem|27547dc59b1b797d|de611361e6a5ff7d|1cd1f9a9228aec67|-2126981166||t19745.8585179626s|c8c79f11dd07570f|276|rds|local|vector|||0.064||
 spls_novarsel|stem|2073bd192ac0dfda|30372f335fc03181|d6f3e150a3c8976b|-1501000619||t19745.8585960049s|fdd5d4e3f6846793|1911012|rds|local|vector|||0.782||
@@ -118,6 +118,6 @@ spls_tune_res|stem|1a10b4c5302f3a02|53cb577fb9de7eff|bee4d2217b99a114|-584594170
 splsda_spec|stem|7afcf563c24fd03b|33174bbcb4aaf133|6f5c7957329b075c|-1585633399||t19740.1248351517s|4a62745a16bcf9e1|179|rds|local|group||splsda_spec_3e93005d*splsda_spec_5f804ca7|0.066||
 test_multilevel|function|501089a14b77d076|||||||||||||||
 transformations_runs_list|pattern|a17a7d845523fd40|c8afd5249d4f8349||1365652552||||21828273|rds|local|list||transformations_runs_list_7a466037*transformations_runs_list_a1c8db41|24.685||
-transformations_runs_list_7a466037|branch|068ba2dd9c545230|c8afd5249d4f8349|04a5ef380e25f762|-111181846||t19739.9576385053s|a4873a9be45be919|91816|rds|local|list|transformations_runs_list||0.962||
-transformations_runs_list_a1c8db41|branch|b202e3c15c9d3f9b|c8afd5249d4f8349|8bd44408b81f482d|-1681741006||t19739.9579365109s|265e230816f68f72|21736457|rds|local|list|transformations_runs_list||23.723||
+transformations_runs_list_7a466037|branch|068ba2dd9c545230|c8afd5249d4f8349|14c62e5ef2d500a5|-111181846||t19760.9105794105s|a4873a9be45be919|91816|rds|local|list|transformations_runs_list||8.551||
+transformations_runs_list_a1c8db41|branch|b202e3c15c9d3f9b|c8afd5249d4f8349|8543dc4c393f18fd|-1681741006||t19760.9110565952s|265e230816f68f72|21736457|rds|local|list|transformations_runs_list||38.931||
 transformations_spec|stem|996fe3b7903fddf9|63e38e995f234268|c92d2a596f72fe8f|-773680173||t19739.0592335968s|d3c04794784e4c77|239|rds|local|group||transformations_spec_706d138f*transformations_spec_2e2c442e|6.724||

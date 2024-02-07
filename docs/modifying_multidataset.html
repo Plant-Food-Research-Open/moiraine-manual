@@ -513,11 +513,11 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
 <span><span class="co">#&gt;   id    new_group</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;    </span></span>
-<span><span class="co">#&gt; 1 R21   c        </span></span>
-<span><span class="co">#&gt; 2 Y3660 a        </span></span>
-<span><span class="co">#&gt; 3 Y3243 a        </span></span>
-<span><span class="co">#&gt; 4 R5764 b        </span></span>
-<span><span class="co">#&gt; 5 P4669 c        </span></span>
+<span><span class="co">#&gt; 1 R21   a        </span></span>
+<span><span class="co">#&gt; 2 Y3660 c        </span></span>
+<span><span class="co">#&gt; 3 Y3243 b        </span></span>
+<span><span class="co">#&gt; 4 R5764 c        </span></span>
+<span><span class="co">#&gt; 5 P4669 a        </span></span>
 <span><span class="co">#&gt; 6 R5452 b</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that the sample IDs must be stored in a column named <code>id</code>. We will use the <code><a href="https://rdrr.io/pkg/moiraine/man/add_samples_metadata.html">add_samples_metadata()</a></code> function to add this new data-frame to the samples metadata in our <code>MultiDataSet</code> object. There are several options for which samples metadata tables should be modified; this is controlled through the <code>datasets</code> argument of the function. By default, the information is added to the samples metadata table of all omics datasets (case when <code>datasets = NULL</code>):</p>
@@ -542,11 +542,11 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
 <span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R21      0.820691    0.171456                K3         c</span></span>
-<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         a</span></span>
-<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         a</span></span>
-<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         b</span></span>
-<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         c</span></span>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3         a</span></span>
+<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         c</span></span>
+<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         b</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         c</span></span>
+<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         a</span></span>
 <span><span class="co">#&gt; R5452    0.733992    0.000010                K3         b</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $rnaseq</span></span>
@@ -558,12 +558,12 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; R9504 R9504      F2   male    BRD          31           B1    0.000010</span></span>
 <span><span class="co">#&gt; R5994 R5994      F2   male    BRD          24           B1    0.129271</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         c</span></span>
-<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         c</span></span>
+<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         a</span></span>
+<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         a</span></span>
 <span><span class="co">#&gt; R5327    0.809396    0.049874                K3         b</span></span>
 <span><span class="co">#&gt; R5979    0.107794    0.605473                K1         c</span></span>
 <span><span class="co">#&gt; R9504    0.998913    0.001077                K3         b</span></span>
-<span><span class="co">#&gt; R5994    0.034351    0.836377                K1         b</span></span>
+<span><span class="co">#&gt; R5994    0.034351    0.836377                K1         a</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $metabolome</span></span>
 <span><span class="co">#&gt;          id feedlot gender  status day_on_feed rnaseq_batch geno_comp_1</span></span>
@@ -574,11 +574,11 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
 <span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R21      0.820691    0.171456                K3         c</span></span>
-<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         a</span></span>
-<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         a</span></span>
-<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         b</span></span>
-<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         c</span></span>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3         a</span></span>
+<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         c</span></span>
+<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         b</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         c</span></span>
+<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         a</span></span>
 <span><span class="co">#&gt; R5452    0.733992    0.000010                K3         b</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>However, it is also possible to specify for which dataset(s) the changes should be made, by passing their name to the <code>datasets</code> argument.</p>
@@ -621,12 +621,12 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; R9504 R9504      F2   male    BRD          31           B1    0.000010</span></span>
 <span><span class="co">#&gt; R5994 R5994      F2   male    BRD          24           B1    0.129271</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         c</span></span>
-<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         c</span></span>
+<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         a</span></span>
+<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         a</span></span>
 <span><span class="co">#&gt; R5327    0.809396    0.049874                K3         b</span></span>
 <span><span class="co">#&gt; R5979    0.107794    0.605473                K1         c</span></span>
 <span><span class="co">#&gt; R9504    0.998913    0.001077                K3         b</span></span>
-<span><span class="co">#&gt; R5994    0.034351    0.836377                K1         b</span></span>
+<span><span class="co">#&gt; R5994    0.034351    0.836377                K1         a</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $metabolome</span></span>
 <span><span class="co">#&gt;          id feedlot gender  status day_on_feed rnaseq_batch geno_comp_1</span></span>
@@ -637,11 +637,11 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
 <span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R21      0.820691    0.171456                K3         c</span></span>
-<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         a</span></span>
-<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         a</span></span>
-<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         b</span></span>
-<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         c</span></span>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3         a</span></span>
+<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         c</span></span>
+<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         b</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         c</span></span>
+<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         a</span></span>
 <span><span class="co">#&gt; R5452    0.733992    0.000010                K3         b</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In both cases, the function throws some warnings to alert about samples missing from this new table, or samples that are not present in the original samples metadata table. These warnings should be checked to avoid issues due to typos, etc.</p>
