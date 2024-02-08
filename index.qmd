@@ -1,35 +1,57 @@
 # Preface {.unnumbered}
 
+```{r}
+#| child: "_setup.qmd"
 
-## The moiraine package
+```
 
 Omics datasets provide an overview of the content of cells for a specific molecular layer (e.g. transcriptome, proteome, metabolome). By integrating different omics datasets obtained on the same biological samples, we can gain a deeper understanding of the interactions between these molecular layers, and shed light on the regulations occurring both within and between layers. A number of statistical methods have been developed to extract such information from multi-omics datasets, and many have been implemented in software such as R packages. However, these tools differ conceptually, in terms of the input data they require, the assumptions they make, the statistical approaches they use or even the questions they answers. They also differ at a practical level in terms of the format required for data input, the parameters to tune or select, and the format in which the results are returned. These differences render the **application of several integration tools to a multi-omics dataset** and the **comparison of their results** complex and time-consuming.
 
 The `moiraine` package aims at alleviating these issues, by providing a framework to easily and consistently apply different integration tools to a same multi-omics dataset. It implements numerous visualisation and reporting functions to facilitate the interpretation of the integration results as well as the comparison of these results across integration methods. In addition, in an effort to make these computations reproducible, `moiraine` heavily relies on the [`targets` package](https://books.ropensci.org/targets/) for the construction of reproducible analysis pipelines.
 
+## The `moiraine` package
+
+*Discuss what steps are covered by moiraine*
+
+Currently, the following integration methods are covered in `moiraine`:
+
+* sPLS and DIABLO from the `mixOmics` package
+
+* sO2PLS from the `OmicsPLS` package
+
+* MOFA and MEFISTO from the `MOFA2` package
+
 ## About this manual
 
-In this manual, we are showcasing the functionalities of the `moiraine` package by presenting an in-depth walk-through example of a multi-omics integration analysis. This will not only talk about the how in terms of R functions etc, but also talk about the integration methods and how to use them.
+In this manual, we are showcasing the functionalities of the `moiraine` package by walking through an in-depth example of a multi-omics integration analysis. We will be covering not only the functionalities of `moiraine`, but also discuss the different integration tools and provide recommendations for parameters setting and interpretation.
 
-Here, say that we heavily recommend to be familiar with targets (teaching targets it out of the scope of this manual, and we refer to the excellent targets manual).
+The `moiraine` package was designed to be used in the context of `targets` pipelines, therefore some familiarity with the `targets` package is necessary to follow this manual. Nevertheless, for users preferring R scripts to `targets` pipelines, alternative code will be provided to translate the [target factories](https://wlandau.github.io/targetopia/contributing.html#target-factories) implemented in `moiraine`. To learn about `targets`, we refer readers to the excellent [`targets` manual](https://books.ropensci.org/targets/).
 
-```{r}
-#| child: "_setup.qmd"
+
+For clarity, throughout this manual, all code that belongs in a `targets` script (e.g. in the targets list in `_targets.R`) will be shown in a blue chunk, e.g.:
+
+```{target my-first-target}
+tar_target(
+	my_first_target,
+	2 + 2
+)
 ```
+
+Any code shown in a regular code chunk (see below) is code that should be run in the command line, or saved in a regular R script. It often showcases how to inspect a certain target output after having run `tar_make()` to execute the `targets` pipeline, e.g.:
 
 ```{r loading-packages}
 library(targets)
+
+tar_read(my_first_target)
 ```
 
-```{r}
-1 + 1
+Note that for readers that prefer to use R scripts to `targets` pipeline, the target command in XX can be converted to R script-compatible code as follows:
+
+```{r target-translation}
+my_first_target <- 2 + 2
 ```
 
-A targets chunck:
-
-```{targets}
-tar_target(a, 2+2)
-```
+and the calls to `tar_read()` and `tar_load()` ignored.
 
 ```{file}
 "something"

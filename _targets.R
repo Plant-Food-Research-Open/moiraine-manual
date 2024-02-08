@@ -40,6 +40,11 @@ test_multilevel <- function(smeta, multilevel) {
 ## List of targets
 list(
 
+  tar_target(
+    my_first_target,
+    2 + 2
+  ),
+
   ##==============##
   ## Data loading ----
   ##==============##
