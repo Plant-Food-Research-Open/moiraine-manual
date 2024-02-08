@@ -30,12 +30,14 @@ The `moiraine` package was designed to be used in the context of `targets` pipel
 
 For clarity, throughout this manual, all code that belongs in a `targets` script (e.g. in the targets list in `_targets.R`) will be shown in a blue chunk, e.g.:
 
-```{target my-first-target}
+::: {.targets-chunk}
+```{targets my-first-target}
 tar_target(
 	my_first_target,
-	2 + 2
+	c(2 + 2)
 )
 ```
+:::
 
 Any code shown in a regular code chunk (see below) is code that should be run in the command line, or saved in a regular R script. It often showcases how to inspect a certain target output after having run `tar_make()` to execute the `targets` pipeline, e.g.:
 
@@ -52,9 +54,4 @@ my_first_target <- 2 + 2
 ```
 
 and the calls to `tar_read()` and `tar_load()` ignored.
-
-```{file}
-"something"
-```
-
 

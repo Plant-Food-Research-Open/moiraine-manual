@@ -312,12 +312,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this manual, we are showcasing the functionalities of the <code>moiraine</code> package by walking through an in-depth example of a multi-omics integration analysis. We will be covering not only the functionalities of <code>moiraine</code>, but also discuss the different integration tools and provide recommendations for parameters setting and interpretation.</p>
 <p>The <code>moiraine</code> package was designed to be used in the context of <code>targets</code> pipelines, therefore some familiarity with the <code>targets</code> package is necessary to follow this manual. Nevertheless, for users preferring R scripts to <code>targets</code> pipelines, alternative code will be provided to translate the <a href="https://wlandau.github.io/targetopia/contributing.html#target-factories">target factories</a> implemented in <code>moiraine</code>. To learn about <code>targets</code>, we refer readers to the excellent <a href="https://books.ropensci.org/targets/"><code>targets</code> manual</a>.</p>
 <p>For clarity, throughout this manual, all code that belongs in a <code>targets</code> script (e.g.&nbsp;in the targets list in <code>_targets.R</code>) will be shown in a blue chunk, e.g.:</p>
+<div class="targets-chunk">
 <div class="cell">
-<div class="cell">
-<pre class="target targets-chunk cell-code"><code>tar_target(
-    my_first_target,
-    2 + 2
-)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_target</span><span class="op">(</span></span>
+<span>    <span class="va">my_first_target</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>Any code shown in a regular code chunk (see below) is code that should be run in the command line, or saved in a regular R script. It often showcases how to inspect a certain target output after having run <code><a href="https://docs.ropensci.org/targets/reference/tar_make.html">tar_make()</a></code> to execute the <code>targets</code> pipeline, e.g.:</p>
@@ -332,11 +332,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_first_target</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and the calls to <code><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read()</a></code> and <code><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load()</a></code> ignored.</p>
-<div class="cell">
-<div class="cell">
-<pre class="file file-chunk cell-code"><code>"something"</code></pre>
-</div>
-</div>
 
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

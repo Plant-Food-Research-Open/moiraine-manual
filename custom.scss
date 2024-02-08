@@ -1,7 +1,14 @@
 /*-- scss:rules --*/
 
+/* For when the downlit issue will be fixed
 .targets-chunk {
   background-color: #E4EAFF !important;
+  border-radius: 15px;
+} */
+
+.targets-chunk {
+  background-color: #b3c3ff !important;
+  border-radius: 5px;
 }
 .file-chunk {
   background-color: #fff8e6 !important;
