@@ -342,6 +342,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>optionally, the names of the datasets to include in the analysis. This is useful if we want to exclude one of more datasets from the analysis.</p></li>
 </ul>
 <p>In our case, we want to find differences between the healthy and diseased animals. We will use the multi-omics datasets that have gone through supervised prefiltering (i.e.&nbsp;we discarded the features least related with the disease status, as seen in <a href="prefiltering.html"><span>Chapter&nbsp;7</span></a>).</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_input</span>,</span>
@@ -350,6 +351,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>    group <span class="op">=</span> <span class="st">"status"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>Importantly, the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_mixomics_supervised.html">get_input_mixomics_supervised()</a></code> function only retains samples that are present in all omics datasets to be analysed. It also makes sure that the column provided as categorical outcome does not contain numerical values, as DIABLO can only handle categorical outcome. If the column contains integers, they will be considered as levels of a factor.</p>
 <p>The result of the function is a named list with one element per dataset to integrate, plus a <code>Y</code> element that contains the categorical outcome. The omics datasets are stored as matrices with samples as rows and features as columns; the categorical outcome is a named factor vector.</p>
@@ -427,8 +429,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>correlation coefficient below 0.8: assign a value of 0.1 in the corresponding cell of the design matrix.</p></li>
 </ul>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory()</a></code> function automates this process. It takes as input the DIABLO input object that we constructed previously:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>The function works as follows:</p>
 <ul>
@@ -484,6 +488,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">11.4</span> Choosing the number of latent components</h2>
 <p>One important parameter that must be set when performing a DIABLO analysis is the number of latent components to construct for each dataset. The optimal number of components can be estimated by cross-validation, implemented in the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function. This function assesses the classification performance (i.e.&nbsp;how well the different outcome groups are separated) achieved by DIABLO for different numbers of latent components.</p>
 <p>Choosing the optimal number of latent components to construct is a multi-step process. The first step is to run DIABLO without feature selection, setting the number of latent components to the maximum value we wish to test. We recommend to set this to the number of groups in the categorical outcome + 2, which in our case equals 4; however this can be further refined after checking the results. For this example, we will set the maximum to 7. This is done through the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run()</a></code> function, which is a wrapper for the <code><a href="https://rdrr.io/pkg/mixOmics/man/block.splsda.html">mixOmics::block.splsda()</a></code> function. The function also requires as input the design matrix to be used; here we will use the one constructed from the PLS runs:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_novarsel</span>,</span>
@@ -494,7 +499,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 <p>Alternatively, if we want to use one of the predefined design matrices, we can pass on one of <code>'null'</code>, <code>'weighted_full'</code> or <code>'full'</code> instead of the computed <code>diablo_design_matrix</code>, e.g.:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_novarsel</span>,</span>
@@ -505,6 +512,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 <p>Then, we call the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function on the result of this first DIABLO run. There are a number of parameters to set:</p>
 <ul>
 <li><p><code>validation</code>: the type of cross-validation to perform, M-fold (<code>"Mfold"</code>) or leave-one-out (<code>"loo"</code>). We recommend to use M-fold validation, except when the number of samples is very small.</p></li>
@@ -513,6 +521,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>cpus</code>: number of CPUs to use for the computation. Useful if <code>folds</code> <span class="math inline">\(\times\)</span> <code>repeats</code> is large, as this can be computationally intensive.</p></li>
 </ul>
 <p>Here we’ll perform a 10-fold cross validation with 10 repeats.</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_perf_res</span>,</span>
@@ -524,6 +533,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>    cpus <span class="op">=</span> <span class="fl">3</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>We can visualise the results of the cross-validation with the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_perf.html">diablo_plot_perf()</a></code> function:</p>
 <div class="cell">
@@ -544,17 +554,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; [1] 4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For ease of reuse we will save this value as a target in our analysis pipeline:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_optim_ncomp</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 </section><section id="choosing-the-number-of-features-to-retain" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="choosing-the-number-of-features-to-retain">
 <span class="header-section-number">11.5</span> Choosing the number of features to retain</h2>
 <p>The next parameter to set is the number of features to retain from the different datasets for each latent component. This is usually chosen by performing cross-validation on a grid of possible values. The range of values to test depends on the type of question we are trying to answer: selecting a larger number of features might lead to a better discrimination of the outcome groups, but will be hard to manually inspect for further interpretation.</p>
 <p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_tune.html">diablo_tune()</a></code> provides a wrapper around the <code><a href="https://rdrr.io/pkg/mixOmics/man/tune.html">mixOmics::tune()</a></code> function that performs this cross-validation. Some of the arguments are similar to the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function, e.g.&nbsp;<code>validation</code>, <code>folds</code>, <code>nrepeats</code> or <code>cpus</code>. In addition, we recommend setting the <code>dist</code> argument, which corresponds to the prediction distance metric used for performance assessment, to <code>"centroids.dist"</code> (or <code>"mahalanobis.dist"</code>).</p>
 <p>The <code>keepX_list</code> argument controls the grid of values to be tested as possible number of features to retain from each dataset. It should be in the form of a named list, with one element per dataset, and where each element is a vector of integers corresponding to the values to test. The names of the list should correspond to the names of the datasets in the <code>MultiDataSet</code> object. If no value is provided for <code>keepX_list</code>, six values ranging from 5 to 30 (by increments of 5) are tested for each dataset.</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_tune_res</span>,</span>
@@ -569,6 +582,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>    cpus <span class="op">=</span> <span class="fl">3</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>This step can be very time-consuming, especially if the grid of values to test is very large. For this example, it takes around 50 minutes to run.</p>
 <p>The cross-validation results can be inspected with the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_tune.html">diablo_plot_tune()</a></code> function:</p>
@@ -605,6 +619,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section><section id="final-diablo-run" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="final-diablo-run">
 <span class="header-section-number">11.6</span> Final DIABLO run</h2>
 <p>Once a value has been selected for all parameters, it is time to perform the final DIABLO run:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_final_run</span>,</span>
@@ -615,6 +630,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>    keepX <span class="op">=</span> <span class="va">diablo_tune_res</span><span class="op">$</span><span class="va">choice.keepX</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -784,7 +800,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for DIABLO analysis
-</summary><div class="cell">
+</summary><div class="targets-chunk">
+<div class="cell">
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Creating the DIABLO input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
@@ -864,6 +881,7 @@ Targets list for DIABLO analysis
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </details>
 

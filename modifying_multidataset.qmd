@@ -96,7 +96,7 @@ mo_set_modif <- replace_dataset(mo_set, "rnaseq", new_mat[1:10, 1:10])
 <details>
   <summary>Click here to see a targets version of the code.</summary>
 
-
+::: {.targets-chunk}
 ```{targets modifying-rnaseq-example}
 list(
   ## Replacing zero values in RNAseq dataset
@@ -120,6 +120,7 @@ list(
   )
 )
 ```
+:::
 </details>
 
 
@@ -129,6 +130,7 @@ In the case of the transcriptomics dataset, we extracted the features metadata d
 
 Let's start by reading in the differential expression results:
 
+::: {.targets-chunk}
 ```{targets reading-de-results}
 list(
   tar_target(
@@ -148,6 +150,7 @@ list(
   )
 )
 ```
+:::
 
 Notice that in the results file, the gene IDs are stored in the `gene_id` column. Here, we rename this column as `feature_id`, which is required for adding it to the features metadata. In addition, we create a `dataset` column which contains the name of the dataset in the `MultiDataSet` object to which the features belong. This is also necessary.
 
@@ -160,12 +163,14 @@ tar_read(rnaseq_de_res_df) |>
 
 We can now use the `add_features_metadata()` function to add this table to the features metadata of the transcriptomics dataset. The new `MultiDataSet` object that includes information about the differential expression results will be saved in the `mo_set_de` target:
 
+::: {.targets-chunk}
 ```{targets add-features-metadata}
 tar_target(
   mo_set_de,
   add_features_metadata(mo_set, rnaseq_de_res_df)
 )
 ```
+:::
 
 The new information has been added to the features metadata of the transcriptomics dataset.
 
@@ -234,7 +239,7 @@ For convenience, here is the list of targets that we created in this section:
 <details>
   <summary>Targets list for modifying a MultiDataSet object</summary>
 
-
+::: {.targets-chunk}
 ```{targets recap-targets-list}
 list(
   ## RNAseq differential expression results file
@@ -262,4 +267,5 @@ list(
   )
 )
 ```
+:::
 </details>

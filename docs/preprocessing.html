@@ -431,6 +431,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">6.1.2</span> Transformation target factory</h3>
 <p>The target factory function <code><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory()</a></code> provides a wrapper to apply (potentially different) transformations to several datasets at once. The function takes as input the <code>MultiDataSet</code> object as well as a named character vector, in which each element corresponds to a transformation that should be applied to a specific dataset. If a dataset is not present in the transformation vector, it will not be transformed (but it will still be present in the resulting <code>MultiDataSet</code> object).</p>
 <p>Here, we would like to apply Variance Stabilising Transformation to the transcriptomics dataset, and a log2 transformation to the metabolomics dataset. Note that the VST and VSN transformations are very close to the log2 transformation, especially for features with high means.</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_de</span>,</span>
@@ -442,6 +443,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  standardize <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  transformed_data_name <span class="op">=</span> <span class="st">"mo_set_transformed"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory()</a></code> function works as follows:</p>
 <ul>
@@ -557,11 +559,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>It extracts from the result of each PCA the complete dataset, i.e.&nbsp;with missing values imputed, and uses this information to construct a new <code>MultiDataSet</code> object, in which the datasets are complete (i.e.&nbsp;no missing value). This is done by calling the <code><a href="https://rdrr.io/pkg/moiraine/man/get_complete_data.html">get_complete_data()</a></code> function. If no PCA was run on a dataset, the dataset will still be present in the new <code>MultiDataSet</code> object, but its missing values will not be imputed. The resulting complete <code>MultiDataSet</code> object is stored by default in a target called <code>complete_set</code>; this name can be changed via the <code>complete_data_name</code> argument.</p></li>
 </ul>
 <p>Let’s apply this to our multi-omics dataset:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/pca_complete_data_factory.html">pca_complete_data_factory</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_transformed</span>,</span>
 <span>  complete_data_name <span class="op">=</span> <span class="st">"mo_set_complete"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>We can have a look at the different targets constructed. By default, a PCA was run on all datasets:</p>
 <div class="cell">
@@ -632,12 +636,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; [1] 23036    10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can notice that there is some information about the number of principal components computed, and whether the dataset was centred and scaled before applying the PCA. This is handled by the default arguments of <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca_matrix.html">run_pca_matrix()</a></code>, but can be specified by passing the corresponding arguments to <code><a href="https://rdrr.io/pkg/moiraine/man/pca_complete_data_factory.html">pca_complete_data_factory()</a></code>. For example, to scale the datasets before performing a PCA, we could use:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/pca_complete_data_factory.html">pca_complete_data_factory</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_transformed</span>,</span>
 <span>  complete_data_name <span class="op">=</span> <span class="st">"mo_set_complete"</span>,</span>
 <span>  scale <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>For convenience, the <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca.html">run_pca()</a></code> function can be used to run a PCA on one of the omics datasets directly from a <code>MultiDataSet</code> object. It is a wrapper around the <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca_matrix.html">run_pca_matrix()</a></code> function, and takes as input a <code>MultiDataSet</code> object as well as the name of the omics dataset on which a PCA should be run, e.g.:</p>
 <div class="cell">
@@ -736,7 +742,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for datasets preprocessing
-</summary><div class="cell">
+</summary><div class="targets-chunk">
+<div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Applying transformations to the datasets</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory</a></span><span class="op">(</span></span>
@@ -798,6 +805,7 @@ Targets list for datasets preprocessing
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </details>
 

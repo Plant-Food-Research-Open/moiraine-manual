@@ -399,6 +399,7 @@ Note
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For our example, we’ll make sure that each dataset is scaled to unit variance, and that a Poisson likelihood is used for the genomics data, for which we have variants dosage. Since there are only 9 samples that are not present in all omics datasets, we can keep them in the analysis. We’ll set the random seed to ensure that the results are reproducible:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">mofa_input</span>,</span>
@@ -416,6 +417,7 @@ Note
 <span>    only_common_samples <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>This will produce a warning:</p>
 <div class="cell">
@@ -477,6 +479,7 @@ Note
 <span class="header-section-number">10.4</span> Training the model</h2>
 <p>Once we have prepared our MOFA input, we can train the model with the <code><a href="https://rdrr.io/pkg/MOFA2/man/run_mofa.html">run_mofa()</a></code> function (from the <code>MOFA2</code> package). This is done through Python, so there might be some issues when trying to run the function for the first time after installing <code>MOFA2</code> if the configuration is not correct. If that is the case, see the MOFA2 tutorial (e.g.&nbsp;their <a href="https://biofam.github.io/MOFA2/troubleshooting.html">troubleshooting section</a>) for tips on how to solve this.</p>
 <p>By default, the function will save the resulting trained model in a temporary file, with the <code>.hdf5</code> format. It can be preferable to save the result into the output folder of your project; here as we are using targets to save the results of each step of the analysis, we do not need to do so. In addition, is it strongly recommended to set the <code>save_data</code> parameter to <code>TRUE</code>, as otherwise without the data, some of the visualisation options might not be available. Lastly, the <code>use_basilisk</code> parameter might have to be switched to <code>FALSE</code> if there are any issues with calling the Python module:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">mofa_trained</span>,</span>
@@ -486,6 +489,7 @@ Note
 <span>    use_basilisk <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>In our case, the following warnings are returned:</p>
 <div class="cell">
@@ -603,7 +607,8 @@ Note
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for MOFA analysis
-</summary><div class="cell">
+</summary><div class="targets-chunk">
+<div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Creating MOFA input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
@@ -670,6 +675,7 @@ Targets list for MOFA analysis
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/mofa_plot_cor_covariates.html">mofa_plot_cor_covariates</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </details>
 

@@ -594,6 +594,7 @@ div.csl-indent {
 </section><section id="the-spls-input-object" class="level3" data-number="8.2.3"><h3 data-number="8.2.3" class="anchored" data-anchor-id="the-spls-input-object">
 <span class="header-section-number">8.2.3</span> The sPLS input object</h3>
 <p>For our example dataset, we will integrate the transcriptomics and metabolomics datasets using the canonical mode (since we don’t have any a priori on the relationship between the two datasets). In this case we do not have a repeated measurements design.</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_input</span>,</span>
@@ -603,6 +604,7 @@ div.csl-indent {
 <span>    datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>The result of the function is a named list of length 2, where each element is a matrix of omics measurements, which have been restricted to samples that are common to the two datasets. The sPLS mode to be used is stored in the <code>mode</code> attribute of the object.</p>
 <div class="cell">
@@ -625,6 +627,7 @@ div.csl-indent {
 </section></section><section id="choosing-the-number-of-latent-components" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="choosing-the-number-of-latent-components">
 <span class="header-section-number">8.3</span> Choosing the number of latent components</h2>
 <p>The first step when running an sPLS analysis is to determine the number of latent components to construct, which can be chosen using cross-validation. This is done by running an initial sPLS analysis on the datasets with no feature selection and a large number of latent components; for example we want to test up to four latent components. We use for this the <code><a href="https://rdrr.io/pkg/moiraine/man/spls_run.html">spls_run()</a></code> function, which is a wrapper for the <code><a href="https://rdrr.io/pkg/mixOmics/man/spls.html">mixOmics::spls()</a></code> function.</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_novarsel</span>,</span>
@@ -634,6 +637,7 @@ div.csl-indent {
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 <p>We then apply the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function on the result of this initial run. There are several parameters to set:</p>
 <ul>
 <li><p><code>validation</code>: the type of cross-validation to perform, M-fold (<code>"Mfold"</code>) or leave-one-out (<code>"loo"</code>). We recommend to use M-fold validation, except when the number of samples is very small.</p></li>
@@ -642,6 +646,7 @@ div.csl-indent {
 <li><p><code>cpus</code>: number of CPUs to use for the computation. Useful if <code>folds</code> <span class="math inline">\(\times\)</span> <code>repeats</code> is large, as this can be computationally intensive.</p></li>
 </ul>
 <p>Here we’ll perform a 10-fold cross validation with 10 repeats.</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_perf_res</span>,</span>
@@ -653,6 +658,7 @@ div.csl-indent {
 <span>    cpus <span class="op">=</span> <span class="fl">3</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>We can visualise the results of the cross-validation with the <code><a href="https://rdrr.io/pkg/mixOmics/man/plot.tune.html">mixOmics::plot.tune.spls()</a></code> function, setting the criterion to <code>Q2.total</code>, which corresponds to the <span class="math inline">\(Q^2\)</span> criterion reflecting the predictive power of the model (other possible values include <code>cor.tpred</code>, <code>cor.upred</code>, <code>RSS.tpred</code>, <code>RSS.upred</code>):</p>
 <div class="cell">
@@ -667,11 +673,13 @@ div.csl-indent {
 <span><span class="co">#&gt; [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that with this function, it is possible to set a minimum number of latent components to construct. This is useful if we want to be able to generate sample plots, even though technically only one latent component is necessary. This minimum number can be set through the <code>min_ncomp</code> argument. For the example, we will set it to two, to be able to showcase some of the plotting functionalities. We will save the chosen value in a target, for reuse in the rest of the pipeline:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_optim_ncomp</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_get_optim_ncomp.html">spls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">spls_perf_res</span>, min_ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">spls_optim_ncomp</span><span class="op">)</span></span>
@@ -682,6 +690,7 @@ div.csl-indent {
 <p>The next parameter to set is the number of features to retain from each of the omics datasets, for each latent component. Again, we can use cross-validation to select optimal values amongst a grid of values to test. The range of values to test depends on the type of question we are trying to answer: selecting a larger number of features might lead to a higher degree of agreement between the latent components of the two datasets, but will be hard to manually inspect for further characterisation.</p>
 <p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/spls_tune.html">spls_tune()</a></code> provides a wrapper around the <code><a href="https://rdrr.io/pkg/mixOmics/man/tune.html">mixOmics::tune()</a></code> function that performs this cross-validation. Some of the arguments are similar to the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function, e.g.&nbsp;<code>validation</code>, <code>folds</code>, <code>nrepeats</code> or <code>cpus.</code> In addition, we recommend setting the <code>measure</code> argument, which corresponds to the metric used for performance assessment, to <code>"cor"</code> (i.e.&nbsp;the correlation between the latent components constructed). Alternatively, it is possible to set the <code>measure</code> argument to <code>"RSS"</code>.</p>
 <p>The <code>keepX</code> and <code>keepY</code> arguments control the grid of values to be tested as possible number of features to retain from the first and second dataset, respectively. Both arguments should be in the form of an integer vector of values to test. If no value is provided for either of these arguments, six values ranging from 5 to 30 (by increments of 5) are tested for the corresponding dataset. Here we will increase the maximum number of features that can be retained from each dataset to 100. Note that the metabolomics dataset has only 55 features, so the <code>spls_tune</code> function will remove all values to test above this number.</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_tune_res</span>,</span>
@@ -697,6 +706,7 @@ div.csl-indent {
 <span>    cpus <span class="op">=</span> <span class="fl">3</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>The cross-validation results can be inspected with the <code><a href="https://rdrr.io/pkg/moiraine/man/spls_plot_tune.html">spls_plot_tune()</a></code> function:</p>
 <div class="cell">
@@ -720,6 +730,7 @@ div.csl-indent {
 </section><section id="final-spls-run" class="level2" data-number="8.5"><h2 data-number="8.5" class="anchored" data-anchor-id="final-spls-run">
 <span class="header-section-number">8.5</span> Final sPLS run</h2>
 <p>Once a value has been selected for all parameters, we can perform the final sPLS run.</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_final_run</span>,</span>
@@ -730,6 +741,7 @@ div.csl-indent {
 <span>    keepY <span class="op">=</span> <span class="va">spls_tune_res</span><span class="op">$</span><span class="va">choice.keepY</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>We will load the results of this final run for interpretation.</p>
 <div class="cell">
@@ -834,7 +846,8 @@ div.csl-indent {
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for sPLS analysis
-</summary><div class="cell">
+</summary><div class="targets-chunk">
+<div class="cell">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Creating sPLS input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
@@ -914,6 +927,7 @@ Targets list for sPLS analysis
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </details>
 

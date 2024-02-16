@@ -506,6 +506,7 @@ div.csl-indent {
 </ul>
 <p>Therefore, a first step of data cleaning to remove artefact features, as well as consideration of the biological research question, is needed before proceeding.</p>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_cov_factory.html">feature_preselection_cov_factory()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_mad_factory.html">feature_preselection_mad_factory()</a></code> functions allow us to perform unsupervised COV- or MAD-based preselection for some or all datasets within a <code>MultiDataSet</code> object. It provides two options to set the desired size of the filtered datasets: we can either specify the number of features to retain in each dataset (via the <code>to_keep_ns</code> argument), or the proportion of features that should be kept in each dataset (via the <code>to_keep_props</code> argument). For example, let’s say that we want to retain 1,000 features with the highest MAD score in both the genomics and transcriptomics datasets (as the metabolomics dataset contains only 55 compounds, no preselection will be applied to it):</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_mad_factory.html">feature_preselection_mad_factory</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_samples_complete</span>,</span>
@@ -513,6 +514,7 @@ div.csl-indent {
 <span>  with_ties <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  filtered_set_target_name <span class="op">=</span> <span class="st">"mo_presel_unsupervised"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>The <code>feature_preselection_mad_factory</code> works as follows:</p>
 <ul>
@@ -610,6 +612,7 @@ div.csl-indent {
 </div>
 </div>
 <p>If we instead wanted to retain 50% of all features both the genomics and transcriptomics datasets, we would write:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_mad_factory.html">feature_preselection_mad_factory</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_samples_complete</span>,</span>
@@ -617,6 +620,7 @@ div.csl-indent {
 <span>  with_ties <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  filtered_set_target_name <span class="op">=</span> <span class="st">"mo_presel_unsupervised"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>Note that the <code><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_cov_factory.html">feature_preselection_cov_factory()</a></code> function works in exactly the same way, but calls the <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_cov_matrix.html">select_features_cov_matrix()</a></code> function, and the results can be visualised with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_cov.html">plot_feature_preselection_cov()</a></code> function.</p>
 <p>For convenience, the <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_mad.html">select_features_mad()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_cov.html">select_features_cov()</a></code> functions can be used to perform a MAD- or COV-based prefiltering on one of the omics datasets directly from a <code>MultiDataSet</code> object. These are wrappers around the <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_mad_matrix.html">select_features_mad_matrix()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/select_features_cov_matrix.html">select_features_cov_matrix()</a></code> functions, respectively, and take as input a <code>MultiDataSet</code> object as well as the name of the omics dataset on which the preselection should be run, as well as either the number or proportion of features to retain, e.g.:</p>
@@ -629,6 +633,7 @@ div.csl-indent {
 <p>Another approach to features preselection can be preferred when we are trying to assess the features most relevant to an outcome of interest or to differences between sample groups. In this scenario, prior to integrating the datasets, it could be useful to reduce the size of the datasets by filtering out the features that are least associated with the outcome of interest. In this case, we can use some single-omics feature selection method to perform a first “crude” prefiltering.</p>
 <p><code>moiraine</code> relies on the sPLS-DA algorithm implemented in the <code>mixOmics</code> package for this. <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html">sparse Partial Least-Squares Discriminant Analysis</a> (or sPLS-DA for short) is a feature selection method that aims to detect, in a multivariate dataset, the variables or features that best discriminate a categorical outcome of interest in the observations. The advantages of sPLS-DA is that it can handle datasets in which there are more features than samples, which is typically the case in omics datasets. More information can be found in <span class="citation" data-cites="lêcao2011">Lê Cao, Boitard, and Besse (<a href="references.html#ref-l%C3%AAcao2011" role="doc-biblioref">2011</a>)</span> or in the <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html"><code>mixOmics</code> vignette</a>. By running an sPLS-DA analysis on each dataset separately, we can remove the features that are least informative with respect to the trait or outcome of interest. We refer to this approach as supervised preselection, as it relies on information about the samples to select the features of interest.</p>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory()</a></code> function allows us to perform this supervised preselection for some or all datasets within a <code>MultiDataSet</code> object. It provides the option to set either the number or proportion of features to retain in each dataset, via the <code>to_keep_ns</code> and <code>to_keep_props</code> arguments. One additional argument that needs to be passed to the function is <code>group</code>, which gives the name of the column in the samples metadata information to be used as categorical outcome for the sPLS-DA run. This column must be present in the sample metadata of at least one of the datasets to be filtered. For this example, we will retain in each dataset 1,000 features that best discriminate the control and diseased animals. Warning: this function can take several minutes to run.</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_samples_complete</span>,</span>
@@ -636,6 +641,7 @@ div.csl-indent {
 <span>  to_keep_ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snps"</span> <span class="op">=</span> <span class="fl">1000</span>, <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
 <span>  filtered_set_target_name <span class="op">=</span> <span class="st">"mo_presel_supervised"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p>The function works as follows:</p>
 <ul>
@@ -726,7 +732,8 @@ div.csl-indent {
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for datasets prefiltering
-</summary><div class="cell">
+</summary><div class="targets-chunk">
+<div class="cell">
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Unsupervised feature selection based on MAD score</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_mad_factory.html">feature_preselection_mad_factory</a></span><span class="op">(</span></span>
@@ -756,6 +763,7 @@ Targets list for datasets prefiltering
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_splsda.html">plot_feature_preselection_splsda</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </details>
 

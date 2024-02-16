@@ -44,6 +44,7 @@ As explained in @sec-interpretation-dim-reduction, the integration tools conside
 
 Note that, although this chapter mainly considers a comparison of different integration methods, we could also compare the results of a same integration but with different pre-processing options (e.g. to assess the impact of datasets normalisation or pre-filtering on the integration results). To illustrate this, we will run a second MOFA analysis, but this time using the datasets that have been pre-filtered to retain the most variable features (@sec-prefiltering-unsupervised), as opposed to the supervised pre-filtering results that we have used in the main analysis (@sec-prefiltering-supervised). 
 
+::: {.targets-chunk}
 ```{targets mofa-unsupervised}
 list(
   ## Creating the input object for the MOFA pipeline
@@ -83,7 +84,7 @@ list(
   )
 )
 ```
-
+:::
 
 ## Extracting integration results
 
@@ -97,12 +98,14 @@ attr(diablo_output, "method")
 
 To facilitate comparisons, we will combine these objects into a list:
 
+::: {.targets-chunk}
 ```{targets output-list}
 tar_target(
   output_list,
   list(spls_output, so2pls_output, mofa_output, diablo_output)
 )
 ```
+:::
 
 This list will be the input of most of the functions that we will showcase in this chapter. 
 
@@ -113,6 +116,7 @@ tar_load(output_list)
 
 You can notice that we didn't give any name to the elements of the list that we just created. When comparing results from different integration methods, the comparison functions implemented in `moiraine` automatically extract the name of the method from each object (as shown above), and use this as labels in the plots. However, when we want to compare several results from a same integration method, we need to give unique names to the different elements in the output list, e.g.:
 
+::: {.targets-chunk}
 ```{targets output-list-mofa}
 tar_target(
   output_list_mofa,
@@ -122,6 +126,7 @@ tar_target(
   )
 )
 ```
+:::
 
 ```{r read-output-list-mofa}
 tar_load(output_list_mofa)
@@ -411,7 +416,7 @@ Although we didn't create many new target for the plots in this chapter, we can 
 <details>
   <summary>Targets list for comparing different integration methods' output</summary>
   
-
+::: {.targets-chunk}
 ```{targets recap-targets-list}
 list(
   ## Creating a list of integration methods output objects
@@ -477,4 +482,6 @@ list(
   )
 )
 ```
+:::
+
 </details>

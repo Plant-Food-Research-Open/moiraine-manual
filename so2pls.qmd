@@ -62,6 +62,7 @@ sO2PLS requires as input matrices of omics measurements obtained on the same sam
 
 The first step is to transform the `MultiDataSet` object into a suitable format for the `OmicsPLS` package. This is done through the `get_input_omicspls()` function. The names of the two datasets to integrate are passed to the function through the `datasets` argument (in our case, we want to integrate the transcriptomics and metabolomics datasets). In the `OmicsPLS` terminology, the first dataset will be the `X` dataset, and the second will be the `Y` dataset. The function filters out samples that are not present in both datasets, and centres the features in each dataset. There is also the option to scale the datasets, through the `scale_data` argument (default behaviour is to not scale the data).
 
+::: {.targets-chunk}
 ```{targets omicspls-input}
 tar_target(
   omicspls_input,
@@ -71,6 +72,7 @@ tar_target(
   )
 )
 ```
+:::
 
 The function returns a named list, where each element of the list is a matrix of measurements corresponding to one of the datasets to integrate, with samples as rows and features as columns:
 
@@ -92,6 +94,7 @@ In a first step, an adjusted cross-validation procedure is used to compute the o
 
 In this example, we will test 1 to 5 joint components, and 0 to 10 specific components for each dataset (testing only even values). We use a 10-fold cross validation (`nr_folds` parameter specifying the number of folds to use for the cross-validation), and distribute the computation over 6 cores to reduce the running time (through the `nr_cores` argument). We will also set the seed to ensure the reproducibility of the results, through the `seed` argument.
 
+::: {.targets-chunk}
 ```{targets adj-cv}
 tar_target(
   so2pls_cv_adj,
@@ -106,6 +109,7 @@ tar_target(
   )
 )
 ```
+:::
 
 ::: {.callout-note}
 In order to use the `seed` argument for the `so2pls_crossval_o2m_adjR2`, you need to be using the latest version of the `OmicsPLS` package from GitHub, which can be installed with `devtools::install_github("selbouhaddani/OmicsPLS")`.
@@ -139,6 +143,7 @@ In a second step, a standard cross-validation approach is used to refine the res
 
 Once again, we perform a 10-fold cross-validation, distributed over 6 cores:
 
+::: {.targets-chunk}
 ```{targets so2pls-crossval-o2m}
 tar_target(
   so2pls_cv,
@@ -151,6 +156,7 @@ tar_target(
   )
 )
 ```
+:::
 
 This standard cross-validation step takes around 6 minutes to run, which makes sense as we are testing less values than in the previous step.
 
@@ -170,17 +176,20 @@ so2pls_get_optim_ncomp(so2pls_cv)
 
 For convenience for the next steps of the analysis, we can store these values as a target:
 
+::: {.targets-chunk}
 ```{targets cv-optim-ncomp}
 tar_target(
   so2pls_cv_res,
   so2pls_get_optim_ncomp(so2pls_cv)
 )
 ```
+:::
 
 ## Choosing the number of features to retain for the joint components
 
 Once the number of joint and specific components to compute has been decided, we need to estimate the optimal number of features to retain from each dataset for each of the joint components (no feature selection is performed for the specific components). This is done through cross-validation, where the aim is to maximise the covariance between the joint components of the two datasets. This step is performed via the `so2pls_crossval_sparsity()` function (which is identical to the `OmicsPLS::crossval_sparsity()` function, except that all results from the cross-validation are returned, which is necessary for plotting purposes). The function takes as input the number of joint and specific components (`n`, `nx` and `ny` arguments), the number of folds to use for the cross-validation (`nr_folds`), and the values to test for each dataset (`keepx_seq` and `keepy_seq` arguments). For this example, we will test values between 5 and 100 for the rnaseq dataset, and between 5 and 40 for the metabolomics dataset:
 
+::: {.targets-chunk}
 ```{targets cv-sparsity}
 tar_target(
   so2pls_cv_sparsity,
@@ -195,6 +204,7 @@ tar_target(
   )
 )
 ```
+:::
 
 The function returns a list containing the results of the cross-validation. They can be visualised with the `so2pls_plot_cv_sparsity()` function:
 
@@ -222,12 +232,14 @@ so2pls_get_optim_keep(so2pls_cv_sparsity, use_1sd_rule = FALSE)
 
 The function returns a list of vectors, which are needed for the next step of the analysis. We will save these values as a target:
 
+::: {.targets-chunk}
 ```{targets cv-sparsity-optim-ncomp}
 tar_target(
   so2pls_cv_sparsity_res,
   so2pls_get_optim_keep(so2pls_cv_sparsity)
 )
 ```
+:::
 
 This list can be printed in a more reader-friendly way through the `so2pls_print_cv_sparsity()` function (which has been created mainly for reporting purposes), which returns a tibble containing the number of features to retain from each dataset for the different joint components:
 
@@ -239,6 +251,7 @@ so2pls_print_cv_sparsity(tar_read(so2pls_cv_sparsity_res))
 
 Once a value has been selected for all parameters, we can perform the final sO2PLS run. This can be done through the `so2pls_o2m()` function, which is a wrapper around the `OmicsPLS::o2m()` function. We'll use the values selected from the different cross-validation steps to inform the parameter values:
 
+::: {.targets-chunk}
 ```{targets final-so2pls-run}
 tar_target(
   so2pls_final_run,
@@ -249,6 +262,7 @@ tar_target(
   )
 )
 ```
+:::
 
 This function returns an `o2m` object, which, when printed, provides a summary of the sO2PLS results:
 
@@ -380,6 +394,7 @@ For convenience, here is the list of targets that we created in this section:
 
 <summary>Targets list for sO2PLS analysis</summary>
 
+::: {.targets-chunk}
 ```{targets recap-targets-list}
 list(
   ## Creating sO2PLS input
@@ -535,5 +550,6 @@ list(
   )
 )
 ```
+:::
 
 </details>

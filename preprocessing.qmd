@@ -131,6 +131,7 @@ The target factory function `transformation_datasets_factory()` provides a wrapp
 
 Here, we would like to apply Variance Stabilising Transformation to the transcriptomics dataset, and a log2 transformation to the metabolomics dataset. Note that the VST and VSN transformations are very close to the log2 transformation, especially for features with high means.
 
+::: {.targets-chunk}
 ```{targets transformation-datasets-factory}
 #| message: true
 
@@ -145,6 +146,7 @@ transformation_datasets_factory(
   transformed_data_name = "mo_set_transformed"
 )
 ```
+:::
 
 The `transformation_datasets_factory()` function works as follows:
 
@@ -227,12 +229,14 @@ The `pca_complete_data_factory()` function uses dynamic branching to perform a P
 
 Let's apply this to our multi-omics dataset:
 
+::: {.targets-chunk}
 ```{targets pca-complete-data-factory}
 pca_complete_data_factory(
   mo_set_transformed,
   complete_data_name = "mo_set_complete"
 )
 ```
+:::
 
 We can have a look at the different targets constructed. By default, a PCA was run on all datasets:
 
@@ -264,6 +268,7 @@ tar_read(pca_runs_list_74d71ae8)
 
 You can notice that there is some information about the number of principal components computed, and whether the dataset was centred and scaled before applying the PCA. This is handled by the default arguments of `run_pca_matrix()`, but can be specified by passing the corresponding arguments to `pca_complete_data_factory()`. For example, to scale the datasets before performing a PCA, we could use:
 
+::: {.targets-chunk}
 ```{targets pca-complete-data-factory-with-scaling}
 pca_complete_data_factory(
   mo_set_transformed,
@@ -271,6 +276,7 @@ pca_complete_data_factory(
   scale = TRUE
 )
 ```
+:::
 
 For convenience, the `run_pca()` function can be used to run a PCA on one of the omics datasets directly from a `MultiDataSet` object. It is a wrapper around the `run_pca_matrix()` function, and takes as input a `MultiDataSet` object as well as the name of the omics dataset on which a PCA should be run, e.g.:
 
@@ -362,7 +368,7 @@ For convenience, here is the list of targets that we created in this section:
 <details>
   <summary>Targets list for datasets preprocessing</summary>
   
-
+::: {.targets-chunk}
 ```{targets recap-targets-list}
 list(
   ## Applying transformations to the datasets
@@ -426,4 +432,5 @@ list(
   )
 )
 ```
+:::
 </details>

@@ -374,6 +374,7 @@ Although we didn't create any new target in this section, we can turn some plots
 
 <summary>Targets list for inspecting a MultiDataSet object</summary>
 
+::: {.targets-chunk}
 ```{targets recap-targets-list}
 list(
   ## Creating a density plot for each dataset
@@ -400,5 +401,6 @@ list(
   )
 )
 ```
+:::
 
 </details>

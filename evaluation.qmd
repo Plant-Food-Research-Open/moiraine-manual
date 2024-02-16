@@ -198,6 +198,7 @@ In addition to looking at the distribution of features importance score or count
 
 With the `moiraine` package, there are two ways to obtain feature sets to perform enrichment or for plots. The first one is to extract information from the features metadata tables stored in our `MultiDataSet` object; which is done with the `make_feature_sets_from_fm()` function. Note that if some features grouping is stored in the features metadata, it means that features can only belong to one set. For example, we will use the results of the single-omics analyses to group the features into sets: QTLs, cis-eQTLs, trans-eQTLs and non significant genomics markers, and up-regulated, down-regulated or non DE genes and compounds. Again, the function accepts a named list giving for each dataset the name of the column in the corresponding features metadata table to use to generate the groups, passed to the `col_names` argument of the function. It returns a named list where each element is a feature set, and contains the ID of the features in the set:
 
+::: {.targets-chunk}
 ```{targets make-feature-sets-from-fm}
 tar_target(
   sets_single_omics,
@@ -211,6 +212,7 @@ tar_target(
   )
 )
 ```
+:::
 
 ```{r show-sets-single-omics}
 tar_read(sets_single_omics) |> 
@@ -219,6 +221,7 @@ tar_read(sets_single_omics) |>
 
 By default, the function keeps the different omics features separate: here for example, there is a "Not DE" set for the transcriptomics dataset, and a "Not DE" set for the metabolomics dataset. When there is no ambiguity as to which omics dataset they represent, the name of the dataset is not included in the set's name. It is possible to merge feature sets with the same name between the omics datasets, by setting the `combine_omics_sets` argument to `TRUE`:
 
+::: {.targets-chunk}
 ```{targets make-feature-sets-from-fm-merge}
 tar_target(
   sets_single_omics_merged,
@@ -233,6 +236,7 @@ tar_target(
   )
 )
 ```
+:::
 
 ```{r show-sets-single-omics-merged}
 tar_read(sets_single_omics_merged) |> 
@@ -245,6 +249,7 @@ Alternatively, feature sets can be constructed from an input data-frame. This is
 
 We start by reading in the data-frame of GO terms. We will focus on GO terms relating to biological processes for this example:
 
+::: {.targets-chunk}
 ```{targets reading-go-file}
 list(
   tar_target(
@@ -263,6 +268,7 @@ list(
   )
 )
 ```
+:::
 
 ```{r loading-go-terms}
 tar_load(rnaseq_go_df)
@@ -275,6 +281,7 @@ The data-frame contains one row per gene (`gene_id`) / GO term (`go_id`) pair. I
 
 We can turn this data-frame into a list of feature sets with the `make_feature_sets_from_df()` function. The function takes as input the data-frame, as well as the name of the column in the data-frame that contains the features ID (`col_id` argument) and the name of the column in the data-frame that contains the feature sets ID or name (`col_set` argument):
 
+::: {.targets-chunk}
 ```{targets go-sets}
 tar_target(
   go_sets,
@@ -285,6 +292,7 @@ tar_target(
   )
 )
 ```
+:::
 
 ```{r}
 tar_load(go_sets)
@@ -298,12 +306,14 @@ head(go_sets) |>
 
 Before performing any enrichment, we want to make sure that the only features in the sets are the ones that were measured in the datasets. This is part of ensuring that an appropriate background or reference features set is used when performing enrichment (see for example @timmons2015). To this end, the `reduce_feature_sets_data()` function filters a list of feature sets so that only features present in a given `MultiDataSet` object are kept in the sets; it then removes empty feature sets. Note that for this filtering, we are using the `MultiDataSet` object that contains the full omics datasets, before pre-filtering:
 
+::: {.targets-chunk}
 ```{targets reduce-feature-sets-data}
 tar_target(
   go_sets_filtered,
   reduce_feature_sets_data(go_sets, mo_set_complete)
 )
 ```
+:::
 
 The function yields the following message:
 
@@ -347,6 +357,7 @@ In `moiraine`, we use the `gage` package [@luo2009] to perform the enrichment of
 
 -   `sets_info_df` and `col_set`: the feature sets are passed as a named list, therefore the only information that we have about these sets are their names as found in the list. To facilitate the interpretation of the enrichment results, it is possible to pass a data-frame giving information about the sets, through the `sets_info_df` argument. This information will be added to the enrichment results table. In that case, the `col_set` argument must also be specified: it takes the name of the column in the data-frame passed to `sets_info_df` that contains the sets ID or named as seen in the list. Here we will create this data-frame as follows:
 
+::: {.targets-chunk}
 ```{targets go-sets-info}
 tar_target(
   go_sets_info,
@@ -355,6 +366,7 @@ tar_target(
     dplyr::distinct()
 )
 ```
+:::
 
 ```{r show-go-sets-info}
 tar_read(go_sets_info) |> 
@@ -363,6 +375,7 @@ tar_read(go_sets_info) |>
 
 We can run the enrichment analysis:
 
+::: {.targets-chunk}
 ```{targets evaluate-method-enrichment}
 tar_target(
   diablo_enrichment_results,
@@ -379,6 +392,7 @@ tar_target(
   )
 )
 ```
+:::
 
 The function returns a table giving for each latent component (`latent_dimension`) and feature set (`set_id`) the enrichment statistics (`stat_mean`), p-value (`pvalue`), adjusted p-value (`adj_pvalue`) as well as the number of features in the set that are present in the integration results (`set_size`). The table is arranged by increasing adjusted p-value, such that the significant results are at the top of the table. It is important to note that the multiple testing correction applied to the p-values occurs independently for each latent dimension, but there is no multiple testing correction performed across the latent dimensions. This can easily be done by the user, and should be considered when reporting the results.
 
@@ -389,6 +403,7 @@ tar_read(diablo_enrichment_results) |>
 
 In that case, unsurprisingly, neither of the latent components were enriched for any GO term. This makes sense since DIABLO performed a strong feature selection, so very few genes had non-null weights. We can repeat the enrichment with the MOFA integration results to show more interesting results. We will run the enrichment only for the first three factors for conciseness:
 
+::: {.targets-chunk}
 ```{targets evaluate-method-enrichment-mofa}
 tar_target(
   mofa_enrichment_results,
@@ -406,6 +421,7 @@ tar_target(
   )
 )
 ```
+:::
 
 This time, there are a couple of small p-values (even though the adjusted p-values are all quite large):
 
@@ -470,6 +486,7 @@ The `compute_samples_silhouette()` function relies on the `cluster::silhouette()
 
 Here, we will check how well DIABLO managed to separate the bruising groups:
 
+::: {.targets-chunk}
 ```{targets compute-samples-silhouette-diablo}
 tar_target(
   diablo_silhouette,
@@ -480,6 +497,7 @@ tar_target(
   )
 )
 ```
+:::
 
 ```{r load-diablo-silhouette}
 tar_load(diablo_silhouette)
@@ -506,6 +524,7 @@ This is expected, since DIABLO is a supervised integration method which tries to
 
 We can repeat the operation for the MOFA results. By default, the `compute_samples_silhouette()` function uses all latent dimensions to compute distances between samples, but it is possible to specify which latent dimensions should be considered through the `latent_dimensions` argument. For example, we will see how the first three MOFA factors separate the disease status groups:
 
+::: {.targets-chunk}
 ```{targets compute-samples-silhouette-mofa}
 tar_target(
   mofa_silhouette,
@@ -517,6 +536,7 @@ tar_target(
   )
 )
 ```
+:::
 
 ```{r show-mofa-silhouette}
 tar_load(mofa_silhouette)
@@ -526,14 +546,14 @@ mofa_silhouette$groups_average_silhouette
 
 Both groups' silhouette scores are positive, although the BRD group silhouette is not very high. Also, more samples have a silhouette width below 0.
 
-```{r}
+```{r mofa-silhouette-outliers}
 mofa_silhouette$samples_silhouette |> 
   filter(silhouette_width < 0)
 ```
 
 Note that with MOFA, since the different factors represent different trends within the data, it is possible that using more factors will yield smaller average silhouette groups. For example if we used all constructed factors:
 
-```{r}
+```{r mofa-average-silhouette}
 compute_samples_silhouette(
     mofa_output,
     mo_set_complete,
@@ -551,6 +571,7 @@ For convenience, here is the list of targets that we created in this section:
 
 <summary>Targets list for evaluating the output of an integration method:</summary>
 
+::: {.targets-chunk}
 ```{targets recap-targets-list}
 list(
   ## Evaluating DIABLO selected features against single-omics results
@@ -675,5 +696,6 @@ list(
   )
 )
 ```
+:::
 
 </details>

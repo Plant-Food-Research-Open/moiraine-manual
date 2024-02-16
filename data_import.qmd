@@ -76,6 +76,7 @@ We will show how to import the datasets, first manually, and then in an automate
 
 We can start by creating targets that track the different data files. This ensures that when a data file changes, the target is considered outdated and any analysis relying on this data file will be re-run (see [here](https://books.ropensci.org/targets/data.html#external-files) for more information). For example, for the genomics dataset, we write:
 
+::: {.targets-chunk}
 ```{targets genomics-dataset-file}
 tar_target(
   dataset_file_geno,
@@ -83,6 +84,7 @@ tar_target(
   format = "file"
 )
 ```
+:::
 
 The created target, called `dataset_file_geno`, takes as value the path to the file:
 
@@ -92,6 +94,7 @@ tar_read(dataset_file_geno)
 
 The next step is to import this dataset in R. We use the `import_dataset_csv()` function for that, rather than the `readr::read_csv()` or similar functions, as it ensures that the data is imported with the correct format for further use with the `moiraine` package. When importing a dataset, we need to specify the path to the file, as well as the name of the column in the csv file that contains the row names (through the `col_id` argument). In addition, we need to specify whether the features are represented in rows in the csv file, or in columns. This is done through the argument `features_as_rows`. For example, we can load the genomics dataset through:
 
+::: {.targets-chunk}
 ```{targets import-genomics-dataset}
 tar_target(
   data_geno,
@@ -101,6 +104,7 @@ tar_target(
     features_as_rows = TRUE)
 )
 ```
+:::
 
 The function returns a matrix in which the rows correspond to the features measured, and the columns correspond to the samples:
 
@@ -125,6 +129,7 @@ In addition, we have to provide a unique suffix which will be appended to the na
 
 So the following code (note that it is not within a `tar_target()` call):
 
+::: {.targets-chunk}
 ```{targets import-dataset-csv-factory}
 import_dataset_csv_factory(
   files = c(
@@ -137,6 +142,7 @@ import_dataset_csv_factory(
   target_name_suffixes = c("geno", "transcripto", "metabo")
 )
 ```
+:::
 
 will create the following targets:
 
@@ -160,6 +166,7 @@ Similarly to how we imported the datasets, there are two ways of importing featu
 
 As shown in the previous section, we can start by creating a target that tracks the raw features metadata file, then read the file into R using the `import_fmetadata_csv()` function. It has the similar arguments as the `import_dataset_csv()` function, but returns a data-frame (rather than a matrix); and does not have the options to read a csv where the features are columns (they must be in rows):
 
+::: {.targets-chunk}
 ```{targets import-geno-fmetadata}
 list(
   tar_target(
@@ -178,6 +185,7 @@ list(
   )
 )
 ```
+:::
 
 Notice that in the `import_fmetadata_csv()` call, we've added an argument (`col_types`) which will be passed on to `read_csv()`. This is to ensure that the `chromosome` column will be read as character (even though the chromosomes are denoted with integers).
 
@@ -191,6 +199,7 @@ You can see that in the data-frame of features metadata, the feature IDs are pre
 
 Alternatively, we can use a target factory function that automates the process when we have to read in several features metadata files. In our case, we have to do it for the genomics and metabolomics datasets only, as the transcriptomics dataset has a different features metadata format. However because we need to specify the column types for the genomics dataset, we will use the targets factory function to read in the metabolomics features metadata only. The arguments are almost the same as for `import_dataset_csv_factory()` (except for `features_as_rowss`):
 
+::: {.targets-chunk}
 ```{targets import-fmetadata-csv-factory}
 import_fmetadata_csv_factory(
   files = c(
@@ -200,6 +209,7 @@ import_fmetadata_csv_factory(
   target_name_suffixes = c("metabo")
 )
 ```
+:::
 
 The targets created are:
 
@@ -219,6 +229,7 @@ The `moiraine` package can also extract features metadata from a genome annotati
 
 In this example, we want to extract information about the genes from the gtf file. We also want to make sure that the `Name` and `description`field are imported, as they give the name and description of the genes. To read in this information "manually", we create the following targets:
 
+::: {.targets-chunk}
 ```{targets import-transcripto-fmetadata}
 list(
   tar_target(
@@ -237,9 +248,11 @@ list(
   )
 )
 ```
+:::
 
 As for the other import functions, there exists a more succinct target factory version, called `import_fmetadata_gff_factory()`:
 
+::: {.targets-chunk}
 ```{targets import-fmetadata-gff-factory}
 import_fmetadata_gff_factory(
   files = system.file("extdata/bos_taurus_gene_model.gff3", package = "moiraine"),
@@ -248,6 +261,7 @@ import_fmetadata_gff_factory(
   target_name_suffixes = "transcripto"
 )
 ```
+:::
 
 This will create two targets: `fmetadata_file_transcripto` and `fmetadata_transcripto`.
 
@@ -263,6 +277,7 @@ As for importing datasets or features metadata, the `import_smetadata_csv()` fun
 
 We can do this by manually creating the following targets:
 
+::: {.targets-chunk}
 ```{targets import-samples-metadata}
 list(
   tar_target(
@@ -280,9 +295,11 @@ list(
   )
 )
 ```
+:::
 
 which is equivalent to the (more succinct) command:
 
+::: {.targets-chunk}
 ```{targets import-smetadata-csv-factory}
 import_smetadata_csv_factory(
   files = system.file("extdata/samples_info.csv", package = "moiraine"),
@@ -290,6 +307,7 @@ import_smetadata_csv_factory(
   target_name_suffixes = "all"
 )
 ```
+:::
 
 The latter command creates the targets `smetadata_file_all` and `smetadata_all`. `smetadata_all` stores the samples metadata imported as a data-frame:
 
@@ -319,6 +337,7 @@ In practice, the nuances between these different containers are not very importa
 
 The function `create_omics_set()` provides a convenient wrapper to create such container objects from the imported datasets and metadata. It has two mandatory arguments: the dataset, which should be in the form of a matrix where the rows correspond to features and the columns to samples; and the type of omics data that the dataset represents (`'genomics'`, `'transcriptomics'`, `'metabolomics'` or `'phenomics'`). The latter determines which type of container will be generated. Optionally, a features metadata and/or a samples metadata data-frame can be passed on via the `features_metadata` and `samples_metadata` arguments, respectively. For example, let's create a set for the genomics data:
 
+::: {.targets-chunk}
 ```{targets create-set-geno}
 tar_target(
   set_geno,
@@ -330,6 +349,7 @@ tar_target(
   )
 )
 ```
+:::
 
 If executed, this command will return the following warning:
 
@@ -381,6 +401,7 @@ Note that these methods can also be applied to the other types of containers.
 
 The function `create_omics_set_factory()` allows us to create several omics sets at once. It returns a list of targets, each storing one of the created omics set container. It takes as input arguments vectors that give for each omics set the arguments required by `create_omics_set()`.
 
+::: {.targets-chunk}
 ```{targets create-omics-set-factory}
 create_omics_set_factory(
   datasets = c(data_geno, data_transcripto, data_metabo),
@@ -389,11 +410,13 @@ create_omics_set_factory(
   samples_metadatas = c(smetadata_all, smetadata_all, smetadata_all)
 )
 ```
+:::
 
 Again, the warnings raised by the function originate from discrepancies between the datasets and associated metadata. It is always good practice to double-check manually to make sure that it is not due to a typo in the IDs or similar error.
 
 If one of the datasets has no associated features or samples metadata, use `NULL` in the corresponding input arguments, e.g.:
 
+::: {.targets-chunk}
 ```{targets create-omics-set-factory-no-metadata, eval = FALSE}
 create_omics_set_factory(
   datasets = c(data_geno, data_transcripto, data_metabo),
@@ -402,6 +425,7 @@ create_omics_set_factory(
   samples_metadatas = c(smetadata_all, NULL, smetadata_all)
 )
 ```
+:::
 
 The `create_omics_set_factory()` function has a `target_name_suffixes` argument to customise the name of the created targets. However, if this argument is not provided, the function will attempt to read the suffixes to use from the name of the dataset targets. So in this case, it knows that the suffixes to use are `'geno'`, `'transcripto'` and `'metabo'`. Consequently, the function creates the following targets: `set_geno`, `set_transcripto`, `set_metabo`.
 
@@ -423,6 +447,7 @@ Finally, we can combine the different omics sets into one multi-omics set object
 
 We will create the multi-omics set with the `create_multiomics_set()` function. It requires a list of the omics sets (that we created via either `create_omics_set()` or `create_omics_set_factory()`) to include, and returns a `MultiDataSet::MultiDataSet-class` object.
 
+::: {.targets-chunk}
 ```{targets create-multiomics-set}
 tar_target(
   mo_set,
@@ -433,6 +458,7 @@ tar_target(
   )
 )
 ```
+:::
 
 ```{r print-mo-set}
 tar_read(mo_set)
@@ -440,6 +466,7 @@ tar_read(mo_set)
 
 Within the `MultiDataSet` object, each omics set is assigned a name. The name depends first on the omics container type: a `SnpSet` set will be named `snps`, an `ExpressionSet` set will be named `rnaseq`, a `MetabolomeSet` will be named `metabolome` and a `PhenotypeSet` will be called `phenotypes`. If several sets of the same type are provided, they will be assigned unique names, e.g. `snps+1` and `snps+2` (the `+` symbol used as separator is set in the `MultiDataSet` package and cannot be changed). Alternatively, we can provide custom names for the datasets, using the `datasets_names` argument. These will be added to the type name (e.g. `snps+customname`). For example:
 
+::: {.targets-chunk}
 ```{targets create-multiomics-set-with-names}
 tar_target(
   mo_set_with_names,
@@ -451,6 +478,7 @@ tar_target(
   )
 )
 ```
+:::
 
 returns:
 
@@ -470,6 +498,7 @@ For convenience, here is the list of targets that we created in this section:
 
 <summary>Targets list for data import</summary>
 
+::: {.targets-chunk}
 ```{targets recap-targets-list}
 list(
   ## Data import using a target factory
@@ -545,5 +574,6 @@ list(
   )
 )
 ```
+:::
 
 </details>

@@ -194,6 +194,7 @@ Therefore, a first step of data cleaning to remove artefact features, as well as
 
 The `feature_preselection_cov_factory()` and `feature_preselection_mad_factory()` functions allow us to perform unsupervised COV- or MAD-based preselection for some or all datasets within a `MultiDataSet` object. It provides two options to set the desired size of the filtered datasets: we can either specify the number of features to retain in each dataset (via the `to_keep_ns` argument), or the proportion of features that should be kept in each dataset (via the `to_keep_props` argument). For example, let's say that we want to retain 1,000 features with the highest MAD score in both the genomics and transcriptomics datasets (as the metabolomics dataset contains only 55 compounds, no preselection will be applied to it):
 
+::: {.targets-chunk}
 ```{targets feature-preselection-mad-factory}
 feature_preselection_mad_factory(
   mo_samples_complete,
@@ -202,6 +203,7 @@ feature_preselection_mad_factory(
   filtered_set_target_name = "mo_presel_unsupervised"
 )
 ```
+:::
 
 The `feature_preselection_mad_factory` works as follows:
 
@@ -244,6 +246,7 @@ plot_feature_preselection_mad(individual_mad_values)
 
 If we instead wanted to retain 50% of all features both the genomics and transcriptomics datasets, we would write:
 
+::: {.targets-chunk}
 ```{targets feature-preselection-mad-factory-props}
 feature_preselection_mad_factory(
   mo_samples_complete,
@@ -252,6 +255,7 @@ feature_preselection_mad_factory(
   filtered_set_target_name = "mo_presel_unsupervised"
 )
 ```
+:::
 
 Note that the `feature_preselection_cov_factory()` function works in exactly the same way, but calls the `select_features_cov_matrix()` function, and the results can be visualised with the `plot_feature_preselection_cov()` function.
 
@@ -272,6 +276,7 @@ Another approach to features preselection can be preferred when we are trying to
 
 The `feature_preselection_splsda_factory()` function allows us to perform this supervised preselection for some or all datasets within a `MultiDataSet` object. It provides the option to set either the number or proportion of features to retain in each dataset, via the `to_keep_ns` and `to_keep_props` arguments. One additional argument that needs to be passed to the function is `group`, which gives the name of the column in the samples metadata information to be used as categorical outcome for the sPLS-DA run. This column must be present in the sample metadata of at least one of the datasets to be filtered. For this example, we will retain in each dataset 1,000 features that best discriminate the control and diseased animals. Warning: this function can take several minutes to run.
 
+::: {.targets-chunk}
 ```{targets feature-preselection-splsda-factory, results = "hide"}
 feature_preselection_splsda_factory(
   mo_samples_complete,
@@ -280,6 +285,7 @@ feature_preselection_splsda_factory(
   filtered_set_target_name = "mo_presel_supervised"
 )
 ```
+:::
 
 The function works as follows:
 
@@ -336,6 +342,7 @@ For convenience, here is the list of targets that we created in this section:
 
 <summary>Targets list for datasets prefiltering</summary>
 
+::: {.targets-chunk}
 ```{targets recap-targets-list}
 list(
   ## Unsupervised feature selection based on MAD score
@@ -367,5 +374,6 @@ list(
   )
 )
 ```
+:::
 
 </details>

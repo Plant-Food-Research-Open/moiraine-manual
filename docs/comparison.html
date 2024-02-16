@@ -323,6 +323,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">14.1</span> Introduction</h2>
 <p>As explained in <a href="interpretation.html#sec-interpretation-dim-reduction"><span>Section&nbsp;12.1</span></a>, the integration tools considered in <code>moiraine</code> all perform dimension reduction of the omics datasets, and therefore all construct latent dimensions which can be described in terms of their features weight and their samples score. Therefore, we can compare the results of different integration methods in terms of their latent dimensions, by comparing either the latent dimensions’ samples score, or their features weight. When comparing the samples score, we are answering the question: <em>are the different methods capturing the same trends from the datasets?</em> By comparing features weight, we are instead answering a slightly different question: <em>are the different methods highlighting similar sets of features as driving variation in the datasets?</em> Of course, these comparisons are related, as two latent dimensions that identify very different trends in the data will most likely give high importance to very different sets of features.</p>
 <p>Note that, although this chapter mainly considers a comparison of different integration methods, we could also compare the results of a same integration but with different pre-processing options (e.g.&nbsp;to assess the impact of datasets normalisation or pre-filtering on the integration results). To illustrate this, we will run a second MOFA analysis, but this time using the datasets that have been pre-filtered to retain the most variable features (<a href="prefiltering.html#sec-prefiltering-unsupervised"><span>Section&nbsp;7.3.1</span></a>), as opposed to the supervised pre-filtering results that we have used in the main analysis (<a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;7.3.2</span></a>).</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Creating the input object for the MOFA pipeline</span></span>
@@ -362,6 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 </section><section id="extracting-integration-results" class="level2" data-number="14.2"><h2 data-number="14.2" class="anchored" data-anchor-id="extracting-integration-results">
 <span class="header-section-number">14.2</span> Extracting integration results</h2>
 <p>The first step in order to compare the results from different methods is to convert them to a standardised format with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function, which we did in <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>. The function returns an <code>output_dimension_reduction</code> object which contains information about the latent dimensions’ features weight and samples score, as well as a summary of the percentage of variance explained for each dataset. The <code>output_dimension_reduction</code> object created also has an attribute called <code>method</code>, which contains the name of the integration method used:</p>
@@ -371,17 +373,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; [1] "DIABLO"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To facilitate comparisons, we will combine these objects into a list:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">spls_output</span>, <span class="va">so2pls_output</span>, <span class="va">mofa_output</span>, <span class="va">diablo_output</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 <p>This list will be the input of most of the functions that we will showcase in this chapter.</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can notice that we didn’t give any name to the elements of the list that we just created. When comparing results from different integration methods, the comparison functions implemented in <code>moiraine</code> automatically extract the name of the method from each object (as shown above), and use this as labels in the plots. However, when we want to compare several results from a same integration method, we need to give unique names to the different elements in the output list, e.g.:</p>
+<div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list_mofa</span>,</span>
@@ -390,6 +395,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>    <span class="st">"MOFA (unsupervised pref.)"</span> <span class="op">=</span> <span class="va">mofa_unsupervised_output</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">output_list_mofa</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -742,7 +748,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Although we didn’t create many new target for the plots in this chapter, we can turn some plots into targets.</p>
 <details><summary>
 Targets list for comparing different integration methods’ output
-</summary><div class="cell">
+</summary><div class="targets-chunk">
+<div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Creating a list of integration methods output objects</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
@@ -806,6 +813,7 @@ Targets list for comparing different integration methods’ output
 <span>      <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </details>
 

@@ -63,6 +63,7 @@ The first step is to transform the `MultiDataSet` object into a suitable format 
 
 In our case, we want to find differences between the healthy and diseased animals. We will use the multi-omics datasets that have gone through supervised prefiltering (i.e. we discarded the features least related with the disease status, as seen in @sec-prefiltering).
 
+::: {.targets-chunk}
 ```{targets diablo-input}
 tar_target(
   diablo_input,
@@ -72,6 +73,7 @@ tar_target(
   )
 )
 ```
+:::
 
 Importantly, the `get_input_mixomics_supervised()` function only retains samples that are present in all omics datasets to be analysed. It also makes sure that the column provided as categorical outcome does not contain numerical values, as DIABLO can only handle categorical outcome. If the column contains integers, they will be considered as levels of a factor.
 
@@ -122,9 +124,11 @@ Alternatively, we can let the data guide the construction of the design matrix. 
 
 The `diablo_pairwise_pls_factory()` function automates this process. It takes as input the DIABLO input object that we constructed previously:
 
+::: {.targets-chunk}
 ```{targets diablo-pairwise-pls-factory}
 diablo_pairwise_pls_factory(diablo_input)
 ```
+:::
 
 The function works as follows:
 
@@ -158,6 +162,7 @@ One important parameter that must be set when performing a DIABLO analysis is th
 
 Choosing the optimal number of latent components to construct is a multi-step process. The first step is to run DIABLO without feature selection, setting the number of latent components to the maximum value we wish to test. We recommend to set this to the number of groups in the categorical outcome + 2, which in our case equals 4; however this can be further refined after checking the results. For this example, we will set the maximum to 7. This is done through the `diablo_run()` function, which is a wrapper for the `mixOmics::block.splsda()` function. The function also requires as input the design matrix to be used; here we will use the one constructed from the PLS runs:
 
+::: {.targets-chunk}
 ```{targets diablo-novarsel}
 tar_target(
   diablo_novarsel,
@@ -168,9 +173,11 @@ tar_target(
   )
 )
 ```
+:::
 
 Alternatively, if we want to use one of the predefined design matrices, we can pass on one of `'null'`, `'weighted_full'` or `'full'` instead of the computed `diablo_design_matrix`, e.g.:
 
+::: {.targets-chunk}
 ```{targets diablo-novarsel-predefined-design-mat}
 tar_target(
   diablo_novarsel,
@@ -181,6 +188,7 @@ tar_target(
   )
 )
 ```
+:::
 
 Then, we call the `mixOmics::perf()` function on the result of this first DIABLO run. There are a number of parameters to set:
 
@@ -194,6 +202,7 @@ Then, we call the `mixOmics::perf()` function on the result of this first DIABLO
 
 Here we'll perform a 10-fold cross validation with 10 repeats.
 
+::: {.targets-chunk}
 ```{targets diablo-perf-res}
 tar_target(
   diablo_perf_res,
@@ -206,6 +215,7 @@ tar_target(
   )
 )
 ```
+:::
 
 We can visualise the results of the cross-validation with the `diablo_plot_perf()` function:
 
@@ -228,12 +238,14 @@ diablo_get_optim_ncomp(diablo_perf_res)
 
 For ease of reuse we will save this value as a target in our analysis pipeline:
 
+::: {.targets-chunk}
 ```{targets diablo-optim-ncomp}
 tar_target(
   diablo_optim_ncomp,
   diablo_get_optim_ncomp(diablo_perf_res)
 )
 ```
+:::
 
 ## Choosing the number of features to retain
 
@@ -243,6 +255,7 @@ The function `diablo_tune()` provides a wrapper around the `mixOmics::tune()` fu
 
 The `keepX_list` argument controls the grid of values to be tested as possible number of features to retain from each dataset. It should be in the form of a named list, with one element per dataset, and where each element is a vector of integers corresponding to the values to test. The names of the list should correspond to the names of the datasets in the `MultiDataSet` object. If no value is provided for `keepX_list`, six values ranging from 5 to 30 (by increments of 5) are tested for each dataset.
 
+::: {.targets-chunk}
 ```{targets diablo-tune-res}
 tar_target(
   diablo_tune_res,
@@ -258,6 +271,7 @@ tar_target(
   )
 )
 ```
+:::
 
 This step can be very time-consuming, especially if the grid of values to test is very large. For this example, it takes around 50 minutes to run.
 
@@ -288,6 +302,7 @@ diablo_table_optim_keepX(diablo_tune_res)
 
 Once a value has been selected for all parameters, it is time to perform the final DIABLO run:
 
+::: {.targets-chunk}
 ```{targets diablo-final-run}
 tar_target(
   diablo_final_run,
@@ -299,6 +314,7 @@ tar_target(
   )
 )
 ```
+:::
 
 ```{r load-diablo-final-run}
 tar_load(diablo_final_run)
@@ -462,6 +478,7 @@ For convenience, here is the list of targets that we created in this section:
 
 <summary>Targets list for DIABLO analysis</summary>
 
+::: {.targets-chunk}
 ```{targets recap-targets-list}
 list(
   ## Creating the DIABLO input
@@ -543,5 +560,6 @@ list(
   )
 )
 ```
+:::
 
 </details>

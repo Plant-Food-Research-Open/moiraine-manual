@@ -149,6 +149,7 @@ tar_read(spls_multilevel2)
 
 For our example dataset, we will integrate the transcriptomics and metabolomics datasets using the canonical mode (since we don't have any a priori on the relationship between the two datasets). In this case we do not have a repeated measurements design.
 
+::: {.targets-chunk}
 ```{targets spls-input}
 tar_target(
   spls_input,
@@ -159,6 +160,7 @@ tar_target(
   )
 )
 ```
+:::
 
 The result of the function is a named list of length 2, where each element is a matrix of omics measurements, which have been restricted to samples that are common to the two datasets. The sPLS mode to be used is stored in the `mode` attribute of the object.
 
@@ -170,6 +172,7 @@ tar_read(spls_input) |> str()
 
 The first step when running an sPLS analysis is to determine the number of latent components to construct, which can be chosen using cross-validation. This is done by running an initial sPLS analysis on the datasets with no feature selection and a large number of latent components; for example we want to test up to four latent components. We use for this the `spls_run()` function, which is a wrapper for the `mixOmics::spls()` function.
 
+::: {.targets-chunk}
 ```{targets spls-novarsel}
 tar_target(
   spls_novarsel,
@@ -179,6 +182,7 @@ tar_target(
   )
 )
 ```
+:::
 
 We then apply the `mixOmics::perf()` function on the result of this initial run. There are several parameters to set:
 
@@ -192,6 +196,7 @@ We then apply the `mixOmics::perf()` function on the result of this initial run.
 
 Here we'll perform a 10-fold cross validation with 10 repeats.
 
+::: {.targets-chunk}
 ```{targets spls-perf-res}
 tar_target(
   spls_perf_res,
@@ -204,6 +209,7 @@ tar_target(
   )
 )
 ```
+:::
 
 We can visualise the results of the cross-validation with the `mixOmics::plot.tune.spls()` function, setting the criterion to `Q2.total`, which corresponds to the $Q^2$ criterion reflecting the predictive power of the model (other possible values include `cor.tpred`, `cor.upred`, `RSS.tpred`, `RSS.upred`):
 
@@ -219,12 +225,14 @@ spls_get_optim_ncomp(tar_read(spls_perf_res))
 
 Note that with this function, it is possible to set a minimum number of latent components to construct. This is useful if we want to be able to generate sample plots, even though technically only one latent component is necessary. This minimum number can be set through the `min_ncomp` argument. For the example, we will set it to two, to be able to showcase some of the plotting functionalities. We will save the chosen value in a target, for reuse in the rest of the pipeline:
 
+::: {.targets-chunk}
 ```{targets spls-optim-ncomp}
 tar_target(
   spls_optim_ncomp,
   spls_get_optim_ncomp(spls_perf_res, min_ncomp = 2)
 )
 ```
+:::
 
 ```{r spls-optim-ncomp-read}
 tar_read(spls_optim_ncomp)
@@ -238,6 +246,7 @@ The function `spls_tune()` provides a wrapper around the `mixOmics::tune()` func
 
 The `keepX` and `keepY` arguments control the grid of values to be tested as possible number of features to retain from the first and second dataset, respectively. Both arguments should be in the form of an integer vector of values to test. If no value is provided for either of these arguments, six values ranging from 5 to 30 (by increments of 5) are tested for the corresponding dataset. Here we will increase the maximum number of features that can be retained from each dataset to 100. Note that the metabolomics dataset has only 55 features, so the `spls_tune` function will remove all values to test above this number.
 
+::: {.targets-chunk}
 ```{targets spls-tune-res}
 tar_target(
   spls_tune_res,
@@ -254,6 +263,7 @@ tar_target(
   )
 )
 ```
+:::
 
 The cross-validation results can be inspected with the `spls_plot_tune()` function:
 
@@ -279,6 +289,7 @@ Note that for the example, we will keep the selected values, however given the d
 
 Once a value has been selected for all parameters, we can perform the final sPLS run.
 
+::: {.targets-chunk}
 ```{targets spls-final-run}
 tar_target(
   spls_final_run,
@@ -290,6 +301,7 @@ tar_target(
   )
 )
 ```
+:::
 
 We will load the results of this final run for interpretation.
 
@@ -384,6 +396,7 @@ For convenience, here is the list of targets that we created in this section:
 
 <summary>Targets list for sPLS analysis</summary>
 
+::: {.targets-chunk}
 ```{targets recap-targets-list}
 list(
   ## Creating sPLS input
@@ -465,5 +478,6 @@ list(
   )
 )
 ```
+:::
 
 </details>

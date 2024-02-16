@@ -80,12 +80,14 @@ The `get_output()` function transforms the output from any integration package i
 ::: {.panel-tabset group="method"}
 #### sPLS
 
+::: {.targets-chunk}
 ```{targets get-output-spls}
 tar_target(
   spls_output,
   get_output(spls_final_run)
 )
 ```
+:::
 
 ```{r show-output-spls}
 tar_load(spls_output)
@@ -94,12 +96,14 @@ spls_output
 
 #### sO2PLS
 
+::: {.targets-chunk}
 ```{targets get-output-so2pls}
 tar_target(
   so2pls_output,
   get_output(so2pls_final_run)
 )
 ```
+:::
 
 ```{r show-output-so2pls}
 tar_load(so2pls_output)
@@ -108,12 +112,14 @@ so2pls_output
 
 #### MOFA
 
+::: {.targets-chunk}
 ```{targets get-output-mofa}
 tar_target(
   mofa_output,
   get_output(mofa_trained)
 )
 ```
+:::
 
 ```{r show-output-mofa}
 tar_load(mofa_output)
@@ -122,12 +128,14 @@ mofa_output
 
 #### DIABLO
 
+::: {.targets-chunk}
 ```{targets get-output-diablo}
 tar_target(
   diablo_output,
   get_output(diablo_final_run)
 )
 ```
+:::
 
 ```{r show-output-diablo}
 tar_load(diablo_output)
@@ -217,12 +225,14 @@ The `get_output()` function uses this idea to construct, for the output of sPLS,
 ::: {.panel-tabset group="method"}
 #### sPLS
 
+::: {.targets-chunk}
 ```{targets get-output-spls-no-average}
 tar_target(
   spls_output_no_average,
   get_output(spls_final_run, use_average_dimensions = FALSE)
 )
 ```
+:::
 
 ```{r show-output-spls-no-average}
 tar_load(spls_output_no_average)
@@ -235,12 +245,14 @@ nrow(spls_output_no_average$samples_score)
 
 #### sO2PLS
 
+::: {.targets-chunk}
 ```{targets get-output-so2pls-no-average}
 tar_target(
   so2pls_output_no_average,
   get_output(so2pls_final_run, use_average_dimensions = FALSE)
 )
 ```
+:::
 
 ```{r show-output-so2pls-no-average}
 tar_load(so2pls_output_no_average)
@@ -253,12 +265,14 @@ nrow(so2pls_output_no_average$samples_score)
 
 #### DIABLO
 
+::: {.targets-chunk}
 ```{targets get-output-diablo-no-average}
 tar_target(
   diablo_output_no_average,
   get_output(diablo_final_run, use_average_dimensions = FALSE)
 )
 ```
+:::
 
 ```{r show-output-diablo-no-average}
 tar_load(diablo_output_no_average)
@@ -1208,6 +1222,7 @@ For convenience, here is the list of targets that we created in this section:
 
 In the targets script, before the targets list, we will add the following code to create the colour palettes used in some of the plots:
 
+::: {.targets-chunk}
 ```{targets targets-preamble}
 ## In the preamble of the _targets.R script
 
@@ -1217,11 +1232,12 @@ palette_feedlot <- scale_colour_brewer(palette = "Set2")
 palette_geno_comp <- scale_colour_brewer(palette = "Dark2")
 palette_rnaseq_batch <- scale_colour_brewer(palette = "Paired")
 ```
-
+:::
 
 ::: {.panel-tabset group="method"}
 #### sPLS
 
+::: {.targets-chunk}
 ```{targets spls-recap-targets-list}
 list(
   ## Generating standardised output
@@ -1277,9 +1293,11 @@ list(
   )
 )
 ```
+:::
 
 #### sO2PLS
 
+::: {.targets-chunk}
 ```{targets so2pls-recap-targets-list}
 list(
   ## Generating standardised output
@@ -1338,9 +1356,11 @@ list(
   )
 )
 ```
+:::
 
 #### MOFA
 
+::: {.targets-chunk}
 ```{targets mofa-recap-targets-list}
 list(
   ## Generating standardised output
@@ -1407,9 +1427,11 @@ list(
   )
 )
 ```
+:::
 
 #### DIABLO
 
+::: {.targets-chunk}
 ```{targets diablo-recap-targets-list}
 list(
   ## Generating standardised output
@@ -1469,6 +1491,7 @@ list(
   )
 )
 ```
+:::
 
 :::
 
