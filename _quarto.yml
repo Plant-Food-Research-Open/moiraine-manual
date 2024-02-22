@@ -7,7 +7,6 @@ book:
   author: "Olivia Angelin-Bonnet"
   chapters:
     - index.qmd
-    - intro.qmd
     - example_dataset.qmd
     - part: "Data preparation"
       chapters:

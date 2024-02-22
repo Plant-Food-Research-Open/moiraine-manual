@@ -161,18 +161,15 @@ list(
   ## Datasets transformation ----
   ##=========================##
 
-  ## Applying transformations to the datasets
+  # Applying transformations to the datasets
   transformation_datasets_factory(
     mo_set_de,
     c("rnaseq" = "vst-deseq2",
-      "metabolome" = "best-normalize-manual"),
-    methods = c("metabolome" = "log_x"),
-    a = 0.01,
-    b = 2,
-    standardize = FALSE,
+      "metabolome" = "logx"),
+    log_bases = 2,
+    pre_log_functions = zero_to_half_min,
     transformed_data_name = "mo_set_transformed"
   ),
-
 
   ##============================================##
   ## Individual PCA and missing data imputation ----

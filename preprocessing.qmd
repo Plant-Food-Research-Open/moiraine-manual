@@ -100,23 +100,20 @@ rnaseq_vst$info_transformation
 
 rnaseq_vst$transformation
 ```
-If we instead want to apply a log2 transformation to the dataset, we will use the `best-normalize-manual` transformation option instead, and we have to specify the transformation to use through the `method` argument; in our case, we will use the `log_x` method. 
 
-The `bestNormalize::log_x()` function uses by default a log base 10, but this can be changed by passing the `b` argument (the log base to use) to `2`. We will also set `a` (the offset to use before log-transformation) to `0.5` -- see the `bestNormalize::log_x()` function help for information about the parameters. By default, all `bestNormalize` functions standardise the transformed datasets, which we can prevent by setting `standardize = FALSE`:
+If we instead want to apply a log2 transformation to the dataset, we will use the `logx` transformation option instead. In that case, we have to specify the log base to use (here 2) through the `log_base` argument, as well as the function that should be applied to the matrix prior to the log-transformation through the `pre_log_function` argument. This function is here mostly to take care of zero values that could cause issue during the log transformation. By default, the `zero_to_half_min()` function is used, which replaces zero values in the dataset with half of the minimum non-null value found in the dataset. However, it is possible to pass any custom function instead, for example `function(x) x` would not make any change to the dataset before the log-transformation:
 
 ```{r apply-log2-example}
 rnaseq_log2 <- transform_dataset(
   mo_set_de,
   "rnaseq",
-  "best-normalize-manual",
-  method = "log_x",
-  return_multidataset = TRUE, 
-  ## Arguments passed to BestNormalize::log_x():
-  a = 0.5,
-  b = 2,
-  standardize = FALSE
+  "logx",
+  base_log = 2,
+  pre_log_function = function(x) x,
+  return_multidataset = TRUE
 )
 ```
+
 In that case, we asked the function to return a `MultiDataSet` object, in which the `rnaseq` dataset has been transformed:
 
 ```{r print-log2-transformation}
@@ -124,6 +121,25 @@ rnaseq_log2
 
 get_dataset_matrix(rnaseq_log2, "rnaseq")[1:5, 1:5]
 ```
+
+The two other transformation options are `best-normalize-auto` and `best-normalize-manual`. Both rely on the `bestNormalize` package to apply a transformation **independently** to each feature in the dataset. With `best-normalize-auto`, the `bestNormalize::bestNormalize()` function automatically selects for each feature the transformation that results in the most normal distribution. With the `best-normalize-manual` option, the same transformation is applied to each feature. The transformation to use must be specified through the `method` argument, and should be the name of one of the transformation implemented in `bestNormalize`: `"arcsinh_x"`, `"boxcox"`, `"center_scale"`, `"exp_x"`, `"log_x"`, `"orderNorm"`, `"sqrt_x"`, `"yeojohnson"`. Note that with this option, even if the same transformation is applied to each feature, the parameters for the transformation, if not specified, will be independently estimated for each feature. For example, with the `log_x` method, the function automatically adds a small offset (`a`) to the feature's measurements if there are any zero values. The value used for this offset might be different for each feature. We can instead set a value for `a` to be used for all features, as follows:
+
+```{r bestnormalize-manual-example}
+#| eval: false
+
+transform_dataset(
+  mo_set_de,
+  "rnaseq",
+  "best-normalize-manual",
+  method = "log_x",
+  a = 0.1,
+  return_multidataset = TRUE
+)
+```
+
+::: {.callout-note}
+Before using the `best-normalize-manual` option, it is strongly recommended to have a look at the documentation of the corresponding function from the `bestNormalize` package, as they might have behaviours that are not expected. For example, by default the `bestNormalize::log_x()` function uses a log based 10, and centers and scales the transformed values, which not be what we want.
+:::
 
 ### Transformation target factory
 
@@ -138,11 +154,9 @@ Here, we would like to apply Variance Stabilising Transformation to the transcri
 transformation_datasets_factory(
   mo_set_de,
   c("rnaseq" = "vst-deseq2",
-    "metabolome" = "best-normalize-manual"),
-  methods = c("metabolome" = "log_x"),
-  a = 0.01,
-  b = 2,
-  standardize = FALSE,
+    "metabolome" = "logx"),
+  log_bases = 2,
+  pre_log_functions = zero_to_half_min,
   transformed_data_name = "mo_set_transformed"
 )
 ```

@@ -5,21 +5,33 @@
 
 ```
 
-Omics datasets provide an overview of the content of cells for a specific molecular layer (e.g. transcriptome, proteome, metabolome). By integrating different omics datasets obtained on the same biological samples, we can gain a deeper understanding of the interactions between these molecular layers, and shed light on the regulations occurring both within and between layers. A number of statistical methods have been developed to extract such information from multi-omics datasets, and many have been implemented in software such as R packages. However, these tools differ conceptually, in terms of the input data they require, the assumptions they make, the statistical approaches they use or even the questions they answers. They also differ at a practical level in terms of the format required for data input, the parameters to tune or select, and the format in which the results are returned. These differences render the **application of several integration tools to a multi-omics dataset** and the **comparison of their results** complex and time-consuming.
+Omics datasets provide an overview of the content of cells for a specific molecular layer (e.g. transcriptome, proteome, metabolome). By integrating different omics datasets obtained on the same biological samples, we can gain a deeper understanding of the interactions between these molecular layers, and shed light on the regulations occurring both within and between layers. A number of statistical methods have been developed to extract such information from multi-omics datasets, and many have been implemented in software such as R packages. However, these tools differ conceptually, in terms of the input data they require, the assumptions they make, the statistical approaches they use or even the questions they answers. They also differ at a practical level in terms of the format required for data input, the parameters to tune or select, and the format in which the results are returned. These differences render the **application of several integration tools to a same multi-omics dataset** and the **comparison of their results** complex and time-consuming.
 
 The `moiraine` package aims at alleviating these issues, by providing a framework to easily and consistently apply different integration tools to a same multi-omics dataset. It implements numerous visualisation and reporting functions to facilitate the interpretation of the integration results as well as the comparison of these results across integration methods. In addition, in an effort to make these computations reproducible, `moiraine` heavily relies on the [`targets` package](https://books.ropensci.org/targets/) for the construction of reproducible analysis pipelines.
 
 ## The `moiraine` package
 
-*Discuss what steps are covered by moiraine*
+The workflow for a typical multi-omics integration analysis handled with `moiraine` includes the following steps:
 
-Currently, the following integration methods are covered in `moiraine`:
+* Data import: this covers the import of omics measurements as well as associated metadata (i.e. information about the omics features and samples) -- moiraine relies on the [`MultiDataSet` package](https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html) to store this information in a consistent format;
 
-* sPLS and DIABLO from the `mixOmics` package
+* Inspection of the omics datasets: including checking values density distribution, samples overlap between omics datasets, or presence of missing values;
 
-* sO2PLS from the `OmicsPLS` package
+* Preprocessing of the omics datasets: missing values imputation, transformation, and pre-filtering of samples and omics features;
 
-* MOFA and MEFISTO from the `MOFA2` package
+* Integration of the omics datasets by one or more of the supported tools (see below); currently, the following integration methods are covered in `moiraine`:
+
+  * sPLS and DIABLO from the `mixOmics` package
+  
+  * sO2PLS from the `OmicsPLS` package
+  
+  * MOFA and MEFISTO from the `MOFA2` package
+
+* Interpretation of the integration results using standardised visualisations enriched with features and samples metadata;
+
+* Comparison of the integration results obtained by different methods or pre-processing approaches.
+
+Note that in the `moiraine` package, we refer to the different biological entities measured in a given dataset (e.g. genes, transcripts, metabolic compounds, etc) as **features**, and the observations in a dataset as **samples**. Information about the samples (such as treatment, collection date, etc) and features (e.g. name, biological function, etc) is denoted **samples metadata** and **features metadata**, respectively.
 
 ## About this manual
 
@@ -47,7 +59,7 @@ library(targets)
 tar_read(my_first_target)
 ```
 
-Note that for readers that prefer to use R scripts to `targets` pipeline, the target command in XX can be converted to R script-compatible code as follows:
+Note that for readers that prefer to use R scripts to `targets` pipeline, the target command in the example target chunk above can be converted to R script-compatible code as follows:
 
 ```{r target-translation}
 my_first_target <- 2 + 2
@@ -55,3 +67,24 @@ my_first_target <- 2 + 2
 
 and the calls to `tar_read()` and `tar_load()` ignored.
 
+Throughout the manual, the following options are set to improve upon the default colour scales:
+
+```{r ggplo2-colour-options}
+#| eval: false
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis",
+  ggplot2.discrete.colour = function() {
+    ggplot2::scale_colour_brewer(
+      palette = "Paired", 
+      na.value = "grey"
+    )
+  } ,
+  ggplot2.discrete.fill = function() {
+    ggplot2::scale_fill_brewer(
+      palette = "Paired",
+      na.value = "grey"
+    )
+  } 
+)
+```
