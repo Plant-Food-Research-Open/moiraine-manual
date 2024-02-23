@@ -457,12 +457,12 @@ The two disease status groups are well separated in this space.
 
 #### sO2PLS
 
-To showcase this function, we will look at the first two RNAseq-specific latent components:
+To showcase this function, we will look at the first two metabolomics-specific latent components:
 
 ```{r so2pls-plot-samples-score-pair}
 plot_samples_score_pair(
   so2pls_output,
-  paste("rnaseq specific component", 1:2),
+  paste("metabolome specific component", 1:2),
   mo_data = mo_set_complete,
   colour_by = "status",
   shape_by = "gender"
@@ -724,7 +724,7 @@ All genes and most metabolites selected for the two components are different.
 ```{r so2pls-features-weight-pair}
 plot_features_weight_pair(
   so2pls_output,
-  paste("rnaseq specific component", 1:2),
+  paste("metabolome specific component", 1:2),
   mo_data = mo_set_complete,
   label_cols = list(
     "rnaseq" = "Name",
@@ -733,7 +733,7 @@ plot_features_weight_pair(
 )
 ```
 
-The plot shows an interesting pattern: it seems that for the genes with a negative weight for the first RNAseq-specific component, their importance score for this component is highly correlated with their importance score for the second RNAseq-specific component, except that for the second one they have a positive weight. For the genes with a positive weight for the first RNAseq-specific component, their importance score for this component is highly correlated with their importance score for the second RNAseq-specific component, in which they are also given a positive weight.
+The plot shows an interesting pattern: the weights of the compound for these two specific components are negatively correlated, except for a couple of outliers.
 
 #### MOFA
 

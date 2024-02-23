@@ -5,6 +5,9 @@ project:
 book:
   title: "The moiraine R package user manual"
   author: "Olivia Angelin-Bonnet"
+  search: true
+  repo-url: https://github.com/PlantandFoodResearch/moiraine
+  sharing: [twitter]
   chapters:
     - index.qmd
     - example_dataset.qmd

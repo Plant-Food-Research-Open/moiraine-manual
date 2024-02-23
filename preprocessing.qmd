@@ -73,7 +73,7 @@ After inspection of the density plots for the different datasets (see @sec-inspe
 
 ### Transforming a single dataset
 
-The transformation of one dataset is done through the `transform_dataset()` function, which takes as input a `MultiDataSet` object, the name of the dataset to transform, and the name of the transformation to be applied, which should be one of `vsn`, `vst-deseq2`, `best-normalize-auto` or `best-normalize-manual`. For the latter, the name of the normalisation method from the `BestNormalize` package to use must also be supplied through the `method` argument. 
+The transformation of one dataset is done through the `transform_dataset()` function, which takes as input a `MultiDataSet` object, the name of the dataset to transform, and the name of the transformation to be applied, which should be one of `vsn`, `vst-deseq2`, `logx`, `best-normalize-auto` or `best-normalize-manual`. For the latter, the name of the normalisation method from the `BestNormalize` package to use must also be supplied through the `method` argument. 
 
 The `return_multidataset` argument determines whether a `MultiDataSet` object with the corresponding dataset transformed should be returned. If it is set to `FALSE`, the function will instead return a list with the transformed dataset as a matrix as well as other useful information returned by the transformation function applied. It is possible to only return the transformed matrix, by setting `return_matrix_only` to `TRUE`. This can be useful to quickly assess the effects of the transformation outside of the analysis pipeline. 
 
@@ -101,7 +101,7 @@ rnaseq_vst$info_transformation
 rnaseq_vst$transformation
 ```
 
-If we instead want to apply a log2 transformation to the dataset, we will use the `logx` transformation option instead. In that case, we have to specify the log base to use (here 2) through the `log_base` argument, as well as the function that should be applied to the matrix prior to the log-transformation through the `pre_log_function` argument. This function is here mostly to take care of zero values that could cause issue during the log transformation. By default, the `zero_to_half_min()` function is used, which replaces zero values in the dataset with half of the minimum non-null value found in the dataset. However, it is possible to pass any custom function instead, for example `function(x) x` would not make any change to the dataset before the log-transformation:
+If we instead want to apply a log2 transformation to the dataset, we will use the `logx` transformation option. In that case, we have to specify the log base to use (here 2) through the `log_base` argument, as well as the function that should be applied to the matrix prior to the log-transformation through the `pre_log_function` argument. This function is here mostly to take care of zero values that could cause an issue during the log transformation. By default, the `zero_to_half_min()` function is used, which replaces zero values in the dataset with half of the minimum non-null value found in the dataset. However, it is possible to pass any custom function instead, for example `function(x) x` would not make any change to the dataset before the log-transformation:
 
 ```{r apply-log2-example}
 rnaseq_log2 <- transform_dataset(
@@ -122,7 +122,7 @@ rnaseq_log2
 get_dataset_matrix(rnaseq_log2, "rnaseq")[1:5, 1:5]
 ```
 
-The two other transformation options are `best-normalize-auto` and `best-normalize-manual`. Both rely on the `bestNormalize` package to apply a transformation **independently** to each feature in the dataset. With `best-normalize-auto`, the `bestNormalize::bestNormalize()` function automatically selects for each feature the transformation that results in the most normal distribution. With the `best-normalize-manual` option, the same transformation is applied to each feature. The transformation to use must be specified through the `method` argument, and should be the name of one of the transformation implemented in `bestNormalize`: `"arcsinh_x"`, `"boxcox"`, `"center_scale"`, `"exp_x"`, `"log_x"`, `"orderNorm"`, `"sqrt_x"`, `"yeojohnson"`. Note that with this option, even if the same transformation is applied to each feature, the parameters for the transformation, if not specified, will be independently estimated for each feature. For example, with the `log_x` method, the function automatically adds a small offset (`a`) to the feature's measurements if there are any zero values. The value used for this offset might be different for each feature. We can instead set a value for `a` to be used for all features, as follows:
+The two other transformation options are `best-normalize-auto` and `best-normalize-manual`. Both rely on the `bestNormalize` package to apply a transformation **independently** to each feature in the dataset. With `best-normalize-auto`, the `bestNormalize::bestNormalize()` function automatically selects for each feature the transformation that results in a distribution of values closest to Gaussian as possible. Note that as the function is applied independently to each feature, a different distribution may be chosen for different features. With the `best-normalize-manual` option, the same transformation is applied to each feature. The transformation to use must be specified through the `method` argument, and should be the name of one of the transformation implemented in `bestNormalize`: `"arcsinh_x"`, `"boxcox"`, `"center_scale"`, `"exp_x"`, `"log_x"`, `"orderNorm"`, `"sqrt_x"` or `"yeojohnson"`. Note that with this option, even if the same transformation is applied to each feature, the parameters for the transformation, if not specified, will be independently estimated for each feature. For example, with the `log_x` method, the function automatically adds a small offset (`a`) to the feature's measurements if there are any zero values. The value used for this offset might be different for each feature. We can instead set a value for `a` to be used for all features, as follows:
 
 ```{r bestnormalize-manual-example}
 #| eval: false
@@ -138,7 +138,7 @@ transform_dataset(
 ```
 
 ::: {.callout-note}
-Before using the `best-normalize-manual` option, it is strongly recommended to have a look at the documentation of the corresponding function from the `bestNormalize` package, as they might have behaviours that are not expected. For example, by default the `bestNormalize::log_x()` function uses a log based 10, and centers and scales the transformed values, which not be what we want.
+Before using the `best-normalize-manual` option, it is strongly recommended to have a look at the documentation of the corresponding function from the `bestNormalize` package, as they might have behaviours that are not expected. For example, by default the `bestNormalize::log_x()` function uses a log base 10, and centers and scales the transformed values, which not be what we want.
 :::
 
 ### Transformation target factory
@@ -389,11 +389,9 @@ list(
   transformation_datasets_factory(
     mo_set_de,
     c("rnaseq" = "vst-deseq2",
-      "metabolome" = "best-normalize-manual"),
-    methods = c("metabolome" = "log_x"),
-    a = 0.01,
-    b = 2,
-    standardize = FALSE,
+      "metabolome" = "logx"),
+    log_bases = 2,
+    pre_log_functions = zero_to_half_min,
     transformed_data_name = "mo_set_transformed"
   ),
   

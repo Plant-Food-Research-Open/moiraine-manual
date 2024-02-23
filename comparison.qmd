@@ -158,14 +158,14 @@ comparison_heatmap_corr(
     "sO2PLS" = c(
       "joint component 1",
       paste("metabolome specific component", 1:2),
-      paste("rnaseq specific component", 1:2)
+      "rnaseq specific component 1"
     ),
     "MOFA" = paste("Factor", 1:4)
   )
 )
 ```
 
-From the heatmaps, we can see that some latent dimensions constructed by the different methods seem to capture similar trends in the data. For example, MOFA factor 1, sPLS component 1, DIABLO component 1 and sO2PLS joint component 1 are all strongly correlated in terms of their samples score. Their correlation in terms of features weight is a bit lower, which is due to the fact that some methods perform features selection, therefore all non-selected features are given a weight of 0. Note that the sign of the correlation is interesting but not very important. We can also see some latent dimensions that seem correlated with respect to one metric but not the other. For example, there is a strong correlation between the samples score of MOFA factor 4 and sPLS component 2, but this is not reflected in their features weight. Again, that can be because one method performs latent selection and not the other. On the other hand, the correlation between sPLS component 2 and DIABLO component 2 is stronger when looking at their features weight than at their samples score. 
+From the heatmaps, we can see that some latent dimensions constructed by the different methods seem to capture similar trends in the data. For example, MOFA factor 1, sPLS component 1, DIABLO component 1 and sO2PLS joint component 1 are all strongly correlated in terms of their samples score. Their correlation in terms of features weight is a bit lower, which is due to the fact that some methods perform features selection, therefore all non-selected features are given a weight of 0. Note that the sign of the correlation is interesting but not very important. We can also see some latent dimensions that seem correlated with respect to one metric but not the other. For example, there is a strong correlation between the samples score of MOFA factor 4 and sPLS component 2, but this is not reflected in their features weight. Again, that can be because one method performs latent selection and not the other. On the other hand, the correlation between sPLS component 3 and DIABLO component 2 is stronger when looking at their features weight than at their samples score. 
 
 When using the function to compare the results of the two MOFA runs, the names that we gave to the list of output will be used as method name, and these are the names to use in order to select some latent dimensions of interest. For example:
 
@@ -231,7 +231,7 @@ comparison_plot_correlation(
   output_list[2:1],
   by = "samples",
   latent_dimensions = list(
-    "sO2PLS" = c("joint component 1", paste("rnaseq specific component", 1:2))
+    "sO2PLS" = c("joint component 1", "rnaseq specific component 1")
   )
 )
 ```

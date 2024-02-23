@@ -56,6 +56,10 @@ A characteristic of the MOFA2 package is that the model training part of the ana
 
 MOFA offers the option to assign samples to groups (referred to as the multi-group framework within MOFA). It is important to understand what this does before using it. In particular, if the aim of the analysis is to find features that separate samples based on a grouping, you should not use this multi-group framework. By setting sample groups in MOFA, it will ignore sources of variations that discriminate the groups. Instead, this multi-group framework will seek sources of variations that are shared between the different groups, and sources of variations that are exclusive to a specific group. For example, in [this analysis](https://raw.githack.com/bioFAM/MOFA2_tutorials/master/R_tutorials/scNMT_gastrulation.html), the multi-group framework was used to split samples (cells) based on their developmental stage. The goal of the analysis was to find coordinated variation between the different datasets, and detect at which developmental stage (i.e. in which group) it occurred, rather than trying to differentiate the different developmental stages.
 
+### MEFISTO
+
+MEFISTO is an extension of MOFA that explicitly accounts for some continuous structure amongst the samples, i.e. temporal or 2D spatial relationships between the observations. The constructed latent factors' associated with the covariate is assessed, to see whether they represent smooth variation which correlates with the covariate, or whether they are independent of the covariate. The trained model can then be used to extrapolate to unseen values of the covariate (e.g. missing time-points or physical locations). When using the multi-group framework, MEFISTO can also align the values of the covariate between the different groups, for example to account for differences in developmental speed between two groups of patients.
+
 ## Creating the MOFA input
 
 The first step is to transform the `MultiDataSet` object into a suitable format for the `MOFA2` package. This is done through the `get_input_mofa()` function. In addition to the `MultiDataSet` object, this function accepts as arguments:
@@ -181,6 +185,42 @@ mofa_input
 
 We did not use the multi-group framework, so there is only one samples group.
 
+### MEFISTO input
+
+In a similar way, we can construct the input object for a MEFISTO run with the `get_input_mefisto()` function. It is very similar to `get_input_mofa()`, except that is expects as second argument the name or names of the columns in the samples metadata tables corresponding to the continuous covariate(s) which represent(s) the structure amongst the samples. Note that there can be at most two covariates. For example, if we had a time-series dataset with information about the time at which each observation was taken in a column called `time`, we would use:
+
+::: {.targets-chunk}
+```{targets get-input-mefisto}
+tar_target(
+  mefisto_input,
+  get_input_mefisto(
+    mo_presel_supervised,
+    "time",
+    options_list = list(
+      data_options = list(scale_views = TRUE),
+      model_options = list(likelihoods = c(
+        "snps" = "poisson",
+        "rnaseq" = "gaussian",
+        "metabolome" = "gaussian")
+      ),
+      training_options = list(seed = 43)
+    ),
+    only_common_samples = FALSE
+  )
+)
+```
+:::
+
+MEFISTO has some specific options that can be set in a similar way to the data, model and training options for MOFA. The most important are:
+
+* `warping`: Logical, whether the covariate(s) should be aligned between the groups. Only when using the multi-group framework.
+
+* `warping_ref`: Character, if using the warping option, the name of the group that should be used as reference (the covariates for the other groups will be aligned to the covariates for this group).
+
+* `new_values`: Numeric vector, values of the covariate(s) for which the factors should be predicted (for inter/extrapolation).
+
+To set any of these options, they can be passed as a list to the `options_list` parameter as for the data, model and training options.
+
 ## Visualising the MOFA input
 
 It is possible to represent the samples that are present or missing across the different datasets with the `plot_data_overview()` function implemented in `MOFA2`:
@@ -256,7 +296,7 @@ plot_variance_explained(
 ) 
 ```
 
-Here, we see that factor 1 explains a lot (almost 50%) of variation in the transcriptomics dataset, a little (around 10%) in the metabolomics dataset and almost none in the genomics dataset. Factor 2 explains around 20% of variation in the genomics dataset, and none in the other datasets. Factors 3 and 4 seem specificto the transcriptomics datasets, and factors 5 to 15 explain very little variation; seeing this, we could re-train the MOFA model by setting the number of factors to 4 or 5.
+Here, we see that factor 1 explains a lot (almost 50%) of variation in the transcriptomics dataset, a little (around 10%) in the metabolomics dataset and almost none in the genomics dataset. Factor 2 explains around 20% of variation in the genomics dataset, and none in the other datasets. Factors 3 and 4 seem specific to the transcriptomics datasets, and factors 5 to 15 explain very little variation; seeing this, we could re-train the MOFA model by setting the number of factors to 4 or 5.
 
 
 In addition, the `plot_variance_explained()` function can create a second plot displaying the total percentage of variance explained by all the factors for each dataset, if the argument `plot_total` is set to `TRUE` :

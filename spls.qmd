@@ -283,7 +283,7 @@ spls_tune_res$choice.keepX
 spls_tune_res$choice.keepY
 ```
 
-Note that for the example, we will keep the selected values, however given the diagnostic plot shown above, we could probably set the number of features to retain for the second latent component to 20 for the transcriptomics dataset and 30 for the metabolomics dataset.
+<!-- Note that for the example, we will keep the selected values, however given the diagnostic plot shown above, we could probably set the number of features to retain for the second latent component to 20 for the transcriptomics dataset and 30 for the metabolomics dataset. -->
 
 ## Final sPLS run
 
