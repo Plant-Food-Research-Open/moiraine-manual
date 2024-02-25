@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>The moiraine R package user manual - 5&nbsp; Modifying the MultiDataSet object</title>
+<title>The moiraine R package user manual - 4&nbsp; Modifying the MultiDataSet object</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,7 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -133,6 +133,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The moiraine R package user manual</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/PlantandFoodResearch/moiraine" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -149,12 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -167,27 +166,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
   </div>
 </li>
       </ul>
@@ -202,17 +201,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
   </div>
 </li>
       </ul>
@@ -227,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -242,17 +241,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -268,15 +267,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#modifying-a-dataset-matrix" id="toc-modifying-a-dataset-matrix" class="nav-link active" data-scroll-target="#modifying-a-dataset-matrix"><span class="toc-section-number">5.1</span>  Modifying a dataset matrix</a></li>
-  <li><a href="#adding-information-to-features-metadata" id="toc-adding-information-to-features-metadata" class="nav-link" data-scroll-target="#adding-information-to-features-metadata"><span class="toc-section-number">5.2</span>  Adding information to features metadata</a></li>
-  <li><a href="#adding-information-to-samples-metadata" id="toc-adding-information-to-samples-metadata" class="nav-link" data-scroll-target="#adding-information-to-samples-metadata"><span class="toc-section-number">5.3</span>  Adding information to samples metadata</a></li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">5.4</span>  Recap – targets list</a></li>
+<li><a href="#modifying-a-dataset-matrix" id="toc-modifying-a-dataset-matrix" class="nav-link active" data-scroll-target="#modifying-a-dataset-matrix"><span class="toc-section-number">4.1</span>  Modifying a dataset matrix</a></li>
+  <li><a href="#adding-information-to-features-metadata" id="toc-adding-information-to-features-metadata" class="nav-link" data-scroll-target="#adding-information-to-features-metadata"><span class="toc-section-number">4.2</span>  Adding information to features metadata</a></li>
+  <li><a href="#adding-information-to-samples-metadata" id="toc-adding-information-to-samples-metadata" class="nav-link" data-scroll-target="#adding-information-to-samples-metadata"><span class="toc-section-number">4.3</span>  Adding information to samples metadata</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">4.4</span>  Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-modifying-multidataset" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></span></h1>
+<h1 class="title"><span id="sec-modifying-multidataset" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></span></h1>
 </div>
 
 
@@ -303,7 +302,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">## For working with lists</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this chapter, we will show how to modify the <code>MultiDataSet</code> object that we created in <a href="data_import.html"><span>Chapter&nbsp;3</span></a>.</p>
+<p>In this chapter, we will show how to modify the <code>MultiDataSet</code> object that we created in <a href="data_import.html"><span>Chapter&nbsp;2</span></a>.</p>
 <p>As a reminder, here is what the <code>_targets.R</code> script should look like so far:</p>
 <details><summary><code>_targets.R</code> script
 </summary><div class="cell">
@@ -336,9 +335,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>There are several reasons why we would want to modify the information contained in this object after it has been created. For example, we might want to apply a specific transformation to the omics dataset, using a custom function not implemented in the <code>moiraine</code> package. In that case, it would be preferable to apply the transformation on the datasets after the <code>MultiDataSet</code> object has been created and exploratory analyses have been performed, rather than on the raw data before importing it into the <code>moiraine</code> workflow.</p>
 <p>In another scenario, after having created the <code>MultiDataSet</code> object, we might obtain more information about the samples and/or features that we want to add to the object’s features or samples metadata, to be used in visualisations. In that case, it is recommended to include this information in the samples or features metadata files and re-run the integration pipeline; however functions to add information to the metadata tables are included for convenience. This can also be useful if, as with this example data, the features metadata was extracted from a specialised format (e.g.&nbsp;a GFF file for the RNAseq dataset) and we want to add in some information from another source.</p>
-<section id="modifying-a-dataset-matrix" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="modifying-a-dataset-matrix">
-<span class="header-section-number">5.1</span> Modifying a dataset matrix</h2>
-<p>Let us imagine that, prior to performing the data transformation step (which we will see in <a href="preprocessing.html"><span>Chapter&nbsp;6</span></a>), we want to replace all zero values in the transcriptomics dataset with a small value, to avoid issues during the log-transformation process (note that this is only to illustrate this functionality, for the actual analysis we will use a different transformation that handles zero values). We will pick this small value as half of the non-null minimum value in the dataset (which will be 0.5, since we are working with count data). We can compute the new matrix of RNAseq counts:</p>
+<section id="modifying-a-dataset-matrix" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="modifying-a-dataset-matrix">
+<span class="header-section-number">4.1</span> Modifying a dataset matrix</h2>
+<p>Let us imagine that, prior to performing the data transformation step (which we will see in <a href="preprocessing.html"><span>Chapter&nbsp;5</span></a>), we want to replace all zero values in the transcriptomics dataset with a small value, to avoid issues during the log-transformation process (note that this is only to illustrate this functionality, for the actual analysis we will use a different transformation that handles zero values). We will pick this small value as half of the non-null minimum value in the dataset (which will be 0.5, since we are working with count data). We can compute the new matrix of RNAseq counts:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rnaseq_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_dataset_matrix.html">get_dataset_matrix</a></span><span class="op">(</span><span class="va">mo_set</span>, <span class="st">"rnaseq"</span><span class="op">)</span></span>
 <span><span class="va">rnaseq_mat</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
@@ -409,9 +408,9 @@ Click here to see a targets version of the code.
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-</details></section><section id="adding-information-to-features-metadata" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="adding-information-to-features-metadata">
-<span class="header-section-number">5.2</span> Adding information to features metadata</h2>
-<p>In the case of the transcriptomics dataset, we extracted the features metadata directly from a GFF file, which provides information about the genome annotation used. However, we might want to add information about the genes from a different source. We could add this information to the data-frame generated with <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff.html">import_fmetadata_gff()</a></code> (see <a href="data_import.html#sec-import-fmeta-gff"><span>Section&nbsp;3.3.3</span></a>) before creating the<code>MultiDataSet</code> object, but we will demonstrate here how to add information once we’ve already created the object. Note that we will use targets for this example, as we will incorporate these changes in our analysis pipeline.</p>
+</details></section><section id="adding-information-to-features-metadata" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="adding-information-to-features-metadata">
+<span class="header-section-number">4.2</span> Adding information to features metadata</h2>
+<p>In the case of the transcriptomics dataset, we extracted the features metadata directly from a GFF file, which provides information about the genome annotation used. However, we might want to add information about the genes from a different source. We could add this information to the data-frame generated with <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff.html">import_fmetadata_gff()</a></code> (see <a href="data_import.html#sec-import-fmeta-gff"><span>Section&nbsp;2.3.3</span></a>) before creating the<code>MultiDataSet</code> object, but we will demonstrate here how to add information once we’ve already created the object. Note that we will use targets for this example, as we will incorporate these changes in our analysis pipeline.</p>
 <p>Let’s start by reading in the differential expression results:</p>
 <div class="targets-chunk">
 <div class="cell">
@@ -501,8 +500,8 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; ENSBTAG00000000012    Not DE    Not DE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that with this function, we can add information about features from different datasets at once, which is why there needs to be a <code>dataset</code> column in the data-frame to add, indicating the dataset to which each feature belongs. Also, not all features from a given dataset need to be present in this new data-frame; it is possible to add information for only a subset of them. In that case, the function will throw a warning giving the number of features from the corresponding dataset missing from the new data-frame, and the new columns in the corresponding features metadata will be filled with <code>NA</code> for features not present. However, it is only possible to add columns that do not already exist in the corresponding features metadata.</p>
-</section><section id="adding-information-to-samples-metadata" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="adding-information-to-samples-metadata">
-<span class="header-section-number">5.3</span> Adding information to samples metadata</h2>
+</section><section id="adding-information-to-samples-metadata" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="adding-information-to-samples-metadata">
+<span class="header-section-number">4.3</span> Adding information to samples metadata</h2>
 <p>Similarly, we can add a data-frame of information to the samples metadata. Here, we will create a table that contains “new” simulated information about the samples that we want to incorporate in our <code>MultiDataSet</code> object.</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Getting the list of samples ID across the datasets</span></span>
@@ -519,12 +518,12 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
 <span><span class="co">#&gt;   id    new_group</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;    </span></span>
-<span><span class="co">#&gt; 1 R21   b        </span></span>
-<span><span class="co">#&gt; 2 Y3660 c        </span></span>
-<span><span class="co">#&gt; 3 Y3243 b        </span></span>
-<span><span class="co">#&gt; 4 R5764 b        </span></span>
-<span><span class="co">#&gt; 5 P4669 c        </span></span>
-<span><span class="co">#&gt; 6 R5452 a</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 R21   a        </span></span>
+<span><span class="co">#&gt; 2 Y3660 a        </span></span>
+<span><span class="co">#&gt; 3 Y3243 a        </span></span>
+<span><span class="co">#&gt; 4 R5764 c        </span></span>
+<span><span class="co">#&gt; 5 P4669 b        </span></span>
+<span><span class="co">#&gt; 6 R5452 c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that the sample IDs must be stored in a column named <code>id</code>. We will use the <code><a href="https://rdrr.io/pkg/moiraine/man/add_samples_metadata.html">add_samples_metadata()</a></code> function to add this new data-frame to the samples metadata in our <code>MultiDataSet</code> object. There are several options for which samples metadata tables should be modified; this is controlled through the <code>datasets</code> argument of the function. By default, the information is added to the samples metadata table of all omics datasets (case when <code>datasets = NULL</code>):</p>
 <div class="cell">
@@ -548,12 +547,12 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
 <span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R21      0.820691    0.171456                K3         b</span></span>
-<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         c</span></span>
-<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         b</span></span>
-<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         b</span></span>
-<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         c</span></span>
-<span><span class="co">#&gt; R5452    0.733992    0.000010                K3         a</span></span>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3         a</span></span>
+<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         a</span></span>
+<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         a</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         c</span></span>
+<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         b</span></span>
+<span><span class="co">#&gt; R5452    0.733992    0.000010                K3         c</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $rnaseq</span></span>
 <span><span class="co">#&gt;          id feedlot gender status day_on_feed rnaseq_batch geno_comp_1</span></span>
@@ -564,12 +563,12 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; R9504 R9504      F2   male    BRD          31           B1    0.000010</span></span>
 <span><span class="co">#&gt; R5994 R5994      F2   male    BRD          24           B1    0.129271</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         c</span></span>
-<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         b</span></span>
-<span><span class="co">#&gt; R5327    0.809396    0.049874                K3         c</span></span>
-<span><span class="co">#&gt; R5979    0.107794    0.605473                K1         b</span></span>
-<span><span class="co">#&gt; R9504    0.998913    0.001077                K3         b</span></span>
-<span><span class="co">#&gt; R5994    0.034351    0.836377                K1         c</span></span>
+<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         a</span></span>
+<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         c</span></span>
+<span><span class="co">#&gt; R5327    0.809396    0.049874                K3         a</span></span>
+<span><span class="co">#&gt; R5979    0.107794    0.605473                K1         a</span></span>
+<span><span class="co">#&gt; R9504    0.998913    0.001077                K3         a</span></span>
+<span><span class="co">#&gt; R5994    0.034351    0.836377                K1         b</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $metabolome</span></span>
 <span><span class="co">#&gt;          id feedlot gender  status day_on_feed rnaseq_batch geno_comp_1</span></span>
@@ -580,12 +579,12 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
 <span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R21      0.820691    0.171456                K3         b</span></span>
-<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         c</span></span>
-<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         b</span></span>
-<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         b</span></span>
-<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         c</span></span>
-<span><span class="co">#&gt; R5452    0.733992    0.000010                K3         a</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3         a</span></span>
+<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         a</span></span>
+<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         a</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         c</span></span>
+<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         b</span></span>
+<span><span class="co">#&gt; R5452    0.733992    0.000010                K3         c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>However, it is also possible to specify for which dataset(s) the changes should be made, by passing their name to the <code>datasets</code> argument.</p>
 <div class="cell">
@@ -627,12 +626,12 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; R9504 R9504      F2   male    BRD          31           B1    0.000010</span></span>
 <span><span class="co">#&gt; R5994 R5994      F2   male    BRD          24           B1    0.129271</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         c</span></span>
-<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         b</span></span>
-<span><span class="co">#&gt; R5327    0.809396    0.049874                K3         c</span></span>
-<span><span class="co">#&gt; R5979    0.107794    0.605473                K1         b</span></span>
-<span><span class="co">#&gt; R9504    0.998913    0.001077                K3         b</span></span>
-<span><span class="co">#&gt; R5994    0.034351    0.836377                K1         c</span></span>
+<span><span class="co">#&gt; R9497    0.744505    0.101779                K3         a</span></span>
+<span><span class="co">#&gt; R5969    0.625823    0.263514                K3         c</span></span>
+<span><span class="co">#&gt; R5327    0.809396    0.049874                K3         a</span></span>
+<span><span class="co">#&gt; R5979    0.107794    0.605473                K1         a</span></span>
+<span><span class="co">#&gt; R9504    0.998913    0.001077                K3         a</span></span>
+<span><span class="co">#&gt; R5994    0.034351    0.836377                K1         b</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $metabolome</span></span>
 <span><span class="co">#&gt;          id feedlot gender  status day_on_feed rnaseq_batch geno_comp_1</span></span>
@@ -643,17 +642,17 @@ Click here to see a targets version of the code.
 <span><span class="co">#&gt; P4669 P4669      F3   male     BRD          35           B2    0.389393</span></span>
 <span><span class="co">#&gt; R5452 R5452      F2   male Control          49           B1    0.265998</span></span>
 <span><span class="co">#&gt;       geno_comp_2 geno_comp_3 geno_comp_cluster new_group</span></span>
-<span><span class="co">#&gt; R21      0.820691    0.171456                K3         b</span></span>
-<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         c</span></span>
-<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         b</span></span>
-<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         b</span></span>
-<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         c</span></span>
-<span><span class="co">#&gt; R5452    0.733992    0.000010                K3         a</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; R21      0.820691    0.171456                K3         a</span></span>
+<span><span class="co">#&gt; Y3660    0.093585    0.054195                K2         a</span></span>
+<span><span class="co">#&gt; Y3243    0.190262    0.765567                K1         a</span></span>
+<span><span class="co">#&gt; R5764    0.676299    0.110607                K3         c</span></span>
+<span><span class="co">#&gt; P4669    0.503471    0.107136                K3         b</span></span>
+<span><span class="co">#&gt; R5452    0.733992    0.000010                K3         c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In both cases, the function throws some warnings to alert about samples missing from this new table, or samples that are not present in the original samples metadata table. These warnings should be checked to avoid issues due to typos, etc.</p>
 <p>As with the <code><a href="https://rdrr.io/pkg/moiraine/man/add_features_metadata.html">add_features_metadata()</a></code> function, it is possible to add information about only a subset of the samples; however the columns in the new data-frame must not already be present in the features metadata tables to which it will be added.</p>
-</section><section id="recap-targets-list" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="recap-targets-list">
-<span class="header-section-number">5.4</span> Recap – targets list</h2>
+</section><section id="recap-targets-list" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">4.4</span> Recap – targets list</h2>
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for modifying a MultiDataSet object
@@ -822,12 +821,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./inspecting_multidataset.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./preprocessing.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

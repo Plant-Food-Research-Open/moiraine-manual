@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>The moiraine R package user manual - 13&nbsp; Evaluating the integration results</title>
+<title>The moiraine R package user manual - 12&nbsp; Evaluating the integration results</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -142,7 +142,7 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -152,6 +152,10 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The moiraine R package user manual</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/PlantandFoodResearch/moiraine" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -168,12 +172,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -186,27 +185,27 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
   </div>
 </li>
       </ul>
@@ -221,17 +220,17 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
   </div>
 </li>
       </ul>
@@ -246,7 +245,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -261,17 +260,17 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -287,31 +286,31 @@ div.csl-indent {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">13.1</span>  Introduction</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">12.1</span>  Introduction</a></li>
   <li>
-<a href="#evaluating-features-prioritisation" id="toc-evaluating-features-prioritisation" class="nav-link" data-scroll-target="#evaluating-features-prioritisation"><span class="toc-section-number">13.2</span>  Evaluating features prioritisation</a>
+<a href="#evaluating-features-prioritisation" id="toc-evaluating-features-prioritisation" class="nav-link" data-scroll-target="#evaluating-features-prioritisation"><span class="toc-section-number">12.2</span>  Evaluating features prioritisation</a>
   <ul class="collapse">
-<li><a href="#table-of-counts-of-selected-genes-against-a-grouping" id="toc-table-of-counts-of-selected-genes-against-a-grouping" class="nav-link" data-scroll-target="#table-of-counts-of-selected-genes-against-a-grouping"><span class="toc-section-number">13.2.1</span>  Table of counts of selected genes against a grouping</a></li>
-  <li><a href="#plotting-features-weight-against-a-covariate" id="toc-plotting-features-weight-against-a-covariate" class="nav-link" data-scroll-target="#plotting-features-weight-against-a-covariate"><span class="toc-section-number">13.2.2</span>  Plotting features weight against a covariate</a></li>
+<li><a href="#table-of-counts-of-selected-genes-against-a-grouping" id="toc-table-of-counts-of-selected-genes-against-a-grouping" class="nav-link" data-scroll-target="#table-of-counts-of-selected-genes-against-a-grouping"><span class="toc-section-number">12.2.1</span>  Table of counts of selected genes against a grouping</a></li>
+  <li><a href="#plotting-features-weight-against-a-covariate" id="toc-plotting-features-weight-against-a-covariate" class="nav-link" data-scroll-target="#plotting-features-weight-against-a-covariate"><span class="toc-section-number">12.2.2</span>  Plotting features weight against a covariate</a></li>
   </ul>
 </li>
   <li>
-<a href="#features-set-enrichment" id="toc-features-set-enrichment" class="nav-link" data-scroll-target="#features-set-enrichment"><span class="toc-section-number">13.3</span>  Features set enrichment</a>
+<a href="#features-set-enrichment" id="toc-features-set-enrichment" class="nav-link" data-scroll-target="#features-set-enrichment"><span class="toc-section-number">12.3</span>  Features set enrichment</a>
   <ul class="collapse">
-<li><a href="#constructing-feature-sets" id="toc-constructing-feature-sets" class="nav-link" data-scroll-target="#constructing-feature-sets"><span class="toc-section-number">13.3.1</span>  Constructing feature sets</a></li>
-  <li><a href="#filtering-feature-sets-against-the-datasets" id="toc-filtering-feature-sets-against-the-datasets" class="nav-link" data-scroll-target="#filtering-feature-sets-against-the-datasets"><span class="toc-section-number">13.3.2</span>  Filtering feature sets against the datasets</a></li>
-  <li><a href="#checking-the-number-of-features-assigned-to-sets" id="toc-checking-the-number-of-features-assigned-to-sets" class="nav-link" data-scroll-target="#checking-the-number-of-features-assigned-to-sets"><span class="toc-section-number">13.3.3</span>  Checking the number of features assigned to sets</a></li>
-  <li><a href="#enrichment-of-latent-dimensions" id="toc-enrichment-of-latent-dimensions" class="nav-link" data-scroll-target="#enrichment-of-latent-dimensions"><span class="toc-section-number">13.3.4</span>  Enrichment of latent dimensions</a></li>
-  <li><a href="#plotting-features-weight-for-feature-sets" id="toc-plotting-features-weight-for-feature-sets" class="nav-link" data-scroll-target="#plotting-features-weight-for-feature-sets"><span class="toc-section-number">13.3.5</span>  Plotting features weight for feature sets</a></li>
+<li><a href="#constructing-feature-sets" id="toc-constructing-feature-sets" class="nav-link" data-scroll-target="#constructing-feature-sets"><span class="toc-section-number">12.3.1</span>  Constructing feature sets</a></li>
+  <li><a href="#filtering-feature-sets-against-the-datasets" id="toc-filtering-feature-sets-against-the-datasets" class="nav-link" data-scroll-target="#filtering-feature-sets-against-the-datasets"><span class="toc-section-number">12.3.2</span>  Filtering feature sets against the datasets</a></li>
+  <li><a href="#checking-the-number-of-features-assigned-to-sets" id="toc-checking-the-number-of-features-assigned-to-sets" class="nav-link" data-scroll-target="#checking-the-number-of-features-assigned-to-sets"><span class="toc-section-number">12.3.3</span>  Checking the number of features assigned to sets</a></li>
+  <li><a href="#enrichment-of-latent-dimensions" id="toc-enrichment-of-latent-dimensions" class="nav-link" data-scroll-target="#enrichment-of-latent-dimensions"><span class="toc-section-number">12.3.4</span>  Enrichment of latent dimensions</a></li>
+  <li><a href="#plotting-features-weight-for-feature-sets" id="toc-plotting-features-weight-for-feature-sets" class="nav-link" data-scroll-target="#plotting-features-weight-for-feature-sets"><span class="toc-section-number">12.3.5</span>  Plotting features weight for feature sets</a></li>
   </ul>
 </li>
-  <li><a href="#assessing-samples-clustering" id="toc-assessing-samples-clustering" class="nav-link" data-scroll-target="#assessing-samples-clustering"><span class="toc-section-number">13.4</span>  Assessing samples clustering</a></li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">14</span>  Recap – targets list</a></li>
+  <li><a href="#assessing-samples-clustering" id="toc-assessing-samples-clustering" class="nav-link" data-scroll-target="#assessing-samples-clustering"><span class="toc-section-number">12.4</span>  Assessing samples clustering</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">13</span>  Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-evaluation" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span></h1>
+<h1 class="title"><span id="sec-evaluation" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span></h1>
 </div>
 
 
@@ -334,7 +333,7 @@ div.csl-indent {
 <span><span class="co">## For colour palettes</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>After having investigated the results of an integration method (<a href="interpretation.html"><span>Chapter&nbsp;12</span></a>), we will show in this chapter how to evaluate the integration results against single-omics analyses results or prior biological knowledge.</p>
+<p>After having investigated the results of an integration method (<a href="interpretation.html"><span>Chapter&nbsp;11</span></a>), we will show in this chapter how to evaluate the integration results against single-omics analyses results or prior biological knowledge.</p>
 <p>As a reminder, here is what the <code>_targets.R</code> script should look like so far:</p>
 <details><summary><code>_targets.R</code> script
 </summary><div class="cell">
@@ -342,11 +341,11 @@ div.csl-indent {
 
 </div>
 </div>
-</details><section id="introduction" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="introduction">
-<span class="header-section-number">13.1</span> Introduction</h2>
-<p>Evaluating the results of a multi-omics integration analysis is not an easy task, mainly because when analysing biological data there is no ground truth about the underlying biological mechanisms at play. However, it is possible to gain some measure of confidence in our results by comparing them to what we already know about the biological system studied, or to other analyses (typically single-omics analyses) performed on the dataset. In the latter case, this can also show us what insights are gained by analysing the omics datasets together that would have been missed by looking at each omics dataset separately. Note that in this vignette, we refer to the <strong>evaluation</strong> of an integration method as comparison with prior knowledge or previous studies, while in <a href="comparison.html"><span>Chapter&nbsp;14</span></a> we will talk about the <strong>comparison</strong> of results obtained with different integration tools.</p>
-<p>When evaluating integration results, we can compare the features contribution (see <a href="interpretation.html#sec-interpretation-dim-reduction"><span>Section&nbsp;12.1</span></a>) to some prior information that we have about the features: for example, their score in a differential expression analysis, whether they were found differentially expressed or not, or the group to which they belong (e.g.&nbsp;biological pathway or chemical class). On the other hand, we can assess whether the latent dimensions created separate different sample groups (e.g.&nbsp;control vs treatment, or different time points).</p>
-<p>For this vignette, we will use the results from the DIABLO (<a href="diablo.html"><span>Chapter&nbsp;11</span></a>) and MOFA (<a href="mofa.html"><span>Chapter&nbsp;10</span></a>) analyses as examples. We will use the dimension reduction output objects that we created in <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>, which contains the results of the DIABLO and MOFA runs stored in a standardised format (<a href="interpretation.html#sec-interpretation-standard-output"><span>Section&nbsp;12.2</span></a>):</p>
+</details><section id="introduction" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="introduction">
+<span class="header-section-number">12.1</span> Introduction</h2>
+<p>Evaluating the results of a multi-omics integration analysis is not an easy task, mainly because when analysing biological data there is no ground truth about the underlying biological mechanisms at play. However, it is possible to gain some measure of confidence in our results by comparing them to what we already know about the biological system studied, or to other analyses (typically single-omics analyses) performed on the dataset. In the latter case, this can also show us what insights are gained by analysing the omics datasets together that would have been missed by looking at each omics dataset separately. Note that in this vignette, we refer to the <strong>evaluation</strong> of an integration method as comparison with prior knowledge or previous studies, while in <a href="comparison.html"><span>Chapter&nbsp;13</span></a> we will talk about the <strong>comparison</strong> of results obtained with different integration tools.</p>
+<p>When evaluating integration results, we can compare the features contribution (see <a href="interpretation.html#sec-interpretation-dim-reduction"><span>Section&nbsp;11.1</span></a>) to some prior information that we have about the features: for example, their score in a differential expression analysis, whether they were found differentially expressed or not, or the group to which they belong (e.g.&nbsp;biological pathway or chemical class). On the other hand, we can assess whether the latent dimensions created separate different sample groups (e.g.&nbsp;control vs treatment, or different time points).</p>
+<p>For this vignette, we will use the results from the DIABLO (<a href="diablo.html"><span>Chapter&nbsp;10</span></a>) and MOFA (<a href="mofa.html"><span>Chapter&nbsp;9</span></a>) analyses as examples. We will use the dimension reduction output objects that we created in <a href="interpretation.html"><span>Chapter&nbsp;11</span></a>, which contains the results of the DIABLO and MOFA runs stored in a standardised format (<a href="interpretation.html#sec-interpretation-standard-output"><span>Section&nbsp;11.2</span></a>):</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mofa_output</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -356,8 +355,8 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="evaluating-features-prioritisation" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="evaluating-features-prioritisation">
-<span class="header-section-number">13.2</span> Evaluating features prioritisation</h2>
+</section><section id="evaluating-features-prioritisation" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="evaluating-features-prioritisation">
+<span class="header-section-number">12.2</span> Evaluating features prioritisation</h2>
 <p>First, we can evaluate the integration results in terms of the features prioritisation, i.e.&nbsp;the ranking of the features for each latent dimension in terms of their importance score. We can for example assess whether the features that were given the highest scores for some latent components were also highlighted through single-omics analyses, or compare the importance score of groups of features, for example compounds from different chemical classes or genes from different gene families.</p>
 <p>Here, we will compare the DIABLO results to the results of traditional single-omics analyses. In our case, a GWAS and eQTL analysis were performed to detect genomic variants associated with the disease status of the samples. The mode of action of significant markers (i.e.&nbsp;QTL, cis-eQTL or trans-eQTL). The GWAS status (high-scoring or not) of each marker was recorded in the genomics features metadata table:</p>
 <div class="cell">
@@ -404,8 +403,8 @@ div.csl-indent {
 <span><span class="co">#&gt; HMDB00060        Not DE</span></span>
 <span><span class="co">#&gt; HMDB00062   upregulated</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="table-of-counts-of-selected-genes-against-a-grouping" class="level3" data-number="13.2.1"><h3 data-number="13.2.1" class="anchored" data-anchor-id="table-of-counts-of-selected-genes-against-a-grouping">
-<span class="header-section-number">13.2.1</span> Table of counts of selected genes against a grouping</h3>
+<section id="table-of-counts-of-selected-genes-against-a-grouping" class="level3" data-number="12.2.1"><h3 data-number="12.2.1" class="anchored" data-anchor-id="table-of-counts-of-selected-genes-against-a-grouping">
+<span class="header-section-number">12.2.1</span> Table of counts of selected genes against a grouping</h3>
 <p>As DIABLO performs feature selection, it is of interest to assess how many (e)QTLs and DE genes and compounds were retained for each latent component. We can use the <code><a href="https://rdrr.io/pkg/moiraine/man/evaluate_feature_selection_table.html">evaluate_feature_selection_table()</a></code> function to generate a table of counts comparing the features selected for each latent component to a features grouping (in our case, the results of the single-omics analyses). The features grouping is obtained from the features metadata stored in the <code>MultiDataSet</code> object. The function takes as input the integration result object, the <code>MultiDataSet</code> object and a named list giving for each dataset the name of the column from their features metadata table containing the features grouping:</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">diablo_evaluation_counts_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/evaluate_feature_selection_table.html">evaluate_feature_selection_table</a></span><span class="op">(</span></span>
@@ -424,11 +423,11 @@ div.csl-indent {
 <span><span class="co">#&gt;   method latent_dimension dataset    feature_label selected not_selected</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt;            &lt;fct&gt;      &lt;chr&gt;            &lt;int&gt;        &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 DIABLO Component 1      snps       cis eQTL             1            2</span></span>
-<span><span class="co">#&gt; 2 DIABLO Component 1      snps       non signif.         22          970</span></span>
+<span><span class="co">#&gt; 2 DIABLO Component 1      snps       non signif.         17          975</span></span>
 <span><span class="co">#&gt; 3 DIABLO Component 1      snps       QTL                  1            0</span></span>
 <span><span class="co">#&gt; 4 DIABLO Component 1      snps       trans eQTL           1            3</span></span>
-<span><span class="co">#&gt; 5 DIABLO Component 1      rnaseq     DE                  20           55</span></span>
-<span><span class="co">#&gt; 6 DIABLO Component 1      rnaseq     Not DE              10          909</span></span>
+<span><span class="co">#&gt; 5 DIABLO Component 1      rnaseq     DE                  23           52</span></span>
+<span><span class="co">#&gt; 6 DIABLO Component 1      rnaseq     Not DE               7          912</span></span>
 <span><span class="co">#&gt; 7 DIABLO Component 1      metabolome DE                  10           20</span></span>
 <span><span class="co">#&gt; 8 DIABLO Component 1      metabolome Not DE               0           25</span></span>
 <span></span>
@@ -442,9 +441,9 @@ div.csl-indent {
 <span><span class="co">#&gt; 3 DIABLO Component 2      snps       QTL                  0            1</span></span>
 <span><span class="co">#&gt; 4 DIABLO Component 2      snps       trans eQTL           0            4</span></span>
 <span><span class="co">#&gt; 5 DIABLO Component 2      rnaseq     DE                   0           75</span></span>
-<span><span class="co">#&gt; 6 DIABLO Component 2      rnaseq     Not DE              30          889</span></span>
-<span><span class="co">#&gt; 7 DIABLO Component 2      metabolome DE                   3           27</span></span>
-<span><span class="co">#&gt; 8 DIABLO Component 2      metabolome Not DE               2           23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6 DIABLO Component 2      rnaseq     Not DE              15          904</span></span>
+<span><span class="co">#&gt; 7 DIABLO Component 2      metabolome DE                   6           24</span></span>
+<span><span class="co">#&gt; 8 DIABLO Component 2      metabolome Not DE               4           21</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can see that for the first latent component, only three out of the eight (e)QTLs were selected <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>; two-third of the genes selected were found differentially expressed; and all ten of the selected compounds were found differentially expressed. Conversely, for the second latent component, none of the selected markers were QTLs, and none of the selected genes were differentially expressed. This makes sense, as the DIABLO analysis was run with the goal of separating the control and infected animals; therefore it makes sense that the features selected for the first latent component, which is the one best able to separate the groups, are the features detected as differentially expressed. On the contrary, the second latent component is constructed to be orthogonal to the first one, therefore the features selected will likely not be differentially expressed.</p>
 <p>With this function, we can focus on only some datasets, by changing which datasets are present in the list passed to <code>col_names</code>. Similarly, we can select specific latent dimensions through the <code>latent_dimensions</code> parameter. For example, let us count the number of DE genes selected with the first latent component:</p>
@@ -458,12 +457,12 @@ div.csl-indent {
 <span><span class="co">#&gt; # A tibble: 2 × 6</span></span>
 <span><span class="co">#&gt;   method latent_dimension dataset feature_label selected not_selected</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt;            &lt;fct&gt;   &lt;chr&gt;            &lt;int&gt;        &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 DIABLO Component 1      rnaseq  DE                  20           55</span></span>
-<span><span class="co">#&gt; 2 DIABLO Component 1      rnaseq  Not DE              10          909</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 DIABLO Component 1      rnaseq  DE                  23           52</span></span>
+<span><span class="co">#&gt; 2 DIABLO Component 1      rnaseq  Not DE               7          912</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that this function is useful for integration methods that perform feature selection, such as DIABLO or sO2PLS, but will be irrelevant for methods that do not perform feature selection (for example MOFA tends to assign a non-null weight to most features).</p>
-</section><section id="plotting-features-weight-against-a-covariate" class="level3" data-number="13.2.2"><h3 data-number="13.2.2" class="anchored" data-anchor-id="plotting-features-weight-against-a-covariate">
-<span class="header-section-number">13.2.2</span> Plotting features weight against a covariate</h3>
+</section><section id="plotting-features-weight-against-a-covariate" class="level3" data-number="12.2.2"><h3 data-number="12.2.2" class="anchored" data-anchor-id="plotting-features-weight-against-a-covariate">
+<span class="header-section-number">12.2.2</span> Plotting features weight against a covariate</h3>
 <p>We can go further and compare the weights or importance scores given to the features for each latent component to the outcome of the single-omics results. This can be done with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_covariate.html">plot_features_weight_covariate()</a></code> function. As its name suggests, this function displays the features weight for each latent dimension against some covariate obtained from the features metadata tables. Again, we will look at the results of the GWAS/QTL and DE analyses and see whether (e)QTLs, DE genes and compounds were assigned higher weights is some of the latent components constructed with DIABLO. The input parameters for this function are similar to those for the <code><a href="https://rdrr.io/pkg/moiraine/man/evaluate_feature_selection_table.html">evaluate_feature_selection_table()</a></code> function: we need to pass the results of the integration method, the <code>MultiDataSet</code> object, and the named list giving the column in each features metadata table containing information about the features grouping. The latter is passed to the <code>covariate</code> argument of the function. If some datasets are not present in this list, they won’t be present in the plot.</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_covariate.html">plot_features_weight_covariate</a></span><span class="op">(</span></span>
@@ -548,11 +547,11 @@ div.csl-indent {
 </div>
 </div>
 <p>Note that for continuous covariates, as with the function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate()</a></code>, a loess curve is fit to summarise the trend between the covariates and the features weight. If <code>colour_by</code> is used, and the corresponding variables are categorical, a different loess curve is fitted for each category. If instead the <code>colour_by</code> variables are numeric, a single loess curve will be plotted for each latent dimension and dataset.</p>
-</section></section><section id="features-set-enrichment" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="features-set-enrichment">
-<span class="header-section-number">13.3</span> Features set enrichment</h2>
+</section></section><section id="features-set-enrichment" class="level2" data-number="12.3"><h2 data-number="12.3" class="anchored" data-anchor-id="features-set-enrichment">
+<span class="header-section-number">12.3</span> Features set enrichment</h2>
 <p>In addition to looking at the distribution of features importance score or counting the number of selected features, we can also perform an enrichment to assess whether each of the latent dimensions constructed is enriched for some features set of interest. Features sets are groups of features that belong in a similar category: e.g.&nbsp;all features involved in a same biological pathway, or with the same GO term annotation, or even all up- or down-regulated features. They are built using prior knowledge, for example information extracted from databases, or constructed from the results of previous analyses. Importantly, a feature can belong to more than one set (for example a compound can be involved in several biological pathways).</p>
-<section id="constructing-feature-sets" class="level3" data-number="13.3.1"><h3 data-number="13.3.1" class="anchored" data-anchor-id="constructing-feature-sets">
-<span class="header-section-number">13.3.1</span> Constructing feature sets</h3>
+<section id="constructing-feature-sets" class="level3" data-number="12.3.1"><h3 data-number="12.3.1" class="anchored" data-anchor-id="constructing-feature-sets">
+<span class="header-section-number">12.3.1</span> Constructing feature sets</h3>
 <p>With the <code>moiraine</code> package, there are two ways to obtain feature sets to perform enrichment or for plots. The first one is to extract information from the features metadata tables stored in our <code>MultiDataSet</code> object; which is done with the <code><a href="https://rdrr.io/pkg/moiraine/man/make_feature_sets_from_fm.html">make_feature_sets_from_fm()</a></code> function. Note that if some features grouping is stored in the features metadata, it means that features can only belong to one set. For example, we will use the results of the single-omics analyses to group the features into sets: QTLs, cis-eQTLs, trans-eQTLs and non significant genomics markers, and up-regulated, down-regulated or non DE genes and compounds. Again, the function accepts a named list giving for each dataset the name of the column in the corresponding features metadata table to use to generate the groups, passed to the <code>col_names</code> argument of the function. It returns a named list where each element is a feature set, and contains the ID of the features in the set:</p>
 <div class="targets-chunk">
 <div class="cell">
@@ -681,8 +680,8 @@ div.csl-indent {
 <span><span class="co">#&gt;  $ GO:0006355: chr [1:915] "ENSBTAG00000000009" "ENSBTAG00000000040" "ENSBTAG00000000052" "ENSBTAG00000000074" ...</span></span>
 <span><span class="co">#&gt;  $ GO:0006357: chr [1:627] "ENSBTAG00000000009" "ENSBTAG00000000039" "ENSBTAG00000000052" "ENSBTAG00000000154" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="filtering-feature-sets-against-the-datasets" class="level3" data-number="13.3.2"><h3 data-number="13.3.2" class="anchored" data-anchor-id="filtering-feature-sets-against-the-datasets">
-<span class="header-section-number">13.3.2</span> Filtering feature sets against the datasets</h3>
+</section><section id="filtering-feature-sets-against-the-datasets" class="level3" data-number="12.3.2"><h3 data-number="12.3.2" class="anchored" data-anchor-id="filtering-feature-sets-against-the-datasets">
+<span class="header-section-number">12.3.2</span> Filtering feature sets against the datasets</h3>
 <p>Before performing any enrichment, we want to make sure that the only features in the sets are the ones that were measured in the datasets. This is part of ensuring that an appropriate background or reference features set is used when performing enrichment (see for example <span class="citation" data-cites="timmons2015">Timmons, Szkop, and Gallagher (<a href="references.html#ref-timmons2015" role="doc-biblioref">2015</a>)</span>). To this end, the <code><a href="https://rdrr.io/pkg/moiraine/man/reduce_feature_sets_data.html">reduce_feature_sets_data()</a></code> function filters a list of feature sets so that only features present in a given <code>MultiDataSet</code> object are kept in the sets; it then removes empty feature sets. Note that for this filtering, we are using the <code>MultiDataSet</code> object that contains the full omics datasets, before pre-filtering:</p>
 <div class="targets-chunk">
 <div class="cell">
@@ -699,8 +698,8 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">go_sets_filtered</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="checking-the-number-of-features-assigned-to-sets" class="level3" data-number="13.3.3"><h3 data-number="13.3.3" class="anchored" data-anchor-id="checking-the-number-of-features-assigned-to-sets">
-<span class="header-section-number">13.3.3</span> Checking the number of features assigned to sets</h3>
+</section><section id="checking-the-number-of-features-assigned-to-sets" class="level3" data-number="12.3.3"><h3 data-number="12.3.3" class="anchored" data-anchor-id="checking-the-number-of-features-assigned-to-sets">
+<span class="header-section-number">12.3.3</span> Checking the number of features assigned to sets</h3>
 <p>We can then check the number of features that are assigned to at least one set with the <code><a href="https://rdrr.io/pkg/moiraine/man/check_feature_sets.html">check_feature_sets()</a></code> function, to get an idea of the coverage of our annotation. We will restrict the check to the transcriptomics dataset, since the GO annotation only covers genes:</p>
 <div class="cell">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sets_check</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_feature_sets.html">check_feature_sets</a></span><span class="op">(</span></span>
@@ -717,8 +716,8 @@ div.csl-indent {
 <span><span class="co">#&gt; 1 rnaseq        14364 20335          0.706 rnaseq dataset: 14,364 of 20,335 (70…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The function returns a tibble giving the name of the datasets, the number and fraction of features from the dataset that are present in at least one feature set (<code>n_annotated</code> and <code>frac_annotated</code> columns), the total number of features in the corresponding dataset (<code>n</code> column), as well as sentence summarising this information (<code>message</code> column) that is useful for reporting. In this example, 70.6% of the genes from the transcriptomics dataset are assigned to at least one GO term. This is important to check as the annotation coverage will impact the quality of the enrichment results that we get.</p>
-</section><section id="enrichment-of-latent-dimensions" class="level3" data-number="13.3.4"><h3 data-number="13.3.4" class="anchored" data-anchor-id="enrichment-of-latent-dimensions">
-<span class="header-section-number">13.3.4</span> Enrichment of latent dimensions</h3>
+</section><section id="enrichment-of-latent-dimensions" class="level3" data-number="12.3.4"><h3 data-number="12.3.4" class="anchored" data-anchor-id="enrichment-of-latent-dimensions">
+<span class="header-section-number">12.3.4</span> Enrichment of latent dimensions</h3>
 <p>We are now ready to perform an enrichment of the latent dimensions. There are many ways to perform functional enrichment (e.g.&nbsp;see <span class="citation" data-cites="zhao2023">Zhao and Rhee (<a href="references.html#ref-zhao2023" role="doc-biblioref">2023</a>)</span>): based on over-representation, feature ranking, or even topology when the feature sets are representing biological pathways. Here, we are not trying to provide an exhaustive list of options; however it is relatively straightforward to extract from an integration method output the features importance or list of selected features for a specific latent dimension, and use it for enrichment with the package of your choice.</p>
 <p>In <code>moiraine</code>, we use the <code>gage</code> package <span class="citation" data-cites="luo2009">(<a href="references.html#ref-luo2009" role="doc-biblioref">Luo et al. 2009</a>)</span> to perform the enrichment of each latent dimension against a list of feature sets. It uses a two-sample t-test to assess whether features in a set have higher importance scores than features not in the set. The <code><a href="https://rdrr.io/pkg/moiraine/man/evaluate_method_enrichment.html">evaluate_method_enrichment()</a></code> function takes as input the results from an integration method in a standardised format (here our <code>diablo_output</code> object), and performs an enrichment for each latent dimension using the features sets provided as a list. We can focus on specific datasets or latent dimensions by passing their name to the <code>datasets</code> or <code>latent_dimensions</code> arguments, respectively. There are a number of parameters that need to be set:</p>
 <ul>
@@ -776,12 +775,12 @@ div.csl-indent {
 <span><span class="co">#&gt; # A tibble: 6 × 7</span></span>
 <span><span class="co">#&gt;   latent_dimension set_id     stat_mean pvalue adj_pvalue set_size go_name      </span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;            &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;        </span></span>
-<span><span class="co">#&gt; 1 Component 3      GO:0035249     1.23   0.114      0.608       24 synaptic tra…</span></span>
-<span><span class="co">#&gt; 2 Component 3      GO:0007157     0.993  0.165      0.608       24 heterophilic…</span></span>
-<span><span class="co">#&gt; 3 Component 3      GO:0016311     0.969  0.168      0.608      100 dephosphoryl…</span></span>
-<span><span class="co">#&gt; 4 Component 3      GO:0045930     0.984  0.169      0.608       20 negative reg…</span></span>
-<span><span class="co">#&gt; 5 Component 3      GO:0045666     0.968  0.169      0.608       40 positive reg…</span></span>
-<span><span class="co">#&gt; 6 Component 3      GO:0006470     0.957  0.170      0.608      138 protein deph…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 Component 2      GO:0006935     1.39  0.0846      0.601       57 chemotaxis   </span></span>
+<span><span class="co">#&gt; 2 Component 2      GO:0042274     1.37  0.0889      0.601       54 ribosomal sm…</span></span>
+<span><span class="co">#&gt; 3 Component 2      GO:0050727     1.27  0.104       0.601       56 regulation o…</span></span>
+<span><span class="co">#&gt; 4 Component 2      GO:0006364     0.977 0.166       0.601       77 rRNA process…</span></span>
+<span><span class="co">#&gt; 5 Component 2      GO:0030890     0.979 0.168       0.601       30 positive reg…</span></span>
+<span><span class="co">#&gt; 6 Component 2      GO:0043029     0.983 0.168       0.601       25 T cell homeo…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In that case, unsurprisingly, neither of the latent components were enriched for any GO term. This makes sense since DIABLO performed a strong feature selection, so very few genes had non-null weights. We can repeat the enrichment with the MOFA integration results to show more interesting results. We will run the enrichment only for the first three factors for conciseness:</p>
 <div class="targets-chunk">
@@ -811,12 +810,12 @@ div.csl-indent {
 <span><span class="co">#&gt; # A tibble: 6 × 7</span></span>
 <span><span class="co">#&gt;   latent_dimension set_id     stat_mean   pvalue adj_pvalue set_size go_name    </span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;            &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;      </span></span>
-<span><span class="co">#&gt; 1 Factor 3         GO:0031424      4.13 0.000275      0.548       20 keratiniza…</span></span>
-<span><span class="co">#&gt; 2 Factor 3         GO:0045109      3.59 0.000713      0.711       25 intermedia…</span></span>
-<span><span class="co">#&gt; 3 Factor 3         GO:0030855      2.56 0.00648       0.767       56 epithelial…</span></span>
-<span><span class="co">#&gt; 4 Factor 3         GO:0031069      2.07 0.0246        0.767       25 hair folli…</span></span>
-<span><span class="co">#&gt; 5 Factor 3         GO:0030216      1.89 0.0320        0.767       49 keratinocy…</span></span>
-<span><span class="co">#&gt; 6 Factor 3         GO:0098609      1.82 0.0350        0.767      120 cell-cell …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 Factor 3         GO:0031424      4.13 0.000275      0.549       20 keratiniza…</span></span>
+<span><span class="co">#&gt; 2 Factor 3         GO:0045109      3.60 0.000713      0.711       25 intermedia…</span></span>
+<span><span class="co">#&gt; 3 Factor 3         GO:0030855      2.56 0.00651       0.764       56 epithelial…</span></span>
+<span><span class="co">#&gt; 4 Factor 3         GO:0031069      2.07 0.0244        0.764       25 hair folli…</span></span>
+<span><span class="co">#&gt; 5 Factor 3         GO:0030216      1.90 0.0317        0.764       49 keratinocy…</span></span>
+<span><span class="co">#&gt; 6 Factor 3         GO:0001942      1.82 0.0373        0.764       38 hair folli…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can see for example that MOFA factor 3 seems enriched in genes associated with the keratinization GO term (<code>GO:0031424</code>). For factor 1 (the factor separating the healthy and infected animals), the keratinization term also yields the smallest p-value, together with several GO terms related to inflammation (even though after correction for multiple testing these p-values are no longer significant):</p>
 <div class="cell">
@@ -826,15 +825,15 @@ div.csl-indent {
 <span><span class="co">#&gt; # A tibble: 6 × 7</span></span>
 <span><span class="co">#&gt;   latent_dimension set_id     stat_mean  pvalue adj_pvalue set_size go_name     </span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;            &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       </span></span>
-<span><span class="co">#&gt; 1 Factor 1         GO:0031424      2.75 0.00461      0.786       20 keratinizat…</span></span>
-<span><span class="co">#&gt; 2 Factor 1         GO:0045109      2.47 0.00867      0.786       25 intermediat…</span></span>
+<span><span class="co">#&gt; 1 Factor 1         GO:0031424      2.70 0.00516      0.786       20 keratinizat…</span></span>
+<span><span class="co">#&gt; 2 Factor 1         GO:0045109      2.43 0.00948      0.786       25 intermediat…</span></span>
 <span><span class="co">#&gt; 3 Factor 1         GO:0010951      2.15 0.0208       0.786       25 negative re…</span></span>
-<span><span class="co">#&gt; 4 Factor 1         GO:0006954      1.86 0.0317       0.786      165 inflammator…</span></span>
-<span><span class="co">#&gt; 5 Factor 1         GO:0050727      1.75 0.0424       0.786       56 regulation …</span></span>
-<span><span class="co">#&gt; 6 Factor 1         GO:0007166      1.62 0.0534       0.786      138 cell surfac…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 4 Factor 1         GO:0006954      1.86 0.0318       0.786      165 inflammator…</span></span>
+<span><span class="co">#&gt; 5 Factor 1         GO:0050727      1.75 0.0421       0.786       56 regulation …</span></span>
+<span><span class="co">#&gt; 6 Factor 1         GO:0007166      1.62 0.0533       0.786      138 cell surfac…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="plotting-features-weight-for-feature-sets" class="level3" data-number="13.3.5"><h3 data-number="13.3.5" class="anchored" data-anchor-id="plotting-features-weight-for-feature-sets">
-<span class="header-section-number">13.3.5</span> Plotting features weight for feature sets</h3>
+</section><section id="plotting-features-weight-for-feature-sets" class="level3" data-number="12.3.5"><h3 data-number="12.3.5" class="anchored" data-anchor-id="plotting-features-weight-for-feature-sets">
+<span class="header-section-number">12.3.5</span> Plotting features weight for feature sets</h3>
 <p>We can dig into the results of the enrichment by visualising the distribution of features weight or importance score between features that are in a specific features set vs features that are not in the set. For example, to continue with the MOFA example, let’s look at the importance score of genes associated with the GO term <code>GO:0031424</code>. We’ll only look at factors 1 and 3 for this example:</p>
 <div class="cell">
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_set.html">plot_features_weight_set</a></span><span class="op">(</span></span>
@@ -868,8 +867,8 @@ div.csl-indent {
 </div>
 </div>
 <p>This is the distribution of values that were used for the enrichment test, but it’s not very useful to look at since the vast majority of the genes have a weight of zero.</p>
-</section></section><section id="assessing-samples-clustering" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="assessing-samples-clustering">
-<span class="header-section-number">13.4</span> Assessing samples clustering</h2>
+</section></section><section id="assessing-samples-clustering" class="level2" data-number="12.4"><h2 data-number="12.4" class="anchored" data-anchor-id="assessing-samples-clustering">
+<span class="header-section-number">12.4</span> Assessing samples clustering</h2>
 <p>Another aspect that we can evaluate is whether the integration method was able to separate different groups of samples, for example to identify differences between control and treatment samples. This is done by comparing the coordinates of the samples in the space spanned by the latent dimensions created (i.e.&nbsp;the samples score) to a samples label that is obtained from the samples metadata. We can use for that the silhouette score, which is a metric that quantifies how well-defined different clusters are in a given space, i.e.&nbsp;how well-grouped points from a same cluster (here samples group) are, and how separate they are from points from other clusters. First, a silhouette score (or silhouette width) is computed for each individual point (here sample). Then, these values are averaged over all points in a given cluster to yield a cluster silhouette score. The resulting values, both at the point- and cluster- level, can range from -1 to 1. Negative values indicate that the point is grouped with points from another cluster, while positive values indicate that the point is grouped with other points from its cluster. Values close to 0 show that the clustering is ambiguous, while scores close to 1 are indicative of well-defined clusters.</p>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/compute_samples_silhouette.html">compute_samples_silhouette()</a></code> function relies on the <code><a href="https://rdrr.io/pkg/cluster/man/silhouette.html">cluster::silhouette()</a></code> function from the <code>cluster</code> package to compute silhouette score. It takes as input the integration results in a standardised format, as well as the <code>MultiDataSet</code> object (to access the samples metadata) and the name of the column in the samples metadata table that contains the samples grouping information. In addition, it is possible to specify the distance metric that should be used to compute distances between the samples (through the <code>distance_metric</code> argument). By default, the function uses euclidean distances, but other options are available.</p>
 <p>Here, we will check how well DIABLO managed to separate the bruising groups:</p>
@@ -893,24 +892,24 @@ div.csl-indent {
 <span><span class="co">#&gt; # A tibble: 135 × 4</span></span>
 <span><span class="co">#&gt;    sample_id group   neighbour_group silhouette_width</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;     &lt;fct&gt;   &lt;fct&gt;                      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 G1979     BRD     Control                    0.362</span></span>
-<span><span class="co">#&gt;  2 G2500     BRD     Control                    0.267</span></span>
-<span><span class="co">#&gt;  3 G3030     BRD     Control                    0.325</span></span>
-<span><span class="co">#&gt;  4 G3068     BRD     Control                    0.373</span></span>
-<span><span class="co">#&gt;  5 G3121     BRD     Control                    0.448</span></span>
-<span><span class="co">#&gt;  6 G3315     Control BRD                        0.526</span></span>
-<span><span class="co">#&gt;  7 G3473     Control BRD                        0.444</span></span>
-<span><span class="co">#&gt;  8 G3474     Control BRD                        0.497</span></span>
-<span><span class="co">#&gt;  9 G3550     BRD     Control                    0.411</span></span>
-<span><span class="co">#&gt; 10 G3594     Control BRD                        0.542</span></span>
+<span><span class="co">#&gt;  1 G1979     BRD     Control                    0.334</span></span>
+<span><span class="co">#&gt;  2 G2500     BRD     Control                    0.255</span></span>
+<span><span class="co">#&gt;  3 G3030     BRD     Control                    0.328</span></span>
+<span><span class="co">#&gt;  4 G3068     BRD     Control                    0.370</span></span>
+<span><span class="co">#&gt;  5 G3121     BRD     Control                    0.423</span></span>
+<span><span class="co">#&gt;  6 G3315     Control BRD                        0.529</span></span>
+<span><span class="co">#&gt;  7 G3473     Control BRD                        0.355</span></span>
+<span><span class="co">#&gt;  8 G3474     Control BRD                        0.477</span></span>
+<span><span class="co">#&gt;  9 G3550     BRD     Control                    0.362</span></span>
+<span><span class="co">#&gt; 10 G3594     Control BRD                        0.567</span></span>
 <span><span class="co">#&gt; # ℹ 125 more rows</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $groups_average_silhouette</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span><span class="co">#&gt;   group   group_average_width</span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;             &lt;dbl[1d]&gt;</span></span>
-<span><span class="co">#&gt; 1 BRD                   0.317</span></span>
-<span><span class="co">#&gt; 2 Control               0.482</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 BRD                   0.309</span></span>
+<span><span class="co">#&gt; 2 Control               0.455</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The function returns a list with two elements: a tibble of samples silhouette widths (<code>samples_silhouette</code>), and a tibble of groups average silhouette (<code>groups_average_silhouette</code>). In the first table, the <code>group</code> column indicates for each sample the group to which it is assigned (based on the samples metadata), and the <code>neighbour_group</code> column indicates the closest other group in the latent dimensions space (which is not very useful in this case since we only have two groups). The samples silhouette width is shown in the <code>silhouette_width</code> column. This is very useful to identify “outlier” samples that were not grouped as expected:</p>
 <div class="cell">
@@ -919,7 +918,7 @@ div.csl-indent {
 <span><span class="co">#&gt; # A tibble: 1 × 4</span></span>
 <span><span class="co">#&gt;   sample_id group neighbour_group silhouette_width</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;     &lt;fct&gt; &lt;fct&gt;                      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 P4735     BRD   Control                   -0.118</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 P4735     BRD   Control                   -0.217</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here, there is one sample from an infected animal that clusters with the control samples in the latent dimensions space.</p>
 <p>The average silhouette score for the two disease status groups are both positive, although not close to 1, indicating that DIABLO did a reasonable job of identifying differences between the two groups:</p>
@@ -928,8 +927,8 @@ div.csl-indent {
 <span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span><span class="co">#&gt;   group   group_average_width</span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;             &lt;dbl[1d]&gt;</span></span>
-<span><span class="co">#&gt; 1 BRD                   0.317</span></span>
-<span><span class="co">#&gt; 2 Control               0.482</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 BRD                   0.309</span></span>
+<span><span class="co">#&gt; 2 Control               0.455</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This is expected, since DIABLO is a supervised integration method which tries to maximise the separation between groups of samples.</p>
 <p>We can repeat the operation for the MOFA results. By default, the <code><a href="https://rdrr.io/pkg/moiraine/man/compute_samples_silhouette.html">compute_samples_silhouette()</a></code> function uses all latent dimensions to compute distances between samples, but it is possible to specify which latent dimensions should be considered through the <code>latent_dimensions</code> argument. For example, we will see how the first three MOFA factors separate the disease status groups:</p>
@@ -953,8 +952,8 @@ div.csl-indent {
 <span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span><span class="co">#&gt;   group   group_average_width</span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;             &lt;dbl[1d]&gt;</span></span>
-<span><span class="co">#&gt; 1 BRD                   0.256</span></span>
-<span><span class="co">#&gt; 2 Control               0.522</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 BRD                   0.257</span></span>
+<span><span class="co">#&gt; 2 Control               0.524</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Both groups’ silhouette scores are positive, although the BRD group silhouette is not very high. Also, more samples have a silhouette width below 0.</p>
 <div class="cell">
@@ -963,17 +962,17 @@ div.csl-indent {
 <span><span class="co">#&gt; # A tibble: 11 × 4</span></span>
 <span><span class="co">#&gt;    sample_id group neighbour_group silhouette_width</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;     &lt;fct&gt; &lt;fct&gt;                      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 O3720     BRD   Control                  -0.432 </span></span>
-<span><span class="co">#&gt;  2 O4492     BRD   Control                  -0.249 </span></span>
-<span><span class="co">#&gt;  3 O4919     BRD   Control                  -0.442 </span></span>
-<span><span class="co">#&gt;  4 O5003     BRD   Control                  -0.243 </span></span>
-<span><span class="co">#&gt;  5 P4666     BRD   Control                  -0.0993</span></span>
-<span><span class="co">#&gt;  6 P4735     BRD   Control                  -0.431 </span></span>
-<span><span class="co">#&gt;  7 R50       BRD   Control                  -0.168 </span></span>
-<span><span class="co">#&gt;  8 R5979     BRD   Control                  -0.0102</span></span>
-<span><span class="co">#&gt;  9 R9887     BRD   Control                  -0.0682</span></span>
-<span><span class="co">#&gt; 10 Y3059     BRD   Control                  -0.0110</span></span>
-<span><span class="co">#&gt; 11 Y9745     BRD   Control                  -0.0340</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;  1 O3720     BRD   Control                 -0.430  </span></span>
+<span><span class="co">#&gt;  2 O4492     BRD   Control                 -0.246  </span></span>
+<span><span class="co">#&gt;  3 O4919     BRD   Control                 -0.440  </span></span>
+<span><span class="co">#&gt;  4 O5003     BRD   Control                 -0.243  </span></span>
+<span><span class="co">#&gt;  5 P4666     BRD   Control                 -0.0994 </span></span>
+<span><span class="co">#&gt;  6 P4735     BRD   Control                 -0.429  </span></span>
+<span><span class="co">#&gt;  7 R50       BRD   Control                 -0.168  </span></span>
+<span><span class="co">#&gt;  8 R5979     BRD   Control                 -0.00625</span></span>
+<span><span class="co">#&gt;  9 R9887     BRD   Control                 -0.0659 </span></span>
+<span><span class="co">#&gt; 10 Y3059     BRD   Control                 -0.00504</span></span>
+<span><span class="co">#&gt; 11 Y9745     BRD   Control                 -0.0358</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that with MOFA, since the different factors represent different trends within the data, it is possible that using more factors will yield smaller average silhouette groups. For example if we used all constructed factors:</p>
 <div class="cell">
@@ -985,12 +984,12 @@ div.csl-indent {
 <span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span><span class="co">#&gt;   group   group_average_width</span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;             &lt;dbl[1d]&gt;</span></span>
-<span><span class="co">#&gt; 1 BRD                  0.0671</span></span>
+<span><span class="co">#&gt; 1 BRD                  0.0658</span></span>
 <span><span class="co">#&gt; 2 Control              0.272</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In such cases, it makes more sense to evaluate the ability of one or two latent dimensions to separate the samples group.</p>
-</section><section id="recap-targets-list" class="level1" data-number="14"><h1 data-number="14">
-<span class="header-section-number">14</span> Recap – targets list</h1>
+</section><section id="recap-targets-list" class="level1" data-number="13"><h1 data-number="13">
+<span class="header-section-number">13</span> Recap – targets list</h1>
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for evaluating the output of an integration method:
@@ -1135,7 +1134,7 @@ Zhao, Kangmei, and Seung Yon Rhee. 2023. <span>“Interpreting Omics Data with P
 </div>
 </section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1"><p>Note that in the full genomics dataset, 36 markers were detected as QTLs or eQTLs, however only eight of them were retained in the features preselection step ( <a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;7.3.2</span></a>). For a real analysis, all 36 markers would have also been included in the prefiltered dataset even if they did not pass the preselection.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Note that in the full genomics dataset, 36 markers were detected as QTLs or eQTLs, however only eight of them were retained in the features preselection step ( <a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;6.3.2</span></a>). For a real analysis, all 36 markers would have also been included in the prefiltered dataset even if they did not pass the preselection.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1270,12 +1269,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./interpretation.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./comparison.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

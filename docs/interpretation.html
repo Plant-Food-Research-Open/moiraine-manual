@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>The moiraine R package user manual - 12&nbsp; Interpreting the integration results</title>
+<title>The moiraine R package user manual - 11&nbsp; Interpreting the integration results</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,7 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -133,6 +133,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The moiraine R package user manual</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/PlantandFoodResearch/moiraine" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -149,12 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -167,27 +166,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
   </div>
 </li>
       </ul>
@@ -202,17 +201,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
   </div>
 </li>
       </ul>
@@ -227,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -242,17 +241,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -268,40 +267,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#sec-interpretation-dim-reduction" id="toc-sec-interpretation-dim-reduction" class="nav-link active" data-scroll-target="#sec-interpretation-dim-reduction"><span class="toc-section-number">12.1</span>  Dimension reduction methods</a></li>
+<li><a href="#sec-interpretation-dim-reduction" id="toc-sec-interpretation-dim-reduction" class="nav-link active" data-scroll-target="#sec-interpretation-dim-reduction"><span class="toc-section-number">11.1</span>  Dimension reduction methods</a></li>
   <li>
-<a href="#sec-interpretation-standard-output" id="toc-sec-interpretation-standard-output" class="nav-link" data-scroll-target="#sec-interpretation-standard-output"><span class="toc-section-number">12.2</span>  Generating a standardised output</a>
+<a href="#sec-interpretation-standard-output" id="toc-sec-interpretation-standard-output" class="nav-link" data-scroll-target="#sec-interpretation-standard-output"><span class="toc-section-number">11.2</span>  Generating a standardised output</a>
   <ul class="collapse">
-<li><a href="#get_output-function" id="toc-get_output-function" class="nav-link" data-scroll-target="#get_output-function"><span class="toc-section-number">12.2.1</span>  <code>get_output</code> function</a></li>
-  <li><a href="#averaging-latent-dimensions-over-datasets" id="toc-averaging-latent-dimensions-over-datasets" class="nav-link" data-scroll-target="#averaging-latent-dimensions-over-datasets"><span class="toc-section-number">12.2.2</span>  Averaging latent dimensions over datasets</a></li>
+<li><a href="#get_output-function" id="toc-get_output-function" class="nav-link" data-scroll-target="#get_output-function"><span class="toc-section-number">11.2.1</span>  <code>get_output</code> function</a></li>
+  <li><a href="#averaging-latent-dimensions-over-datasets" id="toc-averaging-latent-dimensions-over-datasets" class="nav-link" data-scroll-target="#averaging-latent-dimensions-over-datasets"><span class="toc-section-number">11.2.2</span>  Averaging latent dimensions over datasets</a></li>
   </ul>
 </li>
-  <li><a href="#percentage-of-variance-explained" id="toc-percentage-of-variance-explained" class="nav-link" data-scroll-target="#percentage-of-variance-explained"><span class="toc-section-number">12.3</span>  Percentage of variance explained</a></li>
+  <li><a href="#percentage-of-variance-explained" id="toc-percentage-of-variance-explained" class="nav-link" data-scroll-target="#percentage-of-variance-explained"><span class="toc-section-number">11.3</span>  Percentage of variance explained</a></li>
   <li>
-<a href="#sec-interpretation-samples-scores" id="toc-sec-interpretation-samples-scores" class="nav-link" data-scroll-target="#sec-interpretation-samples-scores"><span class="toc-section-number">12.4</span>  Samples plot</a>
+<a href="#sec-interpretation-samples-scores" id="toc-sec-interpretation-samples-scores" class="nav-link" data-scroll-target="#sec-interpretation-samples-scores"><span class="toc-section-number">11.4</span>  Samples plot</a>
   <ul class="collapse">
-<li><a href="#sec-interpretation-samples-ggpairs" id="toc-sec-interpretation-samples-ggpairs" class="nav-link" data-scroll-target="#sec-interpretation-samples-ggpairs"><span class="toc-section-number">12.4.1</span>  Matrix of scatter plots</a></li>
-  <li><a href="#sec-interpretation-samples-pair" id="toc-sec-interpretation-samples-pair" class="nav-link" data-scroll-target="#sec-interpretation-samples-pair"><span class="toc-section-number">12.4.2</span>  Scatter plot for pair of latent dimensions</a></li>
-  <li><a href="#sec-interpretation-samples-covariate" id="toc-sec-interpretation-samples-covariate" class="nav-link" data-scroll-target="#sec-interpretation-samples-covariate"><span class="toc-section-number">12.4.3</span>  Samples score vs covariate</a></li>
+<li><a href="#sec-interpretation-samples-ggpairs" id="toc-sec-interpretation-samples-ggpairs" class="nav-link" data-scroll-target="#sec-interpretation-samples-ggpairs"><span class="toc-section-number">11.4.1</span>  Matrix of scatter plots</a></li>
+  <li><a href="#sec-interpretation-samples-pair" id="toc-sec-interpretation-samples-pair" class="nav-link" data-scroll-target="#sec-interpretation-samples-pair"><span class="toc-section-number">11.4.2</span>  Scatter plot for pair of latent dimensions</a></li>
+  <li><a href="#sec-interpretation-samples-covariate" id="toc-sec-interpretation-samples-covariate" class="nav-link" data-scroll-target="#sec-interpretation-samples-covariate"><span class="toc-section-number">11.4.3</span>  Samples score vs covariate</a></li>
   </ul>
 </li>
   <li>
-<a href="#feature-plots" id="toc-feature-plots" class="nav-link" data-scroll-target="#feature-plots"><span class="toc-section-number">12.5</span>  Feature plots</a>
+<a href="#feature-plots" id="toc-feature-plots" class="nav-link" data-scroll-target="#feature-plots"><span class="toc-section-number">11.5</span>  Feature plots</a>
   <ul class="collapse">
-<li><a href="#sec-interpretation-features-distr" id="toc-sec-interpretation-features-distr" class="nav-link" data-scroll-target="#sec-interpretation-features-distr"><span class="toc-section-number">12.5.1</span>  Features weight distribution</a></li>
-  <li><a href="#sec-interpretation-features-pair" id="toc-sec-interpretation-features-pair" class="nav-link" data-scroll-target="#sec-interpretation-features-pair"><span class="toc-section-number">12.5.2</span>  Comparing features importance between latent components</a></li>
-  <li><a href="#sec-interpretation-features-top-plot" id="toc-sec-interpretation-features-top-plot" class="nav-link" data-scroll-target="#sec-interpretation-features-top-plot"><span class="toc-section-number">12.5.3</span>  Plotting top features weight</a></li>
-  <li><a href="#sec-interpretation-features-top-table" id="toc-sec-interpretation-features-top-table" class="nav-link" data-scroll-target="#sec-interpretation-features-top-table"><span class="toc-section-number">12.5.4</span>  Extracting top features</a></li>
-  <li><a href="#sec-interpretation-features-selected" id="toc-sec-interpretation-features-selected" class="nav-link" data-scroll-target="#sec-interpretation-features-selected"><span class="toc-section-number">12.5.5</span>  Extracting the selected features</a></li>
-  <li><a href="#sec-interpretation-features-meas" id="toc-sec-interpretation-features-meas" class="nav-link" data-scroll-target="#sec-interpretation-features-meas"><span class="toc-section-number">12.5.6</span>  Features measurements</a></li>
+<li><a href="#sec-interpretation-features-distr" id="toc-sec-interpretation-features-distr" class="nav-link" data-scroll-target="#sec-interpretation-features-distr"><span class="toc-section-number">11.5.1</span>  Features weight distribution</a></li>
+  <li><a href="#sec-interpretation-features-pair" id="toc-sec-interpretation-features-pair" class="nav-link" data-scroll-target="#sec-interpretation-features-pair"><span class="toc-section-number">11.5.2</span>  Comparing features importance between latent components</a></li>
+  <li><a href="#sec-interpretation-features-top-plot" id="toc-sec-interpretation-features-top-plot" class="nav-link" data-scroll-target="#sec-interpretation-features-top-plot"><span class="toc-section-number">11.5.3</span>  Plotting top features weight</a></li>
+  <li><a href="#sec-interpretation-features-top-table" id="toc-sec-interpretation-features-top-table" class="nav-link" data-scroll-target="#sec-interpretation-features-top-table"><span class="toc-section-number">11.5.4</span>  Extracting top features</a></li>
+  <li><a href="#sec-interpretation-features-selected" id="toc-sec-interpretation-features-selected" class="nav-link" data-scroll-target="#sec-interpretation-features-selected"><span class="toc-section-number">11.5.5</span>  Extracting the selected features</a></li>
+  <li><a href="#sec-interpretation-features-meas" id="toc-sec-interpretation-features-meas" class="nav-link" data-scroll-target="#sec-interpretation-features-meas"><span class="toc-section-number">11.5.6</span>  Features measurements</a></li>
   </ul>
 </li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">12.6</span>  Recap – targets list</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">11.6</span>  Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-interpretation" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span></h1>
+<h1 class="title"><span id="sec-interpretation" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span></h1>
 </div>
 
 
@@ -338,8 +337,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
-</details><section id="sec-interpretation-dim-reduction" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="sec-interpretation-dim-reduction">
-<span class="header-section-number">12.1</span> Dimension reduction methods</h2>
+</details><section id="sec-interpretation-dim-reduction" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="sec-interpretation-dim-reduction">
+<span class="header-section-number">11.1</span> Dimension reduction methods</h2>
 <p>Despite relying on very different statistical approaches, the different integration methods included in the pipeline all perform dimension reduction of the omics datasets through feature extraction. That is, they construct a small number of latent components/variables/dimensions (that we refer to as <strong>latent dimensions</strong> in the <code>moiraine</code> package) that capture as much information from the original datasets as possible. A dimension reduction approach typically returns, for each latent dimension constructed, two sets of values:</p>
 <ul>
 <li><p><strong>Features weight</strong>: the contribution of the features from the different omics datasets to the latent dimension. All methods included in the pipeline construct latent dimensions as linear combinations of the original features, and therefore the features contribution is quantified by their weight in the linear combination for the corresponding latent dimension.</p></li>
@@ -350,10 +349,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Understanding the source of the variation captured by each latent dimension: is a given latent dimension representing an important source of biological variation, such as effect of a treatment, or age of the samples? Or do they show a source of technical variation, for example highlighting a group of outlier samples with different omics profiles from the rest of the observations? Answering these questions allows us to identify which latent dimensions capture the biological phenomenon investigated, or whether there are some sources of noise that should be accounted for in follow-up experiments.</p></li>
 <li><p>Investigating which omics features are driving the latent dimensions: once we have identified some latent dimensions of interest, we can look at the features that contribute the most to these dimensions, in order to understand the molecular mechanisms or pathways involved. This is typically done after looking into the phenomenon captured by the latent dimensions, but can also help to identify it.</p></li>
-</ul></section><section id="sec-interpretation-standard-output" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="sec-interpretation-standard-output">
-<span class="header-section-number">12.2</span> Generating a standardised output</h2>
-<section id="get_output-function" class="level3" data-number="12.2.1"><h3 data-number="12.2.1" class="anchored" data-anchor-id="get_output-function">
-<span class="header-section-number">12.2.1</span> <code>get_output</code> function</h3>
+</ul></section><section id="sec-interpretation-standard-output" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="sec-interpretation-standard-output">
+<span class="header-section-number">11.2</span> Generating a standardised output</h2>
+<section id="get_output-function" class="level3" data-number="11.2.1"><h3 data-number="11.2.1" class="anchored" data-anchor-id="get_output-function">
+<span class="header-section-number">11.2.1</span> <code>get_output</code> function</h3>
 <p>In the <code>moiraine</code> package, the output of the different integration methods can be converted to a standardised output containing the pieces of information (features weight, samples score and percentage of variance explained) characteristic of dimension reduction methods, stored in a consistent format. This enables us to use functions for visualisation or analysis that can be applied to the results of any integration method, rather than having to implement one for each object type returned by the different integration packages.</p>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function transforms the output from any integration package included in <code>moiraine</code> into an <code>output_dimension_reduction</code> object, which is a list with three tibbles: <code>features_weight</code>, <code>samples_score</code> and <code>variance_explained</code>:</p>
 <div class="panel-tabset" data-group="method">
@@ -396,26 +395,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; # A tibble: 278 × 3</span></span>
 <span><span class="co">#&gt;    sample_id latent_dimension score</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;     &lt;fct&gt;            &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 G1979     Component 1       3.54</span></span>
-<span><span class="co">#&gt;  2 G2500     Component 1       2.37</span></span>
-<span><span class="co">#&gt;  3 G3030     Component 1       6.47</span></span>
-<span><span class="co">#&gt;  4 G3068     Component 1       6.24</span></span>
-<span><span class="co">#&gt;  5 G3121     Component 1       3.51</span></span>
-<span><span class="co">#&gt;  6 G3315     Component 1      -4.75</span></span>
-<span><span class="co">#&gt;  7 G3473     Component 1      -5.03</span></span>
-<span><span class="co">#&gt;  8 G3474     Component 1      -4.85</span></span>
-<span><span class="co">#&gt;  9 G3550     Component 1       3.69</span></span>
-<span><span class="co">#&gt; 10 G3594     Component 1      -4.74</span></span>
+<span><span class="co">#&gt;  1 G1979     Component 1      -3.63</span></span>
+<span><span class="co">#&gt;  2 G2500     Component 1      -2.46</span></span>
+<span><span class="co">#&gt;  3 G3030     Component 1      -6.42</span></span>
+<span><span class="co">#&gt;  4 G3068     Component 1      -6.16</span></span>
+<span><span class="co">#&gt;  5 G3121     Component 1      -3.39</span></span>
+<span><span class="co">#&gt;  6 G3315     Component 1       4.98</span></span>
+<span><span class="co">#&gt;  7 G3473     Component 1       5.29</span></span>
+<span><span class="co">#&gt;  8 G3474     Component 1       4.97</span></span>
+<span><span class="co">#&gt;  9 G3550     Component 1      -4.17</span></span>
+<span><span class="co">#&gt; 10 G3594     Component 1       4.71</span></span>
 <span><span class="co">#&gt; # ℹ 268 more rows</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $variance_explained</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 3</span></span>
 <span><span class="co">#&gt;   latent_dimension dataset    prop_var_expl</span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;            &lt;fct&gt;              &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 Component 1      rnaseq            0.204 </span></span>
-<span><span class="co">#&gt; 2 Component 1      metabolome        0.176 </span></span>
-<span><span class="co">#&gt; 3 Component 2      rnaseq            0.147 </span></span>
-<span><span class="co">#&gt; 4 Component 2      metabolome        0.0686</span></span>
+<span><span class="co">#&gt; 1 Component 1      rnaseq             0.205</span></span>
+<span><span class="co">#&gt; 2 Component 1      metabolome         0.179</span></span>
+<span><span class="co">#&gt; 3 Component 2      rnaseq             0.147</span></span>
+<span><span class="co">#&gt; 4 Component 2      metabolome         0.108</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attr(,"class")</span></span>
 <span><span class="co">#&gt; [1] "output_dimension_reduction"</span></span>
@@ -436,7 +435,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">)</span></span>
 <span><span class="va">so2pls_output</span></span>
 <span><span class="co">#&gt; $features_weight</span></span>
-<span><span class="co">#&gt; # A tibble: 8,117 × 5</span></span>
+<span><span class="co">#&gt; # A tibble: 2,318 × 5</span></span>
 <span><span class="co">#&gt;    feature_id         dataset latent_dimension  weight importance</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;              &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 ENSBTAG00000000020 rnaseq  joint component 1      0          0</span></span>
@@ -449,39 +448,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;  8 ENSBTAG00000000205 rnaseq  joint component 1      0          0</span></span>
 <span><span class="co">#&gt;  9 ENSBTAG00000000212 rnaseq  joint component 1      0          0</span></span>
 <span><span class="co">#&gt; 10 ENSBTAG00000000289 rnaseq  joint component 1      0          0</span></span>
-<span><span class="co">#&gt; # ℹ 8,107 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 2,308 more rows</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $samples_score</span></span>
-<span><span class="co">#&gt; # A tibble: 1,390 × 3</span></span>
-<span><span class="co">#&gt;    sample_id latent_dimension  score</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;     &lt;fct&gt;             &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 G1979     joint component 1 -3.86</span></span>
-<span><span class="co">#&gt;  2 G2500     joint component 1 -4.29</span></span>
-<span><span class="co">#&gt;  3 G3030     joint component 1 -8.02</span></span>
-<span><span class="co">#&gt;  4 G3068     joint component 1 -6.00</span></span>
-<span><span class="co">#&gt;  5 G3121     joint component 1 -5.82</span></span>
-<span><span class="co">#&gt;  6 G3315     joint component 1  8.51</span></span>
-<span><span class="co">#&gt;  7 G3473     joint component 1  7.08</span></span>
-<span><span class="co">#&gt;  8 G3474     joint component 1 10.7 </span></span>
-<span><span class="co">#&gt;  9 G3550     joint component 1 -3.54</span></span>
-<span><span class="co">#&gt; 10 G3594     joint component 1 10.5 </span></span>
-<span><span class="co">#&gt; # ℹ 1,380 more rows</span></span>
+<span><span class="co">#&gt; # A tibble: 973 × 3</span></span>
+<span><span class="co">#&gt;    sample_id latent_dimension   score</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;fct&gt;              &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 G1979     joint component 1  -8.12</span></span>
+<span><span class="co">#&gt;  2 G2500     joint component 1  -9.81</span></span>
+<span><span class="co">#&gt;  3 G3030     joint component 1  -9.93</span></span>
+<span><span class="co">#&gt;  4 G3068     joint component 1 -14.7 </span></span>
+<span><span class="co">#&gt;  5 G3121     joint component 1  -5.01</span></span>
+<span><span class="co">#&gt;  6 G3315     joint component 1   9.66</span></span>
+<span><span class="co">#&gt;  7 G3473     joint component 1   9.79</span></span>
+<span><span class="co">#&gt;  8 G3474     joint component 1   9.99</span></span>
+<span><span class="co">#&gt;  9 G3550     joint component 1  -9.70</span></span>
+<span><span class="co">#&gt; 10 G3594     joint component 1   8.37</span></span>
+<span><span class="co">#&gt; # ℹ 963 more rows</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $variance_explained</span></span>
-<span><span class="co">#&gt; # A tibble: 11 × 3</span></span>
-<span><span class="co">#&gt;    latent_dimension                dataset    prop_var_expl</span></span>
-<span><span class="co">#&gt;    &lt;fct&gt;                           &lt;fct&gt;              &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 joint component 1               rnaseq            0.266 </span></span>
-<span><span class="co">#&gt;  2 joint component 1               metabolome        0.108 </span></span>
-<span><span class="co">#&gt;  3 rnaseq specific component 1     rnaseq            0.154 </span></span>
-<span><span class="co">#&gt;  4 rnaseq specific component 2     rnaseq            0.129 </span></span>
-<span><span class="co">#&gt;  5 rnaseq specific component 3     rnaseq            0.0521</span></span>
-<span><span class="co">#&gt;  6 rnaseq specific component 4     rnaseq            0.0157</span></span>
-<span><span class="co">#&gt;  7 rnaseq specific component 5     rnaseq            0.0301</span></span>
-<span><span class="co">#&gt;  8 rnaseq specific component 6     rnaseq            0.0163</span></span>
-<span><span class="co">#&gt;  9 rnaseq specific component 7     rnaseq            0.0114</span></span>
-<span><span class="co">#&gt; 10 metabolome specific component 1 metabolome        0.114 </span></span>
-<span><span class="co">#&gt; 11 metabolome specific component 2 metabolome        0.0822</span></span>
+<span><span class="co">#&gt; # A tibble: 8 × 3</span></span>
+<span><span class="co">#&gt;   latent_dimension                dataset    prop_var_expl</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;                           &lt;fct&gt;              &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 joint component 1               rnaseq            0.327 </span></span>
+<span><span class="co">#&gt; 2 joint component 1               metabolome        0.150 </span></span>
+<span><span class="co">#&gt; 3 rnaseq specific component 1     rnaseq            0.123 </span></span>
+<span><span class="co">#&gt; 4 metabolome specific component 1 metabolome        0.107 </span></span>
+<span><span class="co">#&gt; 5 metabolome specific component 2 metabolome        0.0767</span></span>
+<span><span class="co">#&gt; 6 metabolome specific component 3 metabolome        0.0613</span></span>
+<span><span class="co">#&gt; 7 metabolome specific component 4 metabolome        0.0605</span></span>
+<span><span class="co">#&gt; 8 metabolome specific component 5 metabolome        0.0376</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attr(,"class")</span></span>
 <span><span class="co">#&gt; [1] "output_dimension_reduction"</span></span>
@@ -505,48 +501,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; # A tibble: 30,735 × 5</span></span>
 <span><span class="co">#&gt;    feature_id                  dataset latent_dimension     weight importance</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;                       &lt;fct&gt;   &lt;fct&gt;                 &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 21-25977541-C-T-rs41974686  snps    Factor 1          0.000390      0.140 </span></span>
-<span><span class="co">#&gt;  2 22-51403583-A-C-rs210306176 snps    Factor 1          0.0000554     0.0199</span></span>
-<span><span class="co">#&gt;  3 24-12959068-G-T-rs381471286 snps    Factor 1          0.000274      0.0987</span></span>
-<span><span class="co">#&gt;  4 8-85224224-T-C-rs43565287   snps    Factor 1         -0.000510      0.184 </span></span>
-<span><span class="co">#&gt;  5 ARS-BFGL-BAC-16973          snps    Factor 1         -0.000913      0.328 </span></span>
-<span><span class="co">#&gt;  6 ARS-BFGL-BAC-19403          snps    Factor 1         -0.000516      0.185 </span></span>
-<span><span class="co">#&gt;  7 ARS-BFGL-BAC-2450           snps    Factor 1          0.000567      0.204 </span></span>
-<span><span class="co">#&gt;  8 ARS-BFGL-BAC-2600           snps    Factor 1         -0.0000356     0.0128</span></span>
-<span><span class="co">#&gt;  9 ARS-BFGL-BAC-27911          snps    Factor 1         -0.000588      0.212 </span></span>
-<span><span class="co">#&gt; 10 ARS-BFGL-BAC-35925          snps    Factor 1          0.000836      0.301 </span></span>
+<span><span class="co">#&gt;  1 21-25977541-C-T-rs41974686  snps    Factor 1          0.000374      0.139 </span></span>
+<span><span class="co">#&gt;  2 22-51403583-A-C-rs210306176 snps    Factor 1          0.0000535     0.0199</span></span>
+<span><span class="co">#&gt;  3 24-12959068-G-T-rs381471286 snps    Factor 1          0.000268      0.0999</span></span>
+<span><span class="co">#&gt;  4 8-85224224-T-C-rs43565287   snps    Factor 1         -0.000492      0.183 </span></span>
+<span><span class="co">#&gt;  5 ARS-BFGL-BAC-16973          snps    Factor 1         -0.000883      0.329 </span></span>
+<span><span class="co">#&gt;  6 ARS-BFGL-BAC-19403          snps    Factor 1         -0.000500      0.186 </span></span>
+<span><span class="co">#&gt;  7 ARS-BFGL-BAC-2450           snps    Factor 1          0.000555      0.207 </span></span>
+<span><span class="co">#&gt;  8 ARS-BFGL-BAC-2600           snps    Factor 1         -0.0000325     0.0121</span></span>
+<span><span class="co">#&gt;  9 ARS-BFGL-BAC-27911          snps    Factor 1         -0.000568      0.212 </span></span>
+<span><span class="co">#&gt; 10 ARS-BFGL-BAC-35925          snps    Factor 1          0.000803      0.299 </span></span>
 <span><span class="co">#&gt; # ℹ 30,725 more rows</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $samples_score</span></span>
 <span><span class="co">#&gt; # A tibble: 2,160 × 3</span></span>
 <span><span class="co">#&gt;    sample_id latent_dimension score</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;     &lt;fct&gt;            &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 G1979     Factor 1          1.94</span></span>
-<span><span class="co">#&gt;  2 G2500     Factor 1          2.02</span></span>
-<span><span class="co">#&gt;  3 G3030     Factor 1          3.38</span></span>
-<span><span class="co">#&gt;  4 G3068     Factor 1          3.68</span></span>
-<span><span class="co">#&gt;  5 G3121     Factor 1          1.56</span></span>
-<span><span class="co">#&gt;  6 G3315     Factor 1         -1.82</span></span>
-<span><span class="co">#&gt;  7 G3473     Factor 1         -2.65</span></span>
-<span><span class="co">#&gt;  8 G3474     Factor 1         -2.32</span></span>
-<span><span class="co">#&gt;  9 G3550     Factor 1          2.99</span></span>
-<span><span class="co">#&gt; 10 G3594     Factor 1         -1.89</span></span>
+<span><span class="co">#&gt;  1 G1979     Factor 1          1.95</span></span>
+<span><span class="co">#&gt;  2 G2500     Factor 1          1.98</span></span>
+<span><span class="co">#&gt;  3 G3030     Factor 1          3.39</span></span>
+<span><span class="co">#&gt;  4 G3068     Factor 1          3.65</span></span>
+<span><span class="co">#&gt;  5 G3121     Factor 1          1.57</span></span>
+<span><span class="co">#&gt;  6 G3315     Factor 1         -1.81</span></span>
+<span><span class="co">#&gt;  7 G3473     Factor 1         -2.63</span></span>
+<span><span class="co">#&gt;  8 G3474     Factor 1         -2.30</span></span>
+<span><span class="co">#&gt;  9 G3550     Factor 1          2.98</span></span>
+<span><span class="co">#&gt; 10 G3594     Factor 1         -1.88</span></span>
 <span><span class="co">#&gt; # ℹ 2,150 more rows</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $variance_explained</span></span>
 <span><span class="co">#&gt; # A tibble: 45 × 3</span></span>
 <span><span class="co">#&gt;    latent_dimension dataset    prop_var_expl</span></span>
 <span><span class="co">#&gt;    &lt;fct&gt;            &lt;fct&gt;              &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 Factor 1         snps           0.000325 </span></span>
+<span><span class="co">#&gt;  1 Factor 1         snps           0.000313 </span></span>
 <span><span class="co">#&gt;  2 Factor 1         rnaseq         0.496    </span></span>
-<span><span class="co">#&gt;  3 Factor 1         metabolome     0.0846   </span></span>
+<span><span class="co">#&gt;  3 Factor 1         metabolome     0.137    </span></span>
 <span><span class="co">#&gt;  4 Factor 2         snps           0.239    </span></span>
-<span><span class="co">#&gt;  5 Factor 2         rnaseq         0.000207 </span></span>
-<span><span class="co">#&gt;  6 Factor 2         metabolome     0.00671  </span></span>
-<span><span class="co">#&gt;  7 Factor 3         snps           0.000113 </span></span>
+<span><span class="co">#&gt;  5 Factor 2         rnaseq         0.000197 </span></span>
+<span><span class="co">#&gt;  6 Factor 2         metabolome     0.0108   </span></span>
+<span><span class="co">#&gt;  7 Factor 3         snps           0.000108 </span></span>
 <span><span class="co">#&gt;  8 Factor 3         rnaseq         0.199    </span></span>
-<span><span class="co">#&gt;  9 Factor 3         metabolome     0.0000529</span></span>
-<span><span class="co">#&gt; 10 Factor 4         snps           0.0000964</span></span>
+<span><span class="co">#&gt;  9 Factor 3         metabolome     0.0000872</span></span>
+<span><span class="co">#&gt; 10 Factor 4         snps           0.0000927</span></span>
 <span><span class="co">#&gt; # ℹ 35 more rows</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attr(,"class")</span></span>
@@ -587,34 +583,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; # A tibble: 540 × 3</span></span>
 <span><span class="co">#&gt;    sample_id latent_dimension score</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;     &lt;fct&gt;            &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 G1979     Component 1       1.95</span></span>
-<span><span class="co">#&gt;  2 G2500     Component 1       1.43</span></span>
-<span><span class="co">#&gt;  3 G3030     Component 1       3.72</span></span>
-<span><span class="co">#&gt;  4 G3068     Component 1       3.70</span></span>
-<span><span class="co">#&gt;  5 G3121     Component 1       2.03</span></span>
-<span><span class="co">#&gt;  6 G3315     Component 1      -3.45</span></span>
-<span><span class="co">#&gt;  7 G3473     Component 1      -4.02</span></span>
-<span><span class="co">#&gt;  8 G3474     Component 1      -3.24</span></span>
-<span><span class="co">#&gt;  9 G3550     Component 1       2.43</span></span>
-<span><span class="co">#&gt; 10 G3594     Component 1      -2.49</span></span>
+<span><span class="co">#&gt;  1 G1979     Component 1       1.97</span></span>
+<span><span class="co">#&gt;  2 G2500     Component 1       1.50</span></span>
+<span><span class="co">#&gt;  3 G3030     Component 1       3.57</span></span>
+<span><span class="co">#&gt;  4 G3068     Component 1       3.50</span></span>
+<span><span class="co">#&gt;  5 G3121     Component 1       2.13</span></span>
+<span><span class="co">#&gt;  6 G3315     Component 1      -3.26</span></span>
+<span><span class="co">#&gt;  7 G3473     Component 1      -3.97</span></span>
+<span><span class="co">#&gt;  8 G3474     Component 1      -3.20</span></span>
+<span><span class="co">#&gt;  9 G3550     Component 1       2.46</span></span>
+<span><span class="co">#&gt; 10 G3594     Component 1      -2.38</span></span>
 <span><span class="co">#&gt; # ℹ 530 more rows</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $variance_explained</span></span>
 <span><span class="co">#&gt; # A tibble: 12 × 3</span></span>
 <span><span class="co">#&gt;    latent_dimension dataset    prop_var_expl</span></span>
 <span><span class="co">#&gt;    &lt;fct&gt;            &lt;fct&gt;              &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 Component 1      snps              0.0778</span></span>
-<span><span class="co">#&gt;  2 Component 1      rnaseq            0.201 </span></span>
-<span><span class="co">#&gt;  3 Component 1      metabolome        0.166 </span></span>
-<span><span class="co">#&gt;  4 Component 2      snps              0.0188</span></span>
-<span><span class="co">#&gt;  5 Component 2      rnaseq            0.0830</span></span>
-<span><span class="co">#&gt;  6 Component 2      metabolome        0.0433</span></span>
-<span><span class="co">#&gt;  7 Component 3      snps              0.0177</span></span>
-<span><span class="co">#&gt;  8 Component 3      rnaseq            0.147 </span></span>
-<span><span class="co">#&gt;  9 Component 3      metabolome        0.0965</span></span>
-<span><span class="co">#&gt; 10 Component 4      snps              0.0147</span></span>
-<span><span class="co">#&gt; 11 Component 4      rnaseq            0.0603</span></span>
-<span><span class="co">#&gt; 12 Component 4      metabolome        0.0457</span></span>
+<span><span class="co">#&gt;  1 Component 1      snps             0.0698 </span></span>
+<span><span class="co">#&gt;  2 Component 1      rnaseq           0.201  </span></span>
+<span><span class="co">#&gt;  3 Component 1      metabolome       0.171  </span></span>
+<span><span class="co">#&gt;  4 Component 2      snps             0.0213 </span></span>
+<span><span class="co">#&gt;  5 Component 2      rnaseq           0.0801 </span></span>
+<span><span class="co">#&gt;  6 Component 2      metabolome       0.0521 </span></span>
+<span><span class="co">#&gt;  7 Component 3      snps             0.00898</span></span>
+<span><span class="co">#&gt;  8 Component 3      rnaseq           0.149  </span></span>
+<span><span class="co">#&gt;  9 Component 3      metabolome       0.0634 </span></span>
+<span><span class="co">#&gt; 10 Component 4      snps             0.0136 </span></span>
+<span><span class="co">#&gt; 11 Component 4      rnaseq           0.0601 </span></span>
+<span><span class="co">#&gt; 12 Component 4      metabolome       0.0399 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attr(,"class")</span></span>
 <span><span class="co">#&gt; [1] "output_dimension_reduction"</span></span>
@@ -680,11 +676,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "joint component 1"               "rnaseq specific component 1"    </span></span>
-<span><span class="co">#&gt;  [3] "rnaseq specific component 2"     "rnaseq specific component 3"    </span></span>
-<span><span class="co">#&gt;  [5] "rnaseq specific component 4"     "rnaseq specific component 5"    </span></span>
-<span><span class="co">#&gt;  [7] "rnaseq specific component 6"     "rnaseq specific component 7"    </span></span>
-<span><span class="co">#&gt;  [9] "metabolome specific component 1" "metabolome specific component 2"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "joint component 1"               "rnaseq specific component 1"    </span></span>
+<span><span class="co">#&gt; [3] "metabolome specific component 1" "metabolome specific component 2"</span></span>
+<span><span class="co">#&gt; [5] "metabolome specific component 3" "metabolome specific component 4"</span></span>
+<span><span class="co">#&gt; [7] "metabolome specific component 5"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
@@ -713,11 +708,11 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note that both PCA and sPLS-DA (the method used for supervised features preselection in <a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;7.3.2</span></a>) are also dimension reduction methods. Therefore, the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function also converts <code>pcaRes</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca.html">run_pca()</a></code> or <code><a href="https://rdrr.io/pkg/pcaMethods/man/pca.html">pcaMethods::pca()</a></code>) and <code>mixo_splsda</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_splsda.html">run_splsda()</a></code> or <code><a href="https://rdrr.io/pkg/mixOmics/man/splsda.html">mixOmics::splsda()</a></code>) into <code>output_dimension_reduction</code> objects.</p>
+<p>Note that both PCA and sPLS-DA (the method used for supervised features preselection in <a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;6.3.2</span></a>) are also dimension reduction methods. Therefore, the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function also converts <code>pcaRes</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca.html">run_pca()</a></code> or <code><a href="https://rdrr.io/pkg/pcaMethods/man/pca.html">pcaMethods::pca()</a></code>) and <code>mixo_splsda</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_splsda.html">run_splsda()</a></code> or <code><a href="https://rdrr.io/pkg/mixOmics/man/splsda.html">mixOmics::splsda()</a></code>) into <code>output_dimension_reduction</code> objects.</p>
 </div>
 </div>
-</section><section id="averaging-latent-dimensions-over-datasets" class="level3" data-number="12.2.2"><h3 data-number="12.2.2" class="anchored" data-anchor-id="averaging-latent-dimensions-over-datasets">
-<span class="header-section-number">12.2.2</span> Averaging latent dimensions over datasets</h3>
+</section><section id="averaging-latent-dimensions-over-datasets" class="level3" data-number="11.2.2"><h3 data-number="11.2.2" class="anchored" data-anchor-id="averaging-latent-dimensions-over-datasets">
+<span class="header-section-number">11.2.2</span> Averaging latent dimensions over datasets</h3>
 <p>While MOFA computes one score per sample for each latent dimension created, sPLS, sO2PLS and DIABLO all compute one score per dataset for each sample and latent dimension. For each latent dimension, the samples score obtained for the different datasets are then compared, to assess the agreement or covariation between datasets. Ideally, these scores should be highly correlated across datasets, since the methods aim at maximising the variation between datasets, but it is not always the case. However, when they are highly correlated, it becomes redundant to interpret each dataset-specific version of the latent dimensions.</p>
 <p>Instead, the <code>mixOmics</code> authors proposed a solution for <code>DIABLO</code>, which is to construct a weighted average space in which to represent the samples: for each latent component, the samples score are averaged over the different datasets. The weight attributed to each dataset is determined by how well the corresponding dataset discriminates between the samples group of interest. This way, rather than looking at samples score for each dataset for any given latent component, we can look at an average of them.</p>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function uses this idea to construct, for the output of sPLS, sO2PLS and DIABLO a set of average samples score for each latent dimension, rather than returning a set of samples score per dataset. For DIABLO, the average is weighted as explained above, while for sPLS and sO2PLS each dataset is given equal weight in the average. This calculation can be disabled in the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function to extract the dataset-specific samples score, by setting the <code>use_average_dimensions</code> parameter to <code>FALSE</code>. Note that this only affects the <code>samples_score</code> tibble in terms of dimensions, but the name of the latent dimensions will change to reflect the dataset to which they refer.</p>
@@ -763,17 +758,15 @@ Other methods covered by <code>get_output</code>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">so2pls_output_no_average</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_latent_dimensions.html">get_latent_dimensions</a></span><span class="op">(</span><span class="va">so2pls_output_no_average</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "rnaseq joint component 1"        "metabolome joint component 1"   </span></span>
-<span><span class="co">#&gt;  [3] "rnaseq specific component 1"     "rnaseq specific component 2"    </span></span>
-<span><span class="co">#&gt;  [5] "rnaseq specific component 3"     "rnaseq specific component 4"    </span></span>
-<span><span class="co">#&gt;  [7] "rnaseq specific component 5"     "rnaseq specific component 6"    </span></span>
-<span><span class="co">#&gt;  [9] "rnaseq specific component 7"     "metabolome specific component 1"</span></span>
-<span><span class="co">#&gt; [11] "metabolome specific component 2"</span></span>
+<span><span class="co">#&gt; [1] "rnaseq joint component 1"        "metabolome joint component 1"   </span></span>
+<span><span class="co">#&gt; [3] "rnaseq specific component 1"     "metabolome specific component 1"</span></span>
+<span><span class="co">#&gt; [5] "metabolome specific component 2" "metabolome specific component 3"</span></span>
+<span><span class="co">#&gt; [7] "metabolome specific component 4" "metabolome specific component 5"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">$</span><span class="va">samples_score</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 1390</span></span>
+<span><span class="co">#&gt; [1] 973</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">so2pls_output_no_average</span><span class="op">$</span><span class="va">samples_score</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 1529</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] 1112</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
@@ -802,8 +795,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section></section><section id="percentage-of-variance-explained" class="level2" data-number="12.3"><h2 data-number="12.3" class="anchored" data-anchor-id="percentage-of-variance-explained">
-<span class="header-section-number">12.3</span> Percentage of variance explained</h2>
+</section></section><section id="percentage-of-variance-explained" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="percentage-of-variance-explained">
+<span class="header-section-number">11.3</span> Percentage of variance explained</h2>
 <p>The first step in interpreting the results of a dimension reduction method is to assess how much variance is explained by the different latent dimensions for each dataset. The function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained()</a></code> takes as input a <code>output_dimension_reduction</code> object and constructs a dataset-specific screeplot:</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -849,8 +842,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-samples-scores" class="level2" data-number="12.4"><h2 data-number="12.4" class="anchored" data-anchor-id="sec-interpretation-samples-scores">
-<span class="header-section-number">12.4</span> Samples plot</h2>
+</section><section id="sec-interpretation-samples-scores" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="sec-interpretation-samples-scores">
+<span class="header-section-number">11.4</span> Samples plot</h2>
 <p>To understand the phenomenon driving the variation represented by the different latent components, we can investigate the coordinates of the samples in the space spanned by these latent components, in combination with information that we have about the samples.</p>
 <p>We will start by loading the <code>MultiDataSet</code> object and generating some custom colour palettes for different samples covariates of interest, that we will use in the rest of the section.</p>
 <div class="cell">
@@ -868,8 +861,8 @@ Other methods covered by <code>get_output</code>
 <span>  aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"colour"</span>, <span class="st">"fill"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="sec-interpretation-samples-ggpairs" class="level3" data-number="12.4.1"><h3 data-number="12.4.1" class="anchored" data-anchor-id="sec-interpretation-samples-ggpairs">
-<span class="header-section-number">12.4.1</span> Matrix of scatter plots</h3>
+<section id="sec-interpretation-samples-ggpairs" class="level3" data-number="11.4.1"><h3 data-number="11.4.1" class="anchored" data-anchor-id="sec-interpretation-samples-ggpairs">
+<span class="header-section-number">11.4.1</span> Matrix of scatter plots</h3>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score()</a></code> function shows the samples score in a matrix of scatter plots that represent all possible two-by-two combinations of the latent dimensions. The plots in the resulting matrix are redundant: the lower plots (below the diagonal) are just a rotated version of the upper plots (above the diagonal). The function takes as input an <code>output_dimension_reduction</code> object. In addition, it accepts a <code>MultiDataSet</code> object to extract information about the samples that can then be used to customise the plot. Since the plots are redundant, different properties of the samples can be shown in the upper and lower plots. For example, we will colour the samples according to disease status in the upper plots, while representing some other covariate in the lower plots. We will use the shape of the points to illustrate gender in both upper and lower plots. By default, all latent dimensions are included in the plots, but it is possible to select some of them by passing their names to the <code>latent_dimensions</code> argument. There are more options to further customise the plot, which are shown in the function’s help.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -965,8 +958,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-samples-pair" class="level3" data-number="12.4.2"><h3 data-number="12.4.2" class="anchored" data-anchor-id="sec-interpretation-samples-pair">
-<span class="header-section-number">12.4.2</span> Scatter plot for pair of latent dimensions</h3>
+</section><section id="sec-interpretation-samples-pair" class="level3" data-number="11.4.2"><h3 data-number="11.4.2" class="anchored" data-anchor-id="sec-interpretation-samples-pair">
+<span class="header-section-number">11.4.2</span> Scatter plot for pair of latent dimensions</h3>
 <p>We can also focus on a specific pair of latent dimensions and represent the samples in the space spanned by these two dimensions, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair()</a></code> function. The two latent dimensions to plot are selected by passing their names to the function. This function also accepts a <code>MultiDataSet</code> object, whose samples metadata will be used to customise the plot.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -993,11 +986,11 @@ Other methods covered by <code>get_output</code>
 <p>The two disease status groups are well separated in this space.</p>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
-<p>To showcase this function, we will look at the first two RNAseq-specific latent components:</p>
+<p>To showcase this function, we will look at the first two metabolomics-specific latent components:</p>
 <div class="cell">
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_output</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"rnaseq specific component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"metabolome specific component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>  colour_by <span class="op">=</span> <span class="st">"status"</span>,</span>
 <span>  shape_by <span class="op">=</span> <span class="st">"gender"</span></span>
@@ -1044,8 +1037,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-samples-covariate" class="level3" data-number="12.4.3"><h3 data-number="12.4.3" class="anchored" data-anchor-id="sec-interpretation-samples-covariate">
-<span class="header-section-number">12.4.3</span> Samples score vs covariate</h3>
+</section><section id="sec-interpretation-samples-covariate" class="level3" data-number="11.4.3"><h3 data-number="11.4.3" class="anchored" data-anchor-id="sec-interpretation-samples-covariate">
+<span class="header-section-number">11.4.3</span> Samples score vs covariate</h3>
 <p>Lastly, we can plot the samples score for each latent dimension against a samples covariate of interest, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate()</a></code> function. This is useful to focus on one dimension at a time rather than pairs of them. By default, the function displays all latent dimensions, but we can focus on a subset of them through the <code>latent_dimensions</code> arguments. The function needs a <code>MultiDataSet</code> object to extract information about the samples. The plot generated will depend on whether the covariate of interest is categorical or continuous. We will show both options below. In addition to the main covariate of interest that will be displayed on the x-axis, the colour and shape of the points can be further customised according to other samples properties.</p>
 <p>First, with a categorical covariate:</p>
 <div class="panel-tabset" data-group="method">
@@ -1200,11 +1193,11 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section></section><section id="feature-plots" class="level2" data-number="12.5"><h2 data-number="12.5" class="anchored" data-anchor-id="feature-plots">
-<span class="header-section-number">12.5</span> Feature plots</h2>
+</section></section><section id="feature-plots" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="feature-plots">
+<span class="header-section-number">11.5</span> Feature plots</h2>
 <p>Next, we can have a look at the features contributing to each latent dimension.</p>
-<section id="sec-interpretation-features-distr" class="level3" data-number="12.5.1"><h3 data-number="12.5.1" class="anchored" data-anchor-id="sec-interpretation-features-distr">
-<span class="header-section-number">12.5.1</span> Features weight distribution</h3>
+<section id="sec-interpretation-features-distr" class="level3" data-number="11.5.1"><h3 data-number="11.5.1" class="anchored" data-anchor-id="sec-interpretation-features-distr">
+<span class="header-section-number">11.5.1</span> Features weight distribution</h3>
 <p>We can start by looking at the distribution of features weight for each latent dimension across the datasets, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr()</a></code> function. Again, the function takes an <code>output_dimension_reduction</code> object as first input; by default it will show all latent dimensions and datasets, but they can be specified through the <code>latent_dimensions</code> and <code>datasets</code> arguments. The function shows by default the distribution of the “signed” importance scores, i.e.&nbsp;the features weights normalised by the highest absolute weight value for the corresponding latent dimension and dataset, but we can also show the distribution of importance scores (which are absolute values) and non-transformed features weight (through the <code>features_metric</code> argument). Note that the function returns a <a href="https://patchwork.data-imaginist.com/">patchwork</a> of ggplots.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -1264,8 +1257,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-features-pair" class="level3" data-number="12.5.2"><h3 data-number="12.5.2" class="anchored" data-anchor-id="sec-interpretation-features-pair">
-<span class="header-section-number">12.5.2</span> Comparing features importance between latent components</h3>
+</section><section id="sec-interpretation-features-pair" class="level3" data-number="11.5.2"><h3 data-number="11.5.2" class="anchored" data-anchor-id="sec-interpretation-features-pair">
+<span class="header-section-number">11.5.2</span> Comparing features importance between latent components</h3>
 <p>We can also compare the importance score given to the features between any two latent dimensions with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -1296,7 +1289,7 @@ Other methods covered by <code>get_output</code>
 <div class="cell">
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_output</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"rnaseq specific component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"metabolome specific component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
@@ -1307,7 +1300,7 @@ Other methods covered by <code>get_output</code>
 <p><img src="interpretation_files/figure-html/so2pls-features-weight-pair-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>The plot shows an interesting pattern: it seems that for the genes with a negative weight for the first RNAseq-specific component, their importance score for this component is highly correlated with their importance score for the second RNAseq-specific component, except that for the second one they have a positive weight. For the genes with a positive weight for the first RNAseq-specific component, their importance score for this component is highly correlated with their importance score for the second RNAseq-specific component, in which they are also given a positive weight.</p>
+<p>The plot shows an interesting pattern: the weights of the compound for these two specific components are negatively correlated, except for a couple of outliers.</p>
 </div>
 <div id="tabset-11-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-3-tab">
 <div class="cell">
@@ -1345,10 +1338,10 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<p>These plots allow us to quickly check whether different latent dimensions capture different or related aspects of the data. The top 5 features according to their consensus importance score (see <a href="comparison.html#sec-comparison-consensus"><span>Section&nbsp;14.9</span></a>) are highlighted in red.</p>
+<p>These plots allow us to quickly check whether different latent dimensions capture different or related aspects of the data. The top 5 features according to their consensus importance score (see <a href="comparison.html#sec-comparison-consensus"><span>Section&nbsp;13.9</span></a>) are highlighted in red.</p>
 <p>By default, the function shows the signed importance score of the features, i.e.&nbsp;their importance score to which the sign of their weight was added. This can be changed through the <code>features_metric</code> argument of the function.</p>
-</section><section id="sec-interpretation-features-top-plot" class="level3" data-number="12.5.3"><h3 data-number="12.5.3" class="anchored" data-anchor-id="sec-interpretation-features-top-plot">
-<span class="header-section-number">12.5.3</span> Plotting top features weight</h3>
+</section><section id="sec-interpretation-features-top-plot" class="level3" data-number="11.5.3"><h3 data-number="11.5.3" class="anchored" data-anchor-id="sec-interpretation-features-top-plot">
+<span class="header-section-number">11.5.3</span> Plotting top features weight</h3>
 <p>We can then investigate which features are assigned the highest weights for each latent dimension. These are the features driving the variation captured by the latent components. This is done with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features()</a></code> function.</p>
 <p>By default, the feature IDs will be used as labels in the plot, but by passing a <code>MultiDataSet</code> object to the function we can use a column from the features metadata table instead. To do so, we need to pass a named list to the <code>label_cols</code> argument: the names of the elements in the list should correspond to dataset names in the <code>MultiDataSet</code> object, and the value should be the name of the column in the features metadata table of the corresponding dataset to use as feature label. The number of features displayed is controlled through the <code>top_n</code> argument (the default value is 20). Note that if a lower number of features is selected for a certain dataset and latent dimension, only the selected features will be displayed. Again, the function returns a <a href="https://patchwork.data-imaginist.com/">patchwork</a> of ggplots.</p>
 <div class="panel-tabset" data-group="method">
@@ -1431,8 +1424,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-features-top-table" class="level3" data-number="12.5.4"><h3 data-number="12.5.4" class="anchored" data-anchor-id="sec-interpretation-features-top-table">
-<span class="header-section-number">12.5.4</span> Extracting top features</h3>
+</section><section id="sec-interpretation-features-top-table" class="level3" data-number="11.5.4"><h3 data-number="11.5.4" class="anchored" data-anchor-id="sec-interpretation-features-top-table">
+<span class="header-section-number">11.5.4</span> Extracting top features</h3>
 <p>It is also possible to extract information about the top contributing features as a table with the function <code><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features()</a></code>. The function offers two options:</p>
 <ul>
 <li><p>Return for each dataset the top N features contributing to the latent dimensions of interest. N is specified through the <code>n_features</code> argument;</p></li>
@@ -1455,12 +1448,12 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   feature_id         dataset    latent_dimension weight importance</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;              &lt;fct&gt;      &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ENSBTAG00000018223 rnaseq     Component 1       0.308      1    </span></span>
-<span><span class="co">#&gt; 2 ENSBTAG00000031647 rnaseq     Component 1       0.306      0.994</span></span>
-<span><span class="co">#&gt; 3 ENSBTAG00000022715 rnaseq     Component 1       0.291      0.946</span></span>
-<span><span class="co">#&gt; 4 HMDB00094          metabolome Component 1      -0.320      1    </span></span>
-<span><span class="co">#&gt; 5 HMDB00169          metabolome Component 1       0.317      0.992</span></span>
-<span><span class="co">#&gt; 6 HMDB00159          metabolome Component 1       0.306      0.958</span></span>
+<span><span class="co">#&gt; 1 ENSBTAG00000022715 rnaseq     Component 1      -0.318      1    </span></span>
+<span><span class="co">#&gt; 2 ENSBTAG00000050618 rnaseq     Component 1      -0.302      0.950</span></span>
+<span><span class="co">#&gt; 3 ENSBTAG00000018223 rnaseq     Component 1      -0.291      0.916</span></span>
+<span><span class="co">#&gt; 4 HMDB00094          metabolome Component 1       0.451      1    </span></span>
+<span><span class="co">#&gt; 5 HMDB00169          metabolome Component 1      -0.327      0.726</span></span>
+<span><span class="co">#&gt; 6 HMDB00159          metabolome Component 1      -0.312      0.692</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">spls_output</span>,</span>
@@ -1471,12 +1464,12 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; # A tibble: 6 × 31</span></span>
 <span><span class="co">#&gt;   feature_id      dataset latent_dimension weight importance chromosome  p_value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;           &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ENSBTAG0000001… rnaseq  Component 1       0.308      1     16         7.14e-31</span></span>
-<span><span class="co">#&gt; 2 ENSBTAG0000003… rnaseq  Component 1       0.306      0.994 7          1.22e-35</span></span>
-<span><span class="co">#&gt; 3 ENSBTAG0000002… rnaseq  Component 1       0.291      0.946 26         1.79e-33</span></span>
-<span><span class="co">#&gt; 4 ENSBTAG0000004… rnaseq  Component 1       0.287      0.932 23         7.19e-34</span></span>
-<span><span class="co">#&gt; 5 ENSBTAG0000005… rnaseq  Component 1       0.283      0.920 26         2.54e-33</span></span>
-<span><span class="co">#&gt; 6 ENSBTAG0000004… rnaseq  Component 1       0.274      0.890 15         4.14e-36</span></span>
+<span><span class="co">#&gt; 1 ENSBTAG0000002… rnaseq  Component 1      -0.318      1     26         1.79e-33</span></span>
+<span><span class="co">#&gt; 2 ENSBTAG0000005… rnaseq  Component 1      -0.302      0.950 26         2.54e-33</span></span>
+<span><span class="co">#&gt; 3 ENSBTAG0000001… rnaseq  Component 1      -0.291      0.916 16         7.14e-31</span></span>
+<span><span class="co">#&gt; 4 ENSBTAG0000004… rnaseq  Component 1      -0.266      0.837 15         4.14e-36</span></span>
+<span><span class="co">#&gt; 5 ENSBTAG0000003… rnaseq  Component 1      -0.264      0.831 7          1.22e-35</span></span>
+<span><span class="co">#&gt; 6 HMDB00094       metabo… Component 1       0.451      1     &lt;NA&gt;       2.48e-41</span></span>
 <span><span class="co">#&gt; # ℹ 24 more variables: fdr &lt;dbl&gt;, start &lt;int&gt;, end &lt;int&gt;, width &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   strand &lt;fct&gt;, Name &lt;chr&gt;, description &lt;chr&gt;, log_fc &lt;dbl&gt;, log_cpm &lt;dbl&gt;,</span></span>
 <span><span class="co">#&gt; #   f &lt;dbl&gt;, de_signif &lt;chr&gt;, de_status &lt;chr&gt;, hmdb_id &lt;chr&gt;, name &lt;chr&gt;,</span></span>
@@ -1492,12 +1485,12 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   feature_id         dataset    latent_dimension  weight importance</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;              &lt;fct&gt;      &lt;fct&gt;              &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ENSBTAG00000048835 rnaseq     joint component 1 -0.263      1    </span></span>
-<span><span class="co">#&gt; 2 ENSBTAG00000049569 rnaseq     joint component 1 -0.263      0.997</span></span>
-<span><span class="co">#&gt; 3 ENSBTAG00000039037 rnaseq     joint component 1 -0.243      0.921</span></span>
-<span><span class="co">#&gt; 4 HMDB00094          metabolome joint component 1  0.804      1    </span></span>
-<span><span class="co">#&gt; 5 HMDB00042          metabolome joint component 1  0.327      0.407</span></span>
-<span><span class="co">#&gt; 6 HMDB00357          metabolome joint component 1  0.311      0.386</span></span>
+<span><span class="co">#&gt; 1 ENSBTAG00000048835 rnaseq     joint component 1 -0.268      1    </span></span>
+<span><span class="co">#&gt; 2 ENSBTAG00000049569 rnaseq     joint component 1 -0.266      0.993</span></span>
+<span><span class="co">#&gt; 3 ENSBTAG00000039037 rnaseq     joint component 1 -0.248      0.925</span></span>
+<span><span class="co">#&gt; 4 HMDB00094          metabolome joint component 1  0.751      1    </span></span>
+<span><span class="co">#&gt; 5 HMDB00042          metabolome joint component 1  0.335      0.445</span></span>
+<span><span class="co">#&gt; 6 HMDB00357          metabolome joint component 1  0.319      0.424</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">so2pls_output</span>,</span>
@@ -1508,12 +1501,12 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; # A tibble: 6 × 31</span></span>
 <span><span class="co">#&gt;   feature_id      dataset latent_dimension weight importance chromosome  p_value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;           &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ENSBTAG0000004… rnaseq  joint component… -0.263      1     24         5.43e-27</span></span>
-<span><span class="co">#&gt; 2 ENSBTAG0000004… rnaseq  joint component… -0.263      0.997 NKLS02001… 1.14e-27</span></span>
-<span><span class="co">#&gt; 3 ENSBTAG0000003… rnaseq  joint component… -0.243      0.921 NKLS02001… 1.45e-28</span></span>
-<span><span class="co">#&gt; 4 ENSBTAG0000003… rnaseq  joint component… -0.241      0.915 7          1.22e-35</span></span>
-<span><span class="co">#&gt; 5 ENSBTAG0000002… rnaseq  joint component… -0.223      0.848 26         1.79e-33</span></span>
-<span><span class="co">#&gt; 6 ENSBTAG0000000… rnaseq  joint component… -0.220      0.837 11         4.69e-28</span></span>
+<span><span class="co">#&gt; 1 ENSBTAG0000004… rnaseq  joint component… -0.268      1     24         5.43e-27</span></span>
+<span><span class="co">#&gt; 2 ENSBTAG0000004… rnaseq  joint component… -0.266      0.993 NKLS02001… 1.14e-27</span></span>
+<span><span class="co">#&gt; 3 ENSBTAG0000003… rnaseq  joint component… -0.248      0.925 NKLS02001… 1.45e-28</span></span>
+<span><span class="co">#&gt; 4 ENSBTAG0000003… rnaseq  joint component… -0.235      0.876 7          1.22e-35</span></span>
+<span><span class="co">#&gt; 5 ENSBTAG0000005… rnaseq  joint component… -0.227      0.847 NKLS02000… 1.31e-22</span></span>
+<span><span class="co">#&gt; 6 ENSBTAG0000002… rnaseq  joint component… -0.216      0.805 26         1.79e-33</span></span>
 <span><span class="co">#&gt; # ℹ 24 more variables: fdr &lt;dbl&gt;, start &lt;int&gt;, end &lt;int&gt;, width &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   strand &lt;fct&gt;, Name &lt;chr&gt;, description &lt;chr&gt;, log_fc &lt;dbl&gt;, log_cpm &lt;dbl&gt;,</span></span>
 <span><span class="co">#&gt; #   f &lt;dbl&gt;, de_signif &lt;chr&gt;, de_status &lt;chr&gt;, hmdb_id &lt;chr&gt;, name &lt;chr&gt;,</span></span>
@@ -1529,12 +1522,12 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   feature_id             dataset latent_dimension   weight importance</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;                  &lt;fct&gt;   &lt;fct&gt;               &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 BovineHD0100032240     snps    Factor 1         -0.00278      1    </span></span>
-<span><span class="co">#&gt; 2 Hapmap55381-rs29025399 snps    Factor 1         -0.00278      1    </span></span>
-<span><span class="co">#&gt; 3 BovineHD0100032254     snps    Factor 1          0.00258      0.926</span></span>
-<span><span class="co">#&gt; 4 ENSBTAG00000049569     rnaseq  Factor 1          1.88         1    </span></span>
-<span><span class="co">#&gt; 5 ENSBTAG00000048835     rnaseq  Factor 1          1.88         1.00 </span></span>
-<span><span class="co">#&gt; 6 ENSBTAG00000039037     rnaseq  Factor 1          1.80         0.961</span></span>
+<span><span class="co">#&gt; 1 BovineHD0100032240     snps    Factor 1         -0.00268      1    </span></span>
+<span><span class="co">#&gt; 2 Hapmap55381-rs29025399 snps    Factor 1         -0.00268      1    </span></span>
+<span><span class="co">#&gt; 3 BovineHD0100032254     snps    Factor 1          0.00249      0.927</span></span>
+<span><span class="co">#&gt; 4 ENSBTAG00000049569     rnaseq  Factor 1          1.89         1    </span></span>
+<span><span class="co">#&gt; 5 ENSBTAG00000048835     rnaseq  Factor 1          1.88         0.999</span></span>
+<span><span class="co">#&gt; 6 ENSBTAG00000039037     rnaseq  Factor 1          1.81         0.961</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">mofa_output</span>,</span>
@@ -1545,12 +1538,12 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; # A tibble: 6 × 40</span></span>
 <span><span class="co">#&gt;   feature_id    dataset latent_dimension   weight importance chromosome position</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;         &lt;fct&gt;   &lt;fct&gt;               &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 BovineHD0100… snps    Factor 1         -0.00278      1     1            1.13e8</span></span>
-<span><span class="co">#&gt; 2 Hapmap55381-… snps    Factor 1         -0.00278      1     1            1.13e8</span></span>
-<span><span class="co">#&gt; 3 BovineHD0100… snps    Factor 1          0.00258      0.926 1            1.13e8</span></span>
-<span><span class="co">#&gt; 4 BovineHD2700… snps    Factor 1         -0.00233      0.837 27           3.57e7</span></span>
-<span><span class="co">#&gt; 5 ENSBTAG00000… rnaseq  Factor 1          1.88         1     NKLS02001…  NA     </span></span>
-<span><span class="co">#&gt; 6 ENSBTAG00000… rnaseq  Factor 1          1.88         1.00  24          NA     </span></span>
+<span><span class="co">#&gt; 1 BovineHD0100… snps    Factor 1         -0.00268      1     1            1.13e8</span></span>
+<span><span class="co">#&gt; 2 Hapmap55381-… snps    Factor 1         -0.00268      1     1            1.13e8</span></span>
+<span><span class="co">#&gt; 3 BovineHD0100… snps    Factor 1          0.00249      0.927 1            1.13e8</span></span>
+<span><span class="co">#&gt; 4 BovineHD2700… snps    Factor 1         -0.00225      0.839 27           3.57e7</span></span>
+<span><span class="co">#&gt; 5 ENSBTAG00000… rnaseq  Factor 1          1.89         1     NKLS02001…  NA     </span></span>
+<span><span class="co">#&gt; 6 ENSBTAG00000… rnaseq  Factor 1          1.88         0.999 24          NA     </span></span>
 <span><span class="co">#&gt; # ℹ 33 more variables: gen_train_score &lt;dbl&gt;, ref &lt;chr&gt;, alt &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   ilmn_strand &lt;chr&gt;, customer_strand &lt;chr&gt;, norm_id &lt;dbl&gt;, qtl_type &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   qtl_effect &lt;dbl&gt;, p_value &lt;dbl&gt;, fdr &lt;dbl&gt;, start &lt;int&gt;, end &lt;int&gt;,</span></span>
@@ -1567,12 +1560,12 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   feature_id         dataset latent_dimension weight importance</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;              &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ARS-BFGL-NGS-27468 snps    Component 1      -0.578      1    </span></span>
-<span><span class="co">#&gt; 2 BovineHD2300010006 snps    Component 1       0.470      0.813</span></span>
-<span><span class="co">#&gt; 3 BovineHD0300000351 snps    Component 1       0.333      0.576</span></span>
-<span><span class="co">#&gt; 4 ENSBTAG00000022715 rnaseq  Component 1       0.487      1    </span></span>
-<span><span class="co">#&gt; 5 ENSBTAG00000050618 rnaseq  Component 1       0.385      0.791</span></span>
-<span><span class="co">#&gt; 6 ENSBTAG00000049888 rnaseq  Component 1       0.316      0.649</span></span>
+<span><span class="co">#&gt; 1 ARS-BFGL-NGS-27468 snps    Component 1      -0.632      1    </span></span>
+<span><span class="co">#&gt; 2 BovineHD2300010006 snps    Component 1       0.509      0.807</span></span>
+<span><span class="co">#&gt; 3 BovineHD0300000351 snps    Component 1       0.337      0.534</span></span>
+<span><span class="co">#&gt; 4 ENSBTAG00000022715 rnaseq  Component 1       0.465      1    </span></span>
+<span><span class="co">#&gt; 5 ENSBTAG00000050618 rnaseq  Component 1       0.378      0.813</span></span>
+<span><span class="co">#&gt; 6 ENSBTAG00000049888 rnaseq  Component 1       0.305      0.655</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output</span>,</span>
@@ -1583,12 +1576,12 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; # A tibble: 6 × 40</span></span>
 <span><span class="co">#&gt;   feature_id      dataset latent_dimension weight importance chromosome position</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;           &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ARS-BFGL-NGS-2… snps    Component 1      -0.578      1     1            1.34e8</span></span>
-<span><span class="co">#&gt; 2 BovineHD230001… snps    Component 1       0.470      0.813 23           3.43e7</span></span>
-<span><span class="co">#&gt; 3 ENSBTAG0000002… rnaseq  Component 1       0.487      1     26          NA     </span></span>
-<span><span class="co">#&gt; 4 HMDB00094       metabo… Component 1      -0.492      1     &lt;NA&gt;        NA     </span></span>
-<span><span class="co">#&gt; 5 HMDB00042       metabo… Component 1      -0.422      0.859 &lt;NA&gt;        NA     </span></span>
-<span><span class="co">#&gt; 6 HMDB00169       metabo… Component 1       0.403      0.820 &lt;NA&gt;        NA     </span></span>
+<span><span class="co">#&gt; 1 ARS-BFGL-NGS-2… snps    Component 1      -0.632      1     1            1.34e8</span></span>
+<span><span class="co">#&gt; 2 BovineHD230001… snps    Component 1       0.509      0.807 23           3.43e7</span></span>
+<span><span class="co">#&gt; 3 ENSBTAG0000002… rnaseq  Component 1       0.465      1     26          NA     </span></span>
+<span><span class="co">#&gt; 4 ENSBTAG0000005… rnaseq  Component 1       0.378      0.813 26          NA     </span></span>
+<span><span class="co">#&gt; 5 HMDB00094       metabo… Component 1      -0.716      1     &lt;NA&gt;        NA     </span></span>
+<span><span class="co">#&gt; 6 BovineHD070000… snps    Component 2      -0.543      1     7            2.11e5</span></span>
 <span><span class="co">#&gt; # ℹ 33 more variables: gen_train_score &lt;dbl&gt;, ref &lt;chr&gt;, alt &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   ilmn_strand &lt;chr&gt;, customer_strand &lt;chr&gt;, norm_id &lt;dbl&gt;, qtl_type &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   qtl_effect &lt;dbl&gt;, p_value &lt;dbl&gt;, fdr &lt;dbl&gt;, start &lt;int&gt;, end &lt;int&gt;,</span></span>
@@ -1600,8 +1593,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-features-selected" class="level3" data-number="12.5.5"><h3 data-number="12.5.5" class="anchored" data-anchor-id="sec-interpretation-features-selected">
-<span class="header-section-number">12.5.5</span> Extracting the selected features</h3>
+</section><section id="sec-interpretation-features-selected" class="level3" data-number="11.5.5"><h3 data-number="11.5.5" class="anchored" data-anchor-id="sec-interpretation-features-selected">
+<span class="header-section-number">11.5.5</span> Extracting the selected features</h3>
 <p>For methods that perform feature selection (i.e.&nbsp;sPLS, sO2PLS and DIABLO), we can extract information about the selected features with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features()</a></code> function. As with <code><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features()</a></code>, if a <code>MultiDataSet</code> object is passed to the function, it will extract information about the features from the features metadata tables and return them. If applied to the results of a method that does not perform feature selection, all features will be returned.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -1616,17 +1609,17 @@ Other methods covered by <code>get_output</code>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">selected_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">selected_features</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 90  5</span></span>
+<span><span class="co">#&gt; [1] 120   5</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">selected_features</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   feature_id         dataset latent_dimension weight importance</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;              &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ENSBTAG00000018223 rnaseq  Component 1       0.308      1    </span></span>
-<span><span class="co">#&gt; 2 ENSBTAG00000031647 rnaseq  Component 1       0.306      0.994</span></span>
-<span><span class="co">#&gt; 3 ENSBTAG00000022715 rnaseq  Component 1       0.291      0.946</span></span>
-<span><span class="co">#&gt; 4 ENSBTAG00000046158 rnaseq  Component 1       0.287      0.932</span></span>
-<span><span class="co">#&gt; 5 ENSBTAG00000050618 rnaseq  Component 1       0.283      0.920</span></span>
-<span><span class="co">#&gt; 6 ENSBTAG00000049888 rnaseq  Component 1       0.274      0.890</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 ENSBTAG00000022715 rnaseq  Component 1      -0.318      1    </span></span>
+<span><span class="co">#&gt; 2 ENSBTAG00000050618 rnaseq  Component 1      -0.302      0.950</span></span>
+<span><span class="co">#&gt; 3 ENSBTAG00000018223 rnaseq  Component 1      -0.291      0.916</span></span>
+<span><span class="co">#&gt; 4 ENSBTAG00000049888 rnaseq  Component 1      -0.266      0.837</span></span>
+<span><span class="co">#&gt; 5 ENSBTAG00000031647 rnaseq  Component 1      -0.264      0.831</span></span>
+<span><span class="co">#&gt; 6 ENSBTAG00000046158 rnaseq  Component 1      -0.248      0.781</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
@@ -1634,17 +1627,17 @@ Other methods covered by <code>get_output</code>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">selected_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">selected_features</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 7188    5</span></span>
+<span><span class="co">#&gt; [1] 1394    5</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">selected_features</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   feature_id         dataset latent_dimension  weight importance</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;              &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ENSBTAG00000048835 rnaseq  joint component 1 -0.263      1    </span></span>
-<span><span class="co">#&gt; 2 ENSBTAG00000049569 rnaseq  joint component 1 -0.263      0.997</span></span>
-<span><span class="co">#&gt; 3 ENSBTAG00000039037 rnaseq  joint component 1 -0.243      0.921</span></span>
-<span><span class="co">#&gt; 4 ENSBTAG00000031647 rnaseq  joint component 1 -0.241      0.915</span></span>
-<span><span class="co">#&gt; 5 ENSBTAG00000022715 rnaseq  joint component 1 -0.223      0.848</span></span>
-<span><span class="co">#&gt; 6 ENSBTAG00000006343 rnaseq  joint component 1 -0.220      0.837</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 ENSBTAG00000048835 rnaseq  joint component 1 -0.268      1    </span></span>
+<span><span class="co">#&gt; 2 ENSBTAG00000049569 rnaseq  joint component 1 -0.266      0.993</span></span>
+<span><span class="co">#&gt; 3 ENSBTAG00000039037 rnaseq  joint component 1 -0.248      0.925</span></span>
+<span><span class="co">#&gt; 4 ENSBTAG00000031647 rnaseq  joint component 1 -0.235      0.876</span></span>
+<span><span class="co">#&gt; 5 ENSBTAG00000052012 rnaseq  joint component 1 -0.227      0.847</span></span>
+<span><span class="co">#&gt; 6 ENSBTAG00000022715 rnaseq  joint component 1 -0.216      0.805</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-14-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-3-tab">
@@ -1657,12 +1650,12 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   feature_id             dataset latent_dimension   weight importance</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;                  &lt;fct&gt;   &lt;fct&gt;               &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 BovineHD0100032240     snps    Factor 1         -0.00278      1    </span></span>
-<span><span class="co">#&gt; 2 Hapmap55381-rs29025399 snps    Factor 1         -0.00278      1    </span></span>
-<span><span class="co">#&gt; 3 BovineHD0100032254     snps    Factor 1          0.00258      0.926</span></span>
-<span><span class="co">#&gt; 4 BovineHD2700010051     snps    Factor 1         -0.00233      0.837</span></span>
-<span><span class="co">#&gt; 5 Hapmap44084-BTA-48504  snps    Factor 1         -0.00201      0.721</span></span>
-<span><span class="co">#&gt; 6 BovineHD2100007115     snps    Factor 1          0.00196      0.706</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 BovineHD0100032240     snps    Factor 1         -0.00268      1    </span></span>
+<span><span class="co">#&gt; 2 Hapmap55381-rs29025399 snps    Factor 1         -0.00268      1    </span></span>
+<span><span class="co">#&gt; 3 BovineHD0100032254     snps    Factor 1          0.00249      0.927</span></span>
+<span><span class="co">#&gt; 4 BovineHD2700010051     snps    Factor 1         -0.00225      0.839</span></span>
+<span><span class="co">#&gt; 5 Hapmap44084-BTA-48504  snps    Factor 1         -0.00194      0.724</span></span>
+<span><span class="co">#&gt; 6 BovineHD2100007115     snps    Factor 1          0.00190      0.709</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-14-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-4-tab">
@@ -1670,24 +1663,24 @@ Other methods covered by <code>get_output</code>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">selected_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">selected_features</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 260   5</span></span>
+<span><span class="co">#&gt; [1] 200   5</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">selected_features</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   feature_id         dataset latent_dimension weight importance</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;              &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ARS-BFGL-NGS-27468 snps    Component 1      -0.578      1    </span></span>
-<span><span class="co">#&gt; 2 BovineHD2300010006 snps    Component 1       0.470      0.813</span></span>
-<span><span class="co">#&gt; 3 BovineHD0300000351 snps    Component 1       0.333      0.576</span></span>
-<span><span class="co">#&gt; 4 BovineHD1900011146 snps    Component 1      -0.226      0.391</span></span>
-<span><span class="co">#&gt; 5 BovineHD0900026231 snps    Component 1      -0.216      0.373</span></span>
-<span><span class="co">#&gt; 6 BovineHD1100030384 snps    Component 1      -0.208      0.359</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 ARS-BFGL-NGS-27468 snps    Component 1      -0.632      1    </span></span>
+<span><span class="co">#&gt; 2 BovineHD2300010006 snps    Component 1       0.509      0.807</span></span>
+<span><span class="co">#&gt; 3 BovineHD0300000351 snps    Component 1       0.337      0.534</span></span>
+<span><span class="co">#&gt; 4 BovineHD1900011146 snps    Component 1      -0.210      0.333</span></span>
+<span><span class="co">#&gt; 5 BovineHD0900026231 snps    Component 1      -0.191      0.302</span></span>
+<span><span class="co">#&gt; 6 BovineHD1100030384 snps    Component 1      -0.181      0.286</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-features-meas" class="level3" data-number="12.5.6"><h3 data-number="12.5.6" class="anchored" data-anchor-id="sec-interpretation-features-meas">
-<span class="header-section-number">12.5.6</span> Features measurements</h3>
-<p>Finally, we can investigate further some features of interest using the functions shown in <a href="inspecting_multidataset.html#sec-inspecting-plot-data"><span>Section&nbsp;4.5</span></a>. For the example, we will extract the top 3 contributing features from each dataset for the first latent dimension generated with the methods:</p>
+</section><section id="sec-interpretation-features-meas" class="level3" data-number="11.5.6"><h3 data-number="11.5.6" class="anchored" data-anchor-id="sec-interpretation-features-meas">
+<span class="header-section-number">11.5.6</span> Features measurements</h3>
+<p>Finally, we can investigate further some features of interest using the functions shown in <a href="inspecting_multidataset.html#sec-inspecting-plot-data"><span>Section&nbsp;3.5</span></a>. For the example, we will extract the top 3 contributing features from each dataset for the first latent dimension generated with the methods:</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">sPLS</a></li>
@@ -1706,7 +1699,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">feature_id</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">spls_top_features</span></span>
-<span><span class="co">#&gt; [1] "ENSBTAG00000018223" "ENSBTAG00000031647" "ENSBTAG00000022715"</span></span>
+<span><span class="co">#&gt; [1] "ENSBTAG00000022715" "ENSBTAG00000050618" "ENSBTAG00000018223"</span></span>
 <span><span class="co">#&gt; [4] "HMDB00094"          "HMDB00169"          "HMDB00159"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -1837,19 +1830,7 @@ Other methods covered by <code>get_output</code>
 <span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  truncate <span class="op">=</span> <span class="fl">20</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; The automatically generated colors map from the minus and plus 99^th of</span></span>
-<span><span class="co">#&gt; the absolute values in the matrix. There are outliers in the matrix</span></span>
-<span><span class="co">#&gt; whose patterns might be hidden by this color mapping. You can manually</span></span>
-<span><span class="co">#&gt; set the color to `col` argument.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Use `suppressMessages()` to turn off this message.</span></span>
-<span><span class="co">#&gt; No legend element is put in the last 1 column under `ncol = 3`, maybe</span></span>
-<span><span class="co">#&gt; you should set `by_row = TRUE`? Reset `ncol` to 2.</span></span>
-<span><span class="co">#&gt; No legend element is put in the last 1 column under `ncol = 3`, maybe</span></span>
-<span><span class="co">#&gt; you should set `by_row = TRUE`? Reset `ncol` to 2.</span></span>
-<span><span class="co">#&gt; No legend element is put in the last 1 column under `ncol = 3`, maybe</span></span>
-<span><span class="co">#&gt; you should set `by_row = TRUE`? Reset `ncol` to 2.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="interpretation_files/figure-html/mofa-plot-top-features-heatmap-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -1875,13 +1856,7 @@ Other methods covered by <code>get_output</code>
 <span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  truncate <span class="op">=</span> <span class="fl">20</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; The automatically generated colors map from the minus and plus 99^th of</span></span>
-<span><span class="co">#&gt; the absolute values in the matrix. There are outliers in the matrix</span></span>
-<span><span class="co">#&gt; whose patterns might be hidden by this color mapping. You can manually</span></span>
-<span><span class="co">#&gt; set the color to `col` argument.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Use `suppressMessages()` to turn off this message.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="interpretation_files/figure-html/diablo-plot-top-features-heatmap-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -1968,8 +1943,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section></section><section id="recap-targets-list" class="level2" data-number="12.6"><h2 data-number="12.6" class="anchored" data-anchor-id="recap-targets-list">
-<span class="header-section-number">12.6</span> Recap – targets list</h2>
+</section></section><section id="recap-targets-list" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">11.6</span> Recap – targets list</h2>
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for results interpretation
@@ -2385,12 +2360,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./diablo.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./evaluation.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

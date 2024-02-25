@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>The moiraine R package user manual - 4&nbsp; Inspecting the MultiDataSet object</title>
+<title>The moiraine R package user manual - 3&nbsp; Inspecting the MultiDataSet object</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,7 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -133,6 +133,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The moiraine R package user manual</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/PlantandFoodResearch/moiraine" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -149,12 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -167,27 +166,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
   </div>
 </li>
       </ul>
@@ -202,17 +201,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
   </div>
 </li>
       </ul>
@@ -227,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -242,17 +241,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -268,30 +267,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#querying-datasets-names-and-dimensions" id="toc-querying-datasets-names-and-dimensions" class="nav-link active" data-scroll-target="#querying-datasets-names-and-dimensions"><span class="toc-section-number">4.1</span>  Querying datasets names and dimensions</a></li>
-  <li><a href="#extracting-datasets-and-metadata" id="toc-extracting-datasets-and-metadata" class="nav-link" data-scroll-target="#extracting-datasets-and-metadata"><span class="toc-section-number">4.2</span>  Extracting datasets and metadata</a></li>
+<li><a href="#querying-datasets-names-and-dimensions" id="toc-querying-datasets-names-and-dimensions" class="nav-link active" data-scroll-target="#querying-datasets-names-and-dimensions"><span class="toc-section-number">3.1</span>  Querying datasets names and dimensions</a></li>
+  <li><a href="#extracting-datasets-and-metadata" id="toc-extracting-datasets-and-metadata" class="nav-link" data-scroll-target="#extracting-datasets-and-metadata"><span class="toc-section-number">3.2</span>  Extracting datasets and metadata</a></li>
   <li>
-<a href="#sec-inspecting-multidataset-summary-plots" id="toc-sec-inspecting-multidataset-summary-plots" class="nav-link" data-scroll-target="#sec-inspecting-multidataset-summary-plots"><span class="toc-section-number">4.3</span>  Summary plots</a>
+<a href="#sec-inspecting-multidataset-summary-plots" id="toc-sec-inspecting-multidataset-summary-plots" class="nav-link" data-scroll-target="#sec-inspecting-multidataset-summary-plots"><span class="toc-section-number">3.3</span>  Summary plots</a>
   <ul class="collapse">
-<li><a href="#samples-upset-plot" id="toc-samples-upset-plot" class="nav-link" data-scroll-target="#samples-upset-plot"><span class="toc-section-number">4.3.1</span>  Samples upset plot</a></li>
-  <li><a href="#datasets-density-plots" id="toc-datasets-density-plots" class="nav-link" data-scroll-target="#datasets-density-plots"><span class="toc-section-number">4.3.2</span>  Datasets density plots</a></li>
-  <li><a href="#datasets-mean-sd-plots" id="toc-datasets-mean-sd-plots" class="nav-link" data-scroll-target="#datasets-mean-sd-plots"><span class="toc-section-number">4.3.3</span>  Datasets mean-sd plots</a></li>
+<li><a href="#samples-upset-plot" id="toc-samples-upset-plot" class="nav-link" data-scroll-target="#samples-upset-plot"><span class="toc-section-number">3.3.1</span>  Samples upset plot</a></li>
+  <li><a href="#datasets-density-plots" id="toc-datasets-density-plots" class="nav-link" data-scroll-target="#datasets-density-plots"><span class="toc-section-number">3.3.2</span>  Datasets density plots</a></li>
+  <li><a href="#datasets-mean-sd-plots" id="toc-datasets-mean-sd-plots" class="nav-link" data-scroll-target="#datasets-mean-sd-plots"><span class="toc-section-number">3.3.3</span>  Datasets mean-sd plots</a></li>
   </ul>
 </li>
-  <li><a href="#assessing-missing-values" id="toc-assessing-missing-values" class="nav-link" data-scroll-target="#assessing-missing-values"><span class="toc-section-number">4.4</span>  Assessing missing values</a></li>
+  <li><a href="#assessing-missing-values" id="toc-assessing-missing-values" class="nav-link" data-scroll-target="#assessing-missing-values"><span class="toc-section-number">3.4</span>  Assessing missing values</a></li>
   <li>
-<a href="#sec-inspecting-plot-data" id="toc-sec-inspecting-plot-data" class="nav-link" data-scroll-target="#sec-inspecting-plot-data"><span class="toc-section-number">4.5</span>  Visualising the datasets</a>
+<a href="#sec-inspecting-plot-data" id="toc-sec-inspecting-plot-data" class="nav-link" data-scroll-target="#sec-inspecting-plot-data"><span class="toc-section-number">3.5</span>  Visualising the datasets</a>
   <ul class="collapse">
-<li><a href="#as-a-heatmap" id="toc-as-a-heatmap" class="nav-link" data-scroll-target="#as-a-heatmap"><span class="toc-section-number">4.5.1</span>  As a heatmap</a></li>
-  <li><a href="#against-samples-covariates" id="toc-against-samples-covariates" class="nav-link" data-scroll-target="#against-samples-covariates"><span class="toc-section-number">4.5.2</span>  Against samples covariates</a></li>
+<li><a href="#as-a-heatmap" id="toc-as-a-heatmap" class="nav-link" data-scroll-target="#as-a-heatmap"><span class="toc-section-number">3.5.1</span>  As a heatmap</a></li>
+  <li><a href="#against-samples-covariates" id="toc-against-samples-covariates" class="nav-link" data-scroll-target="#against-samples-covariates"><span class="toc-section-number">3.5.2</span>  Against samples covariates</a></li>
   </ul>
 </li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">4.6</span>  Recap – targets list</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">3.6</span>  Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-inspecting-multidataset" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></span></h1>
+<h1 class="title"><span id="sec-inspecting-multidataset" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></span></h1>
 </div>
 
 
@@ -316,7 +315,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">## For custom colour palettes</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this chapter, we will show how to inspect the <code>MultiDataSet</code> object that we created in <a href="data_import.html"><span>Chapter&nbsp;3</span></a> and how to extract information from it.</p>
+<p>In this chapter, we will show how to inspect the <code>MultiDataSet</code> object that we created in <a href="data_import.html"><span>Chapter&nbsp;2</span></a> and how to extract information from it.</p>
 <p>As a reminder, here is what the <code>_targets.R</code> script should look like so far:</p>
 <details><summary><code>_targets.R</code> script
 </summary></details><p>At this stage, our different omics datasets (and associated metadata) are stored in a <code>MultiDataSet</code> object, saved in the target called <code>mo_set</code>:</p>
@@ -342,8 +341,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;     . rnaseq: 143 samples, 10 cols (id, ..., geno_comp_3)</span></span>
 <span><span class="co">#&gt;     . metabolome: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="querying-datasets-names-and-dimensions" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="querying-datasets-names-and-dimensions">
-<span class="header-section-number">4.1</span> Querying datasets names and dimensions</h2>
+<section id="querying-datasets-names-and-dimensions" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="querying-datasets-names-and-dimensions">
+<span class="header-section-number">3.1</span> Querying datasets names and dimensions</h2>
 <p>The names of the omics datasets stored in a <code>MultiDataSet</code> object can be obtained with:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
@@ -375,8 +374,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;  $ rnaseq    : chr [1:143] "R9497" "R5969" "R5327" "R5979" ...</span></span>
 <span><span class="co">#&gt;  $ metabolome: chr [1:139] "R21" "Y3660" "Y3243" "R5764" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="extracting-datasets-and-metadata" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="extracting-datasets-and-metadata">
-<span class="header-section-number">4.2</span> Extracting datasets and metadata</h2>
+</section><section id="extracting-datasets-and-metadata" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="extracting-datasets-and-metadata">
+<span class="header-section-number">3.2</span> Extracting datasets and metadata</h2>
 <p>We can extract the dataset matrices from a <code>MultiDataSet</code> object with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_datasets.html">get_datasets()</a></code> function, which returns a named list of matrices, each with features as rows and samples as columns:</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -513,11 +512,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; P4669    0.503471    0.107136                K3</span></span>
 <span><span class="co">#&gt; R5452    0.733992    0.000010                K3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="sec-inspecting-multidataset-summary-plots" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="sec-inspecting-multidataset-summary-plots">
-<span class="header-section-number">4.3</span> Summary plots</h2>
+</section><section id="sec-inspecting-multidataset-summary-plots" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="sec-inspecting-multidataset-summary-plots">
+<span class="header-section-number">3.3</span> Summary plots</h2>
 <p>A number of plotting functions have been implemented to obtain a quick overview of the omics datasets in a <code>MultiDataSet</code> object.</p>
-<section id="samples-upset-plot" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="samples-upset-plot">
-<span class="header-section-number">4.3.1</span> Samples upset plot</h3>
+<section id="samples-upset-plot" class="level3" data-number="3.3.1"><h3 data-number="3.3.1" class="anchored" data-anchor-id="samples-upset-plot">
+<span class="header-section-number">3.3.1</span> Samples upset plot</h3>
 <p>First, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset()</a></code> function displays the number of common and unique samples across the datasets with an <a href="https://upset.app">UpSet plot</a>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -526,8 +525,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>As can be seen in the upset plot above, 135 samples have measurements across all three omics datasets. In addition, 4 samples have both transcriptomics and metabolomics measurements, but no transcriptomics information; 3 samples are present in the genomics and metabolomics datasets but not the transcriptomics dataset, and the genomics and transcriptomics datasets each have a unique sample not present in the other omics datasets.</p>
-</section><section id="datasets-density-plots" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="datasets-density-plots">
-<span class="header-section-number">4.3.2</span> Datasets density plots</h3>
+</section><section id="datasets-density-plots" class="level3" data-number="3.3.2"><h3 data-number="3.3.2" class="anchored" data-anchor-id="datasets-density-plots">
+<span class="header-section-number">3.3.2</span> Datasets density plots</h3>
 <p>Next, we can show the density plot of each omics dataset with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data()</a></code> function. By default, all datasets are plotted onto the same axes, which is not very useful if they have very different scales. We can change that by setting the <code>combined</code> argument to <code>FALSE</code>, which splits the plot into one facet per dataset, and by setting <code>scales</code> to <code>'free'</code> in order to give its own scale to each dataset:</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span><span class="va">mo_set</span>, combined <span class="op">=</span> <span class="cn">FALSE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -551,8 +550,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Note that as the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data()</a></code> function returns a ggplot, it can be further customised with other <code>ggplot2</code> functions as shown above.</p>
-</section><section id="datasets-mean-sd-plots" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="datasets-mean-sd-plots">
-<span class="header-section-number">4.3.3</span> Datasets mean-sd plots</h3>
+</section><section id="datasets-mean-sd-plots" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="datasets-mean-sd-plots">
+<span class="header-section-number">3.3.3</span> Datasets mean-sd plots</h3>
 <p>It is also possible to assess for each dataset whether there exists a relationship between the features mean and standard deviation, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data()</a></code> function. The presence of such relationship indicates that the dataset should be transformed, via a log or variance-stabilising transformation. The function requires the <code>hexbin</code> package to be installed:</p>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -560,10 +559,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="inspecting_multidataset_files/figure-html/plot-meansd-data-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>In our case, we can see a very strong relationship between features mean and standard deviation in both the transcriptomics and metabolomics datasets, which suggest that a log or variance-stabilising transformation will be necessary in both cases (datasets transformation are covered in <a href="preprocessing.html"><span>Chapter&nbsp;6</span></a>).</p>
+<p>In our case, we can see a very strong relationship between features mean and standard deviation in both the transcriptomics and metabolomics datasets, which suggest that a log or variance-stabilising transformation will be necessary in both cases (datasets transformation are covered in <a href="preprocessing.html"><span>Chapter&nbsp;5</span></a>).</p>
 <p>Note that the hexplots are only drawn for datasets with at least 30 features, and the trend curve (in pink) is only drawn for datasets with at least 10 features.</p>
-</section></section><section id="assessing-missing-values" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="assessing-missing-values">
-<span class="header-section-number">4.4</span> Assessing missing values</h2>
+</section></section><section id="assessing-missing-values" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="assessing-missing-values">
+<span class="header-section-number">3.4</span> Assessing missing values</h2>
 <p>Finally, one very important aspect to check is the presence of missing values in the datasets. The function <code><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values()</a></code> provide a summary of the number of missing values in each dataset:</p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
@@ -572,9 +571,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 588 (7.69%) missing values in metabolome dataset, across 15 features and 45 samples.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The function returns an invisible character vector containing the messages printed above, which is useful for automatic reporting.</p>
-<p>In <a href="preprocessing.html"><span>Chapter&nbsp;6</span></a>, we will see how to impute missing values.</p>
-</section><section id="sec-inspecting-plot-data" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="sec-inspecting-plot-data">
-<span class="header-section-number">4.5</span> Visualising the datasets</h2>
+<p>In <a href="preprocessing.html"><span>Chapter&nbsp;5</span></a>, we will see how to impute missing values.</p>
+</section><section id="sec-inspecting-plot-data" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="sec-inspecting-plot-data">
+<span class="header-section-number">3.5</span> Visualising the datasets</h2>
 <p>Once the omics datasets are stored in a <code>MultiDataSet</code> object, we can easily visualise the measurements for a set of features of interest. As an example, we will randomly select three features from each of the omics datasets:</p>
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">32</span><span class="op">)</span></span>
@@ -590,8 +589,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; [7] "HMDB00214"               "HMDB00407"              </span></span>
 <span><span class="co">#&gt; [9] "HMDB00182"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="as-a-heatmap" class="level3" data-number="4.5.1"><h3 data-number="4.5.1" class="anchored" data-anchor-id="as-a-heatmap">
-<span class="header-section-number">4.5.1</span> As a heatmap</h3>
+<section id="as-a-heatmap" class="level3" data-number="3.5.1"><h3 data-number="3.5.1" class="anchored" data-anchor-id="as-a-heatmap">
+<span class="header-section-number">3.5.1</span> As a heatmap</h3>
 <p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> allows us to view the data for these features as a heatmap. It relies on the <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">ComplexHeatmap::Heatmap()</a></code> function, and can be customised by passing arguments to this function (for example to remove the column labels):</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
@@ -668,8 +667,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Note that because we didn’t include the <code>snps</code> dataset in the list passed through <code>label_cols</code>, the ID of the features are used as labels.</p>
-</section><section id="against-samples-covariates" class="level3" data-number="4.5.2"><h3 data-number="4.5.2" class="anchored" data-anchor-id="against-samples-covariates">
-<span class="header-section-number">4.5.2</span> Against samples covariates</h3>
+</section><section id="against-samples-covariates" class="level3" data-number="3.5.2"><h3 data-number="3.5.2" class="anchored" data-anchor-id="against-samples-covariates">
+<span class="header-section-number">3.5.2</span> Against samples covariates</h3>
 <p>Alternatively, we can display the features’ measurements against some samples covariate, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate()</a></code> function. As for the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> function, the plot shows data from all samples, unless otherwise specified (through either the <code>common_samples_only</code> or <code>samples</code> arguments). The covariate is specified as a column name from the samples metadata (can be from any dataset’s samples metadata). If the covariate is categorical, the function generates violin plots. For example, we can represent the feature’s measurements against the animal disease status:</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
@@ -762,8 +761,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-labels-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-</section></section><section id="recap-targets-list" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="recap-targets-list">
-<span class="header-section-number">4.6</span> Recap – targets list</h2>
+</section></section><section id="recap-targets-list" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">3.6</span> Recap – targets list</h2>
 <p>Although we didn’t create any new target in this section, we can turn some plots into targets.</p>
 <details><summary>
 Targets list for inspecting a MultiDataSet object
@@ -931,12 +930,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./data_import.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./modifying_multidataset.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

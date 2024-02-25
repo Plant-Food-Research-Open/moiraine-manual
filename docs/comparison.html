@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>The moiraine R package user manual - 14&nbsp; Comparing the integration results</title>
+<title>The moiraine R package user manual - 13&nbsp; Comparing the integration results</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,7 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -133,6 +133,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The moiraine R package user manual</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/PlantandFoodResearch/moiraine" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -149,12 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -167,27 +166,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
   </div>
 </li>
       </ul>
@@ -202,17 +201,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
   </div>
 </li>
       </ul>
@@ -227,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -242,17 +241,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -268,27 +267,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">14.1</span>  Introduction</a></li>
-  <li><a href="#extracting-integration-results" id="toc-extracting-integration-results" class="nav-link" data-scroll-target="#extracting-integration-results"><span class="toc-section-number">14.2</span>  Extracting integration results</a></li>
-  <li><a href="#clustered-correlation-heatmaps" id="toc-clustered-correlation-heatmaps" class="nav-link" data-scroll-target="#clustered-correlation-heatmaps"><span class="toc-section-number">14.3</span>  Clustered correlation heatmaps</a></li>
-  <li><a href="#a-note-about-missing-features" id="toc-a-note-about-missing-features" class="nav-link" data-scroll-target="#a-note-about-missing-features"><span class="toc-section-number">14.4</span>  A note about missing features</a></li>
-  <li><a href="#correlation-matrices" id="toc-correlation-matrices" class="nav-link" data-scroll-target="#correlation-matrices"><span class="toc-section-number">14.5</span>  Correlation matrices</a></li>
-  <li><a href="#pairwise-comparisons" id="toc-pairwise-comparisons" class="nav-link" data-scroll-target="#pairwise-comparisons"><span class="toc-section-number">14.6</span>  Pairwise comparisons</a></li>
-  <li><a href="#comparing-samples-score" id="toc-comparing-samples-score" class="nav-link" data-scroll-target="#comparing-samples-score"><span class="toc-section-number">14.7</span>  Comparing samples score</a></li>
-  <li><a href="#comparing-features-weight" id="toc-comparing-features-weight" class="nav-link" data-scroll-target="#comparing-features-weight"><span class="toc-section-number">14.8</span>  Comparing features weight</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">13.1</span>  Introduction</a></li>
+  <li><a href="#extracting-integration-results" id="toc-extracting-integration-results" class="nav-link" data-scroll-target="#extracting-integration-results"><span class="toc-section-number">13.2</span>  Extracting integration results</a></li>
+  <li><a href="#clustered-correlation-heatmaps" id="toc-clustered-correlation-heatmaps" class="nav-link" data-scroll-target="#clustered-correlation-heatmaps"><span class="toc-section-number">13.3</span>  Clustered correlation heatmaps</a></li>
+  <li><a href="#a-note-about-missing-features" id="toc-a-note-about-missing-features" class="nav-link" data-scroll-target="#a-note-about-missing-features"><span class="toc-section-number">13.4</span>  A note about missing features</a></li>
+  <li><a href="#correlation-matrices" id="toc-correlation-matrices" class="nav-link" data-scroll-target="#correlation-matrices"><span class="toc-section-number">13.5</span>  Correlation matrices</a></li>
+  <li><a href="#pairwise-comparisons" id="toc-pairwise-comparisons" class="nav-link" data-scroll-target="#pairwise-comparisons"><span class="toc-section-number">13.6</span>  Pairwise comparisons</a></li>
+  <li><a href="#comparing-samples-score" id="toc-comparing-samples-score" class="nav-link" data-scroll-target="#comparing-samples-score"><span class="toc-section-number">13.7</span>  Comparing samples score</a></li>
+  <li><a href="#comparing-features-weight" id="toc-comparing-features-weight" class="nav-link" data-scroll-target="#comparing-features-weight"><span class="toc-section-number">13.8</span>  Comparing features weight</a></li>
   <li>
-<a href="#sec-comparison-consensus" id="toc-sec-comparison-consensus" class="nav-link" data-scroll-target="#sec-comparison-consensus"><span class="toc-section-number">14.9</span>  Feature consensus importance</a>
+<a href="#sec-comparison-consensus" id="toc-sec-comparison-consensus" class="nav-link" data-scroll-target="#sec-comparison-consensus"><span class="toc-section-number">13.9</span>  Feature consensus importance</a>
   <ul class="collapse">
-<li><a href="#possible-metrics" id="toc-possible-metrics" class="nav-link" data-scroll-target="#possible-metrics"><span class="toc-section-number">14.9.1</span>  Possible metrics</a></li>
-  <li><a href="#computing-features-consensus-importance-score" id="toc-computing-features-consensus-importance-score" class="nav-link" data-scroll-target="#computing-features-consensus-importance-score"><span class="toc-section-number">14.9.2</span>  Computing features’ consensus importance score</a></li>
+<li><a href="#possible-metrics" id="toc-possible-metrics" class="nav-link" data-scroll-target="#possible-metrics"><span class="toc-section-number">13.9.1</span>  Possible metrics</a></li>
+  <li><a href="#computing-features-consensus-importance-score" id="toc-computing-features-consensus-importance-score" class="nav-link" data-scroll-target="#computing-features-consensus-importance-score"><span class="toc-section-number">13.9.2</span>  Computing features’ consensus importance score</a></li>
   </ul>
 </li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">14.10</span>  Recap – targets list</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">13.10</span>  Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-comparison" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></span></h1>
+<h1 class="title"><span id="sec-comparison" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></span></h1>
 </div>
 
 
@@ -319,10 +318,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
-</details><section id="introduction" class="level2" data-number="14.1"><h2 data-number="14.1" class="anchored" data-anchor-id="introduction">
-<span class="header-section-number">14.1</span> Introduction</h2>
-<p>As explained in <a href="interpretation.html#sec-interpretation-dim-reduction"><span>Section&nbsp;12.1</span></a>, the integration tools considered in <code>moiraine</code> all perform dimension reduction of the omics datasets, and therefore all construct latent dimensions which can be described in terms of their features weight and their samples score. Therefore, we can compare the results of different integration methods in terms of their latent dimensions, by comparing either the latent dimensions’ samples score, or their features weight. When comparing the samples score, we are answering the question: <em>are the different methods capturing the same trends from the datasets?</em> By comparing features weight, we are instead answering a slightly different question: <em>are the different methods highlighting similar sets of features as driving variation in the datasets?</em> Of course, these comparisons are related, as two latent dimensions that identify very different trends in the data will most likely give high importance to very different sets of features.</p>
-<p>Note that, although this chapter mainly considers a comparison of different integration methods, we could also compare the results of a same integration but with different pre-processing options (e.g.&nbsp;to assess the impact of datasets normalisation or pre-filtering on the integration results). To illustrate this, we will run a second MOFA analysis, but this time using the datasets that have been pre-filtered to retain the most variable features (<a href="prefiltering.html#sec-prefiltering-unsupervised"><span>Section&nbsp;7.3.1</span></a>), as opposed to the supervised pre-filtering results that we have used in the main analysis (<a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;7.3.2</span></a>).</p>
+</details><section id="introduction" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="introduction">
+<span class="header-section-number">13.1</span> Introduction</h2>
+<p>As explained in <a href="interpretation.html#sec-interpretation-dim-reduction"><span>Section&nbsp;11.1</span></a>, the integration tools considered in <code>moiraine</code> all perform dimension reduction of the omics datasets, and therefore all construct latent dimensions which can be described in terms of their features weight and their samples score. Therefore, we can compare the results of different integration methods in terms of their latent dimensions, by comparing either the latent dimensions’ samples score, or their features weight. When comparing the samples score, we are answering the question: <em>are the different methods capturing the same trends from the datasets?</em> By comparing features weight, we are instead answering a slightly different question: <em>are the different methods highlighting similar sets of features as driving variation in the datasets?</em> Of course, these comparisons are related, as two latent dimensions that identify very different trends in the data will most likely give high importance to very different sets of features.</p>
+<p>Note that, although this chapter mainly considers a comparison of different integration methods, we could also compare the results of a same integration but with different pre-processing options (e.g.&nbsp;to assess the impact of datasets normalisation or pre-filtering on the integration results). To illustrate this, we will run a second MOFA analysis, but this time using the datasets that have been pre-filtered to retain the most variable features (<a href="prefiltering.html#sec-prefiltering-unsupervised"><span>Section&nbsp;6.3.1</span></a>), as opposed to the supervised pre-filtering results that we have used in the main analysis (<a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;6.3.2</span></a>).</p>
 <div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -364,9 +363,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-</section><section id="extracting-integration-results" class="level2" data-number="14.2"><h2 data-number="14.2" class="anchored" data-anchor-id="extracting-integration-results">
-<span class="header-section-number">14.2</span> Extracting integration results</h2>
-<p>The first step in order to compare the results from different methods is to convert them to a standardised format with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function, which we did in <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>. The function returns an <code>output_dimension_reduction</code> object which contains information about the latent dimensions’ features weight and samples score, as well as a summary of the percentage of variance explained for each dataset. The <code>output_dimension_reduction</code> object created also has an attribute called <code>method</code>, which contains the name of the integration method used:</p>
+</section><section id="extracting-integration-results" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="extracting-integration-results">
+<span class="header-section-number">13.2</span> Extracting integration results</h2>
+<p>The first step in order to compare the results from different methods is to convert them to a standardised format with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function, which we did in <a href="interpretation.html"><span>Chapter&nbsp;11</span></a>. The function returns an <code>output_dimension_reduction</code> object which contains information about the latent dimensions’ features weight and samples score, as well as a summary of the percentage of variance explained for each dataset. The <code>output_dimension_reduction</code> object created also has an attribute called <code>method</code>, which contains the name of the integration method used:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">diablo_output</span>, <span class="st">"method"</span><span class="op">)</span></span>
@@ -400,8 +399,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">output_list_mofa</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="clustered-correlation-heatmaps" class="level2" data-number="14.3"><h2 data-number="14.3" class="anchored" data-anchor-id="clustered-correlation-heatmaps">
-<span class="header-section-number">14.3</span> Clustered correlation heatmaps</h2>
+</section><section id="clustered-correlation-heatmaps" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="clustered-correlation-heatmaps">
+<span class="header-section-number">13.3</span> Clustered correlation heatmaps</h2>
 <p>We can visualise the correlation between the samples score and features weight of the different latent dimensions constructed by the integration methods as a heatmap, using the <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> function. The main input parameter of the function is a list of <code>output_dimension_reduction</code> objects, which we constructed in the previous section:</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span><span class="va">output_list</span>, legend_ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -418,7 +417,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>    <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>      <span class="st">"joint component 1"</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"metabolome specific component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"rnaseq specific component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
+<span>      <span class="st">"rnaseq specific component 1"</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="st">"MOFA"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
@@ -427,7 +426,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="comparison_files/figure-html/comparison-heatmap-corr-subset-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>From the heatmaps, we can see that some latent dimensions constructed by the different methods seem to capture similar trends in the data. For example, MOFA factor 1, sPLS component 1, DIABLO component 1 and sO2PLS joint component 1 are all strongly correlated in terms of their samples score. Their correlation in terms of features weight is a bit lower, which is due to the fact that some methods perform features selection, therefore all non-selected features are given a weight of 0. Note that the sign of the correlation is interesting but not very important. We can also see some latent dimensions that seem correlated with respect to one metric but not the other. For example, there is a strong correlation between the samples score of MOFA factor 4 and sPLS component 2, but this is not reflected in their features weight. Again, that can be because one method performs latent selection and not the other. On the other hand, the correlation between sPLS component 2 and DIABLO component 2 is stronger when looking at their features weight than at their samples score.</p>
+<p>From the heatmaps, we can see that some latent dimensions constructed by the different methods seem to capture similar trends in the data. For example, MOFA factor 1, sPLS component 1, DIABLO component 1 and sO2PLS joint component 1 are all strongly correlated in terms of their samples score. Their correlation in terms of features weight is a bit lower, which is due to the fact that some methods perform features selection, therefore all non-selected features are given a weight of 0. Note that the sign of the correlation is interesting but not very important. We can also see some latent dimensions that seem correlated with respect to one metric but not the other. For example, there is a strong correlation between the samples score of MOFA factor 4 and sPLS component 2, but this is not reflected in their features weight. Again, that can be because one method performs latent selection and not the other. On the other hand, the correlation between sPLS component 3 and DIABLO component 2 is stronger when looking at their features weight than at their samples score.</p>
 <p>When using the function to compare the results of the two MOFA runs, the names that we gave to the list of output will be used as method name, and these are the names to use in order to select some latent dimensions of interest. For example:</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span></span>
@@ -441,8 +440,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="comparison_files/figure-html/comparison-heatmap-corr-mofa-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section><section id="a-note-about-missing-features" class="level2" data-number="14.4"><h2 data-number="14.4" class="anchored" data-anchor-id="a-note-about-missing-features">
-<span class="header-section-number">14.4</span> A note about missing features</h2>
+</section><section id="a-note-about-missing-features" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="a-note-about-missing-features">
+<span class="header-section-number">13.4</span> A note about missing features</h2>
 <p>Typically, when comparing the output of different integration methods, we assume that the same input data was used for each method. However, when we are instead comparing the impact of data pre-processing on the integration results, it is possible that not all features are present in the input data for each of the methods. This is for example the case when assessing the impact of different prefiltering settings (e.g.&nbsp;supervised vs unsupervised) on the results of a particular integration method. It is also the case if we are comparing the integration results when using different subset of omics data as input: in our example, both DIABLO and MOFA were used on the three omics datasets (genomics, transcriptomics and metabolomics), while sPLS and sO2PLS were run on the transcriptomics and metabolomics datasets only. If that is the case, some features will have no weight in some of the results we are comparing (as they are not in the input data analysed by the integration method). There are two approaches to deal with that:</p>
 <ul>
 <li><p>Approach 1: remove these features from the comparison. The correlation between the features weight of any two latent dimensions will only be calculated using the features that are assigned a weight by both latent dimensions. This is the default approach used by <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> and other comparison functions.</p></li>
@@ -451,65 +450,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The problem with approach 2 is that it might artificially decrease the computed correlation coefficients, which is why approach 1 is the default in this package. However, approach 2 may reveal interesting patterns and therefore was also implemented.</p>
 <p>In <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> and other comparison functions where relevant, the choice between these two approaches is controlled by the <code>include_missing_features</code> parameter. The first approach is selected with <code>include_missing_features = FALSE</code>, while the second approach is selected with <code>include_missing_features = TRUE</code>.</p>
 <p>Note that the first approach does not remove features that were discarded as a result of feature selection by one of the integration method, but only features that were not in the input data for the integration method. For example, sO2PLS performs feature selection for the joint components, and as a consequence the features that are not selected as assigned a weight of 0. These features are not impacted by the choice of approach.</p>
-</section><section id="correlation-matrices" class="level2" data-number="14.5"><h2 data-number="14.5" class="anchored" data-anchor-id="correlation-matrices">
-<span class="header-section-number">14.5</span> Correlation matrices</h2>
+</section><section id="correlation-matrices" class="level2" data-number="13.5"><h2 data-number="13.5" class="anchored" data-anchor-id="correlation-matrices">
+<span class="header-section-number">13.5</span> Correlation matrices</h2>
 <p>We can obtain the correlation coefficients displayed in the heatmaps with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_features_weight_correlation.html">get_features_weight_correlation()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples_score_correlation.html">get_samples_score_correlation()</a></code> functions:</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_score_correlation.html">get_samples_score_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
-<span><span class="co">#&gt;                                      sPLS___Component 1 sPLS___Component 2</span></span>
-<span><span class="co">#&gt; sPLS___Component 1                          1.000000000        0.008626929</span></span>
-<span><span class="co">#&gt; sPLS___Component 2                          0.008626929        1.000000000</span></span>
-<span><span class="co">#&gt; sO2PLS___joint component 1                 -0.949384094       -0.034239982</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1        0.114741076       -0.084781731</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 2        0.221287415        0.001159709</span></span>
-<span><span class="co">#&gt;                                      sO2PLS___joint component 1</span></span>
-<span><span class="co">#&gt; sPLS___Component 1                                 -0.949384094</span></span>
-<span><span class="co">#&gt; sPLS___Component 2                                 -0.034239982</span></span>
-<span><span class="co">#&gt; sO2PLS___joint component 1                          1.000000000</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                0.003772669</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 2               -0.001513952</span></span>
-<span><span class="co">#&gt;                                      sO2PLS___rnaseq specific component 1</span></span>
-<span><span class="co">#&gt; sPLS___Component 1                                            0.114741076</span></span>
-<span><span class="co">#&gt; sPLS___Component 2                                           -0.084781731</span></span>
-<span><span class="co">#&gt; sO2PLS___joint component 1                                    0.003772669</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                          1.000000000</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 2                          0.035915993</span></span>
-<span><span class="co">#&gt;                                      sO2PLS___rnaseq specific component 2</span></span>
-<span><span class="co">#&gt; sPLS___Component 1                                            0.221287415</span></span>
-<span><span class="co">#&gt; sPLS___Component 2                                            0.001159709</span></span>
-<span><span class="co">#&gt; sO2PLS___joint component 1                                   -0.001513952</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                          0.035915993</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 2                          1.000000000</span></span>
+<span><span class="co">#&gt;                                          sPLS___Component 1 sPLS___Component 2</span></span>
+<span><span class="co">#&gt; sPLS___Component 1                              1.000000000        0.004845557</span></span>
+<span><span class="co">#&gt; sPLS___Component 2                              0.004845557        1.000000000</span></span>
+<span><span class="co">#&gt; sO2PLS___joint component 1                      0.973652291       -0.006320588</span></span>
+<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1           -0.123298596        0.025496756</span></span>
+<span><span class="co">#&gt; sO2PLS___metabolome specific component 1        0.033930444       -0.148278174</span></span>
+<span><span class="co">#&gt;                                          sO2PLS___joint component 1</span></span>
+<span><span class="co">#&gt; sPLS___Component 1                                      0.973652291</span></span>
+<span><span class="co">#&gt; sPLS___Component 2                                     -0.006320588</span></span>
+<span><span class="co">#&gt; sO2PLS___joint component 1                              1.000000000</span></span>
+<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                   -0.007293233</span></span>
+<span><span class="co">#&gt; sO2PLS___metabolome specific component 1               -0.003995068</span></span>
+<span><span class="co">#&gt;                                          sO2PLS___rnaseq specific component 1</span></span>
+<span><span class="co">#&gt; sPLS___Component 1                                               -0.123298596</span></span>
+<span><span class="co">#&gt; sPLS___Component 2                                                0.025496756</span></span>
+<span><span class="co">#&gt; sO2PLS___joint component 1                                       -0.007293233</span></span>
+<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                              1.000000000</span></span>
+<span><span class="co">#&gt; sO2PLS___metabolome specific component 1                          0.018259608</span></span>
+<span><span class="co">#&gt;                                          sO2PLS___metabolome specific component 1</span></span>
+<span><span class="co">#&gt; sPLS___Component 1                                                    0.033930444</span></span>
+<span><span class="co">#&gt; sPLS___Component 2                                                   -0.148278174</span></span>
+<span><span class="co">#&gt; sO2PLS___joint component 1                                           -0.003995068</span></span>
+<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                                  0.018259608</span></span>
+<span><span class="co">#&gt; sO2PLS___metabolome specific component 1                              1.000000000</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_weight_correlation.html">get_features_weight_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
-<span><span class="co">#&gt;                                      sPLS___Component 1 sPLS___Component 2</span></span>
-<span><span class="co">#&gt; sPLS___Component 1                           1.00000000       -0.045135138</span></span>
-<span><span class="co">#&gt; sPLS___Component 2                          -0.04513514        1.000000000</span></span>
-<span><span class="co">#&gt; sO2PLS___joint component 1                  -0.59616191       -0.005630684</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1         0.20314411        0.003690653</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 2         0.28853822       -0.033577121</span></span>
-<span><span class="co">#&gt;                                      sO2PLS___joint component 1</span></span>
-<span><span class="co">#&gt; sPLS___Component 1                                 -0.596161913</span></span>
-<span><span class="co">#&gt; sPLS___Component 2                                 -0.005630684</span></span>
-<span><span class="co">#&gt; sO2PLS___joint component 1                          1.000000000</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1               -0.409223949</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 2               -0.672080789</span></span>
-<span><span class="co">#&gt;                                      sO2PLS___rnaseq specific component 1</span></span>
-<span><span class="co">#&gt; sPLS___Component 1                                            0.203144108</span></span>
-<span><span class="co">#&gt; sPLS___Component 2                                            0.003690653</span></span>
-<span><span class="co">#&gt; sO2PLS___joint component 1                                   -0.409223949</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                          1.000000000</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 2                          0.048613592</span></span>
-<span><span class="co">#&gt;                                      sO2PLS___rnaseq specific component 2</span></span>
-<span><span class="co">#&gt; sPLS___Component 1                                             0.28853822</span></span>
-<span><span class="co">#&gt; sPLS___Component 2                                            -0.03357712</span></span>
-<span><span class="co">#&gt; sO2PLS___joint component 1                                    -0.67208079</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                           0.04861359</span></span>
-<span><span class="co">#&gt; sO2PLS___rnaseq specific component 2                           1.00000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;                                          sPLS___Component 1 sPLS___Component 2</span></span>
+<span><span class="co">#&gt; sPLS___Component 1                              1.000000000        0.008381676</span></span>
+<span><span class="co">#&gt; sPLS___Component 2                              0.008381676        1.000000000</span></span>
+<span><span class="co">#&gt; sO2PLS___joint component 1                      0.702008542       -0.005438028</span></span>
+<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1           -0.200398661        0.012947768</span></span>
+<span><span class="co">#&gt; sO2PLS___metabolome specific component 1        0.151077963       -0.180756532</span></span>
+<span><span class="co">#&gt;                                          sO2PLS___joint component 1</span></span>
+<span><span class="co">#&gt; sPLS___Component 1                                      0.702008542</span></span>
+<span><span class="co">#&gt; sPLS___Component 2                                     -0.005438028</span></span>
+<span><span class="co">#&gt; sO2PLS___joint component 1                              1.000000000</span></span>
+<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                   -0.418570009</span></span>
+<span><span class="co">#&gt; sO2PLS___metabolome specific component 1                0.113863838</span></span>
+<span><span class="co">#&gt;                                          sO2PLS___rnaseq specific component 1</span></span>
+<span><span class="co">#&gt; sPLS___Component 1                                                -0.20039866</span></span>
+<span><span class="co">#&gt; sPLS___Component 2                                                 0.01294777</span></span>
+<span><span class="co">#&gt; sO2PLS___joint component 1                                        -0.41857001</span></span>
+<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                               1.00000000</span></span>
+<span><span class="co">#&gt; sO2PLS___metabolome specific component 1                                   NA</span></span>
+<span><span class="co">#&gt;                                          sO2PLS___metabolome specific component 1</span></span>
+<span><span class="co">#&gt; sPLS___Component 1                                                      0.1510780</span></span>
+<span><span class="co">#&gt; sPLS___Component 2                                                     -0.1807565</span></span>
+<span><span class="co">#&gt; sO2PLS___joint component 1                                              0.1138638</span></span>
+<span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                                           NA</span></span>
+<span><span class="co">#&gt; sO2PLS___metabolome specific component 1                                1.0000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that the formatting of the row and column names is designed for easier handling in the various plotting functions.</p>
-</section><section id="pairwise-comparisons" class="level2" data-number="14.6"><h2 data-number="14.6" class="anchored" data-anchor-id="pairwise-comparisons">
-<span class="header-section-number">14.6</span> Pairwise comparisons</h2>
+</section><section id="pairwise-comparisons" class="level2" data-number="13.6"><h2 data-number="13.6" class="anchored" data-anchor-id="pairwise-comparisons">
+<span class="header-section-number">13.6</span> Pairwise comparisons</h2>
 <p>While the <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> function can handle any number of methods to compare (in our example it was 4), the heatmap can become difficult to interpret. As an alternative option, it is possible to visualise the correlation between the latent dimensions of any two methods. This is what the function <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation()</a></code> is for. It also takes as input a list of methods’ output, but the list must only contain two elements. For example, we will compare the results of sPLS and sO2PLS:</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -524,16 +523,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  by <span class="op">=</span> <span class="st">"samples"</span>,</span>
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>    <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"joint component 1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"rnaseq specific component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"joint component 1"</span>, <span class="st">"rnaseq specific component 1"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="comparison_files/figure-html/comparison-plot-correlation-subset-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-</section><section id="comparing-samples-score" class="level2" data-number="14.7"><h2 data-number="14.7" class="anchored" data-anchor-id="comparing-samples-score">
-<span class="header-section-number">14.7</span> Comparing samples score</h2>
-<p>The correlation plots shown above provide a useful summary of the similarity between the latent dimensions constructed by different integration methods. We can then investigate further how any two latent dimensions (from two different integration methods) are related. One way to do so is to compare their samples score in a scatterplot. In <a href="interpretation.html#sec-interpretation-samples-pair"><span>Section&nbsp;12.4.2</span></a>, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair()</a></code> function has been used to display the samples score of two latent dimensions from the result of an integration method, e.g.:</p>
+</section><section id="comparing-samples-score" class="level2" data-number="13.7"><h2 data-number="13.7" class="anchored" data-anchor-id="comparing-samples-score">
+<span class="header-section-number">13.7</span> Comparing samples score</h2>
+<p>The correlation plots shown above provide a useful summary of the similarity between the latent dimensions constructed by different integration methods. We can then investigate further how any two latent dimensions (from two different integration methods) are related. One way to do so is to compare their samples score in a scatterplot. In <a href="interpretation.html#sec-interpretation-samples-pair"><span>Section&nbsp;11.4.2</span></a>, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair()</a></code> function has been used to display the samples score of two latent dimensions from the result of an integration method, e.g.:</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
 <span></span>
@@ -563,9 +562,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>We can see that the samples score of the two latent dimensions are strongly correlated, showing that the two latent dimensions capture a similar trend in the data.</p>
-</section><section id="comparing-features-weight" class="level2" data-number="14.8"><h2 data-number="14.8" class="anchored" data-anchor-id="comparing-features-weight">
-<span class="header-section-number">14.8</span> Comparing features weight</h2>
-<p>In a similar way, we can compare the features importance score of two latent dimensions from two different integration methods. In <a href="interpretation.html#sec-interpretation-features-pair"><span>Section&nbsp;12.5.2</span></a>, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function has been used to display the features weight or importance score of two latent dimensions from the result of an integration method, e.g.:</p>
+</section><section id="comparing-features-weight" class="level2" data-number="13.8"><h2 data-number="13.8" class="anchored" data-anchor-id="comparing-features-weight">
+<span class="header-section-number">13.8</span> Comparing features weight</h2>
+<p>In a similar way, we can compare the features importance score of two latent dimensions from two different integration methods. In <a href="interpretation.html#sec-interpretation-features-pair"><span>Section&nbsp;11.5.2</span></a>, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function has been used to display the features weight or importance score of two latent dimensions from the result of an integration method, e.g.:</p>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output</span>,</span>
@@ -615,10 +614,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>By default, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function uses the geometric consensus importance metric (more details in the next section) to highlight the 5 features identified as most important by both methods. Both the number of features highlighted and the metric used can be controlled, through the <code>top_n</code> and <code>metric</code> arguments, respectively. In the following section, we will expand on the concept of consensus importance and the different metrics available.</p>
-</section><section id="sec-comparison-consensus" class="level2" data-number="14.9"><h2 data-number="14.9" class="anchored" data-anchor-id="sec-comparison-consensus">
-<span class="header-section-number">14.9</span> Feature consensus importance</h2>
-<section id="possible-metrics" class="level3" data-number="14.9.1"><h3 data-number="14.9.1" class="anchored" data-anchor-id="possible-metrics">
-<span class="header-section-number">14.9.1</span> Possible metrics</h3>
+</section><section id="sec-comparison-consensus" class="level2" data-number="13.9"><h2 data-number="13.9" class="anchored" data-anchor-id="sec-comparison-consensus">
+<span class="header-section-number">13.9</span> Feature consensus importance</h2>
+<section id="possible-metrics" class="level3" data-number="13.9.1"><h3 data-number="13.9.1" class="anchored" data-anchor-id="possible-metrics">
+<span class="header-section-number">13.9.1</span> Possible metrics</h3>
 <p>When comparing the results of several integration methods, we might find that several methods uncover similar trends in the datasets, through the latent dimensions they construct. For these latent dimensions, it is interesting to assess which features are consistently selected by the different methods as driving these trends. We can do so by computing the consensus importance score of the features, which summarises the importance given to the features by the different integration methods. Different metrics can be used to compute the consensus importance score. With <span class="math inline">\(s_j^i\)</span> denoting the importance score of feature <span class="math inline">\(j\)</span> from method <span class="math inline">\(i\)</span>, <span class="math inline">\(i = 1 \dots n_i\)</span> (more specifically, from one latent dimension constructed by the integration method), the following metrics are implemented in the package:</p>
 <ul>
 <li><p>Geometric mean (<code>geometric</code>): calculated as <span class="math inline">\(CI_j^G = \exp\left(\frac{1}{n_i} \sum\limits_i \log(s_j^i)\right)\)</span></p></li>
@@ -637,8 +636,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>In the plots, the consensus importance values have been normalised so that the highest value is 1. As we can see, metrics such as the geometric mean, harmonic mean, product or minimum will give higher consensus scores to features that are consistently assigned a high importance score across all methods, while features that have high importance score with one method but low score with the other will get a lower consensus score. Conversely, metrics such as the L2-norm or maximum prioritise features that are given a high importance score by at least one method, regardless of their importance score with other methods.</p>
-</section><section id="computing-features-consensus-importance-score" class="level3" data-number="14.9.2"><h3 data-number="14.9.2" class="anchored" data-anchor-id="computing-features-consensus-importance-score">
-<span class="header-section-number">14.9.2</span> Computing features’ consensus importance score</h3>
+</section><section id="computing-features-consensus-importance-score" class="level3" data-number="13.9.2"><h3 data-number="13.9.2" class="anchored" data-anchor-id="computing-features-consensus-importance-score">
+<span class="header-section-number">13.9.2</span> Computing features’ consensus importance score</h3>
 <p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance()</a></code> takes as input a list of output objects from different integration methods, as well as a named list indicating which latent dimension from each output object should be considered. By default, the geometric mean is used, but this can be changed through the <code>metric</code> argument.</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">consensus_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
@@ -651,15 +650,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;    dataset feature_id         importance</span></span>
 <span><span class="co">#&gt;    &lt;fct&gt;   &lt;chr&gt;                   &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 snps    ARS-BFGL-NGS-27468      1    </span></span>
-<span><span class="co">#&gt;  2 snps    BovineHD2300010006      0.911</span></span>
-<span><span class="co">#&gt;  3 snps    BovineHD0300000351      0.676</span></span>
-<span><span class="co">#&gt;  4 snps    BovineHD0900026231      0.619</span></span>
-<span><span class="co">#&gt;  5 snps    BovineHD0600028258      0.524</span></span>
-<span><span class="co">#&gt;  6 snps    BTA-118330-no-rs        0.472</span></span>
-<span><span class="co">#&gt;  7 snps    BovineHD1100030384      0.466</span></span>
-<span><span class="co">#&gt;  8 snps    BovineHD1800016801      0.449</span></span>
-<span><span class="co">#&gt;  9 snps    ARS-BFGL-NGS-84112      0.404</span></span>
-<span><span class="co">#&gt; 10 snps    BovineHD1900011146      0.363</span></span>
+<span><span class="co">#&gt;  2 snps    BovineHD2300010006      0.908</span></span>
+<span><span class="co">#&gt;  3 snps    BovineHD0300000351      0.650</span></span>
+<span><span class="co">#&gt;  4 snps    BovineHD0900026231      0.555</span></span>
+<span><span class="co">#&gt;  5 snps    BovineHD0600028258      0.471</span></span>
+<span><span class="co">#&gt;  6 snps    BovineHD1100030384      0.416</span></span>
+<span><span class="co">#&gt;  7 snps    BTA-118330-no-rs        0.414</span></span>
+<span><span class="co">#&gt;  8 snps    BovineHD1800016801      0.409</span></span>
+<span><span class="co">#&gt;  9 snps    ARS-BFGL-NGS-84112      0.341</span></span>
+<span><span class="co">#&gt; 10 snps    BovineHD1900011146      0.331</span></span>
 <span><span class="co">#&gt; # ℹ 2,039 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To help compare the data-frame with the plots created in the previous section, we will add the features label to the consensus importance data-frame.</p>
@@ -681,20 +680,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;    dataset    feature_id         importance label                </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;                </span></span>
 <span><span class="co">#&gt;  1 metabolome HMDB00094               1     Citric acid          </span></span>
-<span><span class="co">#&gt;  2 metabolome HMDB00042               0.706 Acetic acid          </span></span>
-<span><span class="co">#&gt;  3 metabolome HMDB00169               0.626 D-Mannose            </span></span>
-<span><span class="co">#&gt;  4 metabolome HMDB00148               0.524 L-Glutamic acid      </span></span>
-<span><span class="co">#&gt;  5 metabolome HMDB00357               0.495 3-Hydroxybutyric acid</span></span>
+<span><span class="co">#&gt;  2 metabolome HMDB00042               0.508 Acetic acid          </span></span>
+<span><span class="co">#&gt;  3 metabolome HMDB00169               0.448 D-Mannose            </span></span>
+<span><span class="co">#&gt;  4 metabolome HMDB00148               0.375 L-Glutamic acid      </span></span>
+<span><span class="co">#&gt;  5 metabolome HMDB00357               0.350 3-Hydroxybutyric acid</span></span>
 <span><span class="co">#&gt;  6 rnaseq     ENSBTAG00000022715      1     ENSBTAG00000022715   </span></span>
-<span><span class="co">#&gt;  7 rnaseq     ENSBTAG00000050618      0.864 ENSBTAG00000050618   </span></span>
-<span><span class="co">#&gt;  8 rnaseq     ENSBTAG00000049888      0.670 ENSBTAG00000049888   </span></span>
-<span><span class="co">#&gt;  9 rnaseq     ENSBTAG00000049808      0.667 IL3RA                </span></span>
-<span><span class="co">#&gt; 10 rnaseq     ENSBTAG00000050206      0.646 ENSBTAG00000050206   </span></span>
+<span><span class="co">#&gt;  7 rnaseq     ENSBTAG00000050618      0.877 ENSBTAG00000050618   </span></span>
+<span><span class="co">#&gt;  8 rnaseq     ENSBTAG00000051722      0.701 ENSBTAG00000051722   </span></span>
+<span><span class="co">#&gt;  9 rnaseq     ENSBTAG00000049808      0.698 IL3RA                </span></span>
+<span><span class="co">#&gt; 10 rnaseq     ENSBTAG00000050206      0.687 ENSBTAG00000050206   </span></span>
 <span><span class="co">#&gt; 11 snps       ARS-BFGL-NGS-27468      1     ARS-BFGL-NGS-27468   </span></span>
-<span><span class="co">#&gt; 12 snps       BovineHD2300010006      0.911 BovineHD2300010006   </span></span>
-<span><span class="co">#&gt; 13 snps       BovineHD0300000351      0.676 BovineHD0300000351   </span></span>
-<span><span class="co">#&gt; 14 snps       BovineHD0900026231      0.619 BovineHD0900026231   </span></span>
-<span><span class="co">#&gt; 15 snps       BovineHD0600028258      0.524 BovineHD0600028258</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 12 snps       BovineHD2300010006      0.908 BovineHD2300010006   </span></span>
+<span><span class="co">#&gt; 13 snps       BovineHD0300000351      0.650 BovineHD0300000351   </span></span>
+<span><span class="co">#&gt; 14 snps       BovineHD0900026231      0.555 BovineHD0900026231   </span></span>
+<span><span class="co">#&gt; 15 snps       BovineHD0600028258      0.471 BovineHD0600028258</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can see that, using the geometric mean, the feature from the metabolomics dataset that is given the highest consensus importance is citric acid. Note that the metric chosen matters less when the latent dimensions compared are in strong agreement, as it is the case here:</p>
 <div class="cell">
@@ -711,20 +710,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;    dataset    feature_id             importance label                 </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;                       &lt;dbl&gt; &lt;chr&gt;                 </span></span>
 <span><span class="co">#&gt;  1 metabolome HMDB00094                   1     Citric acid           </span></span>
-<span><span class="co">#&gt;  2 metabolome HMDB00042                   0.720 Acetic acid           </span></span>
-<span><span class="co">#&gt;  3 metabolome HMDB00169                   0.649 D-Mannose             </span></span>
-<span><span class="co">#&gt;  4 metabolome HMDB00148                   0.544 L-Glutamic acid       </span></span>
-<span><span class="co">#&gt;  5 metabolome HMDB00357                   0.499 3-Hydroxybutyric acid </span></span>
+<span><span class="co">#&gt;  2 metabolome HMDB00042                   0.508 Acetic acid           </span></span>
+<span><span class="co">#&gt;  3 metabolome HMDB00169                   0.448 D-Mannose             </span></span>
+<span><span class="co">#&gt;  4 metabolome HMDB00357                   0.377 3-Hydroxybutyric acid </span></span>
+<span><span class="co">#&gt;  5 metabolome HMDB00148                   0.375 L-Glutamic acid       </span></span>
 <span><span class="co">#&gt;  6 rnaseq     ENSBTAG00000022715          1     ENSBTAG00000022715    </span></span>
-<span><span class="co">#&gt;  7 rnaseq     ENSBTAG00000050618          0.859 ENSBTAG00000050618    </span></span>
-<span><span class="co">#&gt;  8 rnaseq     ENSBTAG00000049808          0.673 IL3RA                 </span></span>
-<span><span class="co">#&gt;  9 rnaseq     ENSBTAG00000049888          0.668 ENSBTAG00000049888    </span></span>
-<span><span class="co">#&gt; 10 rnaseq     ENSBTAG00000050206          0.648 ENSBTAG00000050206    </span></span>
+<span><span class="co">#&gt;  7 rnaseq     ENSBTAG00000050618          0.872 ENSBTAG00000050618    </span></span>
+<span><span class="co">#&gt;  8 rnaseq     ENSBTAG00000051722          0.711 ENSBTAG00000051722    </span></span>
+<span><span class="co">#&gt;  9 rnaseq     ENSBTAG00000049808          0.699 IL3RA                 </span></span>
+<span><span class="co">#&gt; 10 rnaseq     ENSBTAG00000050206          0.685 ENSBTAG00000050206    </span></span>
 <span><span class="co">#&gt; 11 snps       ARS-BFGL-NGS-27468          1     ARS-BFGL-NGS-27468    </span></span>
-<span><span class="co">#&gt; 12 snps       BovineHD2300010006          0.887 BovineHD2300010006    </span></span>
-<span><span class="co">#&gt; 13 snps       BovineHD0300000351          0.653 BovineHD0300000351    </span></span>
-<span><span class="co">#&gt; 14 snps       BovineHD0100032240          0.646 BovineHD0100032240    </span></span>
-<span><span class="co">#&gt; 15 snps       Hapmap55381-rs29025399      0.646 Hapmap55381-rs29025399</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 12 snps       BovineHD2300010006          0.883 BovineHD2300010006    </span></span>
+<span><span class="co">#&gt; 13 snps       BovineHD0100032240          0.645 BovineHD0100032240    </span></span>
+<span><span class="co">#&gt; 14 snps       Hapmap55381-rs29025399      0.645 Hapmap55381-rs29025399</span></span>
+<span><span class="co">#&gt; 15 snps       BovineHD0300000351          0.625 BovineHD0300000351</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function, we can specify which metric should be used for the consensus importance to highlight the top features. For example, we can illustrate the top features according to the average consensus metric:</p>
 <div class="cell">
@@ -743,8 +742,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="comparison_files/figure-html/plot-features-weight-average-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-</section></section><section id="recap-targets-list" class="level2" data-number="14.10"><h2 data-number="14.10" class="anchored" data-anchor-id="recap-targets-list">
-<span class="header-section-number">14.10</span> Recap – targets list</h2>
+</section></section><section id="recap-targets-list" class="level2" data-number="13.10"><h2 data-number="13.10" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">13.10</span> Recap – targets list</h2>
 <p>Although we didn’t create many new target for the plots in this chapter, we can turn some plots into targets.</p>
 <details><summary>
 Targets list for comparing different integration methods’ output
@@ -951,7 +950,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./evaluation.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
