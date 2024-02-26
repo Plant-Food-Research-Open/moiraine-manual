@@ -45,9 +45,14 @@ In the previous chapters, we have applied different integration tools to our exa
 
 <summary>`_targets.R` script</summary>
 
-```{file targets-script}
-```
+```{r previous-vignettes}
+#| echo: false
+#| results: asis
 
+knitr::current_input() |> 
+  get_previous_content() |> 
+  cat()
+```
 
 </details>
 

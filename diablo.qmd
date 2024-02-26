@@ -38,7 +38,13 @@ As a reminder, here is what the `_targets.R` script should look like so far:
 
 <summary>`_targets.R` script</summary>
 
-```{file targets-script}
+```{r previous-vignettes}
+#| echo: false
+#| results: asis
+
+knitr::current_input() |> 
+  get_previous_content() |> 
+  cat()
 ```
 
 </details>

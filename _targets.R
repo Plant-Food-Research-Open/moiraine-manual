@@ -2,7 +2,6 @@ library(targets)
 library(tarchetypes)
 library(moiraine)
 
-## add any package you need to use in the pipeline here
 tar_option_set(
   packages = c(
     "moiraine",

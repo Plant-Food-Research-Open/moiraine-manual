@@ -323,9 +323,150 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As a reminder, here is what the <code>_targets.R</code> script should look like so far:</p>
 <details><summary><code>_targets.R</code> script
 </summary><div class="cell">
-<div class="cell">
-
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tarchetypes)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(moiraine)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_option_set</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">packages =</span> <span class="fu">c</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"moiraine"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MOFA2"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mixOmics"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"readr"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tibble"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tidyr"</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dplyr"</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ggplot2"</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"patchwork"</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing data ---------------------------------------------------------------</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Data import using a target factory</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">import_dataset_csv_factory</span>(</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">files =</span> <span class="fu">c</span>(</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">system.file</span>(<span class="st">"extdata/genomics_dataset.csv"</span>, <span class="at">package =</span> <span class="st">"moiraine"</span>),</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">system.file</span>(<span class="st">"extdata/transcriptomics_dataset.csv"</span>, <span class="at">package =</span> <span class="st">"moiraine"</span>),</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">system.file</span>(<span class="st">"extdata/metabolomics_dataset.csv"</span>, <span class="at">package =</span> <span class="st">"moiraine"</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_ids =</span> <span class="fu">c</span>(<span class="st">"marker"</span>, <span class="st">"gene_id"</span>, <span class="st">"sample_id"</span>),</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">features_as_rowss =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>),</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">target_name_suffixes =</span> <span class="fu">c</span>(<span class="st">"geno"</span>, <span class="st">"transcripto"</span>, <span class="st">"metabo"</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Genomics features metadata file</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    fmetadata_file_geno,</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">system.file</span>(<span class="st">"extdata/genomics_features_info.csv"</span>, <span class="at">package =</span> <span class="st">"moiraine"</span>),</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"file"</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Genomics features metadata import</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    fmetadata_geno,</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">import_fmetadata_csv</span>(</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>      fmetadata_file_geno,</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>      <span class="at">col_id =</span> <span class="st">"marker"</span>,</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">"chromosome"</span> <span class="ot">=</span> <span class="st">"c"</span>)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Metabolomics features metadata import</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">import_fmetadata_csv_factory</span>(</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">files =</span> <span class="fu">c</span>(</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>      <span class="fu">system.file</span>(<span class="st">"extdata/metabolomics_features_info.csv"</span>, <span class="at">package =</span> <span class="st">"moiraine"</span>)</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_ids =</span> <span class="fu">c</span>(<span class="st">"feature_id"</span>),</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">target_name_suffixes =</span> <span class="fu">c</span>(<span class="st">"metabo"</span>)</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Transcriptomics features metadata import</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">import_fmetadata_gff_factory</span>(</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">files =</span> <span class="fu">system.file</span>(<span class="st">"extdata/bos_taurus_gene_model.gff3"</span>, <span class="at">package =</span> <span class="st">"moiraine"</span>),</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">feature_types =</span> <span class="st">"genes"</span>,</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    <span class="at">add_fieldss =</span> <span class="fu">c</span>(<span class="st">"Name"</span>, <span class="st">"description"</span>),</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">target_name_suffixes =</span> <span class="st">"transcripto"</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Samples metadata import</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">import_smetadata_csv_factory</span>(</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">files =</span> <span class="fu">system.file</span>(<span class="st">"extdata/samples_info.csv"</span>, <span class="at">package =</span> <span class="st">"moiraine"</span>),</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_ids =</span> <span class="st">"animal_id"</span>,</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">target_name_suffixes =</span> <span class="st">"all"</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Creating omics sets for each dataset</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">create_omics_set_factory</span>(</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">datasets =</span> <span class="fu">c</span>(data_geno, data_transcripto, data_metabo),</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">omics_types =</span> <span class="fu">c</span>(<span class="st">"genomics"</span>, <span class="st">"transcriptomics"</span>, <span class="st">"metabolomics"</span>),</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">features_metadatas =</span> <span class="fu">c</span>(fmetadata_geno, fmetadata_transcripto, fmetadata_metabo),</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    <span class="at">samples_metadatas =</span> <span class="fu">c</span>(smetadata_all, smetadata_all, smetadata_all)</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Creating the MultiDataSet object</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>    mo_set,</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>    <span class="fu">create_multiomics_set</span>(</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(set_geno,</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>           set_transcripto,</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>           set_metabo)</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspecting the `MultiDataSet` object -----------------------------------------</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Creating a density plot for each dataset</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>    density_plots,</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_density_data</span>(</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>      mo_set,</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>      <span class="at">combined =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>      <span class="at">scales =</span> <span class="st">"free"</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Plotting the relationship between features mean and standard deviation</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for each dataset</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>    mean_sd_plots,</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_meansd_data</span>(mo_set)</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Assessing missing values</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>    n_missing_values,</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>    <span class="fu">check_missing_values</span>(mo_set)</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Modifying the `MultiDataSet` object ------------------------------------------</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>  <span class="do">## RNAseq differential expression results file</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>    rnaseq_de_res_file,</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>    <span class="fu">system.file</span>(</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>      <span class="st">"extdata/transcriptomics_de_results.csv"</span>,</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>      <span class="at">package =</span> <span class="st">"moiraine"</span></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"file"</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Reading the RNAseq differential expression results</span></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>    rnaseq_de_res_df,</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv</span>(rnaseq_de_res_file) <span class="sc">|&gt;</span></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rename</span>(<span class="at">feature_id =</span> gene_id) <span class="sc">|&gt;</span></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">dataset =</span> <span class="st">"rnaseq"</span>)</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Adding the differential expression results to the MultiDataSet object</span></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>    mo_set_de,</span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_features_metadata</span>(mo_set, rnaseq_de_res_df)</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </details><section id="datasets-transformations" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="datasets-transformations">
 <span class="header-section-number">5.1</span> Datasets transformations</h2>
@@ -343,7 +484,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>return_multidataset</code> argument determines whether a <code>MultiDataSet</code> object with the corresponding dataset transformed should be returned. If it is set to <code>FALSE</code>, the function will instead return a list with the transformed dataset as a matrix as well as other useful information returned by the transformation function applied. It is possible to only return the transformed matrix, by setting <code>return_matrix_only</code> to <code>TRUE</code>. This can be useful to quickly assess the effects of the transformation outside of the analysis pipeline.</p>
 <p>For example, we can apply the Variance Stabilising Transformation to the transcriptomics dataset:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">rnaseq_vst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transform_dataset.html">transform_dataset</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_de</span>,</span>
@@ -356,7 +497,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>The function returns a list, with the transformed dataset as matrix in the <code>transformed_data</code> element. Information generated during the transformation by the <code>DESeq2</code> package is stored in the <code>info_transformation</code> element. The name of the transformation applied is stored in the <code>transformation</code> element:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">rnaseq_vst</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">rnaseq_vst</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "transformed_data"    "info_transformation" "transformation"</span></span>
 <span></span>
 <span><span class="va">rnaseq_vst</span><span class="op">$</span><span class="va">transformed_data</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
@@ -383,7 +524,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>If we instead want to apply a log2 transformation to the dataset, we will use the <code>logx</code> transformation option. In that case, we have to specify the log base to use (here 2) through the <code>log_base</code> argument, as well as the function that should be applied to the matrix prior to the log-transformation through the <code>pre_log_function</code> argument. This function is here mostly to take care of zero values that could cause an issue during the log transformation. By default, the <code><a href="https://rdrr.io/pkg/moiraine/man/zero_to_half_min.html">zero_to_half_min()</a></code> function is used, which replaces zero values in the dataset with half of the minimum non-null value found in the dataset. However, it is possible to pass any custom function instead, for example <code>function(x) x</code> would not make any change to the dataset before the log-transformation:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rnaseq_log2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transform_dataset.html">transform_dataset</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rnaseq_log2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transform_dataset.html">transform_dataset</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_de</span>,</span>
 <span>  <span class="st">"rnaseq"</span>,</span>
 <span>  <span class="st">"logx"</span>,</span>
@@ -397,7 +538,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>In that case, we asked the function to return a <code>MultiDataSet</code> object, in which the <code>rnaseq</code> dataset has been transformed:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rnaseq_log2</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rnaseq_log2</span></span>
 <span><span class="co">#&gt; Object of class 'MultiDataSet'</span></span>
 <span><span class="co">#&gt;  . assayData: 3 elements</span></span>
 <span><span class="co">#&gt;     . snps: 23036 features, 139 samples </span></span>
@@ -426,7 +567,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>The two other transformation options are <code>best-normalize-auto</code> and <code>best-normalize-manual</code>. Both rely on the <code>bestNormalize</code> package to apply a transformation <strong>independently</strong> to each feature in the dataset. With <code>best-normalize-auto</code>, the <code><a href="https://petersonr.github.io/bestNormalize/reference/bestNormalize.html">bestNormalize::bestNormalize()</a></code> function automatically selects for each feature the transformation that results in a distribution of values closest to Gaussian as possible. Note that as the function is applied independently to each feature, a different distribution may be chosen for different features. With the <code>best-normalize-manual</code> option, the same transformation is applied to each feature. The transformation to use must be specified through the <code>method</code> argument, and should be the name of one of the transformation implemented in <code>bestNormalize</code>: <code>"arcsinh_x"</code>, <code>"boxcox"</code>, <code>"center_scale"</code>, <code>"exp_x"</code>, <code>"log_x"</code>, <code>"orderNorm"</code>, <code>"sqrt_x"</code> or <code>"yeojohnson"</code>. Note that with this option, even if the same transformation is applied to each feature, the parameters for the transformation, if not specified, will be independently estimated for each feature. For example, with the <code>log_x</code> method, the function automatically adds a small offset (<code>a</code>) to the feature’s measurements if there are any zero values. The value used for this offset might be different for each feature. We can instead set a value for <code>a</code> to be used for all features, as follows:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transform_dataset.html">transform_dataset</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transform_dataset.html">transform_dataset</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_de</span>,</span>
 <span>  <span class="st">"rnaseq"</span>,</span>
 <span>  <span class="st">"best-normalize-manual"</span>,</span>
@@ -454,7 +595,7 @@ Note
 <p>Here, we would like to apply Variance Stabilising Transformation to the transcriptomics dataset, and a log2 transformation to the metabolomics dataset. Note that the VST and VSN transformations are very close to the log2 transformation, especially for features with high means.</p>
 <div class="targets-chunk">
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_de</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"vst-deseq2"</span>,</span>
 <span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"logx"</span><span class="op">)</span>,</span>
@@ -469,7 +610,7 @@ Note
 <li>It creates a grouped tibble listing the transformation to apply to each dataset, stored in the <code>transformations_spec</code> target;</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">transformations_spec</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">transformations_spec</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 6</span></span>
 <span><span class="co">#&gt;   dsn        transf     meth   log_b     prelog_f tar_group</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;      &lt;list&gt; &lt;list&gt;    &lt;list&gt;       &lt;int&gt;</span></span>
@@ -480,7 +621,7 @@ Note
 <li>It performs the required transformation on each dataset via <a href="https://books.ropensci.org/targets/dynamic.html">dynamic branching</a>. This is done through a call to the <code><a href="https://rdrr.io/pkg/moiraine/man/transform_dataset.html">transform_dataset()</a></code> function. The transformed datasets are stored in a list, in the <code>transformations_runs_list</code> target. Note that by default the function will store all details of the transformations, which can be useful for later inspection, but can be memory-intensive. It is possible to only store the transformed datasets instead, by setting the <code>return_matrix_only</code> argument to <code>TRUE</code> in the <code><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory()</a></code> call.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">transformations_runs_list</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">transformations_runs_list</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">transformations_runs_list</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "transformations_runs_list_e68c2d99" "transformations_runs_list_46986372"</span></span>
@@ -496,7 +637,7 @@ Note
 <li>It creates a new <code>MultiDataSet</code> object, with the transformed version of the datasets. By default, this new <code>MultiDataSet</code> object is stored in a target called <code>transformed_set</code>, but a different name can be specified via the <code>transformed_data_name</code> argument (here we called it <code>mo_set_transformed</code>).</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_transformed</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_transformed</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mo_set_transformed</span></span>
 <span><span class="co">#&gt; Object of class 'MultiDataSet'</span></span>
@@ -535,7 +676,7 @@ Note
 </div>
 <p>We can assess the effect of the transformations by generating density and mean-sd plots for the transformed datasets:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_transformed</span>,</span>
 <span>  combined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  scales <span class="op">=</span> <span class="st">"free"</span></span>
@@ -546,14 +687,14 @@ Note
 </div>
 <p>Note how the relationship between features mean and standard deviation has been reduced in both transformed datasets:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set_transformed</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set_transformed</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="preprocessing_files/figure-html/plot-meansd-transformed-data-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
 <p>Finally, it can be useful to summarise which transformations have been applied to the datasets, for example when creating a report. The function <code>get_table_transformation()</code> is here for that. It takes as an input the <code>transformations_runs_list</code> target generated by <code><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory()</a></code>, and returns a tibble indicating the transformation applied to each dataset:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_table_transformations.html">get_table_transformations</a></span><span class="op">(</span><span class="va">transformations_runs_list</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_table_transformations.html">get_table_transformations</a></span><span class="op">(</span><span class="va">transformations_runs_list</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span><span class="co">#&gt;   Dataset    Transformation                              </span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;                                       </span></span>
@@ -580,7 +721,7 @@ Note
 <p>Let’s apply this to our multi-omics dataset:</p>
 <div class="targets-chunk">
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/pca_complete_data_factory.html">pca_complete_data_factory</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/pca_complete_data_factory.html">pca_complete_data_factory</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_transformed</span>,</span>
 <span>  complete_data_name <span class="op">=</span> <span class="st">"mo_set_complete"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -588,11 +729,11 @@ Note
 </div>
 <p>We can have a look at the different targets constructed. By default, a PCA was run on all datasets:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">dataset_names_pca</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">dataset_names_pca</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "snps"       "rnaseq"     "metabolome"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">pca_mats_list</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">pca_mats_list</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="va">pca_mats_list</span>, <span class="va">attr</span>, <span class="st">"dataset_name"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; pca_mats_list_302d7473 pca_mats_list_84d36937 pca_mats_list_64d37e6c </span></span>
@@ -623,7 +764,7 @@ Note
 <span><span class="co">#&gt; HMDB00060 -0.5145732 0.5849625 0.4854268 2.906891 0.6780719</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "pca_runs_list_74d71ae8" "pca_runs_list_71fd94b4" "pca_runs_list_559272f0"</span></span>
@@ -634,7 +775,7 @@ Note
 </div>
 <p>The result of the PCA run on the genomics dataset looks like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">pca_runs_list_74d71ae8</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">pca_runs_list_74d71ae8</span><span class="op">)</span></span>
 <span><span class="co">#&gt; nipals calculated PCA</span></span>
 <span><span class="co">#&gt; Importance of component(s):</span></span>
 <span><span class="co">#&gt;                   PC1     PC2     PC3     PC4     PC5     PC6      PC7      PC8</span></span>
@@ -657,7 +798,7 @@ Note
 <p>You can notice that there is some information about the number of principal components computed, and whether the dataset was centred and scaled before applying the PCA. This is handled by the default arguments of <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca_matrix.html">run_pca_matrix()</a></code>, but can be specified by passing the corresponding arguments to <code><a href="https://rdrr.io/pkg/moiraine/man/pca_complete_data_factory.html">pca_complete_data_factory()</a></code>. For example, to scale the datasets before performing a PCA, we could use:</p>
 <div class="targets-chunk">
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/pca_complete_data_factory.html">pca_complete_data_factory</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/pca_complete_data_factory.html">pca_complete_data_factory</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_transformed</span>,</span>
 <span>  complete_data_name <span class="op">=</span> <span class="st">"mo_set_complete"</span>,</span>
 <span>  scale <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -666,20 +807,20 @@ Note
 </div>
 <p>For convenience, the <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca.html">run_pca()</a></code> function can be used to run a PCA on one of the omics datasets directly from a <code>MultiDataSet</code> object. It is a wrapper around the <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca_matrix.html">run_pca_matrix()</a></code> function, and takes as input a <code>MultiDataSet</code> object as well as the name of the omics dataset on which a PCA should be run, e.g.:</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/run_pca.html">run_pca</a></span><span class="op">(</span><span class="va">mo_set_de</span>, <span class="st">"rnaseq"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/run_pca.html">run_pca</a></span><span class="op">(</span><span class="va">mo_set_de</span>, <span class="st">"rnaseq"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="visualising-the-pca-results" class="level3" data-number="5.2.2"><h3 data-number="5.2.2" class="anchored" data-anchor-id="visualising-the-pca-results">
 <span class="header-section-number">5.2.2</span> Visualising the PCA results</h3>
 <p>It is possible to get an overview of the results of each PCA. First, the function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_screeplot_pca.html">plot_screeplot_pca()</a></code> displays the percentage of variance explained by the principal components computed for each dataset. It takes as input the <code>pca_runs_list</code> target constructed in the previous step. Note that by default, 10 components are computed for each dataset.</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_screeplot_pca.html">plot_screeplot_pca</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_screeplot_pca.html">plot_screeplot_pca</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="preprocessing_files/figure-html/plot-screeplot-pca-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>In addition, the <code>plot_samples_coordinates_pca</code> allows us to display the samples in the reduced principal components space (the common PCA sample plot). The function returns a list of plots (one plot per dataset). By default, it shows all principal components computed for each dataset, but for clarity we will only look at the first three:</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_coordinates_pca.html">plot_samples_coordinates_pca</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_coordinates_pca.html">plot_samples_coordinates_pca</a></span><span class="op">(</span></span>
 <span>  <span class="va">pca_runs_list</span>,</span>
 <span>  pcs <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
 <span><span class="op">)</span></span>
@@ -700,7 +841,7 @@ Note
 </div>
 <p>Note that it is possible to look at a different set of principal components for each dataset. For that, the index of the principal components should be passed to the <code>pcs</code> argument as a named list (where the name of each element corresponds to a dataset name), e.g.:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_coordinates_pca.html">plot_samples_coordinates_pca</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_coordinates_pca.html">plot_samples_coordinates_pca</a></span><span class="op">(</span></span>
 <span>  <span class="va">pca_runs_list</span>,</span>
 <span>  pcs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"snps"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
@@ -711,7 +852,7 @@ Note
 </div>
 <p>By default, the points in the sample plots are not coloured. It is however possible to colour the samples according to the information contained in the sample metadata tables available through the <code>MultiDataset</code> object. We can set different colours and shapes for the upper and lower plots in the scatterplot matrix, see the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score()</a></code> function for more information. For example, we can assess whether the first three principal components show any clustering of the samples according to their cluster computed from genomics similarity, disease status or feedlot (we’ll only show the results for the SNPs dataset here):</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_coordinates_pca.html">plot_samples_coordinates_pca</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_coordinates_pca.html">plot_samples_coordinates_pca</a></span><span class="op">(</span></span>
 <span>  <span class="va">pca_runs_list</span>,</span>
 <span>  datasets <span class="op">=</span> <span class="st">"snps"</span>,</span>
 <span>  pcs <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span>
@@ -729,7 +870,7 @@ Note
 <span class="header-section-number">5.2.3</span> Missing values imputation</h3>
 <p>We can check that the complete multi-omics set constructed has no more missing values:</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mo_set_complete</span></span>
 <span><span class="co">#&gt; Object of class 'MultiDataSet'</span></span>
@@ -751,7 +892,7 @@ Note
 <span><span class="co">#&gt;     . metabolome: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
 <span><span class="co">#&gt; No missing values in snps dataset.</span></span>
 <span><span class="co">#&gt; No missing values in rnaseq dataset.</span></span>
 <span><span class="co">#&gt; No missing values in metabolome dataset.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -763,7 +904,7 @@ Note
 Targets list for datasets preprocessing
 </summary><div class="targets-chunk">
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Applying transformations to the datasets</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set_de</span>,</span>

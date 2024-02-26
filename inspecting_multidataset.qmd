@@ -35,8 +35,16 @@ In this chapter, we will show how to inspect the `MultiDataSet` object that we c
 As a reminder, here is what the `_targets.R` script should look like so far:
 
 <details>
+  <summary>`_targets.R` script</summary>
 
-<summary>`_targets.R` script</summary>
+```{r previous-vignettes}
+#| echo: false
+#| results: asis
+
+knitr::current_input() |> 
+  get_previous_content() |> 
+  cat()
+```
 
 </details>
 

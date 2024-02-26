@@ -530,7 +530,6 @@ list(
     )
   ),
   
-  
   ## Metabolomics features metadata import
   import_fmetadata_csv_factory(
     files = c(

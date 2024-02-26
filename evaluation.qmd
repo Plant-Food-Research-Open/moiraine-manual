@@ -35,7 +35,13 @@ As a reminder, here is what the `_targets.R` script should look like so far:
 
 <summary>`_targets.R` script</summary>
 
-```{file targets-script}
+```{r previous-vignettes}
+#| echo: false
+#| results: asis
+
+knitr::current_input() |> 
+  get_previous_content() |> 
+  cat()
 ```
 
 </details>
@@ -563,7 +569,7 @@ compute_samples_silhouette(
 
 In such cases, it makes more sense to evaluate the ability of one or two latent dimensions to separate the samples group.
 
-# Recap -- targets list
+## Recap -- targets list
 
 For convenience, here is the list of targets that we created in this section:
 
