@@ -4,7 +4,7 @@ The dataset that is used as example in this manual is from @li2022. In this pape
 
 ## The study
 
-Animals enrolled into four commercial beef cattle in Alberta, Canada in 2015 were used for this study. Animals were fed a specific diet during their stay in the feedlots. 80 animals were identified as BRD positive, and 62 healthy individuals were selected from pens that had infected animals. Out of the 143 animals, 87 were heifers and 56 were steers. Blood samples were collected from each selected individuals, and the following omics measurements were collected:
+Animals enrolled into four commercial beef cattle feedlots in Alberta, Canada in 2015 were used for this study. Animals were fed a specific diet during their stay in the feedlots. 80 animals were identified as BRD positive, and 63 healthy individuals were selected from pens that had infected animals. Out of the 143 animals, 87 were heifers and 56 were steers. Blood samples were collected from each selected individual, and the following omics measurements were collected:
 
 * Genomics data (Illumina GGP Bovine 10K microarray SNP chip). Four samples were lost for this dataset;
 
@@ -12,34 +12,65 @@ Animals enrolled into four commercial beef cattle in Alberta, Canada in 2015 wer
 
 * Metabolomics data (via NMR spectroscopy, using a 700 MHz Avance III spectrometer).
 
-The genomics and metabolomics datasets were deposited in the borealis database (https://doi.org/10.5683/SP3/ZETWNY), and the transcriptomics dataset in the GEO database (accession [GSE217317](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE217317)).
+The genomics and metabolomics datasets were deposited in the borealis database (DOI: [10.5683/SP3/ZETWNY](https://doi.org/10.5683/SP3/ZETWNY)), and the transcriptomics dataset in the GEO database (accession [GSE217317](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE217317)).
 
 ## Omics analyses
 
 The genomics dataset was used to infer the genomic breed composition of the animals, using the ADMIXTURE software with ancestry value set to 3. Then, SNPs were called from the RNAseq data, and were combined with the genomics dataset for further analysis.
 
-A genome-wide association study (GWAS) was run to identify SNPs significantly associated with disease status; the latter was adjusted for feedlot, days on feed and genomic breed composition. SNPs with a false discovery rate (FDR) < 0.05 were considered as significant quantitative trait loci (QTLs).
+A genome-wide association study (GWAS) was run to identify SNPs significantly associated with disease status; the latter was adjusted for feedlot, days on feed and genomic breed composition. 2 SNPs with a false discovery rate (FDR) < 0.05 were considered as significant quantitative trait loci (QTLs).
 
-The transcriptomics data were used for a differential expression analysis, accounting for feedlot, genomic breed composition and sequencing batch. The group of healthy samples was used as the reference in the analysis; genes with an FDR < 0.01, log2 fold-change > 2 and log-counts per million > 2 were considered as significantly differentially expressed (DE).
+The transcriptomics data were used for a differential expression analysis, accounting for feedlot, genomic breed composition and sequencing batch. The group of healthy samples was used as the reference in the analysis; 101 genes with an FDR < 0.01, log2 fold-change > 2 and log-counts per million > 2 were considered as significantly differentially expressed (DE).
 
-An expression-QTL (eQTL) study was performed on the DE genes to identify SNPs significantly associated with their expression, again correcting for feedlot, sequencing batch and genomic breed composition. SNPs with an FDR < 0.05 were considered as significant eQTLs. The physical distance between an eQTL and the associated gene was used to classify the mode of action of the SNP: SNPs located within 1Mbp of the gene transcription starting site were considered cis-eQTLs, those located further or on different chromosomes were instead classified as trans-eQTLs.
+An expression-QTL (eQTL) study was performed on the DE genes to identify SNPs significantly associated with their expression, again correcting for feedlot, sequencing batch and genomic breed composition. 564 SNPs with an FDR < 0.05 were considered as significant eQTLs. The physical distance between an eQTL and the associated gene was used to classify the mode of action of the SNP: 420 SNPs located within 1Mbp of the gene transcription starting site were considered cis-eQTLs, those located further or on different chromosomes (144 SNPs) were instead classified as trans-eQTLs.
 
-A differential concentration analysis was performed on the metabolomics data using two-samples t-test, and adjusting for feedlot and sex. The group of healthy samples was used as reference; metabolites with an FDR < 0.05 were considered as DE. 
+A differential concentration analysis was performed on the metabolomics data using two-samples t-test, and adjusting for feedlot and sex. The group of healthy samples was used as reference; 35 metabolites with an FDR < 0.05 were considered as DE. 
  
 ## Data processing
 
 The full script for the data processing can be found in the [`moiraine` GitHub repository](https://github.com/PlantandFoodResearch/moiraine/blob/main/data-raw/example_dataset_li2022.R).
 
-The matrix of SNP dosage and table of SNP information were downloaded from the borealis database (https://doi.org/10.5683/SP3/ZETWNY). SNPs with more than 10% of missing values, a minor allele frequency lower than 5%, or located on a sex chromosome were removed from the analysis (according to the paper's methods, although filtering based on Hardy-Weinberg equilibrium was not performed). In addition, to keep the size of the dataset small (as this dataset is indented for demonstration only), 23,000 SNPs that were not found significant QTLs or eQTLs were randomly subsampled. All SNPs detected as QTLs or eQTLs were also retained in the dataset; yielding a genomics dataset of 23,036 SNPs over 139 samples.
+### Genomics dataset
 
-The list of significant QTLs and eQTLs was extracted from the supplementary file made available on Figshare alongside the article (https://figshare.com/ndownloader/files/38514059) and completed with information from Table 1 from @li2022. Note that some of the QTLs and eQTLs listed in the article and supplementary material were obtained from the RNAseq dataset, and so are not present in the version of the dataset used for the present tutorial. If a SNP was selected as both QTL and eQTL, only the results yielding the smallest FDR value were retained.
+The matrix of SNP dosage and table of SNP information were downloaded from the [borealis database](https://doi.org/10.5683/SP3/ZETWNY). The list of significant QTLs and eQTLs was extracted from the [supplementary file](https://figshare.com/articles/dataset/DataSheet1_Applying_multi-omics_data_to_study_the_genetic_background_of_bovine_respiratory_disease_infection_in_feedlot_crossbred_cattle_xlsx/21708890) made available on Figshare alongside the article and completed with information from Table 1 from @li2022. Note that some of the QTLs and eQTLs listed in the article and supplementary material were obtained from the RNAseq dataset, and so are not present in the version of the dataset used for the present tutorial. If a SNP was selected as both QTL and eQTL, only the results yielding the smallest FDR value were retained.
 
-The matrix of RNAseq read counts, alongside information about the measured samples, was downloaded from the GEO database (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE217317). Sample IDs were corrected when possible to match with the IDs found in the datasets from the borealis database, based on information about the samples. Genes with a read count of 0 for 90% or more samples were removed from the dataset. This resulted in a dataset of 20,335 genes over 143 samples. 
+SNPs with more than 10% of missing values, a minor allele frequency lower than 5%, or located on a sex chromosome were removed from the analysis (according to the paper's methods, although filtering based on Hardy-Weinberg equilibrium was not performed). In addition, to keep the size of the dataset small (as this dataset is indented for demonstration only), 23,000 SNPs that were not found significant QTLs or eQTLs were randomly subsampled from the full set of non-significant SNPs. All SNPs detected as QTLs or eQTLs were also retained in the dataset; yielding a genomics dataset of 23,036 SNPs over 139 samples.
 
-The genome annotation file used to map the reads (Bos taurus genome, version ARS-UCD1.2.110) was downloaded from the Ensembl database (https://ftp.ensembl.org/pub/release-110/gff3/bos_taurus/). A lighter version of the file was generated by only retaining information about the genes in the GFF3 file. In addition, the genes' GO annotation was obtained through the `biomaRt` package using the Bos taurus Ensembl genome annotation (version 110).
+Also, k-means clustering was used to group samples into 3 clusters, based on their genomic breed composition values. 
 
-The table of metabolites concentrations was downloaded from the borealis database, containing measurements for 55 metabolites over 139 samples. Information about the measured metabolites was found in the HMDB dataset (https://hmdb.ca/). The contents of the database were downloaded and parsed to extract relevant properties of the measured metabolites.
+### Transcriptomics dataset
 
-The differential expression analyses on the genes and compounds were re-created according to the manuscript's methods section. Also, k-means clustering was used to group samples into 3 clusters, based on their genomic breed composition values. 
+The matrix of RNAseq read counts, alongside information about the measured samples, was downloaded from the [GEO database](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE217317). Sample IDs were corrected when possible to match with the IDs found in the datasets from the borealis database, based on information about the samples. Genes with a read count of 0 for 90% or more samples were removed from the dataset. This resulted in a dataset of 20,335 genes over 143 samples. 
+
+The genome annotation file used for mapping the RNAseq reads (Bos taurus genome, version 110) was downloaded from the [Ensembl database](https://ftp.ensembl.org/pub/release-110/gff3/bos_taurus/). A lighter version of the file was generated by only retaining information about the genes in the GFF3 file. In addition, the genes' GO annotation was obtained through the `biomaRt` package using the Bos taurus Ensembl genome annotation (version 110).
+
+The differential expression analysis was re-created according to the manuscript's methods section, using the `edgeR` package. Due to difference in package version and missing information about two samples, the results are not completely identical, nevertheless, most of the DE genes overlapped with the ones reported in the manuscript.
 
 
+### Metabolomics dataset
+
+The table of metabolites concentrations was downloaded from the borealis database, containing measurements for 55 metabolites over 139 samples. Information about the measured metabolites was found in the HMDB dataset (<https://hmdb.ca/>). The contents of the database were downloaded and parsed to extract relevant properties of the measured metabolites.
+
+The differential expression analysis on the compounds was re-created according to the manuscript's methods section, using a two-sample t-test.
+
+### Resulting files
+
+The following files were generated, and are available through the `moiraine` package (can be retrieved via `system.file("extdata/genomics_dataset.csv", package = "moiraine")`):
+
+* `genomics_dataset.csv`: contains the genomic variants’ dosage, with 23,036 genomic variants as rows and 139 samples as columns.
+
+* `genomics_features_info.csv`: contains information about the genomic variants (chromosome, genomic position, etc, as well as the results of a GWAS analysis), with 23,036 genomic variants as rows.
+
+* `transcriptomics_dataset.csv`: contains the genes' raw read count, with 20,335 genes as rows and 143 samples as columns.
+
+* `bos_taurus_gene_model.gff3`: the genome annotation file used to map the transcriptomics reads to gene models.
+
+* `transcriptomics_de_results.csv`: the results of a differential expression analysis run on the transcriptomics dataset to compare healthy and infected animals, with 20,335 genes as rows.
+
+* `transcriptomics_go_annotation.csv`: contains the correspondence between genes and GO terms in a long format (one row per gene/GO term pair).
+
+* `metabolomics_dataset.csv`: contains the area peak values, with 139 samples as rows, and 55 compounds as columns.
+
+* `metabolomics_features_info.csv`: contains information about the 55 compounds in rows (such as mass, retention time, and formula and name if the compounds has been identified) as well as the results of a differential expression analysis run on the metabolomics dataset to compare healthy and infected animals.
+
+* `samples_info.csv`: information about the samples, with 143 samples as rows.

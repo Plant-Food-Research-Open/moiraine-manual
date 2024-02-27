@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-  title: "The moiraine R package user manual"
+  title: "The `moiraine` R package user manual"
   author: "Olivia Angelin-Bonnet"
   search: true
   repo-url: https://github.com/PlantandFoodResearch/moiraine

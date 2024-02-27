@@ -1016,6 +1016,18 @@
       ],
       "Hash": "ac6cdb8552c61bd36b0e54d07cf2aab7"
     },
+    "checkmate": {
+      "Package": "checkmate",
+      "Version": "2.2.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "backports",
+        "utils"
+      ],
+      "Hash": "ca9c113196136f4a9ca9ce6079c2c99e"
+    },
     "circlize": {
       "Package": "circlize",
       "Version": "0.4.15",
@@ -2108,7 +2120,7 @@
       "RemoteUsername": "PlantandFoodResearch",
       "RemoteRepo": "moiraine",
       "RemoteRef": "main",
-      "RemoteSha": "a7dc1abdd789040eb814e90ac11a8ab3bbda1ba9",
+      "RemoteSha": "92c0c4be79313b996ddeb0a2e78802703cc72572",
       "Requirements": [
         "Biobase",
         "ComplexHeatmap",
@@ -2146,7 +2158,7 @@
         "tidyselect",
         "utils"
       ],
-      "Hash": "fb476bd1efef272b4f6140013017b2d2"
+      "Hash": "8c5ef09ffa805a2fd6b1dd20911f0c55"
     },
     "munsell": {
       "Package": "munsell",
@@ -2226,6 +2238,33 @@
         "utils"
       ],
       "Hash": "bca377e1c87ec89ebed77bba00635b2e"
+    },
+    "parsermd": {
+      "Package": "parsermd",
+      "Version": "0.1.3",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "BH",
+        "R",
+        "Rcpp",
+        "checkmate",
+        "cli",
+        "dplyr",
+        "lifecycle",
+        "magrittr",
+        "pillar",
+        "purrr",
+        "readr",
+        "rlang",
+        "rmarkdown",
+        "tibble",
+        "tidyr",
+        "tidyselect",
+        "withr",
+        "yaml"
+      ],
+      "Hash": "246bf49f28666e1267e50e5fdc47e0f4"
     },
     "patchwork": {
       "Package": "patchwork",

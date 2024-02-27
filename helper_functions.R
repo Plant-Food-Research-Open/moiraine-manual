@@ -25,6 +25,25 @@ get_chapters <- function(){
     stringr::str_remove("\\s+- ")
 }
 
+
+## Add missing comma and empty line to the last target of each element in the
+## list except the last one.
+combine_content <- function(x) {
+  last_index <- length(x)
+  last_x <- x[last_index]
+
+  x <- x[-last_index]
+  x <- x |>
+    purrr::map(\(y){
+      indx <- rev(stringr::str_which(y, "^  \\)$"))[1]
+      y[indx] <- paste0(y[indx], ",")
+      if (y[length(y)] != "") y <- c(y, "")
+      y
+    })
+
+  c(x, last_x) |> unlist()
+}
+
 ## Read last chunk from each chapter
 parse_chapter <- function(chapter){
   chapter_content <- parsermd::parse_rmd(chapter)
@@ -40,7 +59,8 @@ parse_chapter <- function(chapter){
 
   lines <- chapter_content |>
     parsermd::rmd_select(parsermd::has_label("*recap-targets-list")) |>
-    parsermd::as_document()
+    purrr::map(parsermd::as_document) |>
+    combine_content()
 
   to_remove <- c(
     stringr::str_which(lines, "```"),
@@ -51,6 +71,7 @@ parse_chapter <- function(chapter){
   c(chapter_title_line, "", lines[-to_remove])
 }
 
+## for each chapter, combine previous chapters' code
 get_previous_content <- function(current_chapter) {
   current_chapter <- stringr::str_replace(current_chapter, "rmarkdown", "qmd")
 
@@ -60,9 +81,8 @@ get_previous_content <- function(current_chapter) {
   curr_chap <- which(chapters == current_chapter)
   chapters <- chapters[seq_len(curr_chap - 1)]
 
-  chapters_content <- purrr::map(chapters, parse_chapter)
-
-  chapters_content <- unlist(chapters_content)
+  chapters_content <- purrr::map(chapters, parse_chapter) |>
+    combine_content()
 
   if (chapters_content[length(chapters_content)] == "") {
     chapters_content <- chapters_content[-length(chapters_content)]
@@ -81,9 +101,3 @@ get_previous_content <- function(current_chapter) {
   ) |>
     paste0(collapse = "\n")
 }
-
-
-
-
-
-## for each chapter, combine previous chapters' code

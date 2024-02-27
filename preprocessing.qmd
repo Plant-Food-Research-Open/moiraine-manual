@@ -12,6 +12,7 @@ library(moiraine)
 library(MultiDataSet)
 library(pcaMethods)
 library(purrr)
+library(rlang)
 library(ggplot2)
 library(RColorBrewer)
 
@@ -34,6 +35,7 @@ library(pcaMethods)
 
 ## For working with lists
 library(purrr)
+library(rlang)
 ## For custom colour palettes
 library(ggplot2)
 library(RColorBrewer)
@@ -201,6 +203,32 @@ get_dataset_matrix(mo_set_de, "metabolome")[1:5, 1:3]
 get_dataset_matrix(mo_set_de, "metabolome")[1:5, 1:3]
 ```
 
+<details>
+
+<summary>Converting targets factory to R script</summary>
+
+```{r transformation-datasets-factory-to-script}
+#| eval: false
+
+transformations_runs_list <- c(
+  "rnaseq" = "vst-deseq2", 
+  "metabolome" = "logx"
+) |>  imap(\(x, y) {
+    transform_dataset(
+      mo_set_de,
+      dataset = y,
+      transformation = x,
+      log_base = 2,
+      pre_log_function = zero_to_half_min
+    )
+  }
+)
+
+mo_set_transformed <- get_transformed_data(mo_set_de, transformations_runs_list)
+```
+
+</details>
+
 We can assess the effect of the transformations by generating density and mean-sd plots for the transformed datasets:
 
 ```{r plot-density-transformed-data}
@@ -307,6 +335,24 @@ For convenience, the `run_pca()` function can be used to run a PCA on one of the
 run_pca(mo_set_de, "rnaseq")
 ```
 
+<details>
+
+<summary>Converting targets factory to R script</summary>
+
+```{r pca-complete-data-factory-to-script}
+#| eval: false
+
+pca_mats_list <- names(mo_set_transformed) |> 
+  set_names() |> 
+  map(\(x) get_dataset_matrix(mo_set_transformed, x, keep_dataset_name = TRUE))
+
+pca_runs_list <- pca_mats_list |> 
+  map(run_pca_matrix)
+
+mo_set_complete <- get_complete_data(mo_set_transformed, pca_runs_list)
+```
+
+</details>
 
 ### Visualising the PCA results
 

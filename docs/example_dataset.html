@@ -102,7 +102,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">The moiraine R package user manual</a> 
+      <a href="./">The <code>moiraine</code> R package user manual</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/PlantandFoodResearch/moiraine" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
     <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
@@ -118,7 +118,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Introduction</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -236,7 +236,21 @@ div.csl-indent {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-study" id="toc-the-study" class="nav-link active" data-scroll-target="#the-study"><span class="toc-section-number">1.1</span>  The study</a></li>
+  <li><a href="#omics-analyses" id="toc-omics-analyses" class="nav-link" data-scroll-target="#omics-analyses"><span class="toc-section-number">1.2</span>  Omics analyses</a></li>
+  <li><a href="#data-processing" id="toc-data-processing" class="nav-link" data-scroll-target="#data-processing"><span class="toc-section-number">1.3</span>  Data processing</a>
+  <ul class="collapse">
+  <li><a href="#genomics-dataset" id="toc-genomics-dataset" class="nav-link" data-scroll-target="#genomics-dataset"><span class="toc-section-number">1.3.1</span>  Genomics dataset</a></li>
+  <li><a href="#transcriptomics-dataset" id="toc-transcriptomics-dataset" class="nav-link" data-scroll-target="#transcriptomics-dataset"><span class="toc-section-number">1.3.2</span>  Transcriptomics dataset</a></li>
+  <li><a href="#metabolomics-dataset" id="toc-metabolomics-dataset" class="nav-link" data-scroll-target="#metabolomics-dataset"><span class="toc-section-number">1.3.3</span>  Metabolomics dataset</a></li>
+  <li><a href="#resulting-files" id="toc-resulting-files" class="nav-link" data-scroll-target="#resulting-files"><span class="toc-section-number">1.3.4</span>  Resulting files</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -258,7 +272,59 @@ div.csl-indent {
 
 </header>
 
-<p>The dataset that is used as example in this manual comes from <span class="citation" data-cites="li2022">Li et al. (<a href="references.html#ref-li2022" role="doc-biblioref">2022</a>)</span>. In this paper, the authors investigate the molecular mechanisms of bovine respiratory disease (BRD) in beef cattle, using multi-omics data. They collected genomics, transcriptomics and metabolomics measurements on blood samples obtained from both healthy and infected animals. They performed a genome-wide association study (GWAS) to identify genomic variants associated with BRD incidence, as well as a differential expression (DE) analysis on both the transcriptomics and metabolomics datasets to identify genes and metabolites whose expression or abundance differed between the two animal groups. They also performed an expression quantitative trait loci (eQTL) analysis to highlight associations between genomic variants and differentially expressed genes. The datasets analysed in this article are publicly available. In this chapter, we detail the content of each dataset, and how they were obtained and processed to use for this manual.</p>
+<p>The dataset that is used as example in this manual is from <span class="citation" data-cites="li2022">Li et al. (<a href="references.html#ref-li2022" role="doc-biblioref">2022</a>)</span>. In this paper, the authors investigate the molecular mechanisms of bovine respiratory disease (BRD) in beef cattle, using multi-omics data (genomics, transcriptomics and metabolomics). In this chapter, we give more information about the study and the omics datasets, and detail how these datasets were obtained and processed for this tutorial.</p>
+<section id="the-study" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="the-study"><span class="header-section-number">1.1</span> The study</h2>
+<p>Animals enrolled into four commercial beef cattle feedlots in Alberta, Canada in 2015 were used for this study. Animals were fed a specific diet during their stay in the feedlots. 80 animals were identified as BRD positive, and 63 healthy individuals were selected from pens that had infected animals. Out of the 143 animals, 87 were heifers and 56 were steers. Blood samples were collected from each selected individual, and the following omics measurements were collected:</p>
+<ul>
+<li><p>Genomics data (Illumina GGP Bovine 10K microarray SNP chip). Four samples were lost for this dataset;</p></li>
+<li><p>Transcriptomics data (paired-end RNAseq data on total RNA). The samples were processed in two batches, with a different sequencing platform used for each batch (Hiseq 4000 and Novaseq 6000);</p></li>
+<li><p>Metabolomics data (via NMR spectroscopy, using a 700 MHz Avance III spectrometer).</p></li>
+</ul>
+<p>The genomics and metabolomics datasets were deposited in the borealis database (DOI: <a href="https://doi.org/10.5683/SP3/ZETWNY">10.5683/SP3/ZETWNY</a>), and the transcriptomics dataset in the GEO database (accession <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE217317">GSE217317</a>).</p>
+</section>
+<section id="omics-analyses" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="omics-analyses"><span class="header-section-number">1.2</span> Omics analyses</h2>
+<p>The genomics dataset was used to infer the genomic breed composition of the animals, using the ADMIXTURE software with ancestry value set to 3. Then, SNPs were called from the RNAseq data, and were combined with the genomics dataset for further analysis.</p>
+<p>A genome-wide association study (GWAS) was run to identify SNPs significantly associated with disease status; the latter was adjusted for feedlot, days on feed and genomic breed composition. 2 SNPs with a false discovery rate (FDR) &lt; 0.05 were considered as significant quantitative trait loci (QTLs).</p>
+<p>The transcriptomics data were used for a differential expression analysis, accounting for feedlot, genomic breed composition and sequencing batch. The group of healthy samples was used as the reference in the analysis; 101 genes with an FDR &lt; 0.01, log2 fold-change &gt; 2 and log-counts per million &gt; 2 were considered as significantly differentially expressed (DE).</p>
+<p>An expression-QTL (eQTL) study was performed on the DE genes to identify SNPs significantly associated with their expression, again correcting for feedlot, sequencing batch and genomic breed composition. 564 SNPs with an FDR &lt; 0.05 were considered as significant eQTLs. The physical distance between an eQTL and the associated gene was used to classify the mode of action of the SNP: 420 SNPs located within 1Mbp of the gene transcription starting site were considered cis-eQTLs, those located further or on different chromosomes (144 SNPs) were instead classified as trans-eQTLs.</p>
+<p>A differential concentration analysis was performed on the metabolomics data using two-samples t-test, and adjusting for feedlot and sex. The group of healthy samples was used as reference; 35 metabolites with an FDR &lt; 0.05 were considered as DE.</p>
+</section>
+<section id="data-processing" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="data-processing"><span class="header-section-number">1.3</span> Data processing</h2>
+<p>The full script for the data processing can be found in the <a href="https://github.com/PlantandFoodResearch/moiraine/blob/main/data-raw/example_dataset_li2022.R"><code>moiraine</code> GitHub repository</a>.</p>
+<section id="genomics-dataset" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="genomics-dataset"><span class="header-section-number">1.3.1</span> Genomics dataset</h3>
+<p>The matrix of SNP dosage and table of SNP information were downloaded from the <a href="https://doi.org/10.5683/SP3/ZETWNY">borealis database</a>. The list of significant QTLs and eQTLs was extracted from the <a href="https://figshare.com/articles/dataset/DataSheet1_Applying_multi-omics_data_to_study_the_genetic_background_of_bovine_respiratory_disease_infection_in_feedlot_crossbred_cattle_xlsx/21708890">supplementary file</a> made available on Figshare alongside the article and completed with information from Table 1 from <span class="citation" data-cites="li2022">Li et al. (<a href="references.html#ref-li2022" role="doc-biblioref">2022</a>)</span>. Note that some of the QTLs and eQTLs listed in the article and supplementary material were obtained from the RNAseq dataset, and so are not present in the version of the dataset used for the present tutorial. If a SNP was selected as both QTL and eQTL, only the results yielding the smallest FDR value were retained.</p>
+<p>SNPs with more than 10% of missing values, a minor allele frequency lower than 5%, or located on a sex chromosome were removed from the analysis (according to the paper’s methods, although filtering based on Hardy-Weinberg equilibrium was not performed). In addition, to keep the size of the dataset small (as this dataset is indented for demonstration only), 23,000 SNPs that were not found significant QTLs or eQTLs were randomly subsampled from the full set of non-significant SNPs. All SNPs detected as QTLs or eQTLs were also retained in the dataset; yielding a genomics dataset of 23,036 SNPs over 139 samples.</p>
+<p>Also, k-means clustering was used to group samples into 3 clusters, based on their genomic breed composition values.</p>
+</section>
+<section id="transcriptomics-dataset" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="transcriptomics-dataset"><span class="header-section-number">1.3.2</span> Transcriptomics dataset</h3>
+<p>The matrix of RNAseq read counts, alongside information about the measured samples, was downloaded from the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE217317">GEO database</a>. Sample IDs were corrected when possible to match with the IDs found in the datasets from the borealis database, based on information about the samples. Genes with a read count of 0 for 90% or more samples were removed from the dataset. This resulted in a dataset of 20,335 genes over 143 samples.</p>
+<p>The genome annotation file used for mapping the RNAseq reads (Bos taurus genome, version 110) was downloaded from the <a href="https://ftp.ensembl.org/pub/release-110/gff3/bos_taurus/">Ensembl database</a>. A lighter version of the file was generated by only retaining information about the genes in the GFF3 file. In addition, the genes’ GO annotation was obtained through the <code>biomaRt</code> package using the Bos taurus Ensembl genome annotation (version 110).</p>
+<p>The differential expression analysis was re-created according to the manuscript’s methods section, using the <code>edgeR</code> package. Due to difference in package version and missing information about two samples, the results are not completely identical, nevertheless, most of the DE genes overlapped with the ones reported in the manuscript.</p>
+</section>
+<section id="metabolomics-dataset" class="level3" data-number="1.3.3">
+<h3 data-number="1.3.3" class="anchored" data-anchor-id="metabolomics-dataset"><span class="header-section-number">1.3.3</span> Metabolomics dataset</h3>
+<p>The table of metabolites concentrations was downloaded from the borealis database, containing measurements for 55 metabolites over 139 samples. Information about the measured metabolites was found in the HMDB dataset (<a href="https://hmdb.ca/" class="uri">https://hmdb.ca/</a>). The contents of the database were downloaded and parsed to extract relevant properties of the measured metabolites.</p>
+<p>The differential expression analysis on the compounds was re-created according to the manuscript’s methods section, using a two-sample t-test.</p>
+</section>
+<section id="resulting-files" class="level3" data-number="1.3.4">
+<h3 data-number="1.3.4" class="anchored" data-anchor-id="resulting-files"><span class="header-section-number">1.3.4</span> Resulting files</h3>
+<p>The following files were generated, and are available through the <code>moiraine</code> package (can be retrieved via <code>system.file("extdata/genomics_dataset.csv", package = "moiraine")</code>):</p>
+<ul>
+<li><p><code>genomics_dataset.csv</code>: contains the genomic variants’ dosage, with 23,036 genomic variants as rows and 139 samples as columns.</p></li>
+<li><p><code>genomics_features_info.csv</code>: contains information about the genomic variants (chromosome, genomic position, etc, as well as the results of a GWAS analysis), with 23,036 genomic variants as rows.</p></li>
+<li><p><code>transcriptomics_dataset.csv</code>: contains the genes’ raw read count, with 20,335 genes as rows and 143 samples as columns.</p></li>
+<li><p><code>bos_taurus_gene_model.gff3</code>: the genome annotation file used to map the transcriptomics reads to gene models.</p></li>
+<li><p><code>transcriptomics_de_results.csv</code>: the results of a differential expression analysis run on the transcriptomics dataset to compare healthy and infected animals, with 20,335 genes as rows.</p></li>
+<li><p><code>transcriptomics_go_annotation.csv</code>: contains the correspondence between genes and GO terms in a long format (one row per gene/GO term pair).</p></li>
+<li><p><code>metabolomics_dataset.csv</code>: contains the area peak values, with 139 samples as rows, and 55 compounds as columns.</p></li>
+<li><p><code>metabolomics_features_info.csv</code>: contains information about the 55 compounds in rows (such as mass, retention time, and formula and name if the compounds has been identified) as well as the results of a differential expression analysis run on the metabolomics dataset to compare healthy and infected animals.</p></li>
+<li><p><code>samples_info.csv</code>: information about the samples, with 143 samples as rows.</p></li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
@@ -266,6 +332,8 @@ div.csl-indent {
 Li, Jiyuan, Robert Mukiibi, Janelle Jiminez, Zhiquan Wang, Everestus C. Akanno, Edouard Timsit, and Graham S. Plastow. 2022. <span>“Applying Multi-Omics Data to Study the Genetic Background of Bovine Respiratory Disease Infection in Feedlot Crossbred Cattle.”</span> <em>Frontiers in Genetics</em> 13. <a href="https://www.frontiersin.org/articles/10.3389/fgene.2022.1046192">https://www.frontiersin.org/articles/10.3389/fgene.2022.1046192</a>.
 </div>
 </div>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -404,7 +472,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

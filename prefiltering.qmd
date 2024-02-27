@@ -11,6 +11,7 @@ library(targets)
 library(moiraine)
 library(MultiDataSet)
 library(purrr)
+library(rlang)
 ```
 
 ```{r setup-visible}
@@ -22,6 +23,7 @@ library(MultiDataSet)
 
 ## For working with lists
 library(purrr)
+library(rlang)
 ```
 
 Once the datasets have been appropriately transformed, and missing values imputed if necessary, the next step is to perform some pre-filtering to reduce the dimensions of the datasets. This applies to samples (e.g. we want to focus the analysis on a subset of samples of interest) as well as features. Pre-filtering of features is of particular importance, as datasets with large number of features lead to increased computational time and potentially lower quality results during the integration process. Note that the goal of this pre-filtering step is not to retain only interesting features, but rather to discard the less relevant features so that the datasets have a manageable size for the downstream data integration tools.
@@ -203,7 +205,7 @@ The `feature_preselection_cov_factory()` and `feature_preselection_mad_factory()
 ::: {.targets-chunk}
 ```{targets feature-preselection-mad-factory}
 feature_preselection_mad_factory(
-  mo_samples_complete,
+  mo_set_complete,
   to_keep_ns = c("snps" = 1000, "rnaseq" = 1000),
   with_ties = TRUE,
   filtered_set_target_name = "mo_presel_unsupervised"
@@ -244,6 +246,31 @@ map(individual_mad_values, head, 3)
 tar_read(mo_presel_unsupervised)
 ```
 
+<details>
+
+<summary>Converting targets factory to R script</summary>
+
+```{r feature-preselection-mad-factory-to-script}
+#| eval: false
+
+mad_spec <- c("snps" = 1000, "rnaseq" = 1000)
+
+mad_mat <- mad_spec |> 
+  imap(\(x, y) get_dataset_matrix(mo_set_complete, y,keep_dataset_name = TRUE))
+
+individual_mad_values <- mad_spec |>
+  imap(\(x, y) {
+    select_features_mad_matrix(mad_mat[[y]], to_keep_n = x, with_ties = TRUE)
+  })
+
+mo_presel_unsupervised <- get_filtered_dataset_variability(
+  mo_set_complete,
+  individual_mad_values
+)
+```
+
+</details>
+
 The `plot_feature_preselection_mad()` function can be used to visualise the distribution of MAD values across each (non-filtered) dataset and the minimum MAD value retained in the filtered datasets:
 
 ```{r plot-feature-preselection-mad}
@@ -255,7 +282,7 @@ If we instead wanted to retain 50% of all features both the genomics and transcr
 ::: {.targets-chunk}
 ```{targets feature-preselection-mad-factory-props}
 feature_preselection_mad_factory(
-  mo_samples_complete,
+  mo_set_complete,
   to_keep_props = c("rnaseq" = 0.5, "metabolome" = 0.5),
   with_ties = TRUE,
   filtered_set_target_name = "mo_presel_unsupervised"
@@ -283,9 +310,9 @@ Another approach to features preselection can be preferred when we are trying to
 The `feature_preselection_splsda_factory()` function allows us to perform this supervised preselection for some or all datasets within a `MultiDataSet` object. It provides the option to set either the number or proportion of features to retain in each dataset, via the `to_keep_ns` and `to_keep_props` arguments. One additional argument that needs to be passed to the function is `group`, which gives the name of the column in the samples metadata information to be used as categorical outcome for the sPLS-DA run. This column must be present in the sample metadata of at least one of the datasets to be filtered. For this example, we will retain in each dataset 1,000 features that best discriminate the control and diseased animals. Warning: this function can take several minutes to run.
 
 ::: {.targets-chunk}
-```{targets feature-preselection-splsda-factory, results = "hide"}
+```{targets feature-preselection-splsda-factory}
 feature_preselection_splsda_factory(
-  mo_samples_complete,
+  mo_set_complete,
   group = "status",
   to_keep_ns = c("snps" = 1000, "rnaseq" = 1000),
   filtered_set_target_name = "mo_presel_supervised"
@@ -332,13 +359,45 @@ plot_feature_preselection_splsda(individual_splsda_perf)
 map_chr(tar_read(individual_splsda_run), attr, "dataset_name")
 ```
 
--   it creates a new `MultiDataSet` object in which the relevant datasets have been filtered to only contain the selected features. By default, the target used to store this object is called `filtered_set_mad`, but this can be changed via the `filtered_set_target_name` argument.
+-   it creates a new `MultiDataSet` object in which the relevant datasets have been filtered to only contain the selected features. By default, the target used to store this object is called `filtered_set_slpsda`, but this can be changed via the `filtered_set_target_name` argument.
 
 ```{r print-mo-presel-supervised}
 tar_read(mo_presel_supervised)
 ```
 
 You can notice that with this approach, we are not guaranteed to retain exactly 1,000 features per dataset. This is because, in an sPLS-DA run, a same feature can be selected for more than one latent component, and so the number of features retained will be slightly smaller than the one requested.
+
+<details>
+
+<summary>Converting targets factory to R script</summary>
+
+```{r feature-preselection-splsda-factory-to-script}
+#| eval: false
+
+splsda_spec <- c("snps" = 1000, "rnaseq" = 1000)
+
+individual_splsda_input <- splsda_spec |> 
+  imap(\(x, y) get_input_splsda(mo_set_complete, y, group = "status"))
+
+individual_splsda_perf <- individual_splsda_input |>
+  map(perf_splsda)
+
+individual_splsda_run <- splsda_spec |> 
+  imap(\(x, y) {
+    run_splsda(
+      individual_splsda_input[[y]],
+      individual_splsda_perf[[y]],
+      to_keep_n = x
+    )
+  })
+
+mo_presel_supervised <- get_filtered_dataset_splsda(
+  mo_set_complete,
+  individual_splsda_run
+)
+```
+
+</details>
 
 ## Recap -- targets list
 

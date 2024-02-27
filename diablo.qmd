@@ -162,6 +162,29 @@ tar_read(diablo_pls_correlation_matrix)
 tar_read(diablo_design_matrix)
 ```
 
+<details>
+
+<summary>Converting targets factory to R script</summary>
+
+```{r diablo-pairwise-pls-factory-to-script}
+#| eval: false
+
+diablo_pairs_datasets <- utils::combn(
+  setdiff(names(diablo_input), "Y"),
+  2, 
+  simplify = FALSE
+)
+
+diablo_pls_runs_list <- diablo_pairs_datasets |> 
+  map(\(x) run_pairwise_pls(diablo_input, x))
+
+diablo_pls_correlation_matrix <- diablo_get_pairwise_pls_corr(diablo_pls_runs_list)
+
+diablo_design_matrix <- diablo_generate_design_matrix(diablo_pls_correlation_matrix)
+```
+
+</details>
+
 ## Choosing the number of latent components
 
 One important parameter that must be set when performing a DIABLO analysis is the number of latent components to construct for each dataset. The optimal number of components can be estimated by cross-validation, implemented in the `mixOmics::perf()` function. This function assesses the classification performance (i.e. how well the different outcome groups are separated) achieved by DIABLO for different numbers of latent components.

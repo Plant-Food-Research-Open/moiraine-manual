@@ -158,6 +158,49 @@ tar_read(data_metabo) |> dim()
 
 With this factory function, it is not possible to pass arguments to `read_csv()`. If you want to control how the files are read, please use the `import_dataset_csv()` function directly instead, as shown in @sec-import-dataset-manual.
 
+<details>
+
+<summary>Converting targets factory to R script</summary>
+
+There is no simple way to convert this target factory to regular R script using loops, so we can instead write the code separately for each omics dataset.
+
+```{r import-dataset-csv-factory-to-script}
+#| eval: false
+
+dataset_file_geno <- system.file(
+  "extdata/genomics_dataset.csv",
+  package = "moiraine"
+)
+data_geno <- import_dataset_csv(
+  dataset_file_geno,
+  col_id = "marker",
+  features_as_rows = TRUE
+)
+
+dataset_file_transcripto <- system.file(
+  "extdata/transcriptomics_dataset.csv", 
+  package = "moiraine"
+)
+data_transcripto <- import_dataset_csv(
+  dataset_file_transcripto,
+  col_id = "gene_id",
+  features_as_rows = TRUE
+)
+
+dataset_file_metabo <- system.file(
+  "extdata/metabolomics_dataset.csv", 
+  package = "moiraine"
+)
+data_metabo <- import_dataset_csv(
+  dataset_file_metabo,
+  col_id = "sample_id",
+  features_as_rows = FALSE
+)
+```
+
+</details>
+
+
 ## Importing the features metadata
 
 Similarly to how we imported the datasets, there are two ways of importing features metadata: either manually, or using a target factory function. The two options are illustrated below.
@@ -223,6 +266,25 @@ tar_read(fmetadata_metabo) |> head()
 
 Again, the targets factory function does not allow to pass arguments to `read_csv()` (if you need them, please use `import_fmetadata_csv()` directly as we have done in @sec-import-fmeta-manual).
 
+<details>
+
+<summary>Converting targets factory to R script</summary>
+
+```{r import-fmetadata-csv-factory-to-script}
+#| eval: false
+
+fmetadata_file_metabo <- system.file(
+  "extdata/metabolomics_features_info.csv", 
+  package = "moiraine"
+)
+fmetadata_metabo <- import_fmetadata_csv(
+  fmetadata_file_metabo,
+  col_id = "feature_id"
+)
+```
+
+</details>
+
 ### Importing features metadata from a GTF/GFF file {#sec-import-fmeta-gff}
 
 The `moiraine` package can also extract features metadata from a genome annotation file (`.gtf` or `.gff`). We'll demonstrate that for the transcriptomics dataset, for which information about the position and name of the transcripts can be found in the genome annotation used to map the reads. The function is called `import_fmetadata_gff()` (it is also the function you would use to read in information from a `.gtf` file). The type of information to extract from the annotation file is specified through the `feature_type` argument, which can be either `'genes'` or `'transcripts'`. In addition, if the function does not extract certain fields from the annotation file, these can be explicitly called using the `add_fields` parameter.
@@ -271,6 +333,26 @@ As with `import_fmetadata`, the function returns a data-frame of features inform
 tar_read(fmetadata_transcripto) |> head()
 ```
 
+<details>
+
+<summary>Converting targets factory to R script</summary>
+
+```{r import-fmetadata-gff-factory-to-script}
+#| eval: false
+
+fmetadata_file_transcripto <- system.file(
+  "extdata/bos_taurus_gene_model.gff3", 
+  package = "moiraine"
+)
+fmetadata_transcripto <- import_fmetadata_gff(
+  fmetadata_file_transcripto,
+  feature_type = "genes",
+  add_fields = c("Name", "description")
+)
+```
+
+</details>
+
 ## Importing the samples metadata
 
 As for importing datasets or features metadata, the `import_smetadata_csv()` function reads in a csv file that contains information about the samples measured. Similarly to `import_fmetadata_csv()`, this function assumes that the csv file contains samples as rows. In this example, we have one samples information file for all of our omics datasets, but it is possible to have one separate samples metadata csv file for each omics dataset (if there are some omics-specific information such as batch, technology specifications, etc).
@@ -318,6 +400,23 @@ tar_read(smetadata_all) |> head()
 Note that in the samples metadata data-frame, the sample IDs are present both as row names and in the `id` column. This makes it easier to subset the datasets later on.
 
 As for the other import functions, `import_smetadata_csv()` accepts arguments that will be passed to `read_csv()` in order to specify how the file should be read. The targets factory version does not have this option.
+
+
+<details>
+
+<summary>Converting targets factory to R script</summary>
+
+```{r import-smetadata-csv-factory-to-script}
+#| eval: false
+
+smetadata_file_all <- system.file("extdata/samples_info.csv", package = "moiraine")
+smetadata_all <- import_smetadata_csv(
+  smetadata_file_all,
+  col_id = "animal_id"
+)
+```
+
+</details>
 
 ## Creating the omics sets
 
@@ -440,6 +539,40 @@ tar_read(set_transcripto)
 ```{r print-set-metabo}
 tar_read(set_metabo)
 ```
+
+<details>
+
+<summary>Converting targets factory to R script</summary>
+
+Again there not an easy way to use loops to convert this targets factory, so instead we'll write the code for each omics dataset.
+
+```{r create-omics-set-factory-to-script}
+#| eval: false
+
+set_geno <- create_omics_set(
+  data_geno,
+  omics_type = "genomics",
+  features_metadata = fmetadata_geno,
+  samples_metadata = smetadata_all
+)
+
+set_transcripto <- create_omics_set(
+  data_transcripto,
+  omics_type = "transcriptomics",
+  features_metadata = fmetadata_transcripto,
+  samples_metadata = smetadata_all
+)
+
+set_metabo <- create_omics_set(
+  data_metabo,
+  omics_type = "metabolomics",
+  features_metadata = fmetadata_metabo,
+  samples_metadata = smetadata_all
+)
+```
+
+</details>
+
 
 ## Creating the multi-omics set
 
