@@ -1,0 +1,91 @@
+# Overview of `moiraine` {#sec-overview}
+
+```{r}
+#| child: "_setup.qmd"
+```
+
+```{r loading-packages}
+#| include: false
+
+library(targets)
+library(moiraine)
+library(circlize)
+```
+
+```{r setup-visible}
+#| eval: false
+
+library(targets)
+library(moiraine)
+
+## For custom colour palettes
+library(circlize)
+```
+
+```{r loading-data}
+mo_set <- tar_read(mo_set_de)
+tar_load(interesting_features)
+```
+
+
+## Input data
+
+The first step is to import the omics datasets and associated information into R. For each omics dataset, the `moiraine` package expects three pieces of information, which are read from csv files (or other specific formats when possible):
+
+* the measurements of omics features across the samples (the dataset)
+
+* information about the omics features measured (the features metadata)
+
+* information about the samples measured (the samples metadata)
+
+An example of input files is shown below:
+
+![An example of input files for `moiraine`: A) Transcriptomics measurements across genes (rows) and samples(features). B) Table of features metadata, providing information about the genes measured. c) Table of samples metadata.](images/input_data_example.png)
+
+
+`moiraine` uses the `MultiDataSet` package to store the omics datasets and associated metadata into a single R object, which can be used as input for the different `moiraine` functions. This ensures that these functions can be used regardless of the number or type of omics datasets to analysis. The datasets, features and samples metadata can easily be extracted from the `MultiDataSet` function through `get_datasets()`, `get_features_metadata()` and `get_samples_metadata()`. 
+
+Here is an example of a `MultiDataSet` object:
+
+```{r show-multidataset}
+#| echo: false
+mo_set
+```
+
+Importantly, this means that all the information that we have about the omics features and samples are available to `moiraine` for customising plots or outputs. For example, it is possible to quickly generate a heatmap displaying the measurements for specific features of interest, and add information about the samples to facilitate the interpretation of the plot:
+
+```{r plot-data-heatmap}
+#| code-fold: true
+#| fig.width: 10
+#| fig.height: 6
+
+colours_list <- list(                       
+  "status" = c("Control" = "gold", "BRD" = "lightblue"),
+  "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3")),
+  "de_status" = c("downregulated" = "deepskyblue", 
+                  "upregulated" = "chartreuse3")
+)
+
+plot_data_heatmap(
+  mo_set,                                    # the MultiDataSet object
+  interesting_features,                      # vector of feature IDs of interest
+  center = TRUE,                             # centering and scaling data for
+  scale = TRUE,                              # easier visualisation
+  show_column_names = FALSE,                 # customising the heatmap
+  only_common_samples = TRUE,                # only samples present in all omics
+  samples_info = c("status", "day_on_feed"), # add info about samples
+  features_info = c("de_status"),            # add info about features
+  colours_list = colours_list,               # customise colours
+  label_cols = list(                         # specify features label
+    "rnaseq" = "Name",                       # from features metadata
+    "metabolome" = "name"
+  ),
+  truncate = 20
+)
+```
+
+Similarly, a number of convenient functions allow to quickly summarise different aspects of the multi-omics dataset, such as creating an Upset plot to compare the samples present in each omics dataset (`plot_samples_upset()`), or generating a density plot for each omics dataset (`plot_density_data()`).
+
+## Data pre-processing
+
+Target factories have been implemented to facilitate the application of similar tasks across the different omics datasets. For example, `transformation_datasets_factory()`

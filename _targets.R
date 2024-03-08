@@ -763,5 +763,18 @@ list(
       "MOFA (supervised pref.)" = mofa_output,
       "MOFA (unsupervised pref.)" = mofa_unsupervised_output
     )
+  ),
+
+  ##====================##
+  ## For walkthrough    ----
+  ##====================##
+
+  tar_target(
+    interesting_features,
+    get_top_features(
+      diablo_output,
+      n_features = 5,
+      latent_dimensions = "Component 1") |>
+      dplyr::pull(feature_id)
   )
 )

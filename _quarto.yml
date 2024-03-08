@@ -10,6 +10,7 @@ book:
   sharing: [twitter]
   chapters:
     - index.qmd
+    - overview.qmd
     - example_dataset.qmd
     - part: "Data preparation"
       chapters:

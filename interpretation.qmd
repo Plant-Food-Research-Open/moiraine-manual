@@ -1057,10 +1057,12 @@ plot_data_heatmap(
   show_column_names = FALSE,
   only_common_samples = TRUE,
   samples_info = c("status", "day_on_feed"),
-  features_info = c("chromosome"),
+  features_info = c("de_status"),
   colours_list = list(
     "status" = c("Control" = "gold", "BRD" = "lightblue"),
-    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3"))
+    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3")),
+    "de_status" = c("downregulated" = "deepskyblue", 
+                    "upregulated" = "chartreuse3")
   ),
   label_cols = list(
     "rnaseq" = "Name",
@@ -1085,10 +1087,12 @@ plot_data_heatmap(
   show_column_names = FALSE,
   only_common_samples = TRUE,
   samples_info = c("status", "day_on_feed"),
-  features_info = c("chromosome"),
+  features_info = c("de_status"),
   colours_list = list(
     "status" = c("Control" = "gold", "BRD" = "lightblue"),
-    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3"))
+    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3")),
+    "de_status" = c("downregulated" = "deepskyblue", 
+                    "upregulated" = "chartreuse3")
   ),
   label_cols = list(
     "rnaseq" = "Name",
@@ -1112,10 +1116,12 @@ plot_data_heatmap(
   show_column_names = FALSE,
   only_common_samples = TRUE,
   samples_info = c("status", "day_on_feed"),
-  features_info = c("chromosome"),
+  features_info = c("de_status"),
   colours_list = list(
     "status" = c("Control" = "gold", "BRD" = "lightblue"),
-    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3"))
+    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3")),
+    "de_status" = c("downregulated" = "deepskyblue", 
+                    "upregulated" = "chartreuse3")
   ),
   label_cols = list(
     "rnaseq" = "Name",
@@ -1139,10 +1145,12 @@ plot_data_heatmap(
   show_column_names = FALSE,
   only_common_samples = TRUE,
   samples_info = c("status", "day_on_feed"),
-  features_info = c("chromosome"),
+  features_info = c("de_status"),
   colours_list = list(
     "status" = c("Control" = "gold", "BRD" = "lightblue"),
-    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3"))
+    "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3")),
+    "de_status" = c("downregulated" = "deepskyblue", 
+                    "upregulated" = "chartreuse3")
   ),
   label_cols = list(
     "rnaseq" = "Name",
