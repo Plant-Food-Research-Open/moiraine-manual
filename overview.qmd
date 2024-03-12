@@ -9,7 +9,10 @@
 
 library(targets)
 library(moiraine)
+library(ggplot2)
 library(circlize)
+library(purrr)
+library(OmicsPLS)
 ```
 
 ```{r setup-visible}
@@ -19,12 +22,27 @@ library(targets)
 library(moiraine)
 
 ## For custom colour palettes
+library(ggplot2)
 library(circlize)
+
+## For working with lists
+library(purrr)
+
+## For visualising sO2PLS summary
+library(OmicsPLS)
 ```
 
 ```{r loading-data}
+#| echo: false
+
 mo_set <- tar_read(mo_set_de)
 tar_load(interesting_features)
+tar_load(pca_runs_list)
+tar_load(mo_presel_supervised)
+tar_load(so2pls_final_run)
+tar_load(diablo_final_run)
+mofa_output <- tar_read(mofa_output) |> 
+  moiraine:::.filter_output_dimensions(paste("Factor", 1:5))
 ```
 
 
@@ -59,6 +77,8 @@ Importantly, this means that all the information that we have about the omics fe
 #| fig.width: 10
 #| fig.height: 6
 
+head(interesting_features) ## vector of feature IDs
+
 colours_list <- list(                       
   "status" = c("Control" = "gold", "BRD" = "lightblue"),
   "day_on_feed" = colorRamp2(c(5, 70), c("white", "pink3")),
@@ -70,14 +90,14 @@ plot_data_heatmap(
   mo_set,                                    # the MultiDataSet object
   interesting_features,                      # vector of feature IDs of interest
   center = TRUE,                             # centering and scaling data for
-  scale = TRUE,                              # easier visualisation
-  show_column_names = FALSE,                 # customising the heatmap
+  scale = TRUE,                              #   easier visualisation
+  show_column_names = FALSE,                 # hide sample IDs
   only_common_samples = TRUE,                # only samples present in all omics
   samples_info = c("status", "day_on_feed"), # add info about samples
   features_info = c("de_status"),            # add info about features
   colours_list = colours_list,               # customise colours
   label_cols = list(                         # specify features label
-    "rnaseq" = "Name",                       # from features metadata
+    "rnaseq" = "Name",                       #   from features metadata
     "metabolome" = "name"
   ),
   truncate = 20
@@ -88,4 +108,273 @@ Similarly, a number of convenient functions allow to quickly summarise different
 
 ## Data pre-processing
 
-Target factories have been implemented to facilitate the application of similar tasks across the different omics datasets. For example, `transformation_datasets_factory()`
+Target factories have been implemented to facilitate the application of similar tasks across the different omics datasets. For example, the `transformation_datasets_factory()` function generates a sequence of targets to apply one of many possible transformations (from the `vsn`, `DESeq2`, or `bestNormalize` packages, for example) on each omics dataset, store information about each transformation performed, and generate a new MultiDataSet object in which the omics measurements have been transformed:
+
+<details>
+
+<summary>Code</summary>
+
+::: {.targets-chunk}
+```{targets transformation-datasets-factory}
+#| eval: false
+
+transformation_datasets_factory(
+  mo_set_de,                                   # MultiDataSet object
+  c("rnaseq" = "vst-deseq2",                   # VST through DESeq2 for RNAseq
+    "metabolome" = "logx"),                    # log2-transf. for NMR dataset
+  log_bases = 2,                               # Base for log transformation
+  pre_log_functions = zero_to_half_min,        # Handling 0s in log2-transf.
+  transformed_data_name = "mo_set_transformed" # New MultiDataSet object
+)
+```
+:::
+
+</details>
+
+![](images/dag_transformation.png)
+
+Note that there is also the option for users to apply their own custom transformations to the datasets.
+
+Similarly, the `pca_complete_data_factory` generates a list of targets to run a PCA on each omics dataset via the `pcaMethods` package, and if necessary imputes missing values through NIPALS-PCA. The PCA results can be easily visualised for all or specific omics datasets:
+
+```{r pca-screeplot}
+#| code-fold: true
+#| fig.width: 8
+#| fig.height: 8
+
+plot_screeplot_pca(pca_runs_list)
+```
+
+```{r show-pca-res-snps}
+#| code-fold: true
+#| fig.width: 8
+#| fig.height: 8
+#| warning: false
+
+plot_samples_coordinates_pca(
+  pca_runs_list,                              # List of PCA results
+  datasets = "snps",                          # Dataset to plot
+  pcs = 1:3,                                  # Principal components to display
+  mo_data = mo_set,                           # MultiDataSet object
+  colour_upper = "geno_comp_cluster",         # Samples covariate
+  shape_upper = "status",                     # Samples covariate
+  colour_lower = "feedlot",                   # Samples covariate
+  scale_colour_lower = scale_colour_brewer(palette = "Set1") # Custom palette
+) +
+  theme(legend.box = "vertical")              # Plot legend vertically
+```
+
+## Data pre-filtering
+
+The created `MultiDataSet` object can be filtered in a number of ways, both in terms of samples and features: via a list of sample or feature IDs, or using logical tests on samples or features metadata. In addition, we implement targets factories to retain only the most variable features in each omics dataset (unsupervised filtering), or to retain the features most associated with an outcome of interest, via sPLS-DA from `mixOmics` (supervised filtering). This pre-filtering step is essential to reduce the size of the datasets prior to multi-omics integration.
+
+<details>
+
+<summary>Code</summary>
+
+::: {.targets-chunk}
+```{targets feature-preselection-splsda-factory}
+#| eval: false
+
+feature_preselection_splsda_factory(
+  mo_set_complete,            # A MultiDataSet object
+  group = "status",           # Sample covariate to use for supervised filtering
+  to_keep_ns = c(             # Number of features to retain per dataset
+    "snps" = 1000, 
+    "rnaseq" = 1000
+  ), 
+  filtered_set_target_name = "mo_presel_supervised" # Name of filtered object
+)
+```
+:::
+
+</details>
+
+```{r show-mo-presel-supervised}
+#| echo: false
+
+mo_presel_supervised
+```
+
+## Multi-omics data integration
+
+At the moment, `moiraine` provides functions and target factories to facilitate the use of five integration methods: sPLS and DIABLO from the `mixOmics` package, sO2PLS from `OmicsPLS`, as well as `MOFA` and `MEFISTO` from `MOFA2`. 
+
+This involves providing functions to transform a `MultiDataSet` object into the required input format for each integration method; for example for sPLS:
+
+```{r get-input-spls}
+#| code-fold: true
+#| eval: false
+
+spls_input <- get_input_spls(
+  mo_presel_supervised,
+  mode = "canonical",
+  datasets = c("rnaseq", "metabolome")
+)
+
+map(spls_input, \(x) x[1:5, 1:5])
+```
+
+```{r show-input-spls}
+#| echo: false
+
+map(tar_read(spls_input), \(x) x[1:5, 1:5])
+```
+
+
+`moiraine` also offers helper functions and target factories to facilitate the application of these integration tools. For example, the `diablo_predefined_design_matrix()` function generates one of the three recommended design matrices for DIABLO (null, full or weighted full) for a given DIABLO input object, while the `diablo_pairwise_pls_factory()` factory creates a list of targets to estimate the optimal design matrix to use for DIABLO based on datasets pairwise correlations estimated using PLS:
+
+<details>
+
+<summary>Code</summary>
+
+::: {.targets-chunk}
+```{targets diablo-design-matrix-factory}
+#| eval: false
+
+list(
+  tar_target(
+    diablo_input,
+    get_input_mixomics_supervised(
+      mo_presel_supervised,                  # MultiDataSet object (prefiltered)
+      group = "status"                       # Samples covariate of interest
+    )
+  ),
+  diablo_pairwise_pls_factory(diablo_input)  # Target factory for design matrix
+                                             #   estimation
+)
+```
+:::
+
+</details>
+
+![](images/dag_diablo_design_matrix.png)
+
+In addition, several plotting functions  e.g. `diablo_plot_tune()` to show the results of model tuning in DIABLO or `so2pls_plot_summary()`, shown below, to visualise the percentage of variance explained by each latent component constructed by sO2PLS:
+
+```{r so2pls-plot-summary}
+#| code-fold: true
+
+so2pls_plot_summary(so2pls_final_run)
+```
+
+::: {.callout-note}
+Wouldn't it be nice to have informative labels for the features in DIABLO's circos plots? With `moiraine`, it is possible to use information from the features metadata provided as labels for the features in the plots. So, we can go from:
+
+```{r diablo-circos-plot}
+#| code-fold: true
+#| fig.width: 6
+#| fig.height: 6
+
+mixOmics::circosPlot(
+  diablo_final_run,
+  cutoff = 0.7,
+  size.variables = 0.5,
+  comp = 1
+)
+```
+
+to:
+
+```{r moiraine-circos-plot}
+#| code-fold: true
+#| fig.width: 6
+#| fig.height: 6
+
+diablo_plot_circos(
+  diablo_final_run,
+  mo_set,
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  ),
+  cutoff = 0.7,
+  size.variables = 0.5,
+  comp = 1
+)
+```
+
+:::
+
+## Intepreting the integration results
+
+One of the main goals of `moiraine` is to facilitate the interpretation of the omics integration results. To this end, the outcome of any of the supported integration methods can be converted to a standardised integration output format, e.g.:
+
+```{r get-output-mofa}
+#| code-fold: true
+#| eval: false
+
+get_output(mofa_trained)
+```
+
+```{r show-mofa-output}
+#| echo: false
+
+mofa_output
+```
+
+This object can then be used to visualise the integration results in a number of ways, including:
+
+* percentage of variance explained:
+
+```{r mofa-variance-explained}
+#| code-fold: true
+
+plot_variance_explained(mofa_output)
+```
+
+* Sample scores as pairwise scatterplots:
+
+```{r mofa-samples-score-ggpairs}
+#| code-fold: true
+#| fig.height: 8
+
+plot_samples_score(
+  mofa_output,                                        # MOFA standardised output
+  latent_dimensions = paste("Factor", 1:3),           # MOFA factors to display
+  mo_data = mo_set,                                   # MultiDataSet object
+  colour_upper = "status",                            # Sample covariate
+  scale_colour_upper = scale_colour_brewer(palette = "Set1"), # Custom palette
+  shape_upper = "gender",                             # Sample covariate
+  colour_lower = "geno_comp_cluster"                  # Sample covariate
+) +
+  theme(legend.box = "vertical")
+```
+
+* Sample scores against samples covariate of interest (either categorical or continuous):
+
+```{r mofa-samples-score-covariate}
+#| code-fold: true
+#| fig.height: 5
+
+plot_samples_score_covariate(
+  mofa_output,                             # MOFA standardised output
+  mo_set,                                  # MultiDataSet object
+  "status",                                # Sample covariate of interest
+  colour_by = "status",                    # Other sample covariate
+  shape_by = "geno_comp_cluster",          # Other sample covariate
+  latent_dimensions = paste("Factor", 1:2) # MOFA factors to display
+)
+```
+
+* Top contributing features:
+
+```{r mofa-top-features}
+#| code-fold: true
+#| fig.width: 10
+#| fig.height: 8
+
+plot_top_features(
+  mofa_output,                             # MOFA standardised output
+  mo_data = mo_set,                        # MultiDataSet object
+  label_cols = list(                       # Custom labels for features from
+    "rnaseq" = "Name",                     #   features metadata
+    "metabolome" = "name"
+  ),
+  latent_dimensions = paste("Factor", 1:2) # MOFA factors to display
+)
+```
+
+## Evaluating the integration results
+
+## Comparison different integration results
