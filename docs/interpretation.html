@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>The moiraine R package user manual - 11&nbsp; Interpreting the integration results</title>
+<title>The moiraine R package user manual - 12&nbsp; Interpreting the integration results</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,7 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -153,7 +153,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./overview.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview of <code>moiraine</code></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -166,27 +171,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
   </div>
 </li>
       </ul>
@@ -201,17 +206,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
   </div>
 </li>
       </ul>
@@ -226,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -241,17 +246,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -267,40 +272,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#sec-interpretation-dim-reduction" id="toc-sec-interpretation-dim-reduction" class="nav-link active" data-scroll-target="#sec-interpretation-dim-reduction"><span class="toc-section-number">11.1</span>  Dimension reduction methods</a></li>
+<li><a href="#sec-interpretation-dim-reduction" id="toc-sec-interpretation-dim-reduction" class="nav-link active" data-scroll-target="#sec-interpretation-dim-reduction"><span class="toc-section-number">12.1</span>  Dimension reduction methods</a></li>
   <li>
-<a href="#sec-interpretation-standard-output" id="toc-sec-interpretation-standard-output" class="nav-link" data-scroll-target="#sec-interpretation-standard-output"><span class="toc-section-number">11.2</span>  Generating a standardised output</a>
+<a href="#sec-interpretation-standard-output" id="toc-sec-interpretation-standard-output" class="nav-link" data-scroll-target="#sec-interpretation-standard-output"><span class="toc-section-number">12.2</span>  Generating a standardised output</a>
   <ul class="collapse">
-<li><a href="#get_output-function" id="toc-get_output-function" class="nav-link" data-scroll-target="#get_output-function"><span class="toc-section-number">11.2.1</span>  <code>get_output</code> function</a></li>
-  <li><a href="#averaging-latent-dimensions-over-datasets" id="toc-averaging-latent-dimensions-over-datasets" class="nav-link" data-scroll-target="#averaging-latent-dimensions-over-datasets"><span class="toc-section-number">11.2.2</span>  Averaging latent dimensions over datasets</a></li>
+<li><a href="#get_output-function" id="toc-get_output-function" class="nav-link" data-scroll-target="#get_output-function"><span class="toc-section-number">12.2.1</span>  <code>get_output</code> function</a></li>
+  <li><a href="#averaging-latent-dimensions-over-datasets" id="toc-averaging-latent-dimensions-over-datasets" class="nav-link" data-scroll-target="#averaging-latent-dimensions-over-datasets"><span class="toc-section-number">12.2.2</span>  Averaging latent dimensions over datasets</a></li>
   </ul>
 </li>
-  <li><a href="#percentage-of-variance-explained" id="toc-percentage-of-variance-explained" class="nav-link" data-scroll-target="#percentage-of-variance-explained"><span class="toc-section-number">11.3</span>  Percentage of variance explained</a></li>
+  <li><a href="#percentage-of-variance-explained" id="toc-percentage-of-variance-explained" class="nav-link" data-scroll-target="#percentage-of-variance-explained"><span class="toc-section-number">12.3</span>  Percentage of variance explained</a></li>
   <li>
-<a href="#sec-interpretation-samples-scores" id="toc-sec-interpretation-samples-scores" class="nav-link" data-scroll-target="#sec-interpretation-samples-scores"><span class="toc-section-number">11.4</span>  Samples plot</a>
+<a href="#sec-interpretation-samples-scores" id="toc-sec-interpretation-samples-scores" class="nav-link" data-scroll-target="#sec-interpretation-samples-scores"><span class="toc-section-number">12.4</span>  Samples plot</a>
   <ul class="collapse">
-<li><a href="#sec-interpretation-samples-ggpairs" id="toc-sec-interpretation-samples-ggpairs" class="nav-link" data-scroll-target="#sec-interpretation-samples-ggpairs"><span class="toc-section-number">11.4.1</span>  Matrix of scatter plots</a></li>
-  <li><a href="#sec-interpretation-samples-pair" id="toc-sec-interpretation-samples-pair" class="nav-link" data-scroll-target="#sec-interpretation-samples-pair"><span class="toc-section-number">11.4.2</span>  Scatter plot for pair of latent dimensions</a></li>
-  <li><a href="#sec-interpretation-samples-covariate" id="toc-sec-interpretation-samples-covariate" class="nav-link" data-scroll-target="#sec-interpretation-samples-covariate"><span class="toc-section-number">11.4.3</span>  Samples score vs covariate</a></li>
+<li><a href="#sec-interpretation-samples-ggpairs" id="toc-sec-interpretation-samples-ggpairs" class="nav-link" data-scroll-target="#sec-interpretation-samples-ggpairs"><span class="toc-section-number">12.4.1</span>  Matrix of scatter plots</a></li>
+  <li><a href="#sec-interpretation-samples-pair" id="toc-sec-interpretation-samples-pair" class="nav-link" data-scroll-target="#sec-interpretation-samples-pair"><span class="toc-section-number">12.4.2</span>  Scatter plot for pair of latent dimensions</a></li>
+  <li><a href="#sec-interpretation-samples-covariate" id="toc-sec-interpretation-samples-covariate" class="nav-link" data-scroll-target="#sec-interpretation-samples-covariate"><span class="toc-section-number">12.4.3</span>  Samples score vs covariate</a></li>
   </ul>
 </li>
   <li>
-<a href="#feature-plots" id="toc-feature-plots" class="nav-link" data-scroll-target="#feature-plots"><span class="toc-section-number">11.5</span>  Feature plots</a>
+<a href="#feature-plots" id="toc-feature-plots" class="nav-link" data-scroll-target="#feature-plots"><span class="toc-section-number">12.5</span>  Feature plots</a>
   <ul class="collapse">
-<li><a href="#sec-interpretation-features-distr" id="toc-sec-interpretation-features-distr" class="nav-link" data-scroll-target="#sec-interpretation-features-distr"><span class="toc-section-number">11.5.1</span>  Features weight distribution</a></li>
-  <li><a href="#sec-interpretation-features-pair" id="toc-sec-interpretation-features-pair" class="nav-link" data-scroll-target="#sec-interpretation-features-pair"><span class="toc-section-number">11.5.2</span>  Comparing features importance between latent components</a></li>
-  <li><a href="#sec-interpretation-features-top-plot" id="toc-sec-interpretation-features-top-plot" class="nav-link" data-scroll-target="#sec-interpretation-features-top-plot"><span class="toc-section-number">11.5.3</span>  Plotting top features weight</a></li>
-  <li><a href="#sec-interpretation-features-top-table" id="toc-sec-interpretation-features-top-table" class="nav-link" data-scroll-target="#sec-interpretation-features-top-table"><span class="toc-section-number">11.5.4</span>  Extracting top features</a></li>
-  <li><a href="#sec-interpretation-features-selected" id="toc-sec-interpretation-features-selected" class="nav-link" data-scroll-target="#sec-interpretation-features-selected"><span class="toc-section-number">11.5.5</span>  Extracting the selected features</a></li>
-  <li><a href="#sec-interpretation-features-meas" id="toc-sec-interpretation-features-meas" class="nav-link" data-scroll-target="#sec-interpretation-features-meas"><span class="toc-section-number">11.5.6</span>  Features measurements</a></li>
+<li><a href="#sec-interpretation-features-distr" id="toc-sec-interpretation-features-distr" class="nav-link" data-scroll-target="#sec-interpretation-features-distr"><span class="toc-section-number">12.5.1</span>  Features weight distribution</a></li>
+  <li><a href="#sec-interpretation-features-pair" id="toc-sec-interpretation-features-pair" class="nav-link" data-scroll-target="#sec-interpretation-features-pair"><span class="toc-section-number">12.5.2</span>  Comparing features importance between latent components</a></li>
+  <li><a href="#sec-interpretation-features-top-plot" id="toc-sec-interpretation-features-top-plot" class="nav-link" data-scroll-target="#sec-interpretation-features-top-plot"><span class="toc-section-number">12.5.3</span>  Plotting top features weight</a></li>
+  <li><a href="#sec-interpretation-features-top-table" id="toc-sec-interpretation-features-top-table" class="nav-link" data-scroll-target="#sec-interpretation-features-top-table"><span class="toc-section-number">12.5.4</span>  Extracting top features</a></li>
+  <li><a href="#sec-interpretation-features-selected" id="toc-sec-interpretation-features-selected" class="nav-link" data-scroll-target="#sec-interpretation-features-selected"><span class="toc-section-number">12.5.5</span>  Extracting the selected features</a></li>
+  <li><a href="#sec-interpretation-features-meas" id="toc-sec-interpretation-features-meas" class="nav-link" data-scroll-target="#sec-interpretation-features-meas"><span class="toc-section-number">12.5.6</span>  Features measurements</a></li>
   </ul>
 </li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">11.6</span>  Recap – targets list</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">12.6</span>  Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-interpretation" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span></h1>
+<h1 class="title"><span id="sec-interpretation" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span></h1>
 </div>
 
 
@@ -948,8 +953,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</details><section id="sec-interpretation-dim-reduction" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="sec-interpretation-dim-reduction">
-<span class="header-section-number">11.1</span> Dimension reduction methods</h2>
+</details><section id="sec-interpretation-dim-reduction" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="sec-interpretation-dim-reduction">
+<span class="header-section-number">12.1</span> Dimension reduction methods</h2>
 <p>Despite relying on very different statistical approaches, the different integration methods included in the pipeline all perform dimension reduction of the omics datasets through feature extraction. That is, they construct a small number of latent components/variables/dimensions (that we refer to as <strong>latent dimensions</strong> in the <code>moiraine</code> package) that capture as much information from the original datasets as possible. A dimension reduction approach typically returns, for each latent dimension constructed, two sets of values:</p>
 <ul>
 <li><p><strong>Features weight</strong>: the contribution of the features from the different omics datasets to the latent dimension. All methods included in the pipeline construct latent dimensions as linear combinations of the original features, and therefore the features contribution is quantified by their weight in the linear combination for the corresponding latent dimension.</p></li>
@@ -960,10 +965,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Understanding the source of the variation captured by each latent dimension: is a given latent dimension representing an important source of biological variation, such as effect of a treatment, or age of the samples? Or do they show a source of technical variation, for example highlighting a group of outlier samples with different omics profiles from the rest of the observations? Answering these questions allows us to identify which latent dimensions capture the biological phenomenon investigated, or whether there are some sources of noise that should be accounted for in follow-up experiments.</p></li>
 <li><p>Investigating which omics features are driving the latent dimensions: once we have identified some latent dimensions of interest, we can look at the features that contribute the most to these dimensions, in order to understand the molecular mechanisms or pathways involved. This is typically done after looking into the phenomenon captured by the latent dimensions, but can also help to identify it.</p></li>
-</ul></section><section id="sec-interpretation-standard-output" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="sec-interpretation-standard-output">
-<span class="header-section-number">11.2</span> Generating a standardised output</h2>
-<section id="get_output-function" class="level3" data-number="11.2.1"><h3 data-number="11.2.1" class="anchored" data-anchor-id="get_output-function">
-<span class="header-section-number">11.2.1</span> <code>get_output</code> function</h3>
+</ul></section><section id="sec-interpretation-standard-output" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="sec-interpretation-standard-output">
+<span class="header-section-number">12.2</span> Generating a standardised output</h2>
+<section id="get_output-function" class="level3" data-number="12.2.1"><h3 data-number="12.2.1" class="anchored" data-anchor-id="get_output-function">
+<span class="header-section-number">12.2.1</span> <code>get_output</code> function</h3>
 <p>In the <code>moiraine</code> package, the output of the different integration methods can be converted to a standardised output containing the pieces of information (features weight, samples score and percentage of variance explained) characteristic of dimension reduction methods, stored in a consistent format. This enables us to use functions for visualisation or analysis that can be applied to the results of any integration method, rather than having to implement one for each object type returned by the different integration packages.</p>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function transforms the output from any integration package included in <code>moiraine</code> into an <code>output_dimension_reduction</code> object, which is a list with three tibbles: <code>features_weight</code>, <code>samples_score</code> and <code>variance_explained</code>:</p>
 <div class="panel-tabset" data-group="method">
@@ -1319,11 +1324,11 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note that both PCA and sPLS-DA (the method used for supervised features preselection in <a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;6.3.2</span></a>) are also dimension reduction methods. Therefore, the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function also converts <code>pcaRes</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca.html">run_pca()</a></code> or <code><a href="https://rdrr.io/pkg/pcaMethods/man/pca.html">pcaMethods::pca()</a></code>) and <code>mixo_splsda</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_splsda.html">run_splsda()</a></code> or <code><a href="https://rdrr.io/pkg/mixOmics/man/splsda.html">mixOmics::splsda()</a></code>) into <code>output_dimension_reduction</code> objects.</p>
+<p>Note that both PCA and sPLS-DA (the method used for supervised features preselection in <a href="prefiltering.html#sec-prefiltering-supervised"><span>Section&nbsp;7.3.2</span></a>) are also dimension reduction methods. Therefore, the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function also converts <code>pcaRes</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_pca.html">run_pca()</a></code> or <code><a href="https://rdrr.io/pkg/pcaMethods/man/pca.html">pcaMethods::pca()</a></code>) and <code>mixo_splsda</code> objects (from <code><a href="https://rdrr.io/pkg/moiraine/man/run_splsda.html">run_splsda()</a></code> or <code><a href="https://rdrr.io/pkg/mixOmics/man/splsda.html">mixOmics::splsda()</a></code>) into <code>output_dimension_reduction</code> objects.</p>
 </div>
 </div>
-</section><section id="averaging-latent-dimensions-over-datasets" class="level3" data-number="11.2.2"><h3 data-number="11.2.2" class="anchored" data-anchor-id="averaging-latent-dimensions-over-datasets">
-<span class="header-section-number">11.2.2</span> Averaging latent dimensions over datasets</h3>
+</section><section id="averaging-latent-dimensions-over-datasets" class="level3" data-number="12.2.2"><h3 data-number="12.2.2" class="anchored" data-anchor-id="averaging-latent-dimensions-over-datasets">
+<span class="header-section-number">12.2.2</span> Averaging latent dimensions over datasets</h3>
 <p>While MOFA computes one score per sample for each latent dimension created, sPLS, sO2PLS and DIABLO all compute one score per dataset for each sample and latent dimension. For each latent dimension, the samples score obtained for the different datasets are then compared, to assess the agreement or covariation between datasets. Ideally, these scores should be highly correlated across datasets, since the methods aim at maximising the variation between datasets, but it is not always the case. However, when they are highly correlated, it becomes redundant to interpret each dataset-specific version of the latent dimensions.</p>
 <p>Instead, the <code>mixOmics</code> authors proposed a solution for <code>DIABLO</code>, which is to construct a weighted average space in which to represent the samples: for each latent component, the samples score are averaged over the different datasets. The weight attributed to each dataset is determined by how well the corresponding dataset discriminates between the samples group of interest. This way, rather than looking at samples score for each dataset for any given latent component, we can look at an average of them.</p>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function uses this idea to construct, for the output of sPLS, sO2PLS and DIABLO a set of average samples score for each latent dimension, rather than returning a set of samples score per dataset. For DIABLO, the average is weighted as explained above, while for sPLS and sO2PLS each dataset is given equal weight in the average. This calculation can be disabled in the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function to extract the dataset-specific samples score, by setting the <code>use_average_dimensions</code> parameter to <code>FALSE</code>. Note that this only affects the <code>samples_score</code> tibble in terms of dimensions, but the name of the latent dimensions will change to reflect the dataset to which they refer.</p>
@@ -1406,8 +1411,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section></section><section id="percentage-of-variance-explained" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="percentage-of-variance-explained">
-<span class="header-section-number">11.3</span> Percentage of variance explained</h2>
+</section></section><section id="percentage-of-variance-explained" class="level2" data-number="12.3"><h2 data-number="12.3" class="anchored" data-anchor-id="percentage-of-variance-explained">
+<span class="header-section-number">12.3</span> Percentage of variance explained</h2>
 <p>The first step in interpreting the results of a dimension reduction method is to assess how much variance is explained by the different latent dimensions for each dataset. The function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained()</a></code> takes as input a <code>output_dimension_reduction</code> object and constructs a dataset-specific screeplot:</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -1453,8 +1458,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-samples-scores" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="sec-interpretation-samples-scores">
-<span class="header-section-number">11.4</span> Samples plot</h2>
+</section><section id="sec-interpretation-samples-scores" class="level2" data-number="12.4"><h2 data-number="12.4" class="anchored" data-anchor-id="sec-interpretation-samples-scores">
+<span class="header-section-number">12.4</span> Samples plot</h2>
 <p>To understand the phenomenon driving the variation represented by the different latent components, we can investigate the coordinates of the samples in the space spanned by these latent components, in combination with information that we have about the samples.</p>
 <p>We will start by loading the <code>MultiDataSet</code> object and generating some custom colour palettes for different samples covariates of interest, that we will use in the rest of the section.</p>
 <div class="cell">
@@ -1472,8 +1477,8 @@ Other methods covered by <code>get_output</code>
 <span>  aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"colour"</span>, <span class="st">"fill"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="sec-interpretation-samples-ggpairs" class="level3" data-number="11.4.1"><h3 data-number="11.4.1" class="anchored" data-anchor-id="sec-interpretation-samples-ggpairs">
-<span class="header-section-number">11.4.1</span> Matrix of scatter plots</h3>
+<section id="sec-interpretation-samples-ggpairs" class="level3" data-number="12.4.1"><h3 data-number="12.4.1" class="anchored" data-anchor-id="sec-interpretation-samples-ggpairs">
+<span class="header-section-number">12.4.1</span> Matrix of scatter plots</h3>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score()</a></code> function shows the samples score in a matrix of scatter plots that represent all possible two-by-two combinations of the latent dimensions. The plots in the resulting matrix are redundant: the lower plots (below the diagonal) are just a rotated version of the upper plots (above the diagonal). The function takes as input an <code>output_dimension_reduction</code> object. In addition, it accepts a <code>MultiDataSet</code> object to extract information about the samples that can then be used to customise the plot. Since the plots are redundant, different properties of the samples can be shown in the upper and lower plots. For example, we will colour the samples according to disease status in the upper plots, while representing some other covariate in the lower plots. We will use the shape of the points to illustrate gender in both upper and lower plots. By default, all latent dimensions are included in the plots, but it is possible to select some of them by passing their names to the <code>latent_dimensions</code> argument. There are more options to further customise the plot, which are shown in the function’s help.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -1569,8 +1574,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-samples-pair" class="level3" data-number="11.4.2"><h3 data-number="11.4.2" class="anchored" data-anchor-id="sec-interpretation-samples-pair">
-<span class="header-section-number">11.4.2</span> Scatter plot for pair of latent dimensions</h3>
+</section><section id="sec-interpretation-samples-pair" class="level3" data-number="12.4.2"><h3 data-number="12.4.2" class="anchored" data-anchor-id="sec-interpretation-samples-pair">
+<span class="header-section-number">12.4.2</span> Scatter plot for pair of latent dimensions</h3>
 <p>We can also focus on a specific pair of latent dimensions and represent the samples in the space spanned by these two dimensions, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair()</a></code> function. The two latent dimensions to plot are selected by passing their names to the function. This function also accepts a <code>MultiDataSet</code> object, whose samples metadata will be used to customise the plot.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -1648,8 +1653,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-samples-covariate" class="level3" data-number="11.4.3"><h3 data-number="11.4.3" class="anchored" data-anchor-id="sec-interpretation-samples-covariate">
-<span class="header-section-number">11.4.3</span> Samples score vs covariate</h3>
+</section><section id="sec-interpretation-samples-covariate" class="level3" data-number="12.4.3"><h3 data-number="12.4.3" class="anchored" data-anchor-id="sec-interpretation-samples-covariate">
+<span class="header-section-number">12.4.3</span> Samples score vs covariate</h3>
 <p>Lastly, we can plot the samples score for each latent dimension against a samples covariate of interest, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate()</a></code> function. This is useful to focus on one dimension at a time rather than pairs of them. By default, the function displays all latent dimensions, but we can focus on a subset of them through the <code>latent_dimensions</code> arguments. The function needs a <code>MultiDataSet</code> object to extract information about the samples. The plot generated will depend on whether the covariate of interest is categorical or continuous. We will show both options below. In addition to the main covariate of interest that will be displayed on the x-axis, the colour and shape of the points can be further customised according to other samples properties.</p>
 <p>First, with a categorical covariate:</p>
 <div class="panel-tabset" data-group="method">
@@ -1804,11 +1809,11 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section></section><section id="feature-plots" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="feature-plots">
-<span class="header-section-number">11.5</span> Feature plots</h2>
+</section></section><section id="feature-plots" class="level2" data-number="12.5"><h2 data-number="12.5" class="anchored" data-anchor-id="feature-plots">
+<span class="header-section-number">12.5</span> Feature plots</h2>
 <p>Next, we can have a look at the features contributing to each latent dimension.</p>
-<section id="sec-interpretation-features-distr" class="level3" data-number="11.5.1"><h3 data-number="11.5.1" class="anchored" data-anchor-id="sec-interpretation-features-distr">
-<span class="header-section-number">11.5.1</span> Features weight distribution</h3>
+<section id="sec-interpretation-features-distr" class="level3" data-number="12.5.1"><h3 data-number="12.5.1" class="anchored" data-anchor-id="sec-interpretation-features-distr">
+<span class="header-section-number">12.5.1</span> Features weight distribution</h3>
 <p>We can start by looking at the distribution of features weight for each latent dimension across the datasets, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr()</a></code> function. Again, the function takes an <code>output_dimension_reduction</code> object as first input; by default it will show all latent dimensions and datasets, but they can be specified through the <code>latent_dimensions</code> and <code>datasets</code> arguments. The function shows by default the distribution of the “signed” importance scores, i.e.&nbsp;the features weights normalised by the highest absolute weight value for the corresponding latent dimension and dataset, but we can also show the distribution of importance scores (which are absolute values) and non-transformed features weight (through the <code>features_metric</code> argument). Note that the function returns a <a href="https://patchwork.data-imaginist.com/">patchwork</a> of ggplots.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -1868,8 +1873,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-features-pair" class="level3" data-number="11.5.2"><h3 data-number="11.5.2" class="anchored" data-anchor-id="sec-interpretation-features-pair">
-<span class="header-section-number">11.5.2</span> Comparing features importance between latent components</h3>
+</section><section id="sec-interpretation-features-pair" class="level3" data-number="12.5.2"><h3 data-number="12.5.2" class="anchored" data-anchor-id="sec-interpretation-features-pair">
+<span class="header-section-number">12.5.2</span> Comparing features importance between latent components</h3>
 <p>We can also compare the importance score given to the features between any two latent dimensions with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -1949,10 +1954,10 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-<p>These plots allow us to quickly check whether different latent dimensions capture different or related aspects of the data. The top 5 features according to their consensus importance score (see <a href="comparison.html#sec-comparison-consensus"><span>Section&nbsp;13.9</span></a>) are highlighted in red.</p>
+<p>These plots allow us to quickly check whether different latent dimensions capture different or related aspects of the data. The top 5 features according to their consensus importance score (see <a href="comparison.html#sec-comparison-consensus"><span>Section&nbsp;14.9</span></a>) are highlighted in red.</p>
 <p>By default, the function shows the signed importance score of the features, i.e.&nbsp;their importance score to which the sign of their weight was added. This can be changed through the <code>features_metric</code> argument of the function.</p>
-</section><section id="sec-interpretation-features-top-plot" class="level3" data-number="11.5.3"><h3 data-number="11.5.3" class="anchored" data-anchor-id="sec-interpretation-features-top-plot">
-<span class="header-section-number">11.5.3</span> Plotting top features weight</h3>
+</section><section id="sec-interpretation-features-top-plot" class="level3" data-number="12.5.3"><h3 data-number="12.5.3" class="anchored" data-anchor-id="sec-interpretation-features-top-plot">
+<span class="header-section-number">12.5.3</span> Plotting top features weight</h3>
 <p>We can then investigate which features are assigned the highest weights for each latent dimension. These are the features driving the variation captured by the latent components. This is done with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features()</a></code> function.</p>
 <p>By default, the feature IDs will be used as labels in the plot, but by passing a <code>MultiDataSet</code> object to the function we can use a column from the features metadata table instead. To do so, we need to pass a named list to the <code>label_cols</code> argument: the names of the elements in the list should correspond to dataset names in the <code>MultiDataSet</code> object, and the value should be the name of the column in the features metadata table of the corresponding dataset to use as feature label. The number of features displayed is controlled through the <code>top_n</code> argument (the default value is 20). Note that if a lower number of features is selected for a certain dataset and latent dimension, only the selected features will be displayed. Again, the function returns a <a href="https://patchwork.data-imaginist.com/">patchwork</a> of ggplots.</p>
 <div class="panel-tabset" data-group="method">
@@ -2035,8 +2040,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-features-top-table" class="level3" data-number="11.5.4"><h3 data-number="11.5.4" class="anchored" data-anchor-id="sec-interpretation-features-top-table">
-<span class="header-section-number">11.5.4</span> Extracting top features</h3>
+</section><section id="sec-interpretation-features-top-table" class="level3" data-number="12.5.4"><h3 data-number="12.5.4" class="anchored" data-anchor-id="sec-interpretation-features-top-table">
+<span class="header-section-number">12.5.4</span> Extracting top features</h3>
 <p>It is also possible to extract information about the top contributing features as a table with the function <code><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features()</a></code>. The function offers two options:</p>
 <ul>
 <li><p>Return for each dataset the top N features contributing to the latent dimensions of interest. N is specified through the <code>n_features</code> argument;</p></li>
@@ -2204,8 +2209,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-features-selected" class="level3" data-number="11.5.5"><h3 data-number="11.5.5" class="anchored" data-anchor-id="sec-interpretation-features-selected">
-<span class="header-section-number">11.5.5</span> Extracting the selected features</h3>
+</section><section id="sec-interpretation-features-selected" class="level3" data-number="12.5.5"><h3 data-number="12.5.5" class="anchored" data-anchor-id="sec-interpretation-features-selected">
+<span class="header-section-number">12.5.5</span> Extracting the selected features</h3>
 <p>For methods that perform feature selection (i.e.&nbsp;sPLS, sO2PLS and DIABLO), we can extract information about the selected features with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features()</a></code> function. As with <code><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features()</a></code>, if a <code>MultiDataSet</code> object is passed to the function, it will extract information about the features from the features metadata tables and return them. If applied to the results of a method that does not perform feature selection, all features will be returned.</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
@@ -2289,9 +2294,9 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section><section id="sec-interpretation-features-meas" class="level3" data-number="11.5.6"><h3 data-number="11.5.6" class="anchored" data-anchor-id="sec-interpretation-features-meas">
-<span class="header-section-number">11.5.6</span> Features measurements</h3>
-<p>Finally, we can investigate further some features of interest using the functions shown in <a href="inspecting_multidataset.html#sec-inspecting-plot-data"><span>Section&nbsp;3.5</span></a>. For the example, we will extract the top 3 contributing features from each dataset for the first latent dimension generated with the methods:</p>
+</section><section id="sec-interpretation-features-meas" class="level3" data-number="12.5.6"><h3 data-number="12.5.6" class="anchored" data-anchor-id="sec-interpretation-features-meas">
+<span class="header-section-number">12.5.6</span> Features measurements</h3>
+<p>Finally, we can investigate further some features of interest using the functions shown in <a href="inspecting_multidataset.html#sec-inspecting-plot-data"><span>Section&nbsp;4.5</span></a>. For the example, we will extract the top 3 contributing features from each dataset for the first latent dimension generated with the methods:</p>
 <div class="panel-tabset" data-group="method">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">sPLS</a></li>
@@ -2379,10 +2384,12 @@ Other methods covered by <code>get_output</code>
 <span>  show_column_names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  samples_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"status"</span>, <span class="st">"day_on_feed"</span><span class="op">)</span>,</span>
-<span>  features_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span><span class="op">)</span>,</span>
+<span>  features_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"de_status"</span><span class="op">)</span>,</span>
 <span>  colours_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"status"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span> <span class="op">=</span> <span class="st">"gold"</span>, <span class="st">"BRD"</span> <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span>,</span>
-<span>    <span class="st">"day_on_feed"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink3"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="st">"day_on_feed"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink3"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="st">"de_status"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"downregulated"</span> <span class="op">=</span> <span class="st">"deepskyblue"</span>, </span>
+<span>                    <span class="st">"upregulated"</span> <span class="op">=</span> <span class="st">"chartreuse3"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
@@ -2405,10 +2412,12 @@ Other methods covered by <code>get_output</code>
 <span>  show_column_names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  samples_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"status"</span>, <span class="st">"day_on_feed"</span><span class="op">)</span>,</span>
-<span>  features_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span><span class="op">)</span>,</span>
+<span>  features_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"de_status"</span><span class="op">)</span>,</span>
 <span>  colours_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"status"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span> <span class="op">=</span> <span class="st">"gold"</span>, <span class="st">"BRD"</span> <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span>,</span>
-<span>    <span class="st">"day_on_feed"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink3"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="st">"day_on_feed"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink3"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="st">"de_status"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"downregulated"</span> <span class="op">=</span> <span class="st">"deepskyblue"</span>, </span>
+<span>                    <span class="st">"upregulated"</span> <span class="op">=</span> <span class="st">"chartreuse3"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
@@ -2431,10 +2440,12 @@ Other methods covered by <code>get_output</code>
 <span>  show_column_names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  samples_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"status"</span>, <span class="st">"day_on_feed"</span><span class="op">)</span>,</span>
-<span>  features_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span><span class="op">)</span>,</span>
+<span>  features_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"de_status"</span><span class="op">)</span>,</span>
 <span>  colours_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"status"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span> <span class="op">=</span> <span class="st">"gold"</span>, <span class="st">"BRD"</span> <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span>,</span>
-<span>    <span class="st">"day_on_feed"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink3"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="st">"day_on_feed"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink3"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="st">"de_status"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"downregulated"</span> <span class="op">=</span> <span class="st">"deepskyblue"</span>, </span>
+<span>                    <span class="st">"upregulated"</span> <span class="op">=</span> <span class="st">"chartreuse3"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
@@ -2457,10 +2468,12 @@ Other methods covered by <code>get_output</code>
 <span>  show_column_names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  samples_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"status"</span>, <span class="st">"day_on_feed"</span><span class="op">)</span>,</span>
-<span>  features_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span><span class="op">)</span>,</span>
+<span>  features_info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"de_status"</span><span class="op">)</span>,</span>
 <span>  colours_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"status"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span> <span class="op">=</span> <span class="st">"gold"</span>, <span class="st">"BRD"</span> <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span>,</span>
-<span>    <span class="st">"day_on_feed"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink3"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="st">"day_on_feed"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">70</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink3"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="st">"de_status"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"downregulated"</span> <span class="op">=</span> <span class="st">"deepskyblue"</span>, </span>
+<span>                    <span class="st">"upregulated"</span> <span class="op">=</span> <span class="st">"chartreuse3"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
@@ -2554,8 +2567,8 @@ Other methods covered by <code>get_output</code>
 </div>
 </div>
 </div>
-</section></section><section id="recap-targets-list" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="recap-targets-list">
-<span class="header-section-number">11.6</span> Recap – targets list</h2>
+</section></section><section id="recap-targets-list" class="level2" data-number="12.6"><h2 data-number="12.6" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">12.6</span> Recap – targets list</h2>
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for results interpretation
@@ -2971,12 +2984,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./diablo.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./evaluation.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>The moiraine R package user manual - 7&nbsp; Integration with sPLS</title>
+<title>The moiraine R package user manual - 8&nbsp; Integration with sPLS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -142,7 +142,7 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -172,7 +172,12 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./overview.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview of <code>moiraine</code></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -185,27 +190,27 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
   </div>
 </li>
       </ul>
@@ -220,17 +225,17 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
   </div>
 </li>
       </ul>
@@ -245,7 +250,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -260,17 +265,17 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -286,31 +291,31 @@ div.csl-indent {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#what-is-spls" id="toc-what-is-spls" class="nav-link active" data-scroll-target="#what-is-spls"><span class="toc-section-number">7.1</span>  What is sPLS?</a></li>
+<li><a href="#what-is-spls" id="toc-what-is-spls" class="nav-link active" data-scroll-target="#what-is-spls"><span class="toc-section-number">8.1</span>  What is sPLS?</a></li>
   <li>
-<a href="#creating-the-spls-input" id="toc-creating-the-spls-input" class="nav-link" data-scroll-target="#creating-the-spls-input"><span class="toc-section-number">7.2</span>  Creating the sPLS input</a>
+<a href="#creating-the-spls-input" id="toc-creating-the-spls-input" class="nav-link" data-scroll-target="#creating-the-spls-input"><span class="toc-section-number">8.2</span>  Creating the sPLS input</a>
   <ul class="collapse">
-<li><a href="#the-four-spls-modes" id="toc-the-four-spls-modes" class="nav-link" data-scroll-target="#the-four-spls-modes"><span class="toc-section-number">7.2.1</span>  The four sPLS modes</a></li>
-  <li><a href="#the-multilevel-option" id="toc-the-multilevel-option" class="nav-link" data-scroll-target="#the-multilevel-option"><span class="toc-section-number">7.2.2</span>  The multilevel option</a></li>
-  <li><a href="#the-spls-input-object" id="toc-the-spls-input-object" class="nav-link" data-scroll-target="#the-spls-input-object"><span class="toc-section-number">7.2.3</span>  The sPLS input object</a></li>
+<li><a href="#the-four-spls-modes" id="toc-the-four-spls-modes" class="nav-link" data-scroll-target="#the-four-spls-modes"><span class="toc-section-number">8.2.1</span>  The four sPLS modes</a></li>
+  <li><a href="#the-multilevel-option" id="toc-the-multilevel-option" class="nav-link" data-scroll-target="#the-multilevel-option"><span class="toc-section-number">8.2.2</span>  The multilevel option</a></li>
+  <li><a href="#the-spls-input-object" id="toc-the-spls-input-object" class="nav-link" data-scroll-target="#the-spls-input-object"><span class="toc-section-number">8.2.3</span>  The sPLS input object</a></li>
   </ul>
 </li>
-  <li><a href="#choosing-the-number-of-latent-components" id="toc-choosing-the-number-of-latent-components" class="nav-link" data-scroll-target="#choosing-the-number-of-latent-components"><span class="toc-section-number">7.3</span>  Choosing the number of latent components</a></li>
-  <li><a href="#choosing-the-number-of-features-to-retain" id="toc-choosing-the-number-of-features-to-retain" class="nav-link" data-scroll-target="#choosing-the-number-of-features-to-retain"><span class="toc-section-number">7.4</span>  Choosing the number of features to retain</a></li>
-  <li><a href="#final-spls-run" id="toc-final-spls-run" class="nav-link" data-scroll-target="#final-spls-run"><span class="toc-section-number">7.5</span>  Final sPLS run</a></li>
+  <li><a href="#choosing-the-number-of-latent-components" id="toc-choosing-the-number-of-latent-components" class="nav-link" data-scroll-target="#choosing-the-number-of-latent-components"><span class="toc-section-number">8.3</span>  Choosing the number of latent components</a></li>
+  <li><a href="#choosing-the-number-of-features-to-retain" id="toc-choosing-the-number-of-features-to-retain" class="nav-link" data-scroll-target="#choosing-the-number-of-features-to-retain"><span class="toc-section-number">8.4</span>  Choosing the number of features to retain</a></li>
+  <li><a href="#final-spls-run" id="toc-final-spls-run" class="nav-link" data-scroll-target="#final-spls-run"><span class="toc-section-number">8.5</span>  Final sPLS run</a></li>
   <li>
-<a href="#results-interpretation" id="toc-results-interpretation" class="nav-link" data-scroll-target="#results-interpretation"><span class="toc-section-number">7.6</span>  Results interpretation</a>
+<a href="#results-interpretation" id="toc-results-interpretation" class="nav-link" data-scroll-target="#results-interpretation"><span class="toc-section-number">8.6</span>  Results interpretation</a>
   <ul class="collapse">
-<li><a href="#samples-plots" id="toc-samples-plots" class="nav-link" data-scroll-target="#samples-plots"><span class="toc-section-number">7.6.1</span>  Samples plots</a></li>
-  <li><a href="#correlation-circle-plots" id="toc-correlation-circle-plots" class="nav-link" data-scroll-target="#correlation-circle-plots"><span class="toc-section-number">7.6.2</span>  Correlation circle plots</a></li>
+<li><a href="#samples-plots" id="toc-samples-plots" class="nav-link" data-scroll-target="#samples-plots"><span class="toc-section-number">8.6.1</span>  Samples plots</a></li>
+  <li><a href="#correlation-circle-plots" id="toc-correlation-circle-plots" class="nav-link" data-scroll-target="#correlation-circle-plots"><span class="toc-section-number">8.6.2</span>  Correlation circle plots</a></li>
   </ul>
 </li>
-  <li><a href="#recap---targets-list" id="toc-recap---targets-list" class="nav-link" data-scroll-target="#recap---targets-list"><span class="toc-section-number">7.7</span>  Recap - targets list</a></li>
+  <li><a href="#recap---targets-list" id="toc-recap---targets-list" class="nav-link" data-scroll-target="#recap---targets-list"><span class="toc-section-number">8.7</span>  Recap - targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-spls" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></span></h1>
+<h1 class="title"><span id="sec-spls" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></span></h1>
 </div>
 
 
@@ -338,16 +343,16 @@ div.csl-indent {
 
 </div>
 </div>
-</details><section id="what-is-spls" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="what-is-spls">
-<span class="header-section-number">7.1</span> What is sPLS?</h2>
+</details><section id="what-is-spls" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="what-is-spls">
+<span class="header-section-number">8.1</span> What is sPLS?</h2>
 <p>sPLS (for sparse Partial Least Squares) is a method for the unsupervised integration of two omics datasets. Given two omics datasets for which measurements are taken on the same samples, sPLS aims at investigating the shared variation between the datasets, and the selection of correlated features driving this shared variation.</p>
 <p>sPLS works by constructing linear combinations of the omics features, called latent components. These latent components are constructed such that the covariance between each omics dataset’ component is maximised. They are constructed iteratively, and different matrix deflation modes can be used after the construction of each component. The selected mode defines the role that the two datasets play in the analysis, i.e.&nbsp;whether there is a predictor and a response dataset, or whether the two datasets play symmetrical roles. In addition, <span class="math inline">\(L1\)</span>-regularisation (also called LASSO) is applied to the latent components in order to select the most important features from each dataset. Note that within the <code>mixOmics</code> package, the (s)PLS algorithm has two types: the univariate type denoted PLS1, which refers to the case where one of the datasets contains a single feature or variable, and the multivariate type, PLS2, which is for the integration of two datasets each with multiple features. This chapter is focused on the PLS2 type.</p>
 <p>sPLS requires as input matrices of omics measurements obtained on the same samples. While the omics datasets are automatically centred and scaled by the algorithm, proper preprocessing and normalisation is assumed to be carried out by the user. Although the sPLS algorithm can handle the presence of missing features, it will prohibit the use of cross-validation, so it is recommended to perform data imputation prior to running an sPLS analysis.</p>
-</section><section id="creating-the-spls-input" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="creating-the-spls-input">
-<span class="header-section-number">7.2</span> Creating the sPLS input</h2>
+</section><section id="creating-the-spls-input" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="creating-the-spls-input">
+<span class="header-section-number">8.2</span> Creating the sPLS input</h2>
 <p>The first step is to transform the <code>MultiDataSet</code> object into a suitable format for the <code>mixOmics</code> package. This can be done through the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls()</a></code> function. The function restricts the datasets to only common samples, and returns a named list, where each element is an omics dataset matrix with samples as rows and features as columns. The names of the two datasets to analyse are passed on through the <code>datasets</code> argument. In addition, the analysis mode must be specified through the <code>mode</code> argument, and optionally the multilevel option to handle repeated measurements can be set through the <code>multilevel</code> argument. Both concepts are explained below.</p>
-<section id="the-four-spls-modes" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="the-four-spls-modes">
-<span class="header-section-number">7.2.1</span> The four sPLS modes</h3>
+<section id="the-four-spls-modes" class="level3" data-number="8.2.1"><h3 data-number="8.2.1" class="anchored" data-anchor-id="the-four-spls-modes">
+<span class="header-section-number">8.2.1</span> The four sPLS modes</h3>
 <p>There are four possible modes that can be used for an sPLS analysis. These modes define the role that each of the datasets play, and differ by the type of matrix deflation used in the analysis. These four modes are:</p>
 <ul>
 <li><p>The regression mode (<code>mode = "regression"</code>): the first dataset (first name in <code>datasets</code> argument) is considered as the ‘predictor’ dataset, and the second as the ‘response’ dataset. With this mode, the order in which the datasets appear in the <code>datasets</code> argument matters.</p></li>
@@ -356,8 +361,8 @@ div.csl-indent {
 <li><p>The classic mode (<code>mode = "classic"</code>): similar to the regression mode with the first dataset being considered as the predictor dataset, and the second as the response dataset; however this mode uses a different normalisation method for the loading vectors in accordance to another version of the sPLS method. Again, the order in which the datasets appear in the <code>datasets</code> argument matters.</p></li>
 </ul>
 <p>The difference between these four modes lies in the type of matrix deflation used after computing each latent component. Therefore, the first latent components constructed will be identical between modes, but the subsequent ones will differ.</p>
-</section><section id="the-multilevel-option" class="level3" data-number="7.2.2"><h3 data-number="7.2.2" class="anchored" data-anchor-id="the-multilevel-option">
-<span class="header-section-number">7.2.2</span> The multilevel option</h3>
+</section><section id="the-multilevel-option" class="level3" data-number="8.2.2"><h3 data-number="8.2.2" class="anchored" data-anchor-id="the-multilevel-option">
+<span class="header-section-number">8.2.2</span> The multilevel option</h3>
 <p>The <code>mixOmics</code> package includes an option to deal with repeated measurements (see the <code>mixOmics</code> <a href="http://mixomics.org/methods/multilevel/">multilevel article</a>). This corresponds to the case where several samples in the omics datasets come from the same biological individual (patient, animal, plant) that has been measured several times (e.g.&nbsp;before and after a treatment, or across several body sites). In such case, it is possible that the measurements obtained are more similar within an individual than within a treatment group, which reduces our ability to detect differences between the treatment groups.</p>
 <p>To mitigate this effect, the <code>mixOmics</code> package can decompose the datasets to extract their within-individual variation part, which is then used as input for the sPLS run (<span class="citation" data-cites="liquet2012">Liquet et al. (<a href="references.html#ref-liquet2012" role="doc-biblioref">2012</a>)</span> ). As noted by the authors of the package, this methodology is applicable to balanced as well as unbalanced designs. Before selecting this option, is it recommended to explore the datasets with some unsupervised dimension reduction method (e.g.&nbsp;a PCA), in order to assess whether the between-individual variation should be removed to enable the detection of any between-treatment effect.</p>
 <p>The multilevel option can accommodate one- or two-factor decomposition, which refers to the number of treatment covariates whose effect we are studying. For example, if we have repeated measurements on the same subjects for three time-points after the application of a treatment, we will use a one-factor decomposition with time being the factor of interest. If instead we have repeated measurements on the same subjects for three time-points after the application of two different treatments (so 6 measurements for a same subject), we will use a two-factor decomposition with time and treatment as the factors of interest.</p>
@@ -590,8 +595,8 @@ div.csl-indent {
 #&gt; sample_11        2         B    2
 #&gt; sample_12        2         B    3</code></pre>
 </div>
-</section><section id="the-spls-input-object" class="level3" data-number="7.2.3"><h3 data-number="7.2.3" class="anchored" data-anchor-id="the-spls-input-object">
-<span class="header-section-number">7.2.3</span> The sPLS input object</h3>
+</section><section id="the-spls-input-object" class="level3" data-number="8.2.3"><h3 data-number="8.2.3" class="anchored" data-anchor-id="the-spls-input-object">
+<span class="header-section-number">8.2.3</span> The sPLS input object</h3>
 <p>For our example dataset, we will integrate the transcriptomics and metabolomics datasets using the canonical mode (since we don’t have any a priori on the relationship between the two datasets). In this case we do not have a repeated measurements design.</p>
 <div class="targets-chunk">
 <div class="cell">
@@ -623,8 +628,8 @@ div.csl-indent {
 <span><span class="co">#&gt;   .. ..- attr(*, "package")= chr "moiraine"</span></span>
 <span><span class="co">#&gt;  - attr(*, "mode")= chr "canonical"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="choosing-the-number-of-latent-components" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="choosing-the-number-of-latent-components">
-<span class="header-section-number">7.3</span> Choosing the number of latent components</h2>
+</section></section><section id="choosing-the-number-of-latent-components" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="choosing-the-number-of-latent-components">
+<span class="header-section-number">8.3</span> Choosing the number of latent components</h2>
 <p>The first step when running an sPLS analysis is to determine the number of latent components to construct, which can be chosen using cross-validation. This is done by running an initial sPLS analysis on the datasets with no feature selection and a large number of latent components; for example we want to test up to four latent components. We use for this the <code><a href="https://rdrr.io/pkg/moiraine/man/spls_run.html">spls_run()</a></code> function, which is a wrapper for the <code><a href="https://rdrr.io/pkg/mixOmics/man/spls.html">mixOmics::spls()</a></code> function.</p>
 <div class="targets-chunk">
 <div class="cell">
@@ -684,8 +689,8 @@ div.csl-indent {
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">spls_optim_ncomp</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="choosing-the-number-of-features-to-retain" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="choosing-the-number-of-features-to-retain">
-<span class="header-section-number">7.4</span> Choosing the number of features to retain</h2>
+</section><section id="choosing-the-number-of-features-to-retain" class="level2" data-number="8.4"><h2 data-number="8.4" class="anchored" data-anchor-id="choosing-the-number-of-features-to-retain">
+<span class="header-section-number">8.4</span> Choosing the number of features to retain</h2>
 <p>The next parameter to set is the number of features to retain from each of the omics datasets, for each latent component. Again, we can use cross-validation to select optimal values amongst a grid of values to test. The range of values to test depends on the type of question we are trying to answer: selecting a larger number of features might lead to a higher degree of agreement between the latent components of the two datasets, but will be hard to manually inspect for further characterisation.</p>
 <p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/spls_tune.html">spls_tune()</a></code> provides a wrapper around the <code><a href="https://rdrr.io/pkg/mixOmics/man/tune.html">mixOmics::tune()</a></code> function that performs this cross-validation. Some of the arguments are similar to the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function, e.g.&nbsp;<code>validation</code>, <code>folds</code>, <code>nrepeats</code> or <code>cpus.</code> In addition, we recommend setting the <code>measure</code> argument, which corresponds to the metric used for performance assessment, to <code>"cor"</code> (i.e.&nbsp;the correlation between the latent components constructed). Alternatively, it is possible to set the <code>measure</code> argument to <code>"RSS"</code>.</p>
 <p>The <code>keepX</code> and <code>keepY</code> arguments control the grid of values to be tested as possible number of features to retain from the first and second dataset, respectively. Both arguments should be in the form of an integer vector of values to test. If no value is provided for either of these arguments, six values ranging from 5 to 30 (by increments of 5) are tested for the corresponding dataset. Here we will increase the maximum number of features that can be retained from each dataset to 100. Note that the metabolomics dataset has only 55 features, so the <code>spls_tune</code> function will remove all values to test above this number.</p>
@@ -726,8 +731,8 @@ div.csl-indent {
 <span><span class="co">#&gt;    20    50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- Note that for the example, we will keep the selected values, however given the diagnostic plot shown above, we could probably set the number of features to retain for the second latent component to 20 for the transcriptomics dataset and 30 for the metabolomics dataset. -->
-</section><section id="final-spls-run" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="final-spls-run">
-<span class="header-section-number">7.5</span> Final sPLS run</h2>
+</section><section id="final-spls-run" class="level2" data-number="8.5"><h2 data-number="8.5" class="anchored" data-anchor-id="final-spls-run">
+<span class="header-section-number">8.5</span> Final sPLS run</h2>
 <p>Once a value has been selected for all parameters, we can perform the final sPLS run.</p>
 <div class="targets-chunk">
 <div class="cell">
@@ -756,11 +761,11 @@ div.csl-indent {
 <span><span class="co">#&gt; 2 keepX     Number of features retained in dataset rnaseq for each latent… 40, …</span></span>
 <span><span class="co">#&gt; 3 keepY     Number of features retained in dataset metabolome for each la… 20, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="results-interpretation" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="results-interpretation">
-<span class="header-section-number">7.6</span> Results interpretation</h2>
-<p>In <a href="interpretation.html"><span>Chapter&nbsp;11</span></a>, we show the different functionalities implemented in the <code>moiraine</code> package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the sPLS-specific plots that can be generated to help interpret the results of an sPLS run.</p>
-<section id="samples-plots" class="level3" data-number="7.6.1"><h3 data-number="7.6.1" class="anchored" data-anchor-id="samples-plots">
-<span class="header-section-number">7.6.1</span> Samples plots</h3>
+</section><section id="results-interpretation" class="level2" data-number="8.6"><h2 data-number="8.6" class="anchored" data-anchor-id="results-interpretation">
+<span class="header-section-number">8.6</span> Results interpretation</h2>
+<p>In <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>, we show the different functionalities implemented in the <code>moiraine</code> package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the sPLS-specific plots that can be generated to help interpret the results of an sPLS run.</p>
+<section id="samples-plots" class="level3" data-number="8.6.1"><h3 data-number="8.6.1" class="anchored" data-anchor-id="samples-plots">
+<span class="header-section-number">8.6.1</span> Samples plots</h3>
 <p>We can represent the samples in the subspace spanned by the latent components for each dataset, using the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotIndiv.html">mixOmics::plotIndiv()</a></code> function.</p>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotIndiv.html">plotIndiv</a></span><span class="op">(</span></span>
@@ -785,8 +790,8 @@ div.csl-indent {
 </div>
 </div>
 <p>In the arrow plot, each sample is represented with two points, which are linked by an arrow. The point at the start of the arrow corresponds to the sample in the projection space of the first dataset (i.e.&nbsp;transcriptomics dataset), while the point at the end of the arrow shows the location of the sample in the projection space of the second dataset (i.e.&nbsp;the metabolomics dataset). In this plot, most of the arrows are large, which indicates that there is not a good agreement between the latent components of the two datasets.</p>
-</section><section id="correlation-circle-plots" class="level3" data-number="7.6.2"><h3 data-number="7.6.2" class="anchored" data-anchor-id="correlation-circle-plots">
-<span class="header-section-number">7.6.2</span> Correlation circle plots</h3>
+</section><section id="correlation-circle-plots" class="level3" data-number="8.6.2"><h3 data-number="8.6.2" class="anchored" data-anchor-id="correlation-circle-plots">
+<span class="header-section-number">8.6.2</span> Correlation circle plots</h3>
 <p>The correlation circle plots produced by the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">mixOmics::plotVar()</a></code> function allows to visualise the correlation between each of the selected features and the different latent components:</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar</a></span><span class="op">(</span></span>
@@ -840,8 +845,8 @@ div.csl-indent {
 </div>
 </div>
 <p>Note that if a dataset is not present in the list passed to <code>label_cols</code>, the feature IDs will be used as labels.</p>
-</section></section><section id="recap---targets-list" class="level2" data-number="7.7"><h2 data-number="7.7" class="anchored" data-anchor-id="recap---targets-list">
-<span class="header-section-number">7.7</span> Recap - targets list</h2>
+</section></section><section id="recap---targets-list" class="level2" data-number="8.7"><h2 data-number="8.7" class="anchored" data-anchor-id="recap---targets-list">
+<span class="header-section-number">8.7</span> Recap - targets list</h2>
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for sPLS analysis
@@ -1069,12 +1074,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./prefiltering.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./so2pls.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

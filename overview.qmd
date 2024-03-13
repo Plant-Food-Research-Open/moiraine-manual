@@ -296,7 +296,7 @@ diablo_plot_circos(
 
 :::
 
-## Intepreting the integration results
+## Interpreting the integration results
 
 One of the main goals of `moiraine` is to facilitate the interpretation of the omics integration results. To this end, the outcome of any of the supported integration methods can be converted to a standardised integration output format, e.g.:
 

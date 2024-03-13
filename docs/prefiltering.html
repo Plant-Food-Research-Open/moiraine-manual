@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>The moiraine R package user manual - 6&nbsp; Dataset pre-filtering</title>
+<title>The moiraine R package user manual - 7&nbsp; Dataset pre-filtering</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -142,7 +142,7 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -172,7 +172,12 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./overview.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview of <code>moiraine</code></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -185,27 +190,27 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
   </div>
 </li>
       </ul>
@@ -220,17 +225,17 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
   </div>
 </li>
       </ul>
@@ -245,7 +250,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -260,17 +265,17 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -287,33 +292,33 @@ div.csl-indent {
    
   <ul>
 <li>
-<a href="#subsetting-samples-of-interest" id="toc-subsetting-samples-of-interest" class="nav-link active" data-scroll-target="#subsetting-samples-of-interest"><span class="toc-section-number">6.1</span>  Subsetting samples of interest</a>
+<a href="#subsetting-samples-of-interest" id="toc-subsetting-samples-of-interest" class="nav-link active" data-scroll-target="#subsetting-samples-of-interest"><span class="toc-section-number">7.1</span>  Subsetting samples of interest</a>
   <ul class="collapse">
-<li><a href="#based-on-sample-ids" id="toc-based-on-sample-ids" class="nav-link" data-scroll-target="#based-on-sample-ids"><span class="toc-section-number">6.1.1</span>  Based on sample IDs</a></li>
-  <li><a href="#based-on-metadata" id="toc-based-on-metadata" class="nav-link" data-scroll-target="#based-on-metadata"><span class="toc-section-number">6.1.2</span>  Based on metadata</a></li>
-  <li><a href="#retaining-common-samples" id="toc-retaining-common-samples" class="nav-link" data-scroll-target="#retaining-common-samples"><span class="toc-section-number">6.1.3</span>  Retaining common samples</a></li>
+<li><a href="#based-on-sample-ids" id="toc-based-on-sample-ids" class="nav-link" data-scroll-target="#based-on-sample-ids"><span class="toc-section-number">7.1.1</span>  Based on sample IDs</a></li>
+  <li><a href="#based-on-metadata" id="toc-based-on-metadata" class="nav-link" data-scroll-target="#based-on-metadata"><span class="toc-section-number">7.1.2</span>  Based on metadata</a></li>
+  <li><a href="#retaining-common-samples" id="toc-retaining-common-samples" class="nav-link" data-scroll-target="#retaining-common-samples"><span class="toc-section-number">7.1.3</span>  Retaining common samples</a></li>
   </ul>
 </li>
   <li>
-<a href="#subsetting-features-of-interest" id="toc-subsetting-features-of-interest" class="nav-link" data-scroll-target="#subsetting-features-of-interest"><span class="toc-section-number">6.2</span>  Subsetting features of interest</a>
+<a href="#subsetting-features-of-interest" id="toc-subsetting-features-of-interest" class="nav-link" data-scroll-target="#subsetting-features-of-interest"><span class="toc-section-number">7.2</span>  Subsetting features of interest</a>
   <ul class="collapse">
-<li><a href="#based-on-feature-ids" id="toc-based-on-feature-ids" class="nav-link" data-scroll-target="#based-on-feature-ids"><span class="toc-section-number">6.2.1</span>  Based on feature IDs</a></li>
-  <li><a href="#based-on-metadata-1" id="toc-based-on-metadata-1" class="nav-link" data-scroll-target="#based-on-metadata-1"><span class="toc-section-number">6.2.2</span>  Based on metadata</a></li>
+<li><a href="#based-on-feature-ids" id="toc-based-on-feature-ids" class="nav-link" data-scroll-target="#based-on-feature-ids"><span class="toc-section-number">7.2.1</span>  Based on feature IDs</a></li>
+  <li><a href="#based-on-metadata-1" id="toc-based-on-metadata-1" class="nav-link" data-scroll-target="#based-on-metadata-1"><span class="toc-section-number">7.2.2</span>  Based on metadata</a></li>
   </ul>
 </li>
   <li>
-<a href="#features-preselection" id="toc-features-preselection" class="nav-link" data-scroll-target="#features-preselection"><span class="toc-section-number">6.3</span>  Features preselection</a>
+<a href="#features-preselection" id="toc-features-preselection" class="nav-link" data-scroll-target="#features-preselection"><span class="toc-section-number">7.3</span>  Features preselection</a>
   <ul class="collapse">
-<li><a href="#sec-prefiltering-unsupervised" id="toc-sec-prefiltering-unsupervised" class="nav-link" data-scroll-target="#sec-prefiltering-unsupervised"><span class="toc-section-number">6.3.1</span>  Unsupervised features preselection</a></li>
-  <li><a href="#sec-prefiltering-supervised" id="toc-sec-prefiltering-supervised" class="nav-link" data-scroll-target="#sec-prefiltering-supervised"><span class="toc-section-number">6.3.2</span>  Supervised features preselection</a></li>
+<li><a href="#sec-prefiltering-unsupervised" id="toc-sec-prefiltering-unsupervised" class="nav-link" data-scroll-target="#sec-prefiltering-unsupervised"><span class="toc-section-number">7.3.1</span>  Unsupervised features preselection</a></li>
+  <li><a href="#sec-prefiltering-supervised" id="toc-sec-prefiltering-supervised" class="nav-link" data-scroll-target="#sec-prefiltering-supervised"><span class="toc-section-number">7.3.2</span>  Supervised features preselection</a></li>
   </ul>
 </li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">6.4</span>  Recap – targets list</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">7.4</span>  Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-prefiltering" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></span></h1>
+<h1 class="title"><span id="sec-prefiltering" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></span></h1>
 </div>
 
 
@@ -555,11 +560,11 @@ div.csl-indent {
 <span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
 <span><span class="co">#&gt;      23036      20335         55</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="subsetting-samples-of-interest" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="subsetting-samples-of-interest">
-<span class="header-section-number">6.1</span> Subsetting samples of interest</h2>
+<section id="subsetting-samples-of-interest" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="subsetting-samples-of-interest">
+<span class="header-section-number">7.1</span> Subsetting samples of interest</h2>
 <p>It is possible that for the integration analysis, we might want to retain only a subset of samples of interest; for example to focus on a specific phenotypic group. In this section, we will see a number of ways to subset samples of interest from a <code>MultiDataSet</code> object.</p>
-<section id="based-on-sample-ids" class="level3" data-number="6.1.1"><h3 data-number="6.1.1" class="anchored" data-anchor-id="based-on-sample-ids">
-<span class="header-section-number">6.1.1</span> Based on sample IDs</h3>
+<section id="based-on-sample-ids" class="level3" data-number="7.1.1"><h3 data-number="7.1.1" class="anchored" data-anchor-id="based-on-sample-ids">
+<span class="header-section-number">7.1.1</span> Based on sample IDs</h3>
 <p>The <code>MultiDataSet</code> package allows to subset a <code>MultiDataSet</code> object based on a vector of sample IDs. For example, here we generate a list of 10 samples to which we would like to restrict the <code>MultiDataSet</code> object:</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Randomly selecting 10 samples</span></span>
@@ -582,8 +587,8 @@ div.csl-indent {
 <span><span class="co">#&gt;          9         10         10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>MultiDataSet</code> object returned only contains the 10 samples of interest. One of the selected samples was not present in the genomics dataset, which is why this dataset has only 9 samples.</p>
-</section><section id="based-on-metadata" class="level3" data-number="6.1.2"><h3 data-number="6.1.2" class="anchored" data-anchor-id="based-on-metadata">
-<span class="header-section-number">6.1.2</span> Based on metadata</h3>
+</section><section id="based-on-metadata" class="level3" data-number="7.1.2"><h3 data-number="7.1.2" class="anchored" data-anchor-id="based-on-metadata">
+<span class="header-section-number">7.1.2</span> Based on metadata</h3>
 <p>Alternatively, we might want to select samples based on some information contained in the samples metadata associated with the omics datasets. Again, this option is implemented in the <code>MultiDataSet</code> package through the <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> function (see <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/MultiDataSet/inst/doc/MultiDataSet.html#advanced-subsetting">their vignette</a> for more information). For this example, we want to retain only animals from feedlot 1. This information is encoded in the <code>feedlot</code> column from the samples metadata of the datasets:</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata_combined.html">get_samples_metadata_combined</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -608,8 +613,8 @@ div.csl-indent {
 <span><span class="co">#&gt;         22         23         23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>MultiDataSet</code> object returned contains only samples corresponding to animals from feedlot 1.</p>
-</section><section id="retaining-common-samples" class="level3" data-number="6.1.3"><h3 data-number="6.1.3" class="anchored" data-anchor-id="retaining-common-samples">
-<span class="header-section-number">6.1.3</span> Retaining common samples</h3>
+</section><section id="retaining-common-samples" class="level3" data-number="7.1.3"><h3 data-number="7.1.3" class="anchored" data-anchor-id="retaining-common-samples">
+<span class="header-section-number">7.1.3</span> Retaining common samples</h3>
 <p>Most data integration tools only accept samples that are present in all omics datasets. When that is the case, the <code>moiraine</code> package will automatically remove samples that are absent from some datasets when preparing the input data for the corresponding integration tool. However, for convenience, we show here how to restrict a <code>MultiDataSet</code> object to only samples that are common to all datasets.</p>
 <p>This is done through the <code><a href="https://rdrr.io/pkg/MultiDataSet/man/commonSamples.html">commonSamples()</a></code> function from the <code>MultiDataSet</code> package, which returns a filtered <code>MultiDataSet</code> object:</p>
 <div class="cell">
@@ -619,11 +624,11 @@ div.csl-indent {
 <span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
 <span><span class="co">#&gt;        135        135        135</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The returned <code>MultiDataSet</code> object contains 135 samples which are present in all three omics datasets (which we can confirm with the Upset plot generated in <a href="inspecting_multidataset.html#sec-inspecting-multidataset-summary-plots"><span>Section&nbsp;3.3</span></a>).</p>
-</section></section><section id="subsetting-features-of-interest" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="subsetting-features-of-interest">
-<span class="header-section-number">6.2</span> Subsetting features of interest</h2>
-<section id="based-on-feature-ids" class="level3" data-number="6.2.1"><h3 data-number="6.2.1" class="anchored" data-anchor-id="based-on-feature-ids">
-<span class="header-section-number">6.2.1</span> Based on feature IDs</h3>
+<p>The returned <code>MultiDataSet</code> object contains 135 samples which are present in all three omics datasets (which we can confirm with the Upset plot generated in <a href="inspecting_multidataset.html#sec-inspecting-multidataset-summary-plots"><span>Section&nbsp;4.3</span></a>).</p>
+</section></section><section id="subsetting-features-of-interest" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="subsetting-features-of-interest">
+<span class="header-section-number">7.2</span> Subsetting features of interest</h2>
+<section id="based-on-feature-ids" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="based-on-feature-ids">
+<span class="header-section-number">7.2.1</span> Based on feature IDs</h3>
 <p>As with samples, we might want to filter a <code>MultiDataSet</code> object to only specific features of interest. We will randomly select feature IDs from each omics dataset:</p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">36</span><span class="op">)</span></span>
@@ -682,8 +687,8 @@ div.csl-indent {
 <span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
 <span><span class="co">#&gt;          5          5          5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="based-on-metadata-1" class="level3" data-number="6.2.2"><h3 data-number="6.2.2" class="anchored" data-anchor-id="based-on-metadata-1">
-<span class="header-section-number">6.2.2</span> Based on metadata</h3>
+</section><section id="based-on-metadata-1" class="level3" data-number="7.2.2"><h3 data-number="7.2.2" class="anchored" data-anchor-id="based-on-metadata-1">
+<span class="header-section-number">7.2.2</span> Based on metadata</h3>
 <p>It is also possible to subset features based on their metadata. For that, we can use the <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> function from the MultiDataSet package, as we did for samples subsetting. For example, for the transcriptomics and metabolomics dataset, we have in the features metadata a column (<code>de_signif</code>) that recaps the results of a differential abundance analysis on the corresponding dataset. We could decide to select only the differentially abundant compounds from this dataset. Note that it only performs the filtering for datasets that have this column in their features metadata.</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mo_features_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">mo_set_complete</span>, <span class="va">de_signif</span> <span class="op">==</span> <span class="st">"DE"</span><span class="op">)</span></span>
@@ -694,11 +699,11 @@ div.csl-indent {
 <span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
 <span><span class="co">#&gt;      23036        111         30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="features-preselection" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="features-preselection">
-<span class="header-section-number">6.3</span> Features preselection</h2>
+</section></section><section id="features-preselection" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="features-preselection">
+<span class="header-section-number">7.3</span> Features preselection</h2>
 <p>In the previous section, we saw how to restrict the <code>MultiDataSet</code> object to a set of features of interest. However, in a typical integration workflow, we instead want to reduce the dimensions of the omics datasets through a data-centric method that discards features least relevant to the biological problem of interest. Here, we present two approaches for features preselection: an unsupervised approach, which relies only on the omics measurements, and a supervised approach, which accounts for information we have about the samples. The choice between these two approaches will depend on the research question being investigated. Note that this preselection step is distinct from the data cleaning process that should be applied to each omics dataset, in which features with low expression or high missing values are removed. This ideally should be done before the multi-omics integration workflow constructed with <code>moiraine</code>, although it can be integrated in the analysis pipeline.</p>
-<section id="sec-prefiltering-unsupervised" class="level3" data-number="6.3.1"><h3 data-number="6.3.1" class="anchored" data-anchor-id="sec-prefiltering-unsupervised">
-<span class="header-section-number">6.3.1</span> Unsupervised features preselection</h3>
+<section id="sec-prefiltering-unsupervised" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="sec-prefiltering-unsupervised">
+<span class="header-section-number">7.3.1</span> Unsupervised features preselection</h3>
 <p>In order to reduce the number of features in the omics datasets, one option is to only retain the most variable features from each dataset. We refer to this approach as unsupervised preselection, as it only relies on the omics measurements to discard irrelevant features. In the package, two metrics of feature variability are implemented: the <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> (COV), and the <a href="https://en.wikipedia.org/wiki/Median_absolute_deviation">Median Absolute Deviation</a> (MAD). Careful consideration is required when determining which of these metrics should be used to select the most variable features, as each has some drawbacks. In particular:</p>
 <ul>
 <li><p>Filtering based on COV will retain features that are only present in very few samples. This might be problematic for noisy datasets in which some features are technical artefacts, or if we are looking for biomarkers that are expressed across all observations.</p></li>
@@ -846,8 +851,8 @@ Converting targets factory to R script
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/select_features_mad.html">select_features_mad</a></span><span class="op">(</span><span class="va">mo_set_complete</span>, <span class="st">"rnaseq"</span>, to_keep_n <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/select_features_mad.html">select_features_mad</a></span><span class="op">(</span><span class="va">mo_set_complete</span>, <span class="st">"rnaseq"</span>, to_keep_prop <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="sec-prefiltering-supervised" class="level3" data-number="6.3.2"><h3 data-number="6.3.2" class="anchored" data-anchor-id="sec-prefiltering-supervised">
-<span class="header-section-number">6.3.2</span> Supervised features preselection</h3>
+</section><section id="sec-prefiltering-supervised" class="level3" data-number="7.3.2"><h3 data-number="7.3.2" class="anchored" data-anchor-id="sec-prefiltering-supervised">
+<span class="header-section-number">7.3.2</span> Supervised features preselection</h3>
 <p>Another approach to features preselection can be preferred when we are trying to assess the features most relevant to an outcome of interest or to differences between sample groups. In this scenario, prior to integrating the datasets, it could be useful to reduce the size of the datasets by filtering out the features that are least associated with the outcome of interest. In this case, we can use some single-omics feature selection method to perform a first “crude” prefiltering.</p>
 <p><code>moiraine</code> relies on the sPLS-DA algorithm implemented in the <code>mixOmics</code> package for this. <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html">sparse Partial Least-Squares Discriminant Analysis</a> (or sPLS-DA for short) is a feature selection method that aims to detect, in a multivariate dataset, the variables or features that best discriminate a categorical outcome of interest in the observations. The advantages of sPLS-DA is that it can handle datasets in which there are more features than samples, which is typically the case in omics datasets. More information can be found in <span class="citation" data-cites="lêcao2011">Lê Cao, Boitard, and Besse (<a href="references.html#ref-l%C3%AAcao2011" role="doc-biblioref">2011</a>)</span> or in the <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html"><code>mixOmics</code> vignette</a>. By running an sPLS-DA analysis on each dataset separately, we can remove the features that are least informative with respect to the trait or outcome of interest. We refer to this approach as supervised preselection, as it relies on information about the samples to select the features of interest.</p>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory()</a></code> function allows us to perform this supervised preselection for some or all datasets within a <code>MultiDataSet</code> object. It provides the option to set either the number or proportion of features to retain in each dataset, via the <code>to_keep_ns</code> and <code>to_keep_props</code> arguments. One additional argument that needs to be passed to the function is <code>group</code>, which gives the name of the column in the samples metadata information to be used as categorical outcome for the sPLS-DA run. This column must be present in the sample metadata of at least one of the datasets to be filtered. For this example, we will retain in each dataset 1,000 features that best discriminate the control and diseased animals. Warning: this function can take several minutes to run.</p>
@@ -970,8 +975,8 @@ Converting targets factory to R script
 <span>  <span class="va">individual_splsda_run</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</details></section></section><section id="recap-targets-list" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="recap-targets-list">
-<span class="header-section-number">6.4</span> Recap – targets list</h2>
+</details></section></section><section id="recap-targets-list" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">7.4</span> Recap – targets list</h2>
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for datasets prefiltering
@@ -1149,12 +1154,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./preprocessing.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./spls.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

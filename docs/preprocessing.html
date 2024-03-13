@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>The moiraine R package user manual - 5&nbsp; Data pre-processing</title>
+<title>The moiraine R package user manual - 6&nbsp; Data pre-processing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,7 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -153,7 +153,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./overview.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview of <code>moiraine</code></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -166,27 +171,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
   </div>
 </li>
       </ul>
@@ -201,17 +206,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
   </div>
 </li>
       </ul>
@@ -226,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
   </div>
 </li>
       </ul>
@@ -241,17 +246,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
   </div>
 </li>
       </ul>
@@ -268,26 +273,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
 <li>
-<a href="#datasets-transformations" id="toc-datasets-transformations" class="nav-link active" data-scroll-target="#datasets-transformations"><span class="toc-section-number">5.1</span>  Datasets transformations</a>
+<a href="#datasets-transformations" id="toc-datasets-transformations" class="nav-link active" data-scroll-target="#datasets-transformations"><span class="toc-section-number">6.1</span>  Datasets transformations</a>
   <ul class="collapse">
-<li><a href="#transforming-a-single-dataset" id="toc-transforming-a-single-dataset" class="nav-link" data-scroll-target="#transforming-a-single-dataset"><span class="toc-section-number">5.1.1</span>  Transforming a single dataset</a></li>
-  <li><a href="#transformation-target-factory" id="toc-transformation-target-factory" class="nav-link" data-scroll-target="#transformation-target-factory"><span class="toc-section-number">5.1.2</span>  Transformation target factory</a></li>
+<li><a href="#transforming-a-single-dataset" id="toc-transforming-a-single-dataset" class="nav-link" data-scroll-target="#transforming-a-single-dataset"><span class="toc-section-number">6.1.1</span>  Transforming a single dataset</a></li>
+  <li><a href="#transformation-target-factory" id="toc-transformation-target-factory" class="nav-link" data-scroll-target="#transformation-target-factory"><span class="toc-section-number">6.1.2</span>  Transformation target factory</a></li>
   </ul>
 </li>
   <li>
-<a href="#running-a-pca-on-each-dataset" id="toc-running-a-pca-on-each-dataset" class="nav-link" data-scroll-target="#running-a-pca-on-each-dataset"><span class="toc-section-number">5.2</span>  Running a PCA on each dataset</a>
+<a href="#running-a-pca-on-each-dataset" id="toc-running-a-pca-on-each-dataset" class="nav-link" data-scroll-target="#running-a-pca-on-each-dataset"><span class="toc-section-number">6.2</span>  Running a PCA on each dataset</a>
   <ul class="collapse">
-<li><a href="#running-the-pcas" id="toc-running-the-pcas" class="nav-link" data-scroll-target="#running-the-pcas"><span class="toc-section-number">5.2.1</span>  Running the PCAs</a></li>
-  <li><a href="#visualising-the-pca-results" id="toc-visualising-the-pca-results" class="nav-link" data-scroll-target="#visualising-the-pca-results"><span class="toc-section-number">5.2.2</span>  Visualising the PCA results</a></li>
-  <li><a href="#sec-preprocessing-missing-values" id="toc-sec-preprocessing-missing-values" class="nav-link" data-scroll-target="#sec-preprocessing-missing-values"><span class="toc-section-number">5.2.3</span>  Missing values imputation</a></li>
+<li><a href="#running-the-pcas" id="toc-running-the-pcas" class="nav-link" data-scroll-target="#running-the-pcas"><span class="toc-section-number">6.2.1</span>  Running the PCAs</a></li>
+  <li><a href="#visualising-the-pca-results" id="toc-visualising-the-pca-results" class="nav-link" data-scroll-target="#visualising-the-pca-results"><span class="toc-section-number">6.2.2</span>  Visualising the PCA results</a></li>
+  <li><a href="#sec-preprocessing-missing-values" id="toc-sec-preprocessing-missing-values" class="nav-link" data-scroll-target="#sec-preprocessing-missing-values"><span class="toc-section-number">6.2.3</span>  Missing values imputation</a></li>
   </ul>
 </li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">5.3</span>  Recap – targets list</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">6.3</span>  Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-preprocessing" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data pre-processing</span></span></h1>
+<h1 class="title"><span id="sec-preprocessing" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></span></h1>
 </div>
 
 
@@ -468,9 +473,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</details><section id="datasets-transformations" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="datasets-transformations">
-<span class="header-section-number">5.1</span> Datasets transformations</h2>
-<p>After inspection of the density plots for the different datasets (see <a href="inspecting_multidataset.html#sec-inspecting-multidataset-summary-plots"><span>Section&nbsp;3.3</span></a>), it might be necessary to normalise or transform some or all datasets. This is necessary to mitigate the mean-variance trend that occurs in RNAseq data, for example, or simply to bring the different features to a comparable scale. Transformation here refers to applying a function to each feature (i.e.&nbsp;each row) within a dataset that will transform the measurement values for the feature.</p>
+</details><section id="datasets-transformations" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="datasets-transformations">
+<span class="header-section-number">6.1</span> Datasets transformations</h2>
+<p>After inspection of the density plots for the different datasets (see <a href="inspecting_multidataset.html#sec-inspecting-multidataset-summary-plots"><span>Section&nbsp;4.3</span></a>), it might be necessary to normalise or transform some or all datasets. This is necessary to mitigate the mean-variance trend that occurs in RNAseq data, for example, or simply to bring the different features to a comparable scale. Transformation here refers to applying a function to each feature (i.e.&nbsp;each row) within a dataset that will transform the measurement values for the feature.</p>
 <p><code>moiraine</code> implements several options to transform an omics dataset:</p>
 <ul>
 <li><p>Variance Stabilising Normalisation (VSN) through the <code>vsn</code> package – recommended for metabolomics datasets or other continuous datasets with a strong mean-variance trend;</p></li>
@@ -478,8 +483,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Automatic selection of the best normalisation method for each feature through the <code>bestNormalize</code> package – recommended for phenotype data, and when the number of features is small (note that the selection of the normalisation method is done independently for each feature, so the same transformation might not be applied to all features);</p></li>
 <li><p>A selection of common normalisation methods through the <code>bestNormalize</code> package, including center/scale, log, exponential, square-root, arcsinh, Box Cox, Yeo-Johnson and ordered quantile transformations (see details in the <a href="https://cran.r-project.org/web/packages/bestNormalize/vignettes/bestNormalize.html">bestNormalize vignette</a>) – recommended when applying the same transformation to all features, e.g.&nbsp;log2 transformation or centering.</p></li>
 </ul>
-<section id="transforming-a-single-dataset" class="level3" data-number="5.1.1"><h3 data-number="5.1.1" class="anchored" data-anchor-id="transforming-a-single-dataset">
-<span class="header-section-number">5.1.1</span> Transforming a single dataset</h3>
+<section id="transforming-a-single-dataset" class="level3" data-number="6.1.1"><h3 data-number="6.1.1" class="anchored" data-anchor-id="transforming-a-single-dataset">
+<span class="header-section-number">6.1.1</span> Transforming a single dataset</h3>
 <p>The transformation of one dataset is done through the <code><a href="https://rdrr.io/pkg/moiraine/man/transform_dataset.html">transform_dataset()</a></code> function, which takes as input a <code>MultiDataSet</code> object, the name of the dataset to transform, and the name of the transformation to be applied, which should be one of <code>vsn</code>, <code>vst-deseq2</code>, <code>logx</code>, <code>best-normalize-auto</code> or <code>best-normalize-manual</code>. For the latter, the name of the normalisation method from the <code>BestNormalize</code> package to use must also be supplied through the <code>method</code> argument.</p>
 <p>The <code>return_multidataset</code> argument determines whether a <code>MultiDataSet</code> object with the corresponding dataset transformed should be returned. If it is set to <code>FALSE</code>, the function will instead return a list with the transformed dataset as a matrix as well as other useful information returned by the transformation function applied. It is possible to only return the transformed matrix, by setting <code>return_matrix_only</code> to <code>TRUE</code>. This can be useful to quickly assess the effects of the transformation outside of the analysis pipeline.</p>
 <p>For example, we can apply the Variance Stabilising Transformation to the transcriptomics dataset:</p>
@@ -589,8 +594,8 @@ Note
 <p>Before using the <code>best-normalize-manual</code> option, it is strongly recommended to have a look at the documentation of the corresponding function from the <code>bestNormalize</code> package, as they might have behaviours that are not expected. For example, by default the <code><a href="https://petersonr.github.io/bestNormalize/reference/log_x.html">bestNormalize::log_x()</a></code> function uses a log base 10, and centers and scales the transformed values, which not be what we want.</p>
 </div>
 </div>
-</section><section id="transformation-target-factory" class="level3" data-number="5.1.2"><h3 data-number="5.1.2" class="anchored" data-anchor-id="transformation-target-factory">
-<span class="header-section-number">5.1.2</span> Transformation target factory</h3>
+</section><section id="transformation-target-factory" class="level3" data-number="6.1.2"><h3 data-number="6.1.2" class="anchored" data-anchor-id="transformation-target-factory">
+<span class="header-section-number">6.1.2</span> Transformation target factory</h3>
 <p>The target factory function <code><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory()</a></code> provides a wrapper to apply (potentially different) transformations to several datasets at once. The function takes as input the <code>MultiDataSet</code> object as well as a named character vector, in which each element corresponds to a transformation that should be applied to a specific dataset. If a dataset is not present in the transformation vector, it will not be transformed (but it will still be present in the resulting <code>MultiDataSet</code> object).</p>
 <p>Here, we would like to apply Variance Stabilising Transformation to the transcriptomics dataset, and a log2 transformation to the metabolomics dataset. Note that the VST and VSN transformations are very close to the log2 transformation, especially for features with high means.</p>
 <div class="targets-chunk">
@@ -720,16 +725,16 @@ Converting targets factory to R script
 <span><span class="co">#&gt; 1 metabolome Log-2 transformation                        </span></span>
 <span><span class="co">#&gt; 2 rnaseq     Variance Stabilising Transformation (DESeq2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="running-a-pca-on-each-dataset" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="running-a-pca-on-each-dataset">
-<span class="header-section-number">5.2</span> Running a PCA on each dataset</h2>
+</section></section><section id="running-a-pca-on-each-dataset" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="running-a-pca-on-each-dataset">
+<span class="header-section-number">6.2</span> Running a PCA on each dataset</h2>
 <p>It is always best practice to run some exploratory analysis on a dataset prior to running analyses. This is largely outside the scope of this package, and we assume that any input dataset has been properly assessed before turning to the integration pipeline. However, running a Principal Component Analysis (PCA) on each of the omics datasets within the integration pipeline serves two purposes:</p>
 <ul>
 <li><p>as a last check to ensure that there are no obvious batch effects or problematic samples that should be addressed,</p></li>
 <li><p>as a missing data imputation method.</p></li>
 </ul>
 <p>The <code>moiraine</code> package relies on the Bioconductor <a href="https://bioconductor.org/packages/release/bioc/html/pcaMethods.html"><code>pcaMethods</code> package</a> to perform the PCA. In particular, the <code>pcaMethods</code> package implements a NIPALS (non-linear iterative partial least squares) method for PCA, which allows for missing values in the input dataset, and imputes missing values based on the results of the PCA.</p>
-<section id="running-the-pcas" class="level3" data-number="5.2.1"><h3 data-number="5.2.1" class="anchored" data-anchor-id="running-the-pcas">
-<span class="header-section-number">5.2.1</span> Running the PCAs</h3>
+<section id="running-the-pcas" class="level3" data-number="6.2.1"><h3 data-number="6.2.1" class="anchored" data-anchor-id="running-the-pcas">
+<span class="header-section-number">6.2.1</span> Running the PCAs</h3>
 <p>The <code><a href="https://rdrr.io/pkg/moiraine/man/pca_complete_data_factory.html">pca_complete_data_factory()</a></code> function uses dynamic branching to perform a PCA on each omics dataset within a <code>MultiDataSet</code> object. It takes as input the <code>MultiDataSet</code> object (in our case, <code>mo_set_transformed</code>), and, optionally, the names of the datasets on which a PCA should be run. This is useful if one dataset is very large and has no missing values, and we want to avoid running a PCA on it. It then proceeds as follows:</p>
 <ul>
 <li><p>It creates a target called <code>dataset_names_pca</code>, which stores a vector of dataset names on which a PCA should be applied;</p></li>
@@ -840,8 +845,8 @@ Converting targets factory to R script
 <span></span>
 <span><span class="va">mo_set_complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_complete_data.html">get_complete_data</a></span><span class="op">(</span><span class="va">mo_set_transformed</span>, <span class="va">pca_runs_list</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</details></section><section id="visualising-the-pca-results" class="level3" data-number="5.2.2"><h3 data-number="5.2.2" class="anchored" data-anchor-id="visualising-the-pca-results">
-<span class="header-section-number">5.2.2</span> Visualising the PCA results</h3>
+</details></section><section id="visualising-the-pca-results" class="level3" data-number="6.2.2"><h3 data-number="6.2.2" class="anchored" data-anchor-id="visualising-the-pca-results">
+<span class="header-section-number">6.2.2</span> Visualising the PCA results</h3>
 <p>It is possible to get an overview of the results of each PCA. First, the function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_screeplot_pca.html">plot_screeplot_pca()</a></code> displays the percentage of variance explained by the principal components computed for each dataset. It takes as input the <code>pca_runs_list</code> target constructed in the previous step. Note that by default, 10 components are computed for each dataset.</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_screeplot_pca.html">plot_screeplot_pca</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -897,8 +902,8 @@ Converting targets factory to R script
 <p><img src="preprocessing_files/figure-html/plot-samples-coordinates-pca-colours-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-</section><section id="sec-preprocessing-missing-values" class="level3" data-number="5.2.3"><h3 data-number="5.2.3" class="anchored" data-anchor-id="sec-preprocessing-missing-values">
-<span class="header-section-number">5.2.3</span> Missing values imputation</h3>
+</section><section id="sec-preprocessing-missing-values" class="level3" data-number="6.2.3"><h3 data-number="6.2.3" class="anchored" data-anchor-id="sec-preprocessing-missing-values">
+<span class="header-section-number">6.2.3</span> Missing values imputation</h3>
 <p>We can check that the complete multi-omics set constructed has no more missing values:</p>
 <div class="cell">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
@@ -928,8 +933,8 @@ Converting targets factory to R script
 <span><span class="co">#&gt; No missing values in rnaseq dataset.</span></span>
 <span><span class="co">#&gt; No missing values in metabolome dataset.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="recap-targets-list" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="recap-targets-list">
-<span class="header-section-number">5.3</span> Recap – targets list</h2>
+</section></section><section id="recap-targets-list" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="recap-targets-list">
+<span class="header-section-number">6.3</span> Recap – targets list</h2>
 <p>For convenience, here is the list of targets that we created in this section:</p>
 <details><summary>
 Targets list for datasets preprocessing
@@ -1132,12 +1137,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./modifying_multidataset.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./prefiltering.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
