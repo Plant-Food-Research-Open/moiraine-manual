@@ -2113,14 +2113,14 @@
     },
     "moiraine": {
       "Package": "moiraine",
-      "Version": "0.0.0.9000",
+      "Version": "1.0.0",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "PlantandFoodResearch",
       "RemoteRepo": "moiraine",
       "RemoteRef": "main",
-      "RemoteSha": "92c0c4be79313b996ddeb0a2e78802703cc72572",
+      "RemoteSha": "95fe9e37144375b53992d9eb97662be68b1a37ea",
       "Requirements": [
         "Biobase",
         "ComplexHeatmap",
@@ -2158,7 +2158,7 @@
         "tidyselect",
         "utils"
       ],
-      "Hash": "8c5ef09ffa805a2fd6b1dd20911f0c55"
+      "Hash": "96a479d4ef576d72d03d2a95378680bf"
     },
     "munsell": {
       "Package": "munsell",

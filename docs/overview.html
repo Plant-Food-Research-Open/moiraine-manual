@@ -276,7 +276,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#data-pre-processing" id="toc-data-pre-processing" class="nav-link" data-scroll-target="#data-pre-processing"><span class="toc-section-number">1.2</span>  Data pre-processing</a></li>
   <li><a href="#data-pre-filtering" id="toc-data-pre-filtering" class="nav-link" data-scroll-target="#data-pre-filtering"><span class="toc-section-number">1.3</span>  Data pre-filtering</a></li>
   <li><a href="#multi-omics-data-integration" id="toc-multi-omics-data-integration" class="nav-link" data-scroll-target="#multi-omics-data-integration"><span class="toc-section-number">1.4</span>  Multi-omics data integration</a></li>
-  <li><a href="#intepreting-the-integration-results" id="toc-intepreting-the-integration-results" class="nav-link" data-scroll-target="#intepreting-the-integration-results"><span class="toc-section-number">1.5</span>  Intepreting the integration results</a></li>
+  <li><a href="#interpreting-the-integration-results" id="toc-interpreting-the-integration-results" class="nav-link" data-scroll-target="#interpreting-the-integration-results"><span class="toc-section-number">1.5</span>  Interpreting the integration results</a></li>
   <li><a href="#evaluating-the-integration-results" id="toc-evaluating-the-integration-results" class="nav-link" data-scroll-target="#evaluating-the-integration-results"><span class="toc-section-number">1.6</span>  Evaluating the integration results</a></li>
   <li><a href="#comparison-different-integration-results" id="toc-comparison-different-integration-results" class="nav-link" data-scroll-target="#comparison-different-integration-results"><span class="toc-section-number">1.7</span>  Comparison different integration results</a></li>
   </ul></nav>
@@ -315,7 +315,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="input-data" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="input-data">
 <span class="header-section-number">1.1</span> Input data</h2>
-<p>The first step is to import the omics datasets and associated information into R. For each omics dataset, the <code>moiraine</code> package expects three pieces of information, which are read from csv files (or other specific formats when possible):</p>
+<p>The first step is to import the omics datasets and associated information into R. For each omics dataset, the <code>moiraine</code> package expects three pieces of information, which are read from csv files (or other specific formats when possible such as gtf or gff3):</p>
 <ul>
 <li><p>the measurements of omics features across the samples (the dataset)</p></li>
 <li><p>information about the omics features measured (the features metadata)</p></li>
@@ -324,10 +324,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>An example of input files is shown below:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/input_data_example.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">An example of input files for <code>moiraine</code>: A) Transcriptomics measurements across genes (rows) and samples(features). B) Table of features metadata, providing information about the genes measured. c) Table of samples metadata.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">An example of input files for <code>moiraine</code> (first 10 rows and 4 columns only): A) RNAseq read counts across genes (rows) and samples (columns). B) Table of features metadata, providing information about the genes measured. c) Table of samples metadata, i.e.&nbsp;information about the animals that were observed.</figcaption><p></p>
 </figure>
 </div>
-<p><code>moiraine</code> uses the <code>MultiDataSet</code> package to store the omics datasets and associated metadata into a single R object, which can be used as input for the different <code>moiraine</code> functions. This ensures that these functions can be used regardless of the number or type of omics datasets to analysis. The datasets, features and samples metadata can easily be extracted from the <code>MultiDataSet</code> function through <code><a href="https://rdrr.io/pkg/moiraine/man/get_datasets.html">get_datasets()</a></code>, <code><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata.html">get_samples_metadata()</a></code>.</p>
+<p><code>moiraine</code> uses the <a href="https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html"><code>MultiDataSet</code> package</a> to store the omics datasets and associated metadata into a single R object, which can be used as input for the different <code>moiraine</code> functions (see <a href="data_import.html"><span>Chapter&nbsp;3</span></a> for details about data import). This ensures that these functions can be used regardless of the number or type of omics datasets to analyse. At any point, the datasets, features and samples metadata can easily be extracted from the <code>MultiDataSet</code> object through <code><a href="https://rdrr.io/pkg/moiraine/man/get_datasets.html">get_datasets()</a></code>, <code><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata.html">get_samples_metadata()</a></code>.</p>
 <p>Here is an example of a <code>MultiDataSet</code> object:</p>
 <div class="cell">
 <pre><code>#&gt; Object of class 'MultiDataSet'
@@ -348,7 +348,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #&gt;     . rnaseq: 143 samples, 10 cols (id, ..., geno_comp_3)
 #&gt;     . metabolome: 139 samples, 10 cols (id, ..., geno_comp_3)</code></pre>
 </div>
-<p>Importantly, this means that all the information that we have about the omics features and samples are available to <code>moiraine</code> for customising plots or outputs. For example, it is possible to quickly generate a heatmap displaying the measurements for specific features of interest, and add information about the samples to facilitate the interpretation of the plot:</p>
+<p>Importantly, this means that all the information that we have about the omics features and samples are available to <code>moiraine</code> for customising plots or outputs. For example, it is possible to quickly generate a heatmap displaying the measurements for specific features of interest, and add information about the features and samples to facilitate the interpretation of the plot:</p>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">interesting_features</span><span class="op">)</span> <span class="co">## vector of feature IDs</span></span>
 <span><span class="co">#&gt; [1] "ARS-BFGL-NGS-27468" "BovineHD2300010006" "BovineHD0300000351"</span></span>
@@ -374,23 +374,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>                         <span class="co"># specify features label</span></span>
 <span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,                       <span class="co">#   from features metadata</span></span>
 <span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  truncate <span class="op">=</span> <span class="fl">20</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="overview_files/figure-html/plot-data-heatmap-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>Similarly, a number of convenient functions allow to quickly summarise different aspects of the multi-omics dataset, such as creating an Upset plot to compare the samples present in each omics dataset (<code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset()</a></code>), or generating a density plot for each omics dataset (<code><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data()</a></code>).</p>
+<p>Similarly, a number of functions allow to quickly summarise different aspects of the multi-omics dataset, such as creating an upset plot to compare the samples present in each omics dataset (<code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset()</a></code>), or generating a density plot for each omics dataset (<code><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data()</a></code>). See <a href="inspecting_multidataset.html"><span>Chapter&nbsp;4</span></a> for more details about the different visualisations and summary functions implemented.</p>
 </section><section id="data-pre-processing" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="data-pre-processing">
 <span class="header-section-number">1.2</span> Data pre-processing</h2>
-<p>Target factories have been implemented to facilitate the application of similar tasks across the different omics datasets. For example, the <code><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory()</a></code> function generates a sequence of targets to apply one of many possible transformations (from the <code>vsn</code>, <code>DESeq2</code>, or <code>bestNormalize</code> packages, for example) on each omics dataset, store information about each transformation performed, and generate a new MultiDataSet object in which the omics measurements have been transformed:</p>
+<p>Target factories have been implemented to facilitate the application of similar tasks across the different omics datasets. For example, the <code><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory()</a></code> function generates a sequence of targets to apply one of many possible transformations (from the <code>vsn</code>, <code>DESeq2</code>, or <code>bestNormalize</code> packages, for example) on each omics dataset, store information about each transformation performed, and generate a new <code>MultiDataSet</code> object in which the omics measurements have been transformed:</p>
 <details><summary>
 Code
 </summary><div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory</a></span><span class="op">(</span></span>
-<span>  <span class="va">mo_set_de</span>,                                   <span class="co"># MultiDataSet object</span></span>
+<span>  <span class="va">mo_set</span>,                                      <span class="co"># MultiDataSet object</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"vst-deseq2"</span>,                   <span class="co"># VST through DESeq2 for RNAseq</span></span>
 <span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"logx"</span><span class="op">)</span>,                    <span class="co"># log2-transf. for NMR dataset</span></span>
 <span>  log_bases <span class="op">=</span> <span class="fl">2</span>,                               <span class="co"># Base for log transformation</span></span>
@@ -400,7 +399,7 @@ Code
 </div>
 </div>
 </details><p><img src="images/dag_transformation.png" class="img-fluid"></p>
-<p>Note that there is also the option for users to apply their own custom transformations to the datasets.</p>
+<p>Note that there is also the option for users to apply their own custom transformations to the datasets (see <a href="modifying_multidataset.html"><span>Chapter&nbsp;5</span></a>).</p>
 <p>Similarly, the <code>pca_complete_data_factory</code> generates a list of targets to run a PCA on each omics dataset via the <code>pcaMethods</code> package, and if necessary imputes missing values through NIPALS-PCA. The PCA results can be easily visualised for all or specific omics datasets:</p>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_screeplot_pca.html">plot_screeplot_pca</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -424,9 +423,10 @@ Code
 <p><img src="overview_files/figure-html/show-pca-res-snps-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
+<p>More information about data pre-processing can be found in <a href="preprocessing.html"><span>Chapter&nbsp;6</span></a>.</p>
 </section><section id="data-pre-filtering" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="data-pre-filtering">
 <span class="header-section-number">1.3</span> Data pre-filtering</h2>
-<p>The created <code>MultiDataSet</code> object can be filtered in a number of ways, both in terms of samples and features: via a list of sample or feature IDs, or using logical tests on samples or features metadata. In addition, we implement targets factories to retain only the most variable features in each omics dataset (unsupervised filtering), or to retain the features most associated with an outcome of interest, via sPLS-DA from <code>mixOmics</code> (supervised filtering). This pre-filtering step is essential to reduce the size of the datasets prior to multi-omics integration.</p>
+<p>The created <code>MultiDataSet</code> object can be filtered, both in terms of samples and features, by passing a list of sample or feature IDs to retain, or by using logical tests on samples or features metadata. In addition, we implement target factories to retain only the most variable features in each omics dataset –unsupervised filtering–, or to retain the features most associated with an outcome of interest, via sPLS-DA from <code>mixOmics</code> –supervised filtering– (see <a href="prefiltering.html"><span>Chapter&nbsp;7</span></a>). This pre-filtering step is essential to reduce the size of the datasets prior to multi-omics integration.</p>
 <details><summary>
 Code
 </summary><div class="targets-chunk">
@@ -463,16 +463,14 @@ Code
 </div>
 </section><section id="multi-omics-data-integration" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="multi-omics-data-integration">
 <span class="header-section-number">1.4</span> Multi-omics data integration</h2>
-<p>At the moment, <code>moiraine</code> provides functions and target factories to facilitate the use of five integration methods: sPLS and DIABLO from the <code>mixOmics</code> package, sO2PLS from <code>OmicsPLS</code>, as well as <code>MOFA</code> and <code>MEFISTO</code> from <code>MOFA2</code>.</p>
-<p>This involves providing functions to transform a <code>MultiDataSet</code> object into the required input format for each integration method; for example for sPLS:</p>
+<p>Currently, <code>moiraine</code> provides functions and target factories to facilitate the use of five integration methods: sPLS and DIABLO from the <code>mixOmics</code> package, sO2PLS from <code>OmicsPLS</code>, as well as <code>MOFA</code> and <code>MEFISTO</code> from <code>MOFA2</code>.</p>
+<p>This includes functions that transform a <code>MultiDataSet</code> object into the required input format for each integration method; for example for sPLS (only top of the matrices shown):</p>
 <div class="cell">
-<details><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">spls_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls</a></span><span class="op">(</span></span>
+<details><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_presel_supervised</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"canonical"</span>,</span>
 <span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">spls_input</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -498,14 +496,14 @@ Code
 #&gt; R5979  3.326626  2.232661  8.401306  7.394891 2.5849625
 #&gt; R9504  3.603548  5.675251  7.879583  7.669594 0.8479969</code></pre>
 </div>
-<p><code>moiraine</code> also offers helper functions and target factories to facilitate the application of these integration tools. For example, the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_predefined_design_matrix.html">diablo_predefined_design_matrix()</a></code> function generates one of the three recommended design matrices for DIABLO (null, full or weighted full) for a given DIABLO input object, while the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory()</a></code> factory creates a list of targets to estimate the optimal design matrix to use for DIABLO based on datasets pairwise correlations estimated using PLS:</p>
+<p><code>moiraine</code> also offers helper functions and target factories to facilitate the application of these integration tools. For example, the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_predefined_design_matrix.html">diablo_predefined_design_matrix()</a></code> function generates, for a given DIABLO input object, one of the three recommended design matrices for DIABLO (null, full or weighted full), while the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory()</a></code> factory creates a list of targets to estimate the optimal design matrix to use for DIABLO based on datasets pairwise correlations estimated using PLS:</p>
 <details><summary>
 Code
 </summary><div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
-<span>    <span class="va">diablo_input</span>,</span>
+<span>    <span class="va">diablo_input</span>,                            <span class="co"># DIABLO input object</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_mixomics_supervised.html">get_input_mixomics_supervised</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_presel_supervised</span>,                  <span class="co"># MultiDataSet object (prefiltered)</span></span>
 <span>      group <span class="op">=</span> <span class="st">"status"</span>                       <span class="co"># Samples covariate of interest</span></span>
@@ -517,7 +515,7 @@ Code
 </div>
 </div>
 </details><p><img src="images/dag_diablo_design_matrix.png" class="img-fluid"></p>
-<p>In addition, several plotting functions e.g.&nbsp;<code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_tune.html">diablo_plot_tune()</a></code> to show the results of model tuning in DIABLO or <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_summary.html">so2pls_plot_summary()</a></code>, shown below, to visualise the percentage of variance explained by each latent component constructed by sO2PLS:</p>
+<p>In addition, a number of plotting functions have been implemented e.g.&nbsp;to visualise different aspects of the integration process: e.g.&nbsp;<code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_tune.html">diablo_plot_tune()</a></code> to show the results of model tuning in DIABLO or <code><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_summary.html">so2pls_plot_summary()</a></code> (shown below) to display the percentage of variance explained by each latent component constructed by sO2PLS:</p>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_summary.html">so2pls_plot_summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
@@ -565,8 +563,9 @@ Note
 </div>
 </div>
 </div>
-</section><section id="intepreting-the-integration-results" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="intepreting-the-integration-results">
-<span class="header-section-number">1.5</span> Intepreting the integration results</h2>
+<p>More details about how to use these integration tools through <code>moiraine</code> can be found in <a href="spls.html">Chapters&nbsp;<span>8</span></a> to <a href="diablo.html"><span>11</span></a>.</p>
+</section><section id="interpreting-the-integration-results" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="interpreting-the-integration-results">
+<span class="header-section-number">1.5</span> Interpreting the integration results</h2>
 <p>One of the main goals of <code>moiraine</code> is to facilitate the interpretation of the omics integration results. To this end, the outcome of any of the supported integration methods can be converted to a standardised integration output format, e.g.:</p>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -574,7 +573,7 @@ Note
 </div>
 <div class="cell">
 <pre><code>#&gt; $features_weight
-#&gt; # A tibble: 10,245 × 5
+#&gt; # A tibble: 8,196 × 5
 #&gt;    feature_id                  dataset latent_dimension     weight importance
 #&gt;    &lt;chr&gt;                       &lt;fct&gt;   &lt;fct&gt;                 &lt;dbl&gt;      &lt;dbl&gt;
 #&gt;  1 21-25977541-C-T-rs41974686  snps    Factor 1          0.000374      0.139 
@@ -587,10 +586,10 @@ Note
 #&gt;  8 ARS-BFGL-BAC-2600           snps    Factor 1         -0.0000325     0.0121
 #&gt;  9 ARS-BFGL-BAC-27911          snps    Factor 1         -0.000568      0.212 
 #&gt; 10 ARS-BFGL-BAC-35925          snps    Factor 1          0.000803      0.299 
-#&gt; # ℹ 10,235 more rows
+#&gt; # ℹ 8,186 more rows
 #&gt; 
 #&gt; $samples_score
-#&gt; # A tibble: 720 × 3
+#&gt; # A tibble: 576 × 3
 #&gt;    sample_id latent_dimension score
 #&gt;    &lt;chr&gt;     &lt;fct&gt;            &lt;dbl&gt;
 #&gt;  1 G1979     Factor 1          1.95
@@ -603,10 +602,10 @@ Note
 #&gt;  8 G3474     Factor 1         -2.30
 #&gt;  9 G3550     Factor 1          2.98
 #&gt; 10 G3594     Factor 1         -1.88
-#&gt; # ℹ 710 more rows
+#&gt; # ℹ 566 more rows
 #&gt; 
 #&gt; $variance_explained
-#&gt; # A tibble: 15 × 3
+#&gt; # A tibble: 12 × 3
 #&gt;    latent_dimension dataset    prop_var_expl
 #&gt;    &lt;fct&gt;            &lt;fct&gt;              &lt;dbl&gt;
 #&gt;  1 Factor 1         snps           0.000313 
@@ -621,9 +620,6 @@ Note
 #&gt; 10 Factor 4         snps           0.0000927
 #&gt; 11 Factor 4         rnaseq         0.0759   
 #&gt; 12 Factor 4         metabolome     0.0194   
-#&gt; 13 Factor 5         snps           0.000205 
-#&gt; 14 Factor 5         rnaseq         0.0198   
-#&gt; 15 Factor 5         metabolome     0.0296   
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "output_dimension_reduction"
@@ -659,7 +655,7 @@ Note
 </div>
 </div>
 <ul>
-<li>Sample scores against samples covariate of interest (either categorical or continuous):</li>
+<li>Sample scores against a sample covariate of interest (either categorical or continuous):</li>
 </ul>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_covariate.html">plot_samples_score_covariate</a></span><span class="op">(</span></span>
@@ -669,14 +665,13 @@ Note
 <span>  colour_by <span class="op">=</span> <span class="st">"status"</span>,                    <span class="co"># Other sample covariate</span></span>
 <span>  shape_by <span class="op">=</span> <span class="st">"geno_comp_cluster"</span>,          <span class="co"># Other sample covariate</span></span>
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span> <span class="co"># MOFA factors to display</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="overview_files/figure-html/mofa-samples-score-covariate-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 <ul>
-<li>Top contributing features:</li>
+<li>Top contributing features with their importance:</li>
 </ul>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
@@ -686,16 +681,75 @@ Note
 <span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,                     <span class="co">#   features metadata</span></span>
 <span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
 <span>  <span class="op">)</span>,</span>
+<span>  truncate <span class="op">=</span> <span class="fl">25</span>,                           <span class="co"># truncate long feature labels</span></span>
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span> <span class="co"># MOFA factors to display</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="overview_files/figure-html/mofa-top-features-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
+<p>More details can be found in <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>.</p>
 </section><section id="evaluating-the-integration-results" class="level2" data-number="1.6"><h2 data-number="1.6" class="anchored" data-anchor-id="evaluating-the-integration-results">
 <span class="header-section-number">1.6</span> Evaluating the integration results</h2>
+<p>With <code>moiraine</code>, it is possible to evaluate the results of a given integration tool against prior information that we have about the features (e.g.&nbsp;knowledge about biological functions or results from a single-omics analysis) or samples (e.g.&nbsp;to assess the success of samples clustering into meaningful groups). For example, we can compare the feature selection performed by DIABLO to results from differential expression analyses performed on the omics datasets:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/evaluate_feature_selection_table.html">evaluate_feature_selection_table</a></span><span class="op">(</span></span>
+<span>  <span class="va">diablo_output</span>,                                <span class="co"># DIABLO standardised output</span></span>
+<span>  mo_data <span class="op">=</span> <span class="va">mo_set</span>,                             <span class="co"># MultiDataSet object</span></span>
+<span>  col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>                             <span class="co"># Columns from features metadata</span></span>
+<span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"de_signif"</span>,                     <span class="co">#   containing DE outcome</span></span>
+<span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"de_signif"</span> </span>
+<span>  <span class="op">)</span>,</span>
+<span>  latent_dimensions <span class="op">=</span> <span class="st">"Component 1"</span>             <span class="co"># Latent component to focus on</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>#&gt; # A tibble: 4 × 6
+#&gt;   method latent_dimension dataset    feature_label selected not_selected
+#&gt;   &lt;chr&gt;  &lt;fct&gt;            &lt;fct&gt;      &lt;chr&gt;            &lt;int&gt;        &lt;int&gt;
+#&gt; 1 DIABLO Component 1      rnaseq     DE                  23           52
+#&gt; 2 DIABLO Component 1      rnaseq     Not DE               7          912
+#&gt; 3 DIABLO Component 1      metabolome DE                  10           20
+#&gt; 4 DIABLO Component 1      metabolome Not DE              NA           25</code></pre>
+</div>
+</div>
+<p>In addition, a number of functions are provided to help with features set enrichment (such as over-representation analysis or gene set enrichment analysis), e.g.&nbsp;by generating feature sets from features metadata through <code><a href="https://rdrr.io/pkg/moiraine/man/make_feature_sets_from_fm.html">make_feature_sets_from_fm()</a></code>, or by ensuring that a proper background set is used in the enrichment analysis, with <code><a href="https://rdrr.io/pkg/moiraine/man/reduce_feature_sets_data.html">reduce_feature_sets_data()</a></code>. Information about evaluation of integration results is presented in <a href="evaluation.html"><span>Chapter&nbsp;13</span></a>.</p>
 </section><section id="comparison-different-integration-results" class="level2" data-number="1.7"><h2 data-number="1.7" class="anchored" data-anchor-id="comparison-different-integration-results">
 <span class="header-section-number">1.7</span> Comparison different integration results</h2>
+<p>Lastly, <code>moiraine</code> facilitates the comparison of the results from different integration methods, or from a same integration method but with different pre-processing options or parameter choices. It is possible to visualise the correlation between the results of different methods, in terms of the latent dimensions they constructed:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span></span>
+<span>  <span class="va">output_list</span>,              <span class="co"># List of integration results (standardised format)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="overview_files/figure-html/show-comp-heatmap-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>Or compare the samples score or features weight from two latent dimensions created by two integration methods:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">mofa_output</span>, <span class="va">diablo_output</span><span class="op">)</span>,  <span class="co"># Integration results (stand. format)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>                              <span class="co"># Latent dimensions to compare</span></span>
+<span>    <span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, </span>
+<span>    <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  mo_data <span class="op">=</span> <span class="va">mo_set</span>,                 <span class="co"># MultiDataSet object</span></span>
+<span>  features_metric <span class="op">=</span> <span class="st">"importance"</span>,   <span class="co"># Plot absolute or signed importance score</span></span>
+<span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>                <span class="co"># Columns from features metadata to use</span></span>
+<span>    <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,              <span class="co">#  as labels in plot</span></span>
+<span>    <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="overview_files/figure-html/show-features-weight-comp-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>It is also possible to compute a consensus importance score for each feature, which summarises the contribution of the feature to different latent dimensions, and thus assess which features are highlighted across several integration methods. More details are provided in <a href="comparison.html"><span>Chapter&nbsp;14</span></a>.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

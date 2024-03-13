@@ -42,13 +42,15 @@ tar_load(mo_presel_supervised)
 tar_load(so2pls_final_run)
 tar_load(diablo_final_run)
 mofa_output <- tar_read(mofa_output) |> 
-  moiraine:::.filter_output_dimensions(paste("Factor", 1:5))
+  moiraine:::.filter_output_dimensions(paste("Factor", 1:4))
+tar_load(diablo_output)
+tar_load(output_list)
 ```
 
 
 ## Input data
 
-The first step is to import the omics datasets and associated information into R. For each omics dataset, the `moiraine` package expects three pieces of information, which are read from csv files (or other specific formats when possible):
+The first step is to import the omics datasets and associated information into R. For each omics dataset, the `moiraine` package expects three pieces of information, which are read from csv files (or other specific formats when possible such as gtf or gff3):
 
 * the measurements of omics features across the samples (the dataset)
 
@@ -58,10 +60,10 @@ The first step is to import the omics datasets and associated information into R
 
 An example of input files is shown below:
 
-![An example of input files for `moiraine`: A) Transcriptomics measurements across genes (rows) and samples(features). B) Table of features metadata, providing information about the genes measured. c) Table of samples metadata.](images/input_data_example.png)
+![An example of input files for `moiraine` (first 10 rows and 4 columns only): A) RNAseq read counts across genes (rows) and samples (columns). B) Table of features metadata, providing information about the genes measured. c) Table of samples metadata, i.e. information about the animals that were observed.](images/input_data_example.png)
 
 
-`moiraine` uses the `MultiDataSet` package to store the omics datasets and associated metadata into a single R object, which can be used as input for the different `moiraine` functions. This ensures that these functions can be used regardless of the number or type of omics datasets to analysis. The datasets, features and samples metadata can easily be extracted from the `MultiDataSet` function through `get_datasets()`, `get_features_metadata()` and `get_samples_metadata()`. 
+`moiraine` uses the [`MultiDataSet` package](https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html) to store the omics datasets and associated metadata into a single R object, which can be used as input for the different `moiraine` functions (see @sec-importing-data for details about data import). This ensures that these functions can be used regardless of the number or type of omics datasets to analyse. At any point, the datasets, features and samples metadata can easily be extracted from the `MultiDataSet` object through `get_datasets()`, `get_features_metadata()` and `get_samples_metadata()`. 
 
 Here is an example of a `MultiDataSet` object:
 
@@ -70,7 +72,7 @@ Here is an example of a `MultiDataSet` object:
 mo_set
 ```
 
-Importantly, this means that all the information that we have about the omics features and samples are available to `moiraine` for customising plots or outputs. For example, it is possible to quickly generate a heatmap displaying the measurements for specific features of interest, and add information about the samples to facilitate the interpretation of the plot:
+Importantly, this means that all the information that we have about the omics features and samples are available to `moiraine` for customising plots or outputs. For example, it is possible to quickly generate a heatmap displaying the measurements for specific features of interest, and add information about the features and samples to facilitate the interpretation of the plot:
 
 ```{r plot-data-heatmap}
 #| code-fold: true
@@ -99,16 +101,15 @@ plot_data_heatmap(
   label_cols = list(                         # specify features label
     "rnaseq" = "Name",                       #   from features metadata
     "metabolome" = "name"
-  ),
-  truncate = 20
+  )
 )
 ```
 
-Similarly, a number of convenient functions allow to quickly summarise different aspects of the multi-omics dataset, such as creating an Upset plot to compare the samples present in each omics dataset (`plot_samples_upset()`), or generating a density plot for each omics dataset (`plot_density_data()`).
+Similarly, a number of functions allow to quickly summarise different aspects of the multi-omics dataset, such as creating an upset plot to compare the samples present in each omics dataset (`plot_samples_upset()`), or generating a density plot for each omics dataset (`plot_density_data()`). See @sec-inspecting-multidataset for more details about the different visualisations and summary functions implemented.
 
 ## Data pre-processing
 
-Target factories have been implemented to facilitate the application of similar tasks across the different omics datasets. For example, the `transformation_datasets_factory()` function generates a sequence of targets to apply one of many possible transformations (from the `vsn`, `DESeq2`, or `bestNormalize` packages, for example) on each omics dataset, store information about each transformation performed, and generate a new MultiDataSet object in which the omics measurements have been transformed:
+Target factories have been implemented to facilitate the application of similar tasks across the different omics datasets. For example, the `transformation_datasets_factory()` function generates a sequence of targets to apply one of many possible transformations (from the `vsn`, `DESeq2`, or `bestNormalize` packages, for example) on each omics dataset, store information about each transformation performed, and generate a new `MultiDataSet` object in which the omics measurements have been transformed:
 
 <details>
 
@@ -119,7 +120,7 @@ Target factories have been implemented to facilitate the application of similar 
 #| eval: false
 
 transformation_datasets_factory(
-  mo_set_de,                                   # MultiDataSet object
+  mo_set,                                      # MultiDataSet object
   c("rnaseq" = "vst-deseq2",                   # VST through DESeq2 for RNAseq
     "metabolome" = "logx"),                    # log2-transf. for NMR dataset
   log_bases = 2,                               # Base for log transformation
@@ -133,7 +134,7 @@ transformation_datasets_factory(
 
 ![](images/dag_transformation.png)
 
-Note that there is also the option for users to apply their own custom transformations to the datasets.
+Note that there is also the option for users to apply their own custom transformations to the datasets (see @sec-modifying-multidataset).
 
 Similarly, the `pca_complete_data_factory` generates a list of targets to run a PCA on each omics dataset via the `pcaMethods` package, and if necessary imputes missing values through NIPALS-PCA. The PCA results can be easily visualised for all or specific omics datasets:
 
@@ -164,9 +165,11 @@ plot_samples_coordinates_pca(
   theme(legend.box = "vertical")              # Plot legend vertically
 ```
 
+More information about data pre-processing can be found in @sec-preprocessing.
+
 ## Data pre-filtering
 
-The created `MultiDataSet` object can be filtered in a number of ways, both in terms of samples and features: via a list of sample or feature IDs, or using logical tests on samples or features metadata. In addition, we implement targets factories to retain only the most variable features in each omics dataset (unsupervised filtering), or to retain the features most associated with an outcome of interest, via sPLS-DA from `mixOmics` (supervised filtering). This pre-filtering step is essential to reduce the size of the datasets prior to multi-omics integration.
+The created `MultiDataSet` object can be filtered, both in terms of samples and features, by passing a list of sample or feature IDs to retain, or by using logical tests on samples or features metadata. In addition, we implement target factories to retain only the most variable features in each omics dataset --unsupervised filtering--, or to retain the features most associated with an outcome of interest, via sPLS-DA from `mixOmics` --supervised filtering-- (see @sec-prefiltering). This pre-filtering step is essential to reduce the size of the datasets prior to multi-omics integration.
 
 <details>
 
@@ -198,21 +201,19 @@ mo_presel_supervised
 
 ## Multi-omics data integration
 
-At the moment, `moiraine` provides functions and target factories to facilitate the use of five integration methods: sPLS and DIABLO from the `mixOmics` package, sO2PLS from `OmicsPLS`, as well as `MOFA` and `MEFISTO` from `MOFA2`. 
+Currently, `moiraine` provides functions and target factories to facilitate the use of five integration methods: sPLS and DIABLO from the `mixOmics` package, sO2PLS from `OmicsPLS`, as well as `MOFA` and `MEFISTO` from `MOFA2`. 
 
-This involves providing functions to transform a `MultiDataSet` object into the required input format for each integration method; for example for sPLS:
+This includes functions that transform a `MultiDataSet` object into the required input format for each integration method; for example for sPLS (only top of the matrices shown):
 
 ```{r get-input-spls}
 #| code-fold: true
 #| eval: false
 
-spls_input <- get_input_spls(
+get_input_spls(
   mo_presel_supervised,
   mode = "canonical",
   datasets = c("rnaseq", "metabolome")
 )
-
-map(spls_input, \(x) x[1:5, 1:5])
 ```
 
 ```{r show-input-spls}
@@ -222,7 +223,7 @@ map(tar_read(spls_input), \(x) x[1:5, 1:5])
 ```
 
 
-`moiraine` also offers helper functions and target factories to facilitate the application of these integration tools. For example, the `diablo_predefined_design_matrix()` function generates one of the three recommended design matrices for DIABLO (null, full or weighted full) for a given DIABLO input object, while the `diablo_pairwise_pls_factory()` factory creates a list of targets to estimate the optimal design matrix to use for DIABLO based on datasets pairwise correlations estimated using PLS:
+`moiraine` also offers helper functions and target factories to facilitate the application of these integration tools. For example, the `diablo_predefined_design_matrix()` function generates, for a given DIABLO input object, one of the three recommended design matrices for DIABLO (null, full or weighted full), while the `diablo_pairwise_pls_factory()` factory creates a list of targets to estimate the optimal design matrix to use for DIABLO based on datasets pairwise correlations estimated using PLS:
 
 <details>
 
@@ -234,7 +235,7 @@ map(tar_read(spls_input), \(x) x[1:5, 1:5])
 
 list(
   tar_target(
-    diablo_input,
+    diablo_input,                            # DIABLO input object
     get_input_mixomics_supervised(
       mo_presel_supervised,                  # MultiDataSet object (prefiltered)
       group = "status"                       # Samples covariate of interest
@@ -250,7 +251,7 @@ list(
 
 ![](images/dag_diablo_design_matrix.png)
 
-In addition, several plotting functions  e.g. `diablo_plot_tune()` to show the results of model tuning in DIABLO or `so2pls_plot_summary()`, shown below, to visualise the percentage of variance explained by each latent component constructed by sO2PLS:
+In addition, a number of plotting functions have been implemented e.g. to visualise different aspects of the integration process: e.g. `diablo_plot_tune()` to show the results of model tuning in DIABLO or `so2pls_plot_summary()` (shown below) to display the percentage of variance explained by each latent component constructed by sO2PLS:
 
 ```{r so2pls-plot-summary}
 #| code-fold: true
@@ -295,6 +296,8 @@ diablo_plot_circos(
 ```
 
 :::
+
+More details about how to use these integration tools through `moiraine` can be found in [Chapters @sec-spls] to [-@sec-diablo].
 
 ## Interpreting the integration results
 
@@ -341,11 +344,12 @@ plot_samples_score(
   theme(legend.box = "vertical")
 ```
 
-* Sample scores against samples covariate of interest (either categorical or continuous):
+* Sample scores against a sample covariate of interest (either categorical or continuous):
 
 ```{r mofa-samples-score-covariate}
 #| code-fold: true
 #| fig.height: 5
+#| warning: false
 
 plot_samples_score_covariate(
   mofa_output,                             # MOFA standardised output
@@ -357,7 +361,7 @@ plot_samples_score_covariate(
 )
 ```
 
-* Top contributing features:
+* Top contributing features with their importance:
 
 ```{r mofa-top-features}
 #| code-fold: true
@@ -371,10 +375,97 @@ plot_top_features(
     "rnaseq" = "Name",                     #   features metadata
     "metabolome" = "name"
   ),
+  truncate = 25,                           # truncate long feature labels
   latent_dimensions = paste("Factor", 1:2) # MOFA factors to display
 )
 ```
 
+More details can be found in @sec-interpretation.
+
 ## Evaluating the integration results
 
+With `moiraine`, it is possible to evaluate the results of a given integration tool against prior information that we have about the features (e.g. knowledge about biological functions or results from a single-omics analysis) or samples (e.g. to assess the success of samples clustering into meaningful groups). For example, we can compare the feature selection performed by DIABLO to results from differential expression analyses performed on the omics datasets:
+
+```{r evaluate-feature-selection-table}
+#| code-fold: true
+#| collapse: false
+
+evaluate_feature_selection_table(
+  diablo_output,                                # DIABLO standardised output
+  mo_data = mo_set,                             # MultiDataSet object
+  col_names = list(                             # Columns from features metadata
+    "rnaseq" = "de_signif",                     #   containing DE outcome
+    "metabolome" = "de_signif" 
+  ),
+  latent_dimensions = "Component 1"             # Latent component to focus on
+)
+```
+
+In addition, a number of functions are provided to help with features set enrichment (such as over-representation analysis or gene set enrichment analysis), e.g. by generating feature sets from features metadata through `make_feature_sets_from_fm()`, or by ensuring that a proper background set is used in the enrichment analysis, with `reduce_feature_sets_data()`. Information about evaluation of integration results is presented in @sec-evaluation.
+
 ## Comparison different integration results
+
+Lastly, `moiraine` facilitates the comparison of the results from different integration methods, or from a same integration method but with different pre-processing options or parameter choices. It is possible to visualise the correlation between the results of different methods, in terms of the latent dimensions they constructed:
+
+```{r comparison-heatmap-corr}
+#| code-fold: true
+#| eval: false
+
+comparison_heatmap_corr(
+  output_list,              # List of integration results (standardised format)
+)
+```
+
+```{r show-comp-heatmap}
+#| echo: false
+#| fig.width: 8
+#| fig.height: 7.5
+
+comparison_heatmap_corr(
+  output_list, 
+  latent_dimensions = list(
+    "sO2PLS" = "joint component 1",
+    "MOFA" = paste("Factor", 1:4)
+  )
+)
+```
+
+Or compare the samples score or features weight from two latent dimensions created by two integration methods:
+
+```{r}
+#| code-fold: true
+#| eval: false
+
+plot_features_weight_pair(
+  list(mofa_output, diablo_output),  # Integration results (stand. format)
+  list(                              # Latent dimensions to compare
+    "MOFA" = "Factor 1", 
+    "DIABLO" = "Component 1"
+  ),
+  mo_data = mo_set,                 # MultiDataSet object
+  features_metric = "importance",   # Plot absolute or signed importance score
+  label_cols = list(                # Columns from features metadata to use
+    "rnaseq" = "Name",              #  as labels in plot
+    "metabolome" = "name"
+  )
+)
+```
+
+
+```{r show-features-weight-comp}
+#| echo: false
+
+plot_features_weight_pair(
+  output_list[3:4],
+  list("MOFA" = "Factor 1", "DIABLO" = "Component 1"),
+  mo_data = mo_set,
+  features_metric = "importance",
+  label_cols = list(
+    "rnaseq" = "Name",
+    "metabolome" = "name"
+  )
+)
+```
+
+It is also possible to compute a consensus importance score for each feature, which summarises the contribution of the feature to different latent dimensions, and thus assess which features are highlighted across several integration methods. More details are provided in @sec-comparison.
+
