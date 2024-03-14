@@ -153,8 +153,20 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The <code>moiraine</code> R package user manual</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/PlantandFoodResearch/moiraine" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+    <a href="" title="" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-github"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/PlantandFoodResearch/moiraine-manual">
+          Manual source code
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/PlantandFoodResearch/moiraine">
+          Package source code
+          </a>
+        </li>
+    </ul>
+<a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
 </div>
     </div>
       </div>
@@ -400,7 +412,7 @@ div.csl-indent {
 <p>The created target, called <code>dataset_file_geno</code>, takes as value the path to the file:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">dataset_file_geno</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/0.0.0.9000/8c5ef09ffa805a2fd6b1dd20911f0c55/moiraine/extdata/genomics_dataset.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/1.0.0/96a479d4ef576d72d03d2a95378680bf/moiraine/extdata/genomics_dataset.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The next step is to import this dataset in R. We use the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function for that, rather than the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> or similar functions, as it ensures that the data is imported with the correct format for further use with the <code>moiraine</code> package. When importing a dataset, we need to specify the path to the file, as well as the name of the column in the csv file that contains the row names (through the <code>col_id</code> argument). In addition, we need to specify whether the features are represented in rows in the csv file, or in columns. This is done through the argument <code>features_as_rows</code>. For example, we can load the genomics dataset through:</p>
 <div class="targets-chunk">
