@@ -15,23 +15,6 @@ library(purrr)
 library(OmicsPLS)
 ```
 
-```{r setup-visible}
-#| eval: false
-
-library(targets)
-library(moiraine)
-
-## For custom colour palettes
-library(ggplot2)
-library(circlize)
-
-## For working with lists
-library(purrr)
-
-## For visualising sO2PLS summary
-library(OmicsPLS)
-```
-
 ```{r loading-data}
 #| echo: false
 
@@ -45,6 +28,27 @@ mofa_output <- tar_read(mofa_output) |>
   moiraine:::.filter_output_dimensions(paste("Factor", 1:4))
 tar_load(diablo_output)
 tar_load(output_list)
+```
+
+In this chapter, we provide an overview of the capabilities of `moiraine`. Some code is presented for illustration, but for more details readers will be directed towards the corresponding chapter in the manual.
+
+
+```{r setup-visible}
+#| code-fold: true
+#| code-summary: "Loading packages"
+#| eval: false
+
+library(moiraine)
+
+## For custom colour palettes
+library(ggplot2)
+library(circlize)
+
+## For working with lists
+library(purrr)
+
+## For visualising sO2PLS summary
+library(OmicsPLS)
 ```
 
 
@@ -109,7 +113,7 @@ Similarly, a number of functions allow to quickly summarise different aspects of
 
 ## Data pre-processing
 
-Target factories have been implemented to facilitate the application of similar tasks across the different omics datasets. For example, the `transformation_datasets_factory()` function generates a sequence of targets to apply one of many possible transformations (from the `vsn`, `DESeq2`, or `bestNormalize` packages, for example) on each omics dataset, store information about each transformation performed, and generate a new `MultiDataSet` object in which the omics measurements have been transformed:
+Target factories have been implemented to facilitate the application of similar tasks across the different omics datasets. For example, the `transformation_datasets_factory()` function generates a sequence of targets to apply one of many possible transformations (from the [`vsn`](https://bioconductor.org/packages/release/bioc/html/vsn.html), [`DESeq2`](https://bioconductor.org/packages/release/bioc/html/DESeq2.html), or [`bestNormalize`](https://cran.r-project.org/web/packages/bestNormalize/index.html) packages, for example) on each omics dataset, store information about each transformation performed, and generate a new `MultiDataSet` object in which the omics measurements have been transformed:
 
 <details>
 
@@ -136,7 +140,7 @@ transformation_datasets_factory(
 
 Note that there is also the option for users to apply their own custom transformations to the datasets (see @sec-modifying-multidataset).
 
-Similarly, the `pca_complete_data_factory` generates a list of targets to run a PCA on each omics dataset via the `pcaMethods` package, and if necessary imputes missing values through NIPALS-PCA. The PCA results can be easily visualised for all or specific omics datasets:
+Similarly, the `pca_complete_data_factory` generates a list of targets to run a PCA on each omics dataset via the [`pcaMethods` package](https://bioconductor.org/packages/release/bioc/html/pcaMethods.html), and if necessary imputes missing values through NIPALS-PCA. The PCA results can be easily visualised for all or specific omics datasets:
 
 ```{r pca-screeplot}
 #| code-fold: true
@@ -169,7 +173,7 @@ More information about data pre-processing can be found in @sec-preprocessing.
 
 ## Data pre-filtering
 
-The created `MultiDataSet` object can be filtered, both in terms of samples and features, by passing a list of sample or feature IDs to retain, or by using logical tests on samples or features metadata. In addition, we implement target factories to retain only the most variable features in each omics dataset --unsupervised filtering--, or to retain the features most associated with an outcome of interest, via sPLS-DA from `mixOmics` --supervised filtering-- (see @sec-prefiltering). This pre-filtering step is essential to reduce the size of the datasets prior to multi-omics integration.
+The created `MultiDataSet` object can be filtered, both in terms of samples and features, by passing a list of sample or feature IDs to retain, or by using logical tests on samples or features metadata. In addition, we implement target factories to retain only the most variable features in each omics dataset --unsupervised filtering--, or to retain the features most associated with an outcome of interest, via sPLS-DA from [`mixOmics`](http://mixomics.org/) --supervised filtering-- (see @sec-prefiltering). This pre-filtering step is essential to reduce the size of the datasets prior to multi-omics integration.
 
 <details>
 
@@ -201,7 +205,7 @@ mo_presel_supervised
 
 ## Multi-omics data integration
 
-Currently, `moiraine` provides functions and target factories to facilitate the use of five integration methods: sPLS and DIABLO from the `mixOmics` package, sO2PLS from `OmicsPLS`, as well as `MOFA` and `MEFISTO` from `MOFA2`. 
+Currently, `moiraine` provides functions and target factories to facilitate the use of five integration methods: sPLS and DIABLO from the `mixOmics` package, sO2PLS from [`OmicsPLS`](https://cran.r-project.org/web/packages/OmicsPLS/index.html), as well as `MOFA` and `MEFISTO` from [`MOFA2`](https://biofam.github.io/MOFA2/). 
 
 This includes functions that transform a `MultiDataSet` object into the required input format for each integration method; for example for sPLS (only top of the matrices shown):
 

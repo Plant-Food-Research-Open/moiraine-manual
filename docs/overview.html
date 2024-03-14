@@ -309,8 +309,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
 
 </header><div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+
+</div>
+<p>In this chapter, we provide an overview of the capabilities of <code>moiraine</code>. Some code is presented for illustration, but for more details readers will be directed towards the corresponding chapter in the manual.</p>
+<div class="cell">
+<details><summary>Loading packages</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## For custom colour palettes</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
@@ -321,9 +324,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span></span>
 <span><span class="co">## For visualising sO2PLS summary</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">OmicsPLS</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-
+</details>
 </div>
 <section id="input-data" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="input-data">
 <span class="header-section-number">1.1</span> Input data</h2>
@@ -395,7 +396,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Similarly, a number of functions allow to quickly summarise different aspects of the multi-omics dataset, such as creating an upset plot to compare the samples present in each omics dataset (<code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset()</a></code>), or generating a density plot for each omics dataset (<code><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data()</a></code>). See <a href="inspecting_multidataset.html"><span>Chapter&nbsp;4</span></a> for more details about the different visualisations and summary functions implemented.</p>
 </section><section id="data-pre-processing" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="data-pre-processing">
 <span class="header-section-number">1.2</span> Data pre-processing</h2>
-<p>Target factories have been implemented to facilitate the application of similar tasks across the different omics datasets. For example, the <code><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory()</a></code> function generates a sequence of targets to apply one of many possible transformations (from the <code>vsn</code>, <code>DESeq2</code>, or <code>bestNormalize</code> packages, for example) on each omics dataset, store information about each transformation performed, and generate a new <code>MultiDataSet</code> object in which the omics measurements have been transformed:</p>
+<p>Target factories have been implemented to facilitate the application of similar tasks across the different omics datasets. For example, the <code><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory()</a></code> function generates a sequence of targets to apply one of many possible transformations (from the <a href="https://bioconductor.org/packages/release/bioc/html/vsn.html"><code>vsn</code></a>, <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html"><code>DESeq2</code></a>, or <a href="https://cran.r-project.org/web/packages/bestNormalize/index.html"><code>bestNormalize</code></a> packages, for example) on each omics dataset, store information about each transformation performed, and generate a new <code>MultiDataSet</code> object in which the omics measurements have been transformed:</p>
 <details><summary>
 Code
 </summary><div class="targets-chunk">
@@ -412,7 +413,7 @@ Code
 </div>
 </details><p><img src="images/dag_transformation.png" class="img-fluid"></p>
 <p>Note that there is also the option for users to apply their own custom transformations to the datasets (see <a href="modifying_multidataset.html"><span>Chapter&nbsp;5</span></a>).</p>
-<p>Similarly, the <code>pca_complete_data_factory</code> generates a list of targets to run a PCA on each omics dataset via the <code>pcaMethods</code> package, and if necessary imputes missing values through NIPALS-PCA. The PCA results can be easily visualised for all or specific omics datasets:</p>
+<p>Similarly, the <code>pca_complete_data_factory</code> generates a list of targets to run a PCA on each omics dataset via the <a href="https://bioconductor.org/packages/release/bioc/html/pcaMethods.html"><code>pcaMethods</code> package</a>, and if necessary imputes missing values through NIPALS-PCA. The PCA results can be easily visualised for all or specific omics datasets:</p>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_screeplot_pca.html">plot_screeplot_pca</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
@@ -438,7 +439,7 @@ Code
 <p>More information about data pre-processing can be found in <a href="preprocessing.html"><span>Chapter&nbsp;6</span></a>.</p>
 </section><section id="data-pre-filtering" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="data-pre-filtering">
 <span class="header-section-number">1.3</span> Data pre-filtering</h2>
-<p>The created <code>MultiDataSet</code> object can be filtered, both in terms of samples and features, by passing a list of sample or feature IDs to retain, or by using logical tests on samples or features metadata. In addition, we implement target factories to retain only the most variable features in each omics dataset –unsupervised filtering–, or to retain the features most associated with an outcome of interest, via sPLS-DA from <code>mixOmics</code> –supervised filtering– (see <a href="prefiltering.html"><span>Chapter&nbsp;7</span></a>). This pre-filtering step is essential to reduce the size of the datasets prior to multi-omics integration.</p>
+<p>The created <code>MultiDataSet</code> object can be filtered, both in terms of samples and features, by passing a list of sample or feature IDs to retain, or by using logical tests on samples or features metadata. In addition, we implement target factories to retain only the most variable features in each omics dataset –unsupervised filtering–, or to retain the features most associated with an outcome of interest, via sPLS-DA from <a href="http://mixomics.org/"><code>mixOmics</code></a> –supervised filtering– (see <a href="prefiltering.html"><span>Chapter&nbsp;7</span></a>). This pre-filtering step is essential to reduce the size of the datasets prior to multi-omics integration.</p>
 <details><summary>
 Code
 </summary><div class="targets-chunk">
@@ -475,7 +476,7 @@ Code
 </div>
 </section><section id="multi-omics-data-integration" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="multi-omics-data-integration">
 <span class="header-section-number">1.4</span> Multi-omics data integration</h2>
-<p>Currently, <code>moiraine</code> provides functions and target factories to facilitate the use of five integration methods: sPLS and DIABLO from the <code>mixOmics</code> package, sO2PLS from <code>OmicsPLS</code>, as well as <code>MOFA</code> and <code>MEFISTO</code> from <code>MOFA2</code>.</p>
+<p>Currently, <code>moiraine</code> provides functions and target factories to facilitate the use of five integration methods: sPLS and DIABLO from the <code>mixOmics</code> package, sO2PLS from <a href="https://cran.r-project.org/web/packages/OmicsPLS/index.html"><code>OmicsPLS</code></a>, as well as <code>MOFA</code> and <code>MEFISTO</code> from <a href="https://biofam.github.io/MOFA2/"><code>MOFA2</code></a>.</p>
 <p>This includes functions that transform a <code>MultiDataSet</code> object into the required input format for each integration method; for example for sPLS (only top of the matrices shown):</p>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls</a></span><span class="op">(</span></span>
@@ -514,7 +515,7 @@ Code
 </summary><div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tar_target</span><span class="op">(</span></span>
 <span>    <span class="va">diablo_input</span>,                            <span class="co"># DIABLO input object</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_mixomics_supervised.html">get_input_mixomics_supervised</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_presel_supervised</span>,                  <span class="co"># MultiDataSet object (prefiltered)</span></span>
