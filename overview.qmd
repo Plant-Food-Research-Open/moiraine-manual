@@ -255,10 +255,11 @@ list(
 
 ![](images/dag_diablo_design_matrix.png)
 
-In addition, a number of plotting functions have been implemented e.g. to visualise different aspects of the integration process: e.g. `diablo_plot_tune()` to show the results of model tuning in DIABLO or `so2pls_plot_summary()` (shown below) to display the percentage of variance explained by each latent component constructed by sO2PLS:
+In addition, a number of plotting functions have been implemented to visualise different aspects of the integration process: e.g. `diablo_plot_tune()` to show the results of model tuning in DIABLO or `so2pls_plot_summary()` (shown below) to display the percentage of variance explained by each latent component constructed by sO2PLS:
 
 ```{r so2pls-plot-summary}
 #| code-fold: true
+#| fig.height: 6
 
 so2pls_plot_summary(so2pls_final_run)
 ```
