@@ -28,7 +28,7 @@ A differential concentration analysis was performed on the metabolomics data usi
  
 ## Data processing
 
-The full script for the data processing can be found in the [`moiraine` GitHub repository](https://github.com/PlantandFoodResearch/moiraine/blob/main/data-raw/example_dataset_li2022.R).
+The full script for the data processing can be found in the [`moiraine` GitHub repository](https://github.com/Plant-Food-Research-Open/moiraine/blob/main/data-raw/example_dataset_li2022.R).
 
 ### Genomics dataset
 

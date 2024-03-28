@@ -6,16 +6,16 @@ book:
   title: "The `moiraine` R package user manual"
   author: "Olivia Angelin-Bonnet"
   search: true
-  site-url: https://solid-lamp-kq546rq.pages.github.io/
+  site-url: https://plant-food-research-open.github.io/moiraine-manual/
   sharing: [twitter]
   sidebar:
     tools:
       - icon: github
         menu:
           - text: Manual source code
-            url: https://github.com/PlantandFoodResearch/moiraine-manual
+            url: https://github.com/Plant-Food-Research-Open/moiraine-manual
           - text: Package source code
-            url: https://github.com/PlantandFoodResearch/moiraine
+            url: https://github.com/Plant-Food-Research-Open/moiraine
   chapters:
     - index.qmd
     - overview.qmd
