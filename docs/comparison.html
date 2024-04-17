@@ -319,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header><div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Plant-Food-Research-Open/moiraine">moiraine</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## For data-frames manipulation</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
@@ -333,7 +333,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </summary><div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/tarchetypes/">tarchetypes</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Plant-Food-Research-Open/moiraine">moiraine</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_option_set.html">tar_option_set</a></span><span class="op">(</span></span>
 <span>  packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -353,7 +353,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co"># Importing data ---------------------------------------------------------------</span></span>
 <span></span>
 <span>  <span class="co">## Data import using a target factory</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/genomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/transcriptomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
@@ -374,7 +374,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Genomics features metadata import</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">fmetadata_geno</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
 <span>      <span class="va">fmetadata_file_geno</span>,</span>
 <span>      col_id <span class="op">=</span> <span class="st">"marker"</span>,</span>
 <span>      col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span> <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span>
@@ -382,7 +382,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Metabolomics features metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/metabolomics_features_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
@@ -391,7 +391,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Transcriptomics features metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/bos_taurus_gene_model.gff3"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>    feature_types <span class="op">=</span> <span class="st">"genes"</span>,</span>
 <span>    add_fieldss <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"description"</span><span class="op">)</span>,</span>
@@ -399,14 +399,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Samples metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/samples_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>    col_ids <span class="op">=</span> <span class="st">"animal_id"</span>,</span>
 <span>    target_name_suffixes <span class="op">=</span> <span class="st">"all"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Creating omics sets for each dataset</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
 <span>    datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">data_geno</span>, <span class="va">data_transcripto</span>, <span class="va">data_metabo</span><span class="op">)</span>,</span>
 <span>    omics_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"genomics"</span>, <span class="st">"transcriptomics"</span>, <span class="st">"metabolomics"</span><span class="op">)</span>,</span>
 <span>    features_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">fmetadata_geno</span>, <span class="va">fmetadata_transcripto</span>, <span class="va">fmetadata_metabo</span><span class="op">)</span>,</span>
@@ -416,7 +416,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating the MultiDataSet object</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">set_geno</span>,</span>
 <span>           <span class="va">set_transcripto</span>,</span>
 <span>           <span class="va">set_metabo</span><span class="op">)</span></span>
@@ -428,7 +428,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating a density plot for each dataset</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">density_plots</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_set</span>,</span>
 <span>      combined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>      scales <span class="op">=</span> <span class="st">"free"</span></span>
@@ -439,13 +439,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## for each dataset</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mean_sd_plots</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Assessing missing values</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">n_missing_values</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span><span class="co"># Modifying the `MultiDataSet` object ------------------------------------------</span></span>
@@ -471,13 +471,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Adding the differential expression results to the MultiDataSet object</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set_de</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/add_features_metadata.html">add_features_metadata</a></span><span class="op">(</span><span class="va">mo_set</span>, <span class="va">rnaseq_de_res_df</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/add_features_metadata.html">add_features_metadata</a></span><span class="op">(</span><span class="va">mo_set</span>, <span class="va">rnaseq_de_res_df</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span><span class="co"># Data pre-processing ----------------------------------------------------------</span></span>
 <span></span>
 <span>  <span class="co">## Applying transformations to the datasets</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/transformation_datasets_factory.html">transformation_datasets_factory</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set_de</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"vst-deseq2"</span>,</span>
 <span>      <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"logx"</span><span class="op">)</span>,</span>
@@ -489,7 +489,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Density plot for each transformed dataset</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">density_plots_transformed</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_set_transformed</span>,</span>
 <span>      combined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>      scales <span class="op">=</span> <span class="st">"free"</span></span>
@@ -499,17 +499,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plotting the mean-SD trend for transformed each dataset</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mean_sd_plots_transformed</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set_transformed</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set_transformed</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Summary table of the transformations applied</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">transformation_summary</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_table_transformations.html">get_table_transformations</a></span><span class="op">(</span><span class="va">transformations_runs_list</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_table_transformations.html">get_table_transformations</a></span><span class="op">(</span><span class="va">transformations_runs_list</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Running a PCA on each dataset</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/pca_complete_data_factory.html">pca_complete_data_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/pca_complete_data_factory.html">pca_complete_data_factory</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set_transformed</span>,</span>
 <span>    complete_data_name <span class="op">=</span> <span class="st">"mo_set_complete"</span></span>
 <span>  <span class="op">)</span>,</span>
@@ -517,13 +517,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## PCA screeplots</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">pca_screeplots</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_screeplot_pca.html">plot_screeplot_pca</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_screeplot_pca.html">plot_screeplot_pca</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## PCA sample plots</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">pca_sample_plots</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_coordinates_pca.html">plot_samples_coordinates_pca</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_coordinates_pca.html">plot_samples_coordinates_pca</a></span><span class="op">(</span></span>
 <span>      <span class="va">pca_runs_list</span>,</span>
 <span>      datasets <span class="op">=</span> <span class="st">"snps"</span>,</span>
 <span>      pcs <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span>
@@ -537,7 +537,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co"># Dataset pre-filtering --------------------------------------------------------</span></span>
 <span></span>
 <span>  <span class="co">## Unsupervised feature selection based on MAD score</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_mad_factory.html">feature_preselection_mad_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/feature_preselection_mad_factory.html">feature_preselection_mad_factory</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set_complete</span>,</span>
 <span>    to_keep_ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snps"</span> <span class="op">=</span> <span class="fl">1000</span>, <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
 <span>    with_ties <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -547,11 +547,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Diagnostic plot for MAD-based feature selection</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">preselection_mad_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_mad.html">plot_feature_preselection_mad</a></span><span class="op">(</span><span class="va">individual_mad_values</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_feature_preselection_mad.html">plot_feature_preselection_mad</a></span><span class="op">(</span><span class="va">individual_mad_values</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Supervised feature selection based on bruising groups</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set_complete</span>,</span>
 <span>    group <span class="op">=</span> <span class="st">"status"</span>,</span>
 <span>    to_keep_ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snps"</span> <span class="op">=</span> <span class="fl">1000</span>, <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
@@ -561,7 +561,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Diagnostic plot for sPLS-DA based feature selection</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">preselection_splsda_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_splsda.html">plot_feature_preselection_splsda</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_feature_preselection_splsda.html">plot_feature_preselection_splsda</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span><span class="co"># Integration with sPLS --------------------------------------------------------</span></span>
@@ -569,7 +569,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating sPLS input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_input</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_spls.html">get_input_spls</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_presel_supervised</span>,</span>
 <span>      mode <span class="op">=</span> <span class="st">"canonical"</span>,</span>
 <span>      datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span></span>
@@ -579,7 +579,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Initial PLS run with no feature selection and large number of components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_novarsel</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_run.html">spls_run</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_run.html">spls_run</a></span><span class="op">(</span></span>
 <span>      <span class="va">spls_input</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="fl">4</span></span>
 <span>    <span class="op">)</span></span>
@@ -608,13 +608,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Selected value for ncomp</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_optim_ncomp</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_get_optim_ncomp.html">spls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">spls_perf_res</span>, min_ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_get_optim_ncomp.html">spls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">spls_perf_res</span>, min_ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Cross-validation for number of features to retain</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_tune_res</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_tune.html">spls_tune</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_tune.html">spls_tune</a></span><span class="op">(</span></span>
 <span>      <span class="va">spls_input</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="va">spls_optim_ncomp</span>,</span>
 <span>      keepX <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>,</span>
@@ -630,13 +630,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plotting cross-validation results (for number of features)</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_tune_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_plot_tune.html">spls_plot_tune</a></span><span class="op">(</span><span class="va">spls_tune_res</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_plot_tune.html">spls_plot_tune</a></span><span class="op">(</span><span class="va">spls_tune_res</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Final sPLS run</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_final_run</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_run.html">spls_run</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_run.html">spls_run</a></span><span class="op">(</span></span>
 <span>      <span class="va">spls_input</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="va">spls_optim_ncomp</span>,</span>
 <span>      keepX <span class="op">=</span> <span class="va">spls_tune_res</span><span class="op">$</span><span class="va">choice.keepX</span>,</span>
@@ -649,7 +649,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating sO2PLS input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">omicspls_input</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_omicspls.html">get_input_omicspls</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_omicspls.html">get_input_omicspls</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_presel_supervised</span>,</span>
 <span>      datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
@@ -658,7 +658,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Adjusted cross-validation for number of components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_adj</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_o2m_adjR2.html">so2pls_crossval_o2m_adjR2</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_crossval_o2m_adjR2.html">so2pls_crossval_o2m_adjR2</a></span><span class="op">(</span></span>
 <span>      <span class="va">omicspls_input</span>,</span>
 <span>      a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
 <span>      ax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
@@ -670,19 +670,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_adj_res</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_ncomp_adj.html">so2pls_get_optim_ncomp_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_get_optim_ncomp_adj.html">so2pls_get_optim_ncomp_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Plotting adjusted cross-validation results</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_adj_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv_adj.html">so2pls_plot_cv_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_cv_adj.html">so2pls_plot_cv_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Standard cross-validation for number of components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_o2m.html">so2pls_crossval_o2m</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_crossval_o2m.html">so2pls_crossval_o2m</a></span><span class="op">(</span></span>
 <span>      <span class="va">omicspls_input</span>,</span>
 <span>      <span class="va">so2pls_cv_adj</span>,</span>
 <span>      nr_folds <span class="op">=</span> <span class="fl">10</span>,</span>
@@ -692,19 +692,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_res</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_ncomp.html">so2pls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_get_optim_ncomp.html">so2pls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Plotting standard cross-validation results</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv.html">so2pls_plot_cv</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_cv.html">so2pls_plot_cv</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Cross-validation for sparsity parameters</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_sparsity</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_sparsity.html">so2pls_crossval_sparsity</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_crossval_sparsity.html">so2pls_crossval_sparsity</a></span><span class="op">(</span></span>
 <span>      <span class="va">omicspls_input</span>,</span>
 <span>      n <span class="op">=</span> <span class="va">so2pls_cv_res</span><span class="op">[</span><span class="st">"n"</span><span class="op">]</span>,</span>
 <span>      nx <span class="op">=</span> <span class="va">so2pls_cv_res</span><span class="op">[</span><span class="st">"nx"</span><span class="op">]</span>,</span>
@@ -716,26 +716,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_sparsity_res</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_keep.html">so2pls_get_optim_keep</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_get_optim_keep.html">so2pls_get_optim_keep</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Plotting the results of the cross-validation for the number of features</span></span>
 <span>  <span class="co">## to retain from each dataset for the different joint components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_sparsity_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv_sparsity.html">so2pls_plot_cv_sparsity</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_cv_sparsity.html">so2pls_plot_cv_sparsity</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Extracting sparsity results in table format</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_sparsity_table</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_print_cv_sparsity.html">so2pls_print_cv_sparsity</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity_res</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_print_cv_sparsity.html">so2pls_print_cv_sparsity</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity_res</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Final sO2PLS run</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_final_run</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_o2m.html">so2pls_o2m</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_o2m.html">so2pls_o2m</a></span><span class="op">(</span></span>
 <span>      <span class="va">omicspls_input</span>,</span>
 <span>      <span class="va">so2pls_cv_res</span>,</span>
 <span>      <span class="va">so2pls_cv_sparsity_res</span></span>
@@ -745,19 +745,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Summary plot of percentage of variance explained</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_summary_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_summary.html">so2pls_plot_summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_summary.html">so2pls_plot_summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Screeplot</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_screeplot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_screeplot.html">so2pls_screeplot</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_screeplot.html">so2pls_screeplot</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Comparison of samples score for joint components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_joint_components_comparison_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_compare_samples_joint_components.html">so2pls_compare_samples_joint_components</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_compare_samples_joint_components.html">so2pls_compare_samples_joint_components</a></span><span class="op">(</span></span>
 <span>      <span class="va">so2pls_final_run</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_de</span>,</span>
 <span>      colour_by <span class="op">=</span> <span class="st">"status"</span>,</span>
@@ -768,13 +768,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Coefficient plot for joint components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_joint_components_coefficients_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_joint_components_coefficients.html">so2pls_plot_joint_components_coefficients</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_joint_components_coefficients.html">so2pls_plot_joint_components_coefficients</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Joint component samples score plot</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_joint_components_samples_score_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_joint_components.html">so2pls_plot_samples_joint_components</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_samples_joint_components.html">so2pls_plot_samples_joint_components</a></span><span class="op">(</span></span>
 <span>      <span class="va">so2pls_final_run</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_de</span>,</span>
 <span>      colour_upper <span class="op">=</span> <span class="st">"status"</span>,</span>
@@ -787,7 +787,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Specific components samples score plot</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_specific_components_samples_score_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_specific_components.html">so2pls_plot_samples_specific_components</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_samples_specific_components.html">so2pls_plot_samples_specific_components</a></span><span class="op">(</span></span>
 <span>      <span class="va">so2pls_final_run</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_de</span>,</span>
 <span>      colour_upper <span class="op">=</span> <span class="st">"feedlot"</span>,</span>
@@ -803,7 +803,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating MOFA input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_input</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_mofa.html">get_input_mofa</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_mofa.html">get_input_mofa</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_presel_supervised</span>,</span>
 <span>      options_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>        data_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>scale_views <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -837,13 +837,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Formatting MOFA output</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_output</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Plots of variance explained</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_var_explained_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_trained</span>,</span>
 <span>      x <span class="op">=</span> <span class="st">"view"</span>,  <span class="co">## datasets on the x-axis</span></span>
 <span>      y <span class="op">=</span> <span class="st">"factor"</span> <span class="co">## factors on the y-axis</span></span>
@@ -851,7 +851,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_total_var_explained_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_trained</span>,</span>
 <span>      x <span class="op">=</span> <span class="st">"view"</span>,</span>
 <span>      y <span class="op">=</span> <span class="st">"factor"</span>,</span>
@@ -862,7 +862,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plot of factors correlation with covariates</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_factors_covariates_cor_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/mofa_plot_cor_covariates.html">mofa_plot_cor_covariates</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/mofa_plot_cor_covariates.html">mofa_plot_cor_covariates</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span><span class="co"># Integration with DIABLO ------------------------------------------------------</span></span>
@@ -870,19 +870,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating the DIABLO input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_input</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_mixomics_supervised.html">get_input_mixomics_supervised</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_mixomics_supervised.html">get_input_mixomics_supervised</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_presel_supervised</span>,</span>
 <span>      group <span class="op">=</span> <span class="st">"status"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Running sPLS on each dataset to construct the design matrix</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Initial DIABLO run with no feature selection and large number of components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_novarsel</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_input</span>,</span>
 <span>      <span class="va">diablo_design_matrix</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="fl">7</span></span>
@@ -904,19 +904,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plotting cross-validation results (for number of components)</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_perf_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_perf.html">diablo_plot_perf</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_perf.html">diablo_plot_perf</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Selected value for ncomp</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_optim_ncomp</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Cross-validation for number of features to retain</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_tune_res</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_tune.html">diablo_tune</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_tune.html">diablo_tune</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_input</span>,</span>
 <span>      <span class="va">diablo_design_matrix</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="va">diablo_optim_ncomp</span>,</span>
@@ -931,13 +931,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plotting cross-validation results (for number of features)</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_tune_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_tune.html">diablo_plot_tune</a></span><span class="op">(</span><span class="va">diablo_tune_res</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_tune.html">diablo_plot_tune</a></span><span class="op">(</span><span class="va">diablo_tune_res</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Final DIABLO run</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_final_run</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_input</span>,</span>
 <span>      <span class="va">diablo_design_matrix</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="va">diablo_optim_ncomp</span>,</span>
@@ -950,19 +950,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Generating standardised output</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_output</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">spls_final_run</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_output.html">get_output</a></span><span class="op">(</span><span class="va">spls_final_run</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Percentage of variance explained</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_plot_variance_explained</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Samples score matrix plot</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_samples_scores_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
 <span>      <span class="va">spls_output</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>      colour_upper <span class="op">=</span> <span class="st">"status"</span>,</span>
@@ -977,13 +977,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Distribution of features weight</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_features_weight_distribution</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Plot of top contributing features</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_top_features_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
 <span>      <span class="va">spls_output</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>      label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -996,26 +996,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Table of selected features</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_selected_features</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span>  <span class="co">## Generating standardised output</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_output</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_output.html">get_output</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Percentage of variance explained</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_plot_variance_explained</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">so2pls_output</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">so2pls_output</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">9</span>, angle <span class="op">=</span> <span class="fl">30</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Samples score matrix plot</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_samples_scores_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
 <span>      <span class="va">so2pls_output</span>,</span>
 <span>      latent_dimensions <span class="op">=</span> <span class="st">"joint component 1"</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
@@ -1028,14 +1028,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Distribution of features weight</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_features_weight_distribution</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span><span class="va">so2pls_output</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu">plot_layout</span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Plot of top contributing features</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_top_features_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
 <span>      <span class="va">so2pls_output</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>      label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -1048,7 +1048,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Table of selected features</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_selected_features</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_selected_features.html">get_selected_features</a></span><span class="op">(</span></span>
 <span>      <span class="va">so2pls_output</span>,</span>
 <span>      latent_dimensions <span class="op">=</span> <span class="st">"joint component 1"</span></span>
 <span>    <span class="op">)</span></span>
@@ -1057,20 +1057,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Generating standardised output</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_output</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Percentage of variance explained</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_plot_variance_explained</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">mofa_output</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">mofa_output</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">9</span>, angle <span class="op">=</span> <span class="fl">30</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Samples score matrix plot</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_samples_scores_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_output</span>,</span>
 <span>      latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
@@ -1086,7 +1086,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Distribution of features weight</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_features_weight_distribution</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_output</span>,</span>
 <span>      latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
@@ -1096,7 +1096,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plot of top contributing features</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_top_features_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_output</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>      label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -1110,7 +1110,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Table of top contributing features</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_top_features</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_top_features.html">get_top_features</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_output</span>,</span>
 <span>      min_importance <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span></span>
@@ -1120,19 +1120,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Generating standardised output</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_output</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">diablo_final_run</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_output.html">get_output</a></span><span class="op">(</span><span class="va">diablo_final_run</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Percentage of variance explained</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_plot_variance_explained</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">diablo_output</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">diablo_output</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Samples score matrix plot</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_samples_scores_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_score.html">plot_samples_score</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_output</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>      colour_upper <span class="op">=</span> <span class="st">"status"</span>,</span>
@@ -1147,7 +1147,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Distribution of features weight</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_features_weight_distribution</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_output</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu">plot_layout</span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
@@ -1156,7 +1156,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plot of top contributing features</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_top_features_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_top_features.html">plot_top_features</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_output</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>      label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -1170,7 +1170,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Table of top contributing features</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_selected_features</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span> </span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_selected_features.html">get_selected_features</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span> </span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span><span class="co"># Evaluating the integration results -------------------------------------------</span></span>
@@ -1178,7 +1178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Evaluating DIABLO selected features against single-omics results</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_selected_vs_singleomics_table</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/evaluate_feature_selection_table.html">evaluate_feature_selection_table</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/evaluate_feature_selection_table.html">evaluate_feature_selection_table</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_output</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
 <span>      col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -1192,7 +1192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plotting DIABLO features weight against single-omics results</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_features_weight_vs_singleomics_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_covariate.html">plot_features_weight_covariate</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_covariate.html">plot_features_weight_covariate</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_output</span>, </span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>, </span>
 <span>      covariate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -1224,7 +1224,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## GO term sets</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">go_sets</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/make_feature_sets_from_df.html">make_feature_sets_from_df</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/make_feature_sets_from_df.html">make_feature_sets_from_df</a></span><span class="op">(</span></span>
 <span>      <span class="va">rnaseq_go_df</span>,</span>
 <span>      col_id <span class="op">=</span> <span class="st">"gene_id"</span>,</span>
 <span>      col_set <span class="op">=</span> <span class="st">"go_id"</span></span>
@@ -1234,13 +1234,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Filtering GO term sets against measured features</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">go_sets_filtered</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/reduce_feature_sets_data.html">reduce_feature_sets_data</a></span><span class="op">(</span><span class="va">go_sets</span>, <span class="va">mo_set_complete</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/reduce_feature_sets_data.html">reduce_feature_sets_data</a></span><span class="op">(</span><span class="va">go_sets</span>, <span class="va">mo_set_complete</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Checking genes GO term sets against datasets</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">go_sets_check</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_feature_sets.html">check_feature_sets</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/check_feature_sets.html">check_feature_sets</a></span><span class="op">(</span></span>
 <span>      <span class="va">go_sets_filtered</span>, </span>
 <span>      <span class="va">mo_set_complete</span>,</span>
 <span>      datasets <span class="op">=</span> <span class="st">"rnaseq"</span></span>
@@ -1258,7 +1258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## MOFA latent components enrichment analysis</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_enrichment_results</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/evaluate_method_enrichment.html">evaluate_method_enrichment</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/evaluate_method_enrichment.html">evaluate_method_enrichment</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_output</span>,</span>
 <span>      <span class="va">go_sets_filtered</span>,</span>
 <span>      datasets <span class="op">=</span> <span class="st">"rnaseq"</span>,</span>
@@ -1275,7 +1275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plotting features weight for GO term 'GO:0031424'</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_enrichment_go0031424_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_set.html">plot_features_weight_set</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_set.html">plot_features_weight_set</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_output</span>,</span>
 <span>      <span class="va">go_sets_filtered</span><span class="op">[[</span><span class="st">"GO:0031424"</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>      set_name <span class="op">=</span> <span class="st">"GO:0031424 (keratinization)"</span>,</span>
@@ -1289,7 +1289,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Assessing DIABLO samples clustering</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_silhouette</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/compute_samples_silhouette.html">compute_samples_silhouette</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/compute_samples_silhouette.html">compute_samples_silhouette</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_output</span>,</span>
 <span>      <span class="va">mo_set_complete</span>,</span>
 <span>      <span class="st">"status"</span></span>
@@ -1308,7 +1308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## using the unsupervised preselection results</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_unsupervised_input</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_mofa.html">get_input_mofa</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_mofa.html">get_input_mofa</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_presel_unsupervised</span>,</span>
 <span>      options_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>        data_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>scale_views <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -1337,14 +1337,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Formatting MOFA output</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_unsupervised_output</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_unsupervised_trained</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_unsupervised_trained</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section><section id="extracting-integration-results" class="level2" data-number="14.2"><h2 data-number="14.2" class="anchored" data-anchor-id="extracting-integration-results">
 <span class="header-section-number">14.2</span> Extracting integration results</h2>
-<p>The first step in order to compare the results from different methods is to convert them to a standardised format with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output()</a></code> function, which we did in <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>. The function returns an <code>output_dimension_reduction</code> object which contains information about the latent dimensions’ features weight and samples score, as well as a summary of the percentage of variance explained for each dataset. The <code>output_dimension_reduction</code> object created also has an attribute called <code>method</code>, which contains the name of the integration method used:</p>
+<p>The first step in order to compare the results from different methods is to convert them to a standardised format with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_output.html">get_output()</a></code> function, which we did in <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>. The function returns an <code>output_dimension_reduction</code> object which contains information about the latent dimensions’ features weight and samples score, as well as a summary of the percentage of variance explained for each dataset. The <code>output_dimension_reduction</code> object created also has an attribute called <code>method</code>, which contains the name of the integration method used:</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_output</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">diablo_output</span>, <span class="st">"method"</span><span class="op">)</span></span>
@@ -1380,9 +1380,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section><section id="clustered-correlation-heatmaps" class="level2" data-number="14.3"><h2 data-number="14.3" class="anchored" data-anchor-id="clustered-correlation-heatmaps">
 <span class="header-section-number">14.3</span> Clustered correlation heatmaps</h2>
-<p>We can visualise the correlation between the samples score and features weight of the different latent dimensions constructed by the integration methods as a heatmap, using the <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> function. The main input parameter of the function is a list of <code>output_dimension_reduction</code> objects, which we constructed in the previous section:</p>
+<p>We can visualise the correlation between the samples score and features weight of the different latent dimensions constructed by the integration methods as a heatmap, using the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> function. The main input parameter of the function is a list of <code>output_dimension_reduction</code> objects, which we constructed in the previous section:</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span><span class="va">output_list</span>, legend_ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="comparison_files/figure-html/comparison-heatmap-corr-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -1390,7 +1390,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The function generates two half-heatmaps. The heatmap on the left is a visualisation of the correlation between the features weight of the different latent dimensions; the one on the right shows the correlation between their samples score. Since correlation matrices are symmetric, only one triangle of each matrix is represented. The rows and columns of the heatmaps each correspond to one of the latent dimensions generated by one of the integration methods. Their name is abbreviated (C stands for component, F for Factor, JC for joint component, RSC for rnaseq-specific component and MSC for metabolome-specific component). The method through which each latent dimension was generated is indicated next to its name as a coloured annotation. In each heatmap, the rows and columns have been ordered according to a clustering performed on the correlation matrix, so that the latent dimensions most similar (in terms of samples score or features weight) are next to each other.</p>
 <p>By default, the function represents all of the latent dimensions generated by each method, but the <code>latent_dimensions</code> parameter allows us to select only the ones we are interested in comparing. It accepts a named list, where each element gives for an integration method the latent dimensions to use. The names of the list must correspond to methods name. For example, we will look at all latent dimensions from sPLS and DIABLO, but restrict to only the first four MOFA factors, and only the joint component and first two dataset-specific components for sO2PLS:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list</span>,</span>
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"sO2PLS"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -1408,12 +1408,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>From the heatmaps, we can see that some latent dimensions constructed by the different methods seem to capture similar trends in the data. For example, MOFA factor 1, sPLS component 1, DIABLO component 1 and sO2PLS joint component 1 are all strongly correlated in terms of their samples score. Their correlation in terms of features weight is a bit lower, which is due to the fact that some methods perform features selection, therefore all non-selected features are given a weight of 0. Note that the sign of the correlation is interesting but not very important. We can also see some latent dimensions that seem correlated with respect to one metric but not the other. For example, there is a strong correlation between the samples score of MOFA factor 4 and sPLS component 2, but this is not reflected in their features weight. Again, that can be because one method performs latent selection and not the other. On the other hand, the correlation between sPLS component 3 and DIABLO component 2 is stronger when looking at their features weight than at their samples score.</p>
 <p>When using the function to compare the results of the two MOFA runs, the names that we gave to the list of output will be used as method name, and these are the names to use in order to select some latent dimensions of interest. For example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list_mofa</span>,</span>
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"MOFA (supervised pref.)"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Factor "</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,</span>
 <span>    <span class="st">"MOFA (unsupervised pref.)"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Factor "</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  legend_ncol <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="comparison_files/figure-html/comparison-heatmap-corr-mofa-1.png" class="img-fluid" width="672"></p>
@@ -1423,17 +1424,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="header-section-number">14.4</span> A note about missing features</h2>
 <p>Typically, when comparing the output of different integration methods, we assume that the same input data was used for each method. However, when we are instead comparing the impact of data pre-processing on the integration results, it is possible that not all features are present in the input data for each of the methods. This is for example the case when assessing the impact of different prefiltering settings (e.g.&nbsp;supervised vs unsupervised) on the results of a particular integration method. It is also the case if we are comparing the integration results when using different subset of omics data as input: in our example, both DIABLO and MOFA were used on the three omics datasets (genomics, transcriptomics and metabolomics), while sPLS and sO2PLS were run on the transcriptomics and metabolomics datasets only. If that is the case, some features will have no weight in some of the results we are comparing (as they are not in the input data analysed by the integration method). There are two approaches to deal with that:</p>
 <ul>
-<li><p>Approach 1: remove these features from the comparison. The correlation between the features weight of any two latent dimensions will only be calculated using the features that are assigned a weight by both latent dimensions. This is the default approach used by <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> and other comparison functions.</p></li>
+<li><p>Approach 1: remove these features from the comparison. The correlation between the features weight of any two latent dimensions will only be calculated using the features that are assigned a weight by both latent dimensions. This is the default approach used by <code><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> and other comparison functions.</p></li>
 <li><p>Approach 2: the features that are assigned a weight by some methods but not others are retained for the comparison, and the missing weights are replaced with zero values.</p></li>
 </ul>
 <p>The problem with approach 2 is that it might artificially decrease the computed correlation coefficients, which is why approach 1 is the default in this package. However, approach 2 may reveal interesting patterns and therefore was also implemented.</p>
-<p>In <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> and other comparison functions where relevant, the choice between these two approaches is controlled by the <code>include_missing_features</code> parameter. The first approach is selected with <code>include_missing_features = FALSE</code>, while the second approach is selected with <code>include_missing_features = TRUE</code>.</p>
+<p>In <code><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> and other comparison functions where relevant, the choice between these two approaches is controlled by the <code>include_missing_features</code> parameter. The first approach is selected with <code>include_missing_features = FALSE</code>, while the second approach is selected with <code>include_missing_features = TRUE</code>.</p>
 <p>Note that the first approach does not remove features that were discarded as a result of feature selection by one of the integration method, but only features that were not in the input data for the integration method. For example, sO2PLS performs feature selection for the joint components, and as a consequence the features that are not selected as assigned a weight of 0. These features are not impacted by the choice of approach.</p>
 </section><section id="correlation-matrices" class="level2" data-number="14.5"><h2 data-number="14.5" class="anchored" data-anchor-id="correlation-matrices">
 <span class="header-section-number">14.5</span> Correlation matrices</h2>
-<p>We can obtain the correlation coefficients displayed in the heatmaps with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_features_weight_correlation.html">get_features_weight_correlation()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples_score_correlation.html">get_samples_score_correlation()</a></code> functions:</p>
+<p>We can obtain the correlation coefficients displayed in the heatmaps with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_features_weight_correlation.html">get_features_weight_correlation()</a></code> and <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_samples_score_correlation.html">get_samples_score_correlation()</a></code> functions:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_score_correlation.html">get_samples_score_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_samples_score_correlation.html">get_samples_score_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="co">#&gt;                                          sPLS___Component 1 sPLS___Component 2</span></span>
 <span><span class="co">#&gt; sPLS___Component 1                              1.000000000        0.004845557</span></span>
 <span><span class="co">#&gt; sPLS___Component 2                              0.004845557        1.000000000</span></span>
@@ -1459,7 +1460,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; sO2PLS___rnaseq specific component 1                                  0.018259608</span></span>
 <span><span class="co">#&gt; sO2PLS___metabolome specific component 1                              1.000000000</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_weight_correlation.html">get_features_weight_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_features_weight_correlation.html">get_features_weight_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="co">#&gt;                                          sPLS___Component 1 sPLS___Component 2</span></span>
 <span><span class="co">#&gt; sPLS___Component 1                              1.000000000        0.008381676</span></span>
 <span><span class="co">#&gt; sPLS___Component 2                              0.008381676        1.000000000</span></span>
@@ -1488,17 +1489,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that the formatting of the row and column names is designed for easier handling in the various plotting functions.</p>
 </section><section id="pairwise-comparisons" class="level2" data-number="14.6"><h2 data-number="14.6" class="anchored" data-anchor-id="pairwise-comparisons">
 <span class="header-section-number">14.6</span> Pairwise comparisons</h2>
-<p>While the <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> function can handle any number of methods to compare (in our example it was 4), the heatmap can become difficult to interpret. As an alternative option, it is possible to visualise the correlation between the latent dimensions of any two methods. This is what the function <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation()</a></code> is for. It also takes as input a list of methods’ output, but the list must only contain two elements. For example, we will compare the results of sPLS and sO2PLS:</p>
+<p>While the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code> function can handle any number of methods to compare (in our example it was 4), the heatmap can become difficult to interpret. As an alternative option, it is possible to visualise the correlation between the latent dimensions of any two methods. This is what the function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_plot_correlation.html">comparison_plot_correlation()</a></code> is for. It also takes as input a list of methods’ output, but the list must only contain two elements. For example, we will compare the results of sPLS and sO2PLS:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="comparison_files/figure-html/comparison-plot-correlation-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<p>As with <code><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code>, the function displays the correlation between the latent dimensions’ samples score on the left, and between their features weight on the right, but using correlation plots rather than heatmaps. By default, only correlation coefficients above 0.2 have their value displayed (for better clarity), but this can be customised through the <code>min_show_corr</code> argument.</p>
+<p>As with <code><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_heatmap_corr.html">comparison_heatmap_corr()</a></code>, the function displays the correlation between the latent dimensions’ samples score on the left, and between their features weight on the right, but using correlation plots rather than heatmaps. By default, only correlation coefficients above 0.2 have their value displayed (for better clarity), but this can be customised through the <code>min_show_corr</code> argument.</p>
 <p>By default, the function plots both samples score correlations and features weight correlation, but it is possible to display only one of them by setting the <code>by</code> argument to either <code>samples</code> or <code>features</code>. In addition, as for the heatmap plotting function, it is possible to focus on certain latent dimensions by passing a named list of latent dimensions name to the <code>latent_dimensions</code> argument:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  by <span class="op">=</span> <span class="st">"samples"</span>,</span>
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -1511,11 +1512,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section><section id="comparing-samples-score" class="level2" data-number="14.7"><h2 data-number="14.7" class="anchored" data-anchor-id="comparing-samples-score">
 <span class="header-section-number">14.7</span> Comparing samples score</h2>
-<p>The correlation plots shown above provide a useful summary of the similarity between the latent dimensions constructed by different integration methods. We can then investigate further how any two latent dimensions (from two different integration methods) are related. One way to do so is to compare their samples score in a scatterplot. In <a href="interpretation.html#sec-interpretation-samples-pair"><span>Section&nbsp;12.4.2</span></a>, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair()</a></code> function has been used to display the samples score of two latent dimensions from the result of an integration method, e.g.:</p>
+<p>The correlation plots shown above provide a useful summary of the similarity between the latent dimensions constructed by different integration methods. We can then investigate further how any two latent dimensions (from two different integration methods) are related. One way to do so is to compare their samples score in a scatterplot. In <a href="interpretation.html#sec-interpretation-samples-pair"><span>Section&nbsp;12.4.2</span></a>, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_score_pair.html">plot_samples_score_pair()</a></code> function has been used to display the samples score of two latent dimensions from the result of an integration method, e.g.:</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_complete</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Component 1"</span>, <span class="st">"Component 2"</span><span class="op">)</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
@@ -1528,7 +1529,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>This function can also be used to compare the samples score of two latent dimensions from two integration different methods. This is done by passing to the function a list of length 2 containing the output of two different methods. The name of the latent dimensions to compare are provided as a named list, where each name corresponds to either the name of the method (if the input list is not named) or the name of the element in the input list. So for example, to compare the first latent dimension of MOFA and DIABLO:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
@@ -1543,9 +1544,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can see that the samples score of the two latent dimensions are strongly correlated, showing that the two latent dimensions capture a similar trend in the data.</p>
 </section><section id="comparing-features-weight" class="level2" data-number="14.8"><h2 data-number="14.8" class="anchored" data-anchor-id="comparing-features-weight">
 <span class="header-section-number">14.8</span> Comparing features weight</h2>
-<p>In a similar way, we can compare the features importance score of two latent dimensions from two different integration methods. In <a href="interpretation.html#sec-interpretation-features-pair"><span>Section&nbsp;12.5.2</span></a>, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function has been used to display the features weight or importance score of two latent dimensions from the result of an integration method, e.g.:</p>
+<p>In a similar way, we can compare the features importance score of two latent dimensions from two different integration methods. In <a href="interpretation.html#sec-interpretation-features-pair"><span>Section&nbsp;12.5.2</span></a>, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function has been used to display the features weight or importance score of two latent dimensions from the result of an integration method, e.g.:</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_output</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Component 1"</span>, <span class="st">"Component 2"</span><span class="op">)</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
@@ -1560,7 +1561,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>This function can also be used to compare the features weight of two latent dimensions from two different integration methods. This is done by passing to the function a list of length 2 containing the output of two different methods. The name of the latent dimensions to compare are provided as a named list, where each name corresponds to either the name of the method (if the input list is not named) or the name of the element in the input list. We will again compare MOFA factor 1 and DIABLO component 1:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
@@ -1577,7 +1578,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can see that while MOFA and DIABLO identify the same metabolites as being the most important to separate healthy and infected animals, the genomic markers and genes that are given the highest importance score by MOFA are not selected with DIABLO.</p>
 <p>By default, the function plots the features signed importance (i.e.&nbsp;importance score to which the sign of their weight was added), but in this case it makes sense to look at their (non-signed) importance score, which we have done by setting the <code>features_metric</code> argument to <code>'importance'</code>. Note that we can also compare their raw weight, by setting <code>features_metric</code> to <code>'weight'</code>. If that is the case, keep in mind that the weights from different latent dimensions live on different scales, so the raw values are not directly comparable (but the features ranking and weight sign are). We can also focus on a subset of datasets by passing their name to the <code>datasets</code> argument:</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>  features_metric <span class="op">=</span> <span class="st">"weight"</span>,</span>
@@ -1592,7 +1593,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="comparison_files/figure-html/plot-features-weight-raw-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>By default, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function uses the geometric consensus importance metric (more details in the next section) to highlight the 5 features identified as most important by both methods. Both the number of features highlighted and the metric used can be controlled, through the <code>top_n</code> and <code>metric</code> arguments, respectively. In the following section, we will expand on the concept of consensus importance and the different metrics available.</p>
+<p>By default, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function uses the geometric consensus importance metric (more details in the next section) to highlight the 5 features identified as most important by both methods. Both the number of features highlighted and the metric used can be controlled, through the <code>top_n</code> and <code>metric</code> arguments, respectively. In the following section, we will expand on the concept of consensus importance and the different metrics available.</p>
 </section><section id="sec-comparison-consensus" class="level2" data-number="14.9"><h2 data-number="14.9" class="anchored" data-anchor-id="sec-comparison-consensus">
 <span class="header-section-number">14.9</span> Feature consensus importance</h2>
 <section id="possible-metrics" class="level3" data-number="14.9.1"><h3 data-number="14.9.1" class="anchored" data-anchor-id="possible-metrics">
@@ -1609,7 +1610,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>The difference between these metrics can be visualised in the simple case where features are assigned two different importance scores, e.g.&nbsp;by two different integration methods:</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/show_consensus_metrics.html">show_consensus_metrics</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/show_consensus_metrics.html">show_consensus_metrics</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="comparison_files/figure-html/show-consensus-importance-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -1617,9 +1618,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In the plots, the consensus importance values have been normalised so that the highest value is 1. As we can see, metrics such as the geometric mean, harmonic mean, product or minimum will give higher consensus scores to features that are consistently assigned a high importance score across all methods, while features that have high importance score with one method but low score with the other will get a lower consensus score. Conversely, metrics such as the L2-norm or maximum prioritise features that are given a high importance score by at least one method, regardless of their importance score with other methods.</p>
 </section><section id="computing-features-consensus-importance-score" class="level3" data-number="14.9.2"><h3 data-number="14.9.2" class="anchored" data-anchor-id="computing-features-consensus-importance-score">
 <span class="header-section-number">14.9.2</span> Computing features’ consensus importance score</h3>
-<p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance()</a></code> takes as input a list of output objects from different integration methods, as well as a named list indicating which latent dimension from each output object should be considered. By default, the geometric mean is used, but this can be changed through the <code>metric</code> argument.</p>
+<p>The function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/compute_consensus_importance.html">compute_consensus_importance()</a></code> takes as input a list of output objects from different integration methods, as well as a named list indicating which latent dimension from each output object should be considered. By default, the geometric mean is used, but this can be changed through the <code>metric</code> argument.</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">consensus_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">consensus_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -1642,7 +1643,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>To help compare the data-frame with the plots created in the previous section, we will add the features label to the consensus importance data-frame.</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">features_labels_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_labels.html">get_features_labels</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">features_labels_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_features_labels.html">get_features_labels</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_complete</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
 <span>       <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span></span>
@@ -1676,7 +1677,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>We can see that, using the geometric mean, the feature from the metabolomics dataset that is given the highest consensus importance is citric acid. Note that the metric chosen matters less when the latent dimensions compared are in strong agreement, as it is the case here:</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>  metric <span class="op">=</span> <span class="st">"average"</span></span>
@@ -1704,9 +1705,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 14 snps       Hapmap55381-rs29025399      0.645 Hapmap55381-rs29025399</span></span>
 <span><span class="co">#&gt; 15 snps       BovineHD0300000351          0.625 BovineHD0300000351</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function, we can specify which metric should be used for the consensus importance to highlight the top features. For example, we can illustrate the top features according to the average consensus metric:</p>
+<p>In the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_pair.html">plot_features_weight_pair()</a></code> function, we can specify which metric should be used for the consensus importance to highlight the top features. For example, we can illustrate the top features according to the average consensus metric:</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
 <span>  <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>  metric <span class="op">=</span> <span class="st">"average"</span>,</span>
@@ -1738,19 +1739,19 @@ Targets list for comparing different integration methods’ output
 <span>  <span class="co">## Heatmap for comparison of integration methods output</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">comparison_methods_heatmap_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_heatmap_corr.html">comparison_heatmap_corr</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Correlation plot for comparison of sPLS and sO2PLS results</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_so2pls_correlation_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/comparison_plot_correlation.html">comparison_plot_correlation</a></span><span class="op">(</span><span class="va">output_list</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Comparison of samples score for MOFA factor 1 and DIABLO component 1</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_so2pls_samples_score_comparison_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_score_pair.html">plot_samples_score_pair</a></span><span class="op">(</span></span>
 <span>      <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
@@ -1762,7 +1763,7 @@ Targets list for comparing different integration methods’ output
 <span>  <span class="co">## Comparison of features weight for MOFA factor 1 and sO2PLS joint component 1</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_so2pls_features_weight_comparison_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_pair.html">plot_features_weight_pair</a></span><span class="op">(</span></span>
 <span>      <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_complete</span>,</span>
@@ -1777,12 +1778,12 @@ Targets list for comparing different integration methods’ output
 <span>  <span class="co">## component 1</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_so2pls_features_weight_consensus_importance</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/compute_consensus_importance.html">compute_consensus_importance</a></span><span class="op">(</span></span>
 <span>      <span class="va">output_list</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"MOFA"</span> <span class="op">=</span> <span class="st">"Factor 1"</span>, <span class="st">"DIABLO"</span> <span class="op">=</span> <span class="st">"Component 1"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_labels.html">get_features_labels</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_features_labels.html">get_features_labels</a></span><span class="op">(</span></span>
 <span>          <span class="va">mo_set_complete</span>,</span>
 <span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"Name"</span>,</span>
 <span>               <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span></span>
