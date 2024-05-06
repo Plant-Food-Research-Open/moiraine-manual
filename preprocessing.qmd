@@ -147,7 +147,7 @@ transform_dataset(
 ```
 
 ::: {.callout-note}
-Before using the `best-normalize-manual` option, it is strongly recommended to have a look at the documentation of the corresponding function from the `bestNormalize` package, as they might have behaviours that are not expected. For example, by default the `bestNormalize::log_x()` function uses a log base 10, and centers and scales the transformed values, which not be what we want.
+Before using the `best-normalize-manual` option, it is strongly recommended to have a look at the documentation of the corresponding function from the `bestNormalize` package, as they might have behaviours that are not expected. For example, by default the `bestNormalize::log_x()` function uses a log base 10, and centers and scales the transformed values, which may not be what we want.
 :::
 
 ### Transformation target factory
@@ -200,7 +200,7 @@ mo_set_transformed
 
 get_dataset_matrix(mo_set_de, "metabolome")[1:5, 1:3]
 
-get_dataset_matrix(mo_set_de, "metabolome")[1:5, 1:3]
+get_dataset_matrix(mo_set_transformed, "metabolome")[1:5, 1:3]
 ```
 
 <details>
