@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>The moiraine R package user manual - 3&nbsp; Importing data</title>
 <style>
@@ -14,9 +14,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -43,48 +44,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -98,8 +70,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -134,206 +105,236 @@ div.csl-indent {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_import.html">Data preparation</a></li><li class="breadcrumb-item"><a href="./data_import.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The <code>moiraine</code> R package user manual</a> 
         <div class="sidebar-tools-main">
-    <a href="" title="" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-github"></i></a>
-    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine-manual">
-          Manual source code
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine">
-          Package source code
-          </a>
-        </li>
-    </ul>
-<a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine-manual">
+            Manual source code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine">
+            Package source code
+            </a>
+          </li>
+      </ul>
+</div>
+    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" rel="" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./overview.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview of <code>moiraine</code></span></a>
+  <a href="./overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview of <code>moiraine</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data preparation</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Data preparation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Unsupervised integration</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Unsupervised integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Supervised integration</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Supervised integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Results interpretation</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Results interpretation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
     </ul>
 </div>
-</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#the-example-dataset-files" id="toc-the-example-dataset-files" class="nav-link active" data-scroll-target="#the-example-dataset-files"><span class="toc-section-number">3.1</span>  The example dataset files</a></li>
+<li><a href="#the-example-dataset-files" id="toc-the-example-dataset-files" class="nav-link active" data-scroll-target="#the-example-dataset-files"><span class="header-section-number">3.1</span> The example dataset files</a></li>
   <li>
-<a href="#importing-the-datasets" id="toc-importing-the-datasets" class="nav-link" data-scroll-target="#importing-the-datasets"><span class="toc-section-number">3.2</span>  Importing the datasets</a>
+<a href="#importing-the-datasets" id="toc-importing-the-datasets" class="nav-link" data-scroll-target="#importing-the-datasets"><span class="header-section-number">3.2</span> Importing the datasets</a>
   <ul class="collapse">
-<li><a href="#sec-import-dataset-manual" id="toc-sec-import-dataset-manual" class="nav-link" data-scroll-target="#sec-import-dataset-manual"><span class="toc-section-number">3.2.1</span>  Manually</a></li>
-  <li><a href="#using-a-target-factory-function" id="toc-using-a-target-factory-function" class="nav-link" data-scroll-target="#using-a-target-factory-function"><span class="toc-section-number">3.2.2</span>  Using a target factory function</a></li>
+<li><a href="#sec-import-dataset-manual" id="toc-sec-import-dataset-manual" class="nav-link" data-scroll-target="#sec-import-dataset-manual"><span class="header-section-number">3.2.1</span> Manually</a></li>
+  <li><a href="#using-a-target-factory-function" id="toc-using-a-target-factory-function" class="nav-link" data-scroll-target="#using-a-target-factory-function"><span class="header-section-number">3.2.2</span> Using a target factory function</a></li>
   </ul>
 </li>
   <li>
-<a href="#importing-the-features-metadata" id="toc-importing-the-features-metadata" class="nav-link" data-scroll-target="#importing-the-features-metadata"><span class="toc-section-number">3.3</span>  Importing the features metadata</a>
+<a href="#importing-the-features-metadata" id="toc-importing-the-features-metadata" class="nav-link" data-scroll-target="#importing-the-features-metadata"><span class="header-section-number">3.3</span> Importing the features metadata</a>
   <ul class="collapse">
-<li><a href="#sec-import-fmeta-manual" id="toc-sec-import-fmeta-manual" class="nav-link" data-scroll-target="#sec-import-fmeta-manual"><span class="toc-section-number">3.3.1</span>  Manually</a></li>
-  <li><a href="#using-a-target-factory-function-1" id="toc-using-a-target-factory-function-1" class="nav-link" data-scroll-target="#using-a-target-factory-function-1"><span class="toc-section-number">3.3.2</span>  Using a target factory function</a></li>
-  <li><a href="#sec-import-fmeta-gff" id="toc-sec-import-fmeta-gff" class="nav-link" data-scroll-target="#sec-import-fmeta-gff"><span class="toc-section-number">3.3.3</span>  Importing features metadata from a GTF/GFF file</a></li>
+<li><a href="#sec-import-fmeta-manual" id="toc-sec-import-fmeta-manual" class="nav-link" data-scroll-target="#sec-import-fmeta-manual"><span class="header-section-number">3.3.1</span> Manually</a></li>
+  <li><a href="#using-a-target-factory-function-1" id="toc-using-a-target-factory-function-1" class="nav-link" data-scroll-target="#using-a-target-factory-function-1"><span class="header-section-number">3.3.2</span> Using a target factory function</a></li>
+  <li><a href="#sec-import-fmeta-gff" id="toc-sec-import-fmeta-gff" class="nav-link" data-scroll-target="#sec-import-fmeta-gff"><span class="header-section-number">3.3.3</span> Importing features metadata from a GTF/GFF file</a></li>
   </ul>
 </li>
-  <li><a href="#importing-the-samples-metadata" id="toc-importing-the-samples-metadata" class="nav-link" data-scroll-target="#importing-the-samples-metadata"><span class="toc-section-number">3.4</span>  Importing the samples metadata</a></li>
+  <li><a href="#importing-the-samples-metadata" id="toc-importing-the-samples-metadata" class="nav-link" data-scroll-target="#importing-the-samples-metadata"><span class="header-section-number">3.4</span> Importing the samples metadata</a></li>
   <li>
-<a href="#creating-the-omics-sets" id="toc-creating-the-omics-sets" class="nav-link" data-scroll-target="#creating-the-omics-sets"><span class="toc-section-number">3.5</span>  Creating the omics sets</a>
+<a href="#creating-the-omics-sets" id="toc-creating-the-omics-sets" class="nav-link" data-scroll-target="#creating-the-omics-sets"><span class="header-section-number">3.5</span> Creating the omics sets</a>
   <ul class="collapse">
-<li><a href="#creating-a-single-omics-set" id="toc-creating-a-single-omics-set" class="nav-link" data-scroll-target="#creating-a-single-omics-set"><span class="toc-section-number">3.5.1</span>  Creating a single omics set</a></li>
-  <li><a href="#using-a-target-factory-for-creating-omics-sets" id="toc-using-a-target-factory-for-creating-omics-sets" class="nav-link" data-scroll-target="#using-a-target-factory-for-creating-omics-sets"><span class="toc-section-number">3.5.2</span>  Using a target factory for creating omics sets</a></li>
+<li><a href="#creating-a-single-omics-set" id="toc-creating-a-single-omics-set" class="nav-link" data-scroll-target="#creating-a-single-omics-set"><span class="header-section-number">3.5.1</span> Creating a single omics set</a></li>
+  <li><a href="#using-a-target-factory-for-creating-omics-sets" id="toc-using-a-target-factory-for-creating-omics-sets" class="nav-link" data-scroll-target="#using-a-target-factory-for-creating-omics-sets"><span class="header-section-number">3.5.2</span> Using a target factory for creating omics sets</a></li>
   </ul>
 </li>
-  <li><a href="#creating-the-multi-omics-set" id="toc-creating-the-multi-omics-set" class="nav-link" data-scroll-target="#creating-the-multi-omics-set"><span class="toc-section-number">3.6</span>  Creating the multi-omics set</a></li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">3.7</span>  Recap – targets list</a></li>
+  <li><a href="#creating-the-multi-omics-set" id="toc-creating-the-multi-omics-set" class="nav-link" data-scroll-target="#creating-the-multi-omics-set"><span class="header-section-number">3.6</span> Creating the multi-omics set</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="header-section-number">3.7</span> Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-importing-data" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></span></h1>
+<h1 class="title"><span id="sec-importing-data" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></span></h1>
 </div>
 
 
@@ -348,7 +349,7 @@ div.csl-indent {
 
 </header><div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Plant-Food-Research-Open/moiraine">moiraine</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biobase">Biobase</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## for documentation</span></span>
@@ -412,14 +413,14 @@ div.csl-indent {
 <p>The created target, called <code>dataset_file_geno</code>, takes as value the path to the file:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">dataset_file_geno</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/1.0.0/96a479d4ef576d72d03d2a95378680bf/moiraine/extdata/genomics_dataset.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "/powerplant/workspace/hrpoab/RENV_CACHE/v5/R-4.2/x86_64-pc-linux-gnu/moiraine/1.0.0.9000/3276e0309ee48f4994588d34dd22ab6a/moiraine/extdata/genomics_dataset.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The next step is to import this dataset in R. We use the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function for that, rather than the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> or similar functions, as it ensures that the data is imported with the correct format for further use with the <code>moiraine</code> package. When importing a dataset, we need to specify the path to the file, as well as the name of the column in the csv file that contains the row names (through the <code>col_id</code> argument). In addition, we need to specify whether the features are represented in rows in the csv file, or in columns. This is done through the argument <code>features_as_rows</code>. For example, we can load the genomics dataset through:</p>
+<p>The next step is to import this dataset in R. We use the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv.html">import_dataset_csv()</a></code> function for that, rather than the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> or similar functions, as it ensures that the data is imported with the correct format for further use with the <code>moiraine</code> package. When importing a dataset, we need to specify the path to the file, as well as the name of the column in the csv file that contains the row names (through the <code>col_id</code> argument). In addition, we need to specify whether the features are represented in rows in the csv file, or in columns. This is done through the argument <code>features_as_rows</code>. For example, we can load the genomics dataset through:</p>
 <div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">data_geno</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv.html">import_dataset_csv</a></span><span class="op">(</span></span>
 <span>    <span class="va">dataset_file_geno</span>, </span>
 <span>    col_id <span class="op">=</span> <span class="st">"marker"</span>, </span>
 <span>    features_as_rows <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -438,20 +439,20 @@ div.csl-indent {
 <span><span class="co">#&gt; 10-49904259-G-A-rs471723345   1     2     2</span></span>
 <span><span class="co">#&gt; 1-109550832-G-A-rs209732846   2     2     1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> uses <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> to read in the data. It accepts arguments that will be passed on to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>, which can be useful to control how the data file must be read, e.g.&nbsp;by specifying the columns’ type, or which characters must be considered as missing values.</p>
+<p>Note that <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv.html">import_dataset_csv()</a></code> uses <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> to read in the data. It accepts arguments that will be passed on to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>, which can be useful to control how the data file must be read, e.g.&nbsp;by specifying the columns’ type, or which characters must be considered as missing values.</p>
 </section><section id="using-a-target-factory-function" class="level3" data-number="3.2.2"><h3 data-number="3.2.2" class="anchored" data-anchor-id="using-a-target-factory-function">
 <span class="header-section-number">3.2.2</span> Using a target factory function</h3>
-<p>Creating a target to track the raw file and using the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function to read it can be a bit cumbersome if we want to import several datasets. Luckily, this process can be automated with the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv_factory.html">import_dataset_csv_factory()</a></code> function. It takes as an input a vector of files path, and for each file creates:</p>
+<p>Creating a target to track the raw file and using the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv.html">import_dataset_csv()</a></code> function to read it can be a bit cumbersome if we want to import several datasets. Luckily, this process can be automated with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv_factory.html">import_dataset_csv_factory()</a></code> function. It takes as an input a vector of files path, and for each file creates:</p>
 <ul>
 <li><p>a target named <code>dataset_file_XX</code> (<code>XX</code> explained below), which tracks the raw data file;</p></li>
 <li><p>a target named <code>data_XX</code>, which corresponds to the data matrix that has been imported through the <code>import_dataset_csv</code> function.</p></li>
 </ul>
-<p>For each file, we need to specify the name of the column giving the row names (argument <code>col_ids</code>), and whether the features are stored as rows or as columns (argument <code>features_as_rowss</code>). <em>Note that these arguments are the same as in the primary function <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code>, except that they have an additional ‘s’ at the end of their name. This will be the case for most of the target factory functions from the package.</em></p>
+<p>For each file, we need to specify the name of the column giving the row names (argument <code>col_ids</code>), and whether the features are stored as rows or as columns (argument <code>features_as_rowss</code>). <em>Note that these arguments are the same as in the primary function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv.html">import_dataset_csv()</a></code>, except that they have an additional ‘s’ at the end of their name. This will be the case for most of the target factory functions from the package.</em></p>
 <p>In addition, we have to provide a unique suffix which will be appended to the name of the targets created (i.e.&nbsp;the <code>XX</code> mentioned above) through the <code>target_name_suffixes</code> argument. This allows us to track which target corresponds to which dataset.</p>
 <p>So the following code (note that it is not within a <code><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target()</a></code> call):</p>
 <div class="targets-chunk">
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
 <span>  files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/genomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/transcriptomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
@@ -476,7 +477,7 @@ div.csl-indent {
 <span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">data_metabo</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  55 139</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>With this factory function, it is not possible to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>. If you want to control how the files are read, please use the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function directly instead, as shown in <a href="#sec-import-dataset-manual"><span>Section&nbsp;3.2.1</span></a>.</p>
+<p>With this factory function, it is not possible to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>. If you want to control how the files are read, please use the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv.html">import_dataset_csv()</a></code> function directly instead, as shown in <a href="#sec-import-dataset-manual"><span>Section&nbsp;3.2.1</span></a>.</p>
 <details><summary>
 Converting targets factory to R script
 </summary><p>There is no simple way to convert this target factory to regular R script using loops, so we can instead write the code separately for each omics dataset.</p>
@@ -485,7 +486,7 @@ Converting targets factory to R script
 <span>  <span class="st">"extdata/genomics_dataset.csv"</span>,</span>
 <span>  package <span class="op">=</span> <span class="st">"moiraine"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">data_geno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv</a></span><span class="op">(</span></span>
+<span><span class="va">data_geno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv.html">import_dataset_csv</a></span><span class="op">(</span></span>
 <span>  <span class="va">dataset_file_geno</span>,</span>
 <span>  col_id <span class="op">=</span> <span class="st">"marker"</span>,</span>
 <span>  features_as_rows <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -495,7 +496,7 @@ Converting targets factory to R script
 <span>  <span class="st">"extdata/transcriptomics_dataset.csv"</span>, </span>
 <span>  package <span class="op">=</span> <span class="st">"moiraine"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">data_transcripto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv</a></span><span class="op">(</span></span>
+<span><span class="va">data_transcripto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv.html">import_dataset_csv</a></span><span class="op">(</span></span>
 <span>  <span class="va">dataset_file_transcripto</span>,</span>
 <span>  col_id <span class="op">=</span> <span class="st">"gene_id"</span>,</span>
 <span>  features_as_rows <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -505,7 +506,7 @@ Converting targets factory to R script
 <span>  <span class="st">"extdata/metabolomics_dataset.csv"</span>, </span>
 <span>  package <span class="op">=</span> <span class="st">"moiraine"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">data_metabo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv</a></span><span class="op">(</span></span>
+<span><span class="va">data_metabo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv.html">import_dataset_csv</a></span><span class="op">(</span></span>
 <span>  <span class="va">dataset_file_metabo</span>,</span>
 <span>  col_id <span class="op">=</span> <span class="st">"sample_id"</span>,</span>
 <span>  features_as_rows <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -516,7 +517,7 @@ Converting targets factory to R script
 <p>Similarly to how we imported the datasets, there are two ways of importing features metadata: either manually, or using a target factory function. The two options are illustrated below.</p>
 <section id="sec-import-fmeta-manual" class="level3" data-number="3.3.1"><h3 data-number="3.3.1" class="anchored" data-anchor-id="sec-import-fmeta-manual">
 <span class="header-section-number">3.3.1</span> Manually</h3>
-<p>As shown in the previous section, we can start by creating a target that tracks the raw features metadata file, then read the file into R using the <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> function. It has the similar arguments as the <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv.html">import_dataset_csv()</a></code> function, but returns a data-frame (rather than a matrix); and does not have the options to read a csv where the features are columns (they must be in rows):</p>
+<p>As shown in the previous section, we can start by creating a target that tracks the raw features metadata file, then read the file into R using the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> function. It has the similar arguments as the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv.html">import_dataset_csv()</a></code> function, but returns a data-frame (rather than a matrix); and does not have the options to read a csv where the features are columns (they must be in rows):</p>
 <div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -528,7 +529,7 @@ Converting targets factory to R script
 <span>  </span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">fmetadata_geno</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
 <span>      <span class="va">fmetadata_file_geno</span>,</span>
 <span>      col_id <span class="op">=</span> <span class="st">"marker"</span>,</span>
 <span>      col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span> <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span>
@@ -537,7 +538,7 @@ Converting targets factory to R script
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>Notice that in the <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> call, we’ve added an argument (<code>col_types</code>) which will be passed on to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>. This is to ensure that the <code>chromosome</code> column will be read as character (even though the chromosomes are denoted with integers).</p>
+<p>Notice that in the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> call, we’ve added an argument (<code>col_types</code>) which will be passed on to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>. This is to ensure that the <code>chromosome</code> column will be read as character (even though the chromosomes are denoted with integers).</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">fmetadata_geno</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                                feature_id chromosome  position</span></span>
@@ -572,10 +573,10 @@ Converting targets factory to R script
 <p>You can see that in the data-frame of features metadata, the feature IDs are present both as row names and in the <code>feature_id</code> column. This makes it easier to subset the datasets later on.</p>
 </section><section id="using-a-target-factory-function-1" class="level3" data-number="3.3.2"><h3 data-number="3.3.2" class="anchored" data-anchor-id="using-a-target-factory-function-1">
 <span class="header-section-number">3.3.2</span> Using a target factory function</h3>
-<p>Alternatively, we can use a target factory function that automates the process when we have to read in several features metadata files. In our case, we have to do it for the genomics and metabolomics datasets only, as the transcriptomics dataset has a different features metadata format. However because we need to specify the column types for the genomics dataset, we will use the targets factory function to read in the metabolomics features metadata only. The arguments are almost the same as for <code><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv_factory.html">import_dataset_csv_factory()</a></code> (except for <code>features_as_rowss</code>):</p>
+<p>Alternatively, we can use a target factory function that automates the process when we have to read in several features metadata files. In our case, we have to do it for the genomics and metabolomics datasets only, as the transcriptomics dataset has a different features metadata format. However because we need to specify the column types for the genomics dataset, we will use the targets factory function to read in the metabolomics features metadata only. The arguments are almost the same as for <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv_factory.html">import_dataset_csv_factory()</a></code> (except for <code>features_as_rowss</code>):</p>
 <div class="targets-chunk">
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
 <span>  files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/metabolomics_features_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
@@ -627,7 +628,7 @@ Converting targets factory to R script
 <span><span class="co">#&gt; HMDB00043  -7.9073179 7.827088e-13 3.913544e-12        DE downregulated</span></span>
 <span><span class="co">#&gt; HMDB00060  -0.4369834 6.628164e-01 7.439776e-01    Not DE        Not DE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Again, the targets factory function does not allow to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> (if you need them, please use <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> directly as we have done in <a href="#sec-import-fmeta-manual"><span>Section&nbsp;3.3.1</span></a>).</p>
+<p>Again, the targets factory function does not allow to pass arguments to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> (if you need them, please use <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv.html">import_fmetadata_csv()</a></code> directly as we have done in <a href="#sec-import-fmeta-manual"><span>Section&nbsp;3.3.1</span></a>).</p>
 <details><summary>
 Converting targets factory to R script
 </summary><div class="cell">
@@ -635,14 +636,14 @@ Converting targets factory to R script
 <span>  <span class="st">"extdata/metabolomics_features_info.csv"</span>, </span>
 <span>  package <span class="op">=</span> <span class="st">"moiraine"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">fmetadata_metabo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
+<span><span class="va">fmetadata_metabo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
 <span>  <span class="va">fmetadata_file_metabo</span>,</span>
 <span>  col_id <span class="op">=</span> <span class="st">"feature_id"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </details></section><section id="sec-import-fmeta-gff" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="sec-import-fmeta-gff">
 <span class="header-section-number">3.3.3</span> Importing features metadata from a GTF/GFF file</h3>
-<p>The <code>moiraine</code> package can also extract features metadata from a genome annotation file (<code>.gtf</code> or <code>.gff</code>). We’ll demonstrate that for the transcriptomics dataset, for which information about the position and name of the transcripts can be found in the genome annotation used to map the reads. The function is called <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff.html">import_fmetadata_gff()</a></code> (it is also the function you would use to read in information from a <code>.gtf</code> file). The type of information to extract from the annotation file is specified through the <code>feature_type</code> argument, which can be either <code>'genes'</code> or <code>'transcripts'</code>. In addition, if the function does not extract certain fields from the annotation file, these can be explicitly called using the <code>add_fields</code> parameter.</p>
+<p>The <code>moiraine</code> package can also extract features metadata from a genome annotation file (<code>.gtf</code> or <code>.gff</code>). We’ll demonstrate that for the transcriptomics dataset, for which information about the position and name of the transcripts can be found in the genome annotation used to map the reads. The function is called <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_gff.html">import_fmetadata_gff()</a></code> (it is also the function you would use to read in information from a <code>.gtf</code> file). The type of information to extract from the annotation file is specified through the <code>feature_type</code> argument, which can be either <code>'genes'</code> or <code>'transcripts'</code>. In addition, if the function does not extract certain fields from the annotation file, these can be explicitly called using the <code>add_fields</code> parameter.</p>
 <p>In this example, we want to extract information about the genes from the gtf file. We also want to make sure that the <code>Name</code> and <code>description</code>field are imported, as they give the name and description of the genes. To read in this information “manually”, we create the following targets:</p>
 <div class="targets-chunk">
 <div class="cell">
@@ -655,7 +656,7 @@ Converting targets factory to R script
 <span>  </span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">fmetadata_transcripto</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff.html">import_fmetadata_gff</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_gff.html">import_fmetadata_gff</a></span><span class="op">(</span></span>
 <span>      <span class="va">fmetadata_file_transcripto</span>,</span>
 <span>      feature_type <span class="op">=</span> <span class="st">"genes"</span>,</span>
 <span>      add_fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"description"</span><span class="op">)</span></span>
@@ -664,10 +665,10 @@ Converting targets factory to R script
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>As for the other import functions, there exists a more succinct target factory version, called <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory()</a></code>:</p>
+<p>As for the other import functions, there exists a more succinct target factory version, called <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory()</a></code>:</p>
 <div class="targets-chunk">
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
 <span>  files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/bos_taurus_gene_model.gff3"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>  feature_types <span class="op">=</span> <span class="st">"genes"</span>,</span>
 <span>  add_fieldss <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"description"</span><span class="op">)</span>,</span>
@@ -708,7 +709,7 @@ Converting targets factory to R script
 <span>  <span class="st">"extdata/bos_taurus_gene_model.gff3"</span>, </span>
 <span>  package <span class="op">=</span> <span class="st">"moiraine"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">fmetadata_transcripto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff.html">import_fmetadata_gff</a></span><span class="op">(</span></span>
+<span><span class="va">fmetadata_transcripto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_gff.html">import_fmetadata_gff</a></span><span class="op">(</span></span>
 <span>  <span class="va">fmetadata_file_transcripto</span>,</span>
 <span>  feature_type <span class="op">=</span> <span class="st">"genes"</span>,</span>
 <span>  add_fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"description"</span><span class="op">)</span></span>
@@ -716,7 +717,7 @@ Converting targets factory to R script
 </div>
 </details></section></section><section id="importing-the-samples-metadata" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="importing-the-samples-metadata">
 <span class="header-section-number">3.4</span> Importing the samples metadata</h2>
-<p>As for importing datasets or features metadata, the <code><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv.html">import_smetadata_csv()</a></code> function reads in a csv file that contains information about the samples measured. Similarly to <code><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv()</a></code>, this function assumes that the csv file contains samples as rows. In this example, we have one samples information file for all of our omics datasets, but it is possible to have one separate samples metadata csv file for each omics dataset (if there are some omics-specific information such as batch, technology specifications, etc).</p>
+<p>As for importing datasets or features metadata, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_smetadata_csv.html">import_smetadata_csv()</a></code> function reads in a csv file that contains information about the samples measured. Similarly to <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv.html">import_fmetadata_csv()</a></code>, this function assumes that the csv file contains samples as rows. In this example, we have one samples information file for all of our omics datasets, but it is possible to have one separate samples metadata csv file for each omics dataset (if there are some omics-specific information such as batch, technology specifications, etc).</p>
 <p>We can do this by manually creating the following targets:</p>
 <div class="targets-chunk">
 <div class="cell">
@@ -729,7 +730,7 @@ Converting targets factory to R script
 <span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">smetadata_all</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv.html">import_smetadata_csv</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_smetadata_csv.html">import_smetadata_csv</a></span><span class="op">(</span></span>
 <span>      <span class="va">smetadata_file_all</span>,</span>
 <span>      col_id <span class="op">=</span> <span class="st">"animal_id"</span></span>
 <span>    <span class="op">)</span></span>
@@ -740,7 +741,7 @@ Converting targets factory to R script
 <p>which is equivalent to the (more succinct) command:</p>
 <div class="targets-chunk">
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
 <span>  files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/samples_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>  col_ids <span class="op">=</span> <span class="st">"animal_id"</span>,</span>
 <span>  target_name_suffixes <span class="op">=</span> <span class="st">"all"</span></span>
@@ -766,12 +767,12 @@ Converting targets factory to R script
 <span><span class="co">#&gt; R5452    0.733992    0.000010                K3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that in the samples metadata data-frame, the sample IDs are present both as row names and in the <code>id</code> column. This makes it easier to subset the datasets later on.</p>
-<p>As for the other import functions, <code><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv.html">import_smetadata_csv()</a></code> accepts arguments that will be passed to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> in order to specify how the file should be read. The targets factory version does not have this option.</p>
+<p>As for the other import functions, <code><a href="https://plant-food-research-open.github.io/moiraine/reference/import_smetadata_csv.html">import_smetadata_csv()</a></code> accepts arguments that will be passed to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> in order to specify how the file should be read. The targets factory version does not have this option.</p>
 <details><summary>
 Converting targets factory to R script
 </summary><div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">smetadata_file_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/samples_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span></span>
-<span><span class="va">smetadata_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv.html">import_smetadata_csv</a></span><span class="op">(</span></span>
+<span><span class="va">smetadata_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_smetadata_csv.html">import_smetadata_csv</a></span><span class="op">(</span></span>
 <span>  <span class="va">smetadata_file_all</span>,</span>
 <span>  col_id <span class="op">=</span> <span class="st">"animal_id"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -788,12 +789,12 @@ Converting targets factory to R script
 <p>In practice, the nuances between these different containers are not very important, and the type of container used to store a particular dataset will have no impact on the downstream analysis apart from the name that will be given to the omics dataset. So in order to create a container for a transcriptomics dataset in the absence of features metadata, we have to create a dummy data-frame with the columns <code>chromosome</code>, <code>start</code> and <code>end</code> containing the values <code>ch1</code>, <code>1</code>, and <code>10</code> (for example) and use that as features metadata. Alternately, or for other omics data (e.g.&nbsp;proteomics), it is possible to use a <code>PhenotypeSet</code> object instead.</p>
 <section id="creating-a-single-omics-set" class="level3" data-number="3.5.1"><h3 data-number="3.5.1" class="anchored" data-anchor-id="creating-a-single-omics-set">
 <span class="header-section-number">3.5.1</span> Creating a single omics set</h3>
-<p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set()</a></code> provides a convenient wrapper to create such container objects from the imported datasets and metadata. It has two mandatory arguments: the dataset, which should be in the form of a matrix where the rows correspond to features and the columns to samples; and the type of omics data that the dataset represents (<code>'genomics'</code>, <code>'transcriptomics'</code>, <code>'metabolomics'</code> or <code>'phenomics'</code>). The latter determines which type of container will be generated. Optionally, a features metadata and/or a samples metadata data-frame can be passed on via the <code>features_metadata</code> and <code>samples_metadata</code> arguments, respectively. For example, let’s create a set for the genomics data:</p>
+<p>The function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set.html">create_omics_set()</a></code> provides a convenient wrapper to create such container objects from the imported datasets and metadata. It has two mandatory arguments: the dataset, which should be in the form of a matrix where the rows correspond to features and the columns to samples; and the type of omics data that the dataset represents (<code>'genomics'</code>, <code>'transcriptomics'</code>, <code>'metabolomics'</code> or <code>'phenomics'</code>). The latter determines which type of container will be generated. Optionally, a features metadata and/or a samples metadata data-frame can be passed on via the <code>features_metadata</code> and <code>samples_metadata</code> arguments, respectively. For example, let’s create a set for the genomics data:</p>
 <div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">set_geno</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set.html">create_omics_set</a></span><span class="op">(</span></span>
 <span>    <span class="va">data_geno</span>,</span>
 <span>    omics_type <span class="op">=</span> <span class="st">"genomics"</span>,</span>
 <span>    features_metadata <span class="op">=</span> <span class="va">fmetadata_geno</span>,</span>
@@ -900,10 +901,10 @@ Converting targets factory to R script
 <p>Note that these methods can also be applied to the other types of containers.</p>
 </section><section id="using-a-target-factory-for-creating-omics-sets" class="level3" data-number="3.5.2"><h3 data-number="3.5.2" class="anchored" data-anchor-id="using-a-target-factory-for-creating-omics-sets">
 <span class="header-section-number">3.5.2</span> Using a target factory for creating omics sets</h3>
-<p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory()</a></code> allows us to create several omics sets at once. It returns a list of targets, each storing one of the created omics set container. It takes as input arguments vectors that give for each omics set the arguments required by <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set()</a></code>.</p>
+<p>The function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set_factory.html">create_omics_set_factory()</a></code> allows us to create several omics sets at once. It returns a list of targets, each storing one of the created omics set container. It takes as input arguments vectors that give for each omics set the arguments required by <code><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set.html">create_omics_set()</a></code>.</p>
 <div class="targets-chunk">
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
 <span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">data_geno</span>, <span class="va">data_transcripto</span>, <span class="va">data_metabo</span><span class="op">)</span>,</span>
 <span>  omics_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"genomics"</span>, <span class="st">"transcriptomics"</span>, <span class="st">"metabolomics"</span><span class="op">)</span>,</span>
 <span>  features_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">fmetadata_geno</span>, <span class="va">fmetadata_transcripto</span>, <span class="va">fmetadata_metabo</span><span class="op">)</span>,</span>
@@ -915,7 +916,7 @@ Converting targets factory to R script
 <p>If one of the datasets has no associated features or samples metadata, use <code>NULL</code> in the corresponding input arguments, e.g.:</p>
 <div class="targets-chunk">
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
 <span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">data_geno</span>, <span class="va">data_transcripto</span>, <span class="va">data_metabo</span><span class="op">)</span>,</span>
 <span>  omics_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"genomics"</span>, <span class="st">"transcriptomics"</span>, <span class="st">"metabolomics"</span><span class="op">)</span>,</span>
 <span>  features_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">fmetadata_transcripto</span>, <span class="va">fmetadata_metabo</span><span class="op">)</span>,</span>
@@ -923,7 +924,7 @@ Converting targets factory to R script
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory()</a></code> function has a <code>target_name_suffixes</code> argument to customise the name of the created targets. However, if this argument is not provided, the function will attempt to read the suffixes to use from the name of the dataset targets. So in this case, it knows that the suffixes to use are <code>'geno'</code>, <code>'transcripto'</code> and <code>'metabo'</code>. Consequently, the function creates the following targets: <code>set_geno</code>, <code>set_transcripto</code>, <code>set_metabo</code>.</p>
+<p>The <code><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set_factory.html">create_omics_set_factory()</a></code> function has a <code>target_name_suffixes</code> argument to customise the name of the created targets. However, if this argument is not provided, the function will attempt to read the suffixes to use from the name of the dataset targets. So in this case, it knows that the suffixes to use are <code>'geno'</code>, <code>'transcripto'</code> and <code>'metabo'</code>. Consequently, the function creates the following targets: <code>set_geno</code>, <code>set_transcripto</code>, <code>set_metabo</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">set_geno</span><span class="op">)</span></span>
 <span><span class="co">#&gt; SnpSet (storageMode: lockedEnvironment)</span></span>
@@ -981,21 +982,21 @@ Converting targets factory to R script
 Converting targets factory to R script
 </summary><p>Again there not an easy way to use loops to convert this targets factory, so instead we’ll write the code for each omics dataset.</p>
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">set_geno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">set_geno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set.html">create_omics_set</a></span><span class="op">(</span></span>
 <span>  <span class="va">data_geno</span>,</span>
 <span>  omics_type <span class="op">=</span> <span class="st">"genomics"</span>,</span>
 <span>  features_metadata <span class="op">=</span> <span class="va">fmetadata_geno</span>,</span>
 <span>  samples_metadata <span class="op">=</span> <span class="va">smetadata_all</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">set_transcripto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set</a></span><span class="op">(</span></span>
+<span><span class="va">set_transcripto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set.html">create_omics_set</a></span><span class="op">(</span></span>
 <span>  <span class="va">data_transcripto</span>,</span>
 <span>  omics_type <span class="op">=</span> <span class="st">"transcriptomics"</span>,</span>
 <span>  features_metadata <span class="op">=</span> <span class="va">fmetadata_transcripto</span>,</span>
 <span>  samples_metadata <span class="op">=</span> <span class="va">smetadata_all</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">set_metabo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set</a></span><span class="op">(</span></span>
+<span><span class="va">set_metabo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set.html">create_omics_set</a></span><span class="op">(</span></span>
 <span>  <span class="va">data_metabo</span>,</span>
 <span>  omics_type <span class="op">=</span> <span class="st">"metabolomics"</span>,</span>
 <span>  features_metadata <span class="op">=</span> <span class="va">fmetadata_metabo</span>,</span>
@@ -1005,12 +1006,12 @@ Converting targets factory to R script
 </details></section></section><section id="creating-the-multi-omics-set" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="creating-the-multi-omics-set">
 <span class="header-section-number">3.6</span> Creating the multi-omics set</h2>
 <p>Finally, we can combine the different omics sets into one multi-omics set object. <code>moiraine</code> makes use of the <a href="https://bioconductor.org/packages/release/bioc/html/MultiDataSet.html"><code>MultiDataSet</code> package</a> for that. <code>MultiDataSet</code> <span class="citation" data-cites="hernandez-ferrer2017">(<a href="references.html#ref-hernandez-ferrer2017" role="doc-biblioref">Hernandez-Ferrer et al. 2017</a>)</span> implements a multi-omics data container that collects, in one R object, several omics datasets alongside their associated features and samples metadata. One of the main advantages of using a <code>MultiDataSet</code> container is that we can pass all of the information associated with a set of related omics datasets with only one R object. In addition, the <code>MultiDataSet</code> package implements a number of very useful functions. For example, it is possible to assess the samples that are common to several omics sets. This is particularly useful for data integration, as the <code>moiraine</code> package can automatically discard samples missing from one or more datasets prior to the integration step if needed. Note that sample matching between the different omics datasets is based on sample IDs, so they must be consistent between the different datasets.</p>
-<p>We will create the multi-omics set with the <code><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set()</a></code> function. It requires a list of the omics sets (that we created via either <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set.html">create_omics_set()</a></code> or <code><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory()</a></code>) to include, and returns a <code>MultiDataSet::MultiDataSet-class</code> object.</p>
+<p>We will create the multi-omics set with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/create_multiomics_set.html">create_multiomics_set()</a></code> function. It requires a list of the omics sets (that we created via either <code><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set.html">create_omics_set()</a></code> or <code><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set_factory.html">create_omics_set_factory()</a></code>) to include, and returns a <code>MultiDataSet::MultiDataSet-class</code> object.</p>
 <div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">set_geno</span>,</span>
 <span>         <span class="va">set_transcripto</span>,</span>
 <span>         <span class="va">set_metabo</span><span class="op">)</span></span>
@@ -1043,7 +1044,7 @@ Converting targets factory to R script
 <div class="cell">
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_with_names</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">set_geno</span>,</span>
 <span>         <span class="va">set_transcripto</span>,</span>
 <span>         <span class="va">set_metabo</span><span class="op">)</span>,</span>
@@ -1073,7 +1074,7 @@ Converting targets factory to R script
 <span><span class="co">#&gt;     . rnaseq+RNAseq: 143 samples, 10 cols (id, ..., geno_comp_3)</span></span>
 <span><span class="co">#&gt;     . metabolome+LCMS: 139 samples, 10 cols (id, ..., geno_comp_3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Importantly, the <code><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set()</a></code> function makes sure that samples metadata is consistent across the datasets for common samples. That is, if the same column (i.e.&nbsp;with the same name) is present in the samples metadata of several omics datasets, the values in this column must match for each sample present in all datasets. Otherwise, the function returns an error.</p>
+<p>Importantly, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/create_multiomics_set.html">create_multiomics_set()</a></code> function makes sure that samples metadata is consistent across the datasets for common samples. That is, if the same column (i.e.&nbsp;with the same name) is present in the samples metadata of several omics datasets, the values in this column must match for each sample present in all datasets. Otherwise, the function returns an error.</p>
 <p>In the following chapter on <a href="inspecting_multidataset.html">Inspecting the MultiDataSet object</a>, we will see how to handle the <code>MultiDataSet</code> object we just created. Alternatively, the <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/MultiDataSet/inst/doc/MultiDataSet.html">MultiDataSet package vignette</a> provides examples of constructing, querying and subsetting <code>MultiDataSet</code> objects.</p>
 </section><section id="recap-targets-list" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="recap-targets-list">
 <span class="header-section-number">3.7</span> Recap – targets list</h2>
@@ -1084,7 +1085,7 @@ Targets list for data import
 <div class="cell">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## Data import using a target factory</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/genomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/transcriptomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
@@ -1105,7 +1106,7 @@ Targets list for data import
 <span>  <span class="co">## Genomics features metadata import</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">fmetadata_geno</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
 <span>      <span class="va">fmetadata_file_geno</span>,</span>
 <span>      col_id <span class="op">=</span> <span class="st">"marker"</span>,</span>
 <span>      col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span> <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span>
@@ -1113,7 +1114,7 @@ Targets list for data import
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Metabolomics features metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/metabolomics_features_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
@@ -1122,7 +1123,7 @@ Targets list for data import
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Transcriptomics features metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/bos_taurus_gene_model.gff3"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>    feature_types <span class="op">=</span> <span class="st">"genes"</span>,</span>
 <span>    add_fieldss <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"description"</span><span class="op">)</span>,</span>
@@ -1130,14 +1131,14 @@ Targets list for data import
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Samples metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/samples_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>    col_ids <span class="op">=</span> <span class="st">"animal_id"</span>,</span>
 <span>    target_name_suffixes <span class="op">=</span> <span class="st">"all"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Creating omics sets for each dataset</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
 <span>    datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">data_geno</span>, <span class="va">data_transcripto</span>, <span class="va">data_metabo</span><span class="op">)</span>,</span>
 <span>    omics_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"genomics"</span>, <span class="st">"transcriptomics"</span>, <span class="st">"metabolomics"</span><span class="op">)</span>,</span>
 <span>    features_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">fmetadata_geno</span>, <span class="va">fmetadata_transcripto</span>, <span class="va">fmetadata_metabo</span><span class="op">)</span>,</span>
@@ -1147,7 +1148,7 @@ Targets list for data import
 <span>  <span class="co">## Creating the MultiDataSet object</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">set_geno</span>,</span>
 <span>           <span class="va">set_transcripto</span>,</span>
 <span>           <span class="va">set_metabo</span><span class="op">)</span></span>
@@ -1158,8 +1159,8 @@ Targets list for data import
 </div>
 </details>
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-hernandez-ferrer2017" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-hernandez-ferrer2017" class="csl-entry" role="listitem">
 Hernandez-Ferrer, Carles, Carlos Ruiz-Arenas, Alba Beltran-Gomila, and Juan R. González. 2017. <span>“MultiDataSet: An r Package for Encapsulating Multiple Data Sets with Application to Omic Data Integration.”</span> <em>BMC Bioinformatics</em> 18 (1): 36. <a href="https://doi.org/10.1186/s12859-016-1455-1">https://doi.org/10.1186/s12859-016-1455-1</a>.
 </div>
 </div>
@@ -1190,9 +1191,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1257,6 +1272,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

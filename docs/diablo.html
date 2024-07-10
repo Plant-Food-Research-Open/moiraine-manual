@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>The moiraine R package user manual - 11&nbsp; Integration with DIABLO</title>
 <style>
@@ -14,9 +14,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -43,43 +44,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -115,202 +86,232 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
-}</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./diablo.html">Supervised integration</a></li><li class="breadcrumb-item"><a href="./diablo.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The <code>moiraine</code> R package user manual</a> 
         <div class="sidebar-tools-main">
-    <a href="" title="" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-github"></i></a>
-    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine-manual">
-          Manual source code
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine">
-          Package source code
-          </a>
-        </li>
-    </ul>
-<a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine-manual">
+            Manual source code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine">
+            Package source code
+            </a>
+          </li>
+      </ul>
+</div>
+    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" rel="" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./overview.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview of <code>moiraine</code></span></a>
+  <a href="./overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview of <code>moiraine</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data preparation</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Data preparation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Unsupervised integration</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Unsupervised integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Supervised integration</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Supervised integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Results interpretation</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Results interpretation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
     </ul>
 </div>
-</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#what-is-diablo" id="toc-what-is-diablo" class="nav-link active" data-scroll-target="#what-is-diablo"><span class="toc-section-number">11.1</span>  What is DIABLO?</a></li>
-  <li><a href="#creating-the-diablo-input" id="toc-creating-the-diablo-input" class="nav-link" data-scroll-target="#creating-the-diablo-input"><span class="toc-section-number">11.2</span>  Creating the DIABLO input</a></li>
+<li><a href="#what-is-diablo" id="toc-what-is-diablo" class="nav-link active" data-scroll-target="#what-is-diablo"><span class="header-section-number">11.1</span> What is DIABLO?</a></li>
+  <li><a href="#creating-the-diablo-input" id="toc-creating-the-diablo-input" class="nav-link" data-scroll-target="#creating-the-diablo-input"><span class="header-section-number">11.2</span> Creating the DIABLO input</a></li>
   <li>
-<a href="#constructing-the-design-matrix" id="toc-constructing-the-design-matrix" class="nav-link" data-scroll-target="#constructing-the-design-matrix"><span class="toc-section-number">11.3</span>  Constructing the design matrix</a>
+<a href="#constructing-the-design-matrix" id="toc-constructing-the-design-matrix" class="nav-link" data-scroll-target="#constructing-the-design-matrix"><span class="header-section-number">11.3</span> Constructing the design matrix</a>
   <ul class="collapse">
-<li><a href="#predefined-design-matrices" id="toc-predefined-design-matrices" class="nav-link" data-scroll-target="#predefined-design-matrices"><span class="toc-section-number">11.3.1</span>  Predefined design matrices</a></li>
-  <li><a href="#estimating-the-design-matrix-through-pairwise-pls" id="toc-estimating-the-design-matrix-through-pairwise-pls" class="nav-link" data-scroll-target="#estimating-the-design-matrix-through-pairwise-pls"><span class="toc-section-number">11.3.2</span>  Estimating the design matrix through pairwise PLS</a></li>
+<li><a href="#predefined-design-matrices" id="toc-predefined-design-matrices" class="nav-link" data-scroll-target="#predefined-design-matrices"><span class="header-section-number">11.3.1</span> Predefined design matrices</a></li>
+  <li><a href="#estimating-the-design-matrix-through-pairwise-pls" id="toc-estimating-the-design-matrix-through-pairwise-pls" class="nav-link" data-scroll-target="#estimating-the-design-matrix-through-pairwise-pls"><span class="header-section-number">11.3.2</span> Estimating the design matrix through pairwise PLS</a></li>
   </ul>
 </li>
-  <li><a href="#choosing-the-number-of-latent-components" id="toc-choosing-the-number-of-latent-components" class="nav-link" data-scroll-target="#choosing-the-number-of-latent-components"><span class="toc-section-number">11.4</span>  Choosing the number of latent components</a></li>
-  <li><a href="#choosing-the-number-of-features-to-retain" id="toc-choosing-the-number-of-features-to-retain" class="nav-link" data-scroll-target="#choosing-the-number-of-features-to-retain"><span class="toc-section-number">11.5</span>  Choosing the number of features to retain</a></li>
-  <li><a href="#final-diablo-run" id="toc-final-diablo-run" class="nav-link" data-scroll-target="#final-diablo-run"><span class="toc-section-number">11.6</span>  Final DIABLO run</a></li>
+  <li><a href="#choosing-the-number-of-latent-components" id="toc-choosing-the-number-of-latent-components" class="nav-link" data-scroll-target="#choosing-the-number-of-latent-components"><span class="header-section-number">11.4</span> Choosing the number of latent components</a></li>
+  <li><a href="#choosing-the-number-of-features-to-retain" id="toc-choosing-the-number-of-features-to-retain" class="nav-link" data-scroll-target="#choosing-the-number-of-features-to-retain"><span class="header-section-number">11.5</span> Choosing the number of features to retain</a></li>
+  <li><a href="#final-diablo-run" id="toc-final-diablo-run" class="nav-link" data-scroll-target="#final-diablo-run"><span class="header-section-number">11.6</span> Final DIABLO run</a></li>
   <li>
-<a href="#results-interpretation" id="toc-results-interpretation" class="nav-link" data-scroll-target="#results-interpretation"><span class="toc-section-number">11.7</span>  Results interpretation</a>
+<a href="#results-interpretation" id="toc-results-interpretation" class="nav-link" data-scroll-target="#results-interpretation"><span class="header-section-number">11.7</span> Results interpretation</a>
   <ul class="collapse">
-<li><a href="#correlation-between-datasets" id="toc-correlation-between-datasets" class="nav-link" data-scroll-target="#correlation-between-datasets"><span class="toc-section-number">11.7.1</span>  Correlation between datasets</a></li>
-  <li><a href="#samples-projection-to-the-latent-component-space" id="toc-samples-projection-to-the-latent-component-space" class="nav-link" data-scroll-target="#samples-projection-to-the-latent-component-space"><span class="toc-section-number">11.7.2</span>  Samples projection to the latent component space</a></li>
-  <li><a href="#correlation-circle-plots" id="toc-correlation-circle-plots" class="nav-link" data-scroll-target="#correlation-circle-plots"><span class="toc-section-number">11.7.3</span>  Correlation circle plots</a></li>
-  <li><a href="#circos-plot" id="toc-circos-plot" class="nav-link" data-scroll-target="#circos-plot"><span class="toc-section-number">11.7.4</span>  Circos plot</a></li>
+<li><a href="#correlation-between-datasets" id="toc-correlation-between-datasets" class="nav-link" data-scroll-target="#correlation-between-datasets"><span class="header-section-number">11.7.1</span> Correlation between datasets</a></li>
+  <li><a href="#samples-projection-to-the-latent-component-space" id="toc-samples-projection-to-the-latent-component-space" class="nav-link" data-scroll-target="#samples-projection-to-the-latent-component-space"><span class="header-section-number">11.7.2</span> Samples projection to the latent component space</a></li>
+  <li><a href="#correlation-circle-plots" id="toc-correlation-circle-plots" class="nav-link" data-scroll-target="#correlation-circle-plots"><span class="header-section-number">11.7.3</span> Correlation circle plots</a></li>
+  <li><a href="#circos-plot" id="toc-circos-plot" class="nav-link" data-scroll-target="#circos-plot"><span class="header-section-number">11.7.4</span> Circos plot</a></li>
   </ul>
 </li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">11.8</span>  Recap – targets list</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="header-section-number">11.8</span> Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-diablo" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span></h1>
+<h1 class="title"><span id="sec-diablo" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span></h1>
 </div>
 
 
@@ -325,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header><div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Plant-Food-Research-Open/moiraine">moiraine</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## For integration with DIABLO</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.mixOmics.org">mixOmics</a></span><span class="op">)</span></span>
@@ -342,7 +343,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </summary><div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/tarchetypes/">tarchetypes</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Plant-Food-Research-Open/moiraine">moiraine</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_option_set.html">tar_option_set</a></span><span class="op">(</span></span>
 <span>  packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -362,7 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co"># Importing data ---------------------------------------------------------------</span></span>
 <span></span>
 <span>  <span class="co">## Data import using a target factory</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/genomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/transcriptomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
@@ -383,7 +384,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Genomics features metadata import</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">fmetadata_geno</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
 <span>      <span class="va">fmetadata_file_geno</span>,</span>
 <span>      col_id <span class="op">=</span> <span class="st">"marker"</span>,</span>
 <span>      col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span> <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span>
@@ -391,7 +392,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Metabolomics features metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/metabolomics_features_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
@@ -400,7 +401,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Transcriptomics features metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/bos_taurus_gene_model.gff3"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>    feature_types <span class="op">=</span> <span class="st">"genes"</span>,</span>
 <span>    add_fieldss <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"description"</span><span class="op">)</span>,</span>
@@ -408,14 +409,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Samples metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/samples_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>    col_ids <span class="op">=</span> <span class="st">"animal_id"</span>,</span>
 <span>    target_name_suffixes <span class="op">=</span> <span class="st">"all"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Creating omics sets for each dataset</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
 <span>    datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">data_geno</span>, <span class="va">data_transcripto</span>, <span class="va">data_metabo</span><span class="op">)</span>,</span>
 <span>    omics_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"genomics"</span>, <span class="st">"transcriptomics"</span>, <span class="st">"metabolomics"</span><span class="op">)</span>,</span>
 <span>    features_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">fmetadata_geno</span>, <span class="va">fmetadata_transcripto</span>, <span class="va">fmetadata_metabo</span><span class="op">)</span>,</span>
@@ -425,7 +426,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating the MultiDataSet object</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">set_geno</span>,</span>
 <span>           <span class="va">set_transcripto</span>,</span>
 <span>           <span class="va">set_metabo</span><span class="op">)</span></span>
@@ -437,7 +438,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating a density plot for each dataset</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">density_plots</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_set</span>,</span>
 <span>      combined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>      scales <span class="op">=</span> <span class="st">"free"</span></span>
@@ -448,13 +449,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## for each dataset</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mean_sd_plots</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Assessing missing values</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">n_missing_values</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span><span class="co"># Modifying the `MultiDataSet` object ------------------------------------------</span></span>
@@ -480,13 +481,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Adding the differential expression results to the MultiDataSet object</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set_de</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/add_features_metadata.html">add_features_metadata</a></span><span class="op">(</span><span class="va">mo_set</span>, <span class="va">rnaseq_de_res_df</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/add_features_metadata.html">add_features_metadata</a></span><span class="op">(</span><span class="va">mo_set</span>, <span class="va">rnaseq_de_res_df</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span><span class="co"># Data pre-processing ----------------------------------------------------------</span></span>
 <span></span>
 <span>  <span class="co">## Applying transformations to the datasets</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/transformation_datasets_factory.html">transformation_datasets_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/transformation_datasets_factory.html">transformation_datasets_factory</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set_de</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span> <span class="op">=</span> <span class="st">"vst-deseq2"</span>,</span>
 <span>      <span class="st">"metabolome"</span> <span class="op">=</span> <span class="st">"logx"</span><span class="op">)</span>,</span>
@@ -498,7 +499,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Density plot for each transformed dataset</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">density_plots_transformed</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_set_transformed</span>,</span>
 <span>      combined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>      scales <span class="op">=</span> <span class="st">"free"</span></span>
@@ -508,17 +509,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plotting the mean-SD trend for transformed each dataset</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mean_sd_plots_transformed</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set_transformed</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set_transformed</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Summary table of the transformations applied</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">transformation_summary</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_table_transformations.html">get_table_transformations</a></span><span class="op">(</span><span class="va">transformations_runs_list</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_table_transformations.html">get_table_transformations</a></span><span class="op">(</span><span class="va">transformations_runs_list</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Running a PCA on each dataset</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/pca_complete_data_factory.html">pca_complete_data_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/pca_complete_data_factory.html">pca_complete_data_factory</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set_transformed</span>,</span>
 <span>    complete_data_name <span class="op">=</span> <span class="st">"mo_set_complete"</span></span>
 <span>  <span class="op">)</span>,</span>
@@ -526,13 +527,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## PCA screeplots</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">pca_screeplots</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_screeplot_pca.html">plot_screeplot_pca</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_screeplot_pca.html">plot_screeplot_pca</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## PCA sample plots</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">pca_sample_plots</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_coordinates_pca.html">plot_samples_coordinates_pca</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_coordinates_pca.html">plot_samples_coordinates_pca</a></span><span class="op">(</span></span>
 <span>      <span class="va">pca_runs_list</span>,</span>
 <span>      datasets <span class="op">=</span> <span class="st">"snps"</span>,</span>
 <span>      pcs <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span>
@@ -546,7 +547,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co"># Dataset pre-filtering --------------------------------------------------------</span></span>
 <span></span>
 <span>  <span class="co">## Unsupervised feature selection based on MAD score</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_mad_factory.html">feature_preselection_mad_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/feature_preselection_mad_factory.html">feature_preselection_mad_factory</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set_complete</span>,</span>
 <span>    to_keep_ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snps"</span> <span class="op">=</span> <span class="fl">1000</span>, <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
 <span>    with_ties <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -556,11 +557,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Diagnostic plot for MAD-based feature selection</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">preselection_mad_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_mad.html">plot_feature_preselection_mad</a></span><span class="op">(</span><span class="va">individual_mad_values</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_feature_preselection_mad.html">plot_feature_preselection_mad</a></span><span class="op">(</span><span class="va">individual_mad_values</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Supervised feature selection based on bruising groups</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set_complete</span>,</span>
 <span>    group <span class="op">=</span> <span class="st">"status"</span>,</span>
 <span>    to_keep_ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snps"</span> <span class="op">=</span> <span class="fl">1000</span>, <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
@@ -570,7 +571,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Diagnostic plot for sPLS-DA based feature selection</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">preselection_splsda_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_feature_preselection_splsda.html">plot_feature_preselection_splsda</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_feature_preselection_splsda.html">plot_feature_preselection_splsda</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span><span class="co"># Integration with sPLS --------------------------------------------------------</span></span>
@@ -578,7 +579,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating sPLS input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_input</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_spls.html">get_input_spls</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_spls.html">get_input_spls</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_presel_supervised</span>,</span>
 <span>      mode <span class="op">=</span> <span class="st">"canonical"</span>,</span>
 <span>      datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span></span>
@@ -588,7 +589,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Initial PLS run with no feature selection and large number of components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_novarsel</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_run.html">spls_run</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_run.html">spls_run</a></span><span class="op">(</span></span>
 <span>      <span class="va">spls_input</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="fl">4</span></span>
 <span>    <span class="op">)</span></span>
@@ -617,13 +618,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Selected value for ncomp</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_optim_ncomp</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_get_optim_ncomp.html">spls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">spls_perf_res</span>, min_ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_get_optim_ncomp.html">spls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">spls_perf_res</span>, min_ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Cross-validation for number of features to retain</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_tune_res</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_tune.html">spls_tune</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_tune.html">spls_tune</a></span><span class="op">(</span></span>
 <span>      <span class="va">spls_input</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="va">spls_optim_ncomp</span>,</span>
 <span>      keepX <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>,</span>
@@ -639,13 +640,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plotting cross-validation results (for number of features)</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_tune_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_plot_tune.html">spls_plot_tune</a></span><span class="op">(</span><span class="va">spls_tune_res</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_plot_tune.html">spls_plot_tune</a></span><span class="op">(</span><span class="va">spls_tune_res</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Final sPLS run</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">spls_final_run</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/spls_run.html">spls_run</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_run.html">spls_run</a></span><span class="op">(</span></span>
 <span>      <span class="va">spls_input</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="va">spls_optim_ncomp</span>,</span>
 <span>      keepX <span class="op">=</span> <span class="va">spls_tune_res</span><span class="op">$</span><span class="va">choice.keepX</span>,</span>
@@ -658,7 +659,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating sO2PLS input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">omicspls_input</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_omicspls.html">get_input_omicspls</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_omicspls.html">get_input_omicspls</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_presel_supervised</span>,</span>
 <span>      datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
@@ -667,7 +668,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Adjusted cross-validation for number of components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_adj</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_o2m_adjR2.html">so2pls_crossval_o2m_adjR2</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_crossval_o2m_adjR2.html">so2pls_crossval_o2m_adjR2</a></span><span class="op">(</span></span>
 <span>      <span class="va">omicspls_input</span>,</span>
 <span>      a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
 <span>      ax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
@@ -679,19 +680,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_adj_res</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_ncomp_adj.html">so2pls_get_optim_ncomp_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_get_optim_ncomp_adj.html">so2pls_get_optim_ncomp_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Plotting adjusted cross-validation results</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_adj_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv_adj.html">so2pls_plot_cv_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_cv_adj.html">so2pls_plot_cv_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Standard cross-validation for number of components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_o2m.html">so2pls_crossval_o2m</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_crossval_o2m.html">so2pls_crossval_o2m</a></span><span class="op">(</span></span>
 <span>      <span class="va">omicspls_input</span>,</span>
 <span>      <span class="va">so2pls_cv_adj</span>,</span>
 <span>      nr_folds <span class="op">=</span> <span class="fl">10</span>,</span>
@@ -701,19 +702,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_res</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_ncomp.html">so2pls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_get_optim_ncomp.html">so2pls_get_optim_ncomp</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Plotting standard cross-validation results</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv.html">so2pls_plot_cv</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_cv.html">so2pls_plot_cv</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Cross-validation for sparsity parameters</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_sparsity</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_crossval_sparsity.html">so2pls_crossval_sparsity</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_crossval_sparsity.html">so2pls_crossval_sparsity</a></span><span class="op">(</span></span>
 <span>      <span class="va">omicspls_input</span>,</span>
 <span>      n <span class="op">=</span> <span class="va">so2pls_cv_res</span><span class="op">[</span><span class="st">"n"</span><span class="op">]</span>,</span>
 <span>      nx <span class="op">=</span> <span class="va">so2pls_cv_res</span><span class="op">[</span><span class="st">"nx"</span><span class="op">]</span>,</span>
@@ -725,26 +726,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_sparsity_res</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_get_optim_keep.html">so2pls_get_optim_keep</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_get_optim_keep.html">so2pls_get_optim_keep</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Plotting the results of the cross-validation for the number of features</span></span>
 <span>  <span class="co">## to retain from each dataset for the different joint components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_sparsity_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_cv_sparsity.html">so2pls_plot_cv_sparsity</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_cv_sparsity.html">so2pls_plot_cv_sparsity</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Extracting sparsity results in table format</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_cv_sparsity_table</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_print_cv_sparsity.html">so2pls_print_cv_sparsity</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity_res</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_print_cv_sparsity.html">so2pls_print_cv_sparsity</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity_res</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Final sO2PLS run</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_final_run</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_o2m.html">so2pls_o2m</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_o2m.html">so2pls_o2m</a></span><span class="op">(</span></span>
 <span>      <span class="va">omicspls_input</span>,</span>
 <span>      <span class="va">so2pls_cv_res</span>,</span>
 <span>      <span class="va">so2pls_cv_sparsity_res</span></span>
@@ -754,19 +755,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Summary plot of percentage of variance explained</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_summary_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_summary.html">so2pls_plot_summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_summary.html">so2pls_plot_summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Screeplot</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_screeplot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_screeplot.html">so2pls_screeplot</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_screeplot.html">so2pls_screeplot</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Comparison of samples score for joint components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_joint_components_comparison_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_compare_samples_joint_components.html">so2pls_compare_samples_joint_components</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_compare_samples_joint_components.html">so2pls_compare_samples_joint_components</a></span><span class="op">(</span></span>
 <span>      <span class="va">so2pls_final_run</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_de</span>,</span>
 <span>      colour_by <span class="op">=</span> <span class="st">"status"</span>,</span>
@@ -777,13 +778,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Coefficient plot for joint components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_joint_components_coefficients_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_joint_components_coefficients.html">so2pls_plot_joint_components_coefficients</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_joint_components_coefficients.html">so2pls_plot_joint_components_coefficients</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Joint component samples score plot</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_joint_components_samples_score_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_joint_components.html">so2pls_plot_samples_joint_components</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_samples_joint_components.html">so2pls_plot_samples_joint_components</a></span><span class="op">(</span></span>
 <span>      <span class="va">so2pls_final_run</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_de</span>,</span>
 <span>      colour_upper <span class="op">=</span> <span class="st">"status"</span>,</span>
@@ -796,7 +797,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Specific components samples score plot</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">so2pls_specific_components_samples_score_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/so2pls_plot_samples_specific_components.html">so2pls_plot_samples_specific_components</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_samples_specific_components.html">so2pls_plot_samples_specific_components</a></span><span class="op">(</span></span>
 <span>      <span class="va">so2pls_final_run</span>,</span>
 <span>      mo_data <span class="op">=</span> <span class="va">mo_set_de</span>,</span>
 <span>      colour_upper <span class="op">=</span> <span class="st">"feedlot"</span>,</span>
@@ -812,7 +813,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating MOFA input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_input</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_mofa.html">get_input_mofa</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_mofa.html">get_input_mofa</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_presel_supervised</span>,</span>
 <span>      options_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>        data_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>scale_views <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -846,13 +847,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Formatting MOFA output</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_output</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_output.html">get_output</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Plots of variance explained</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_var_explained_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_trained</span>,</span>
 <span>      x <span class="op">=</span> <span class="st">"view"</span>,  <span class="co">## datasets on the x-axis</span></span>
 <span>      y <span class="op">=</span> <span class="st">"factor"</span> <span class="co">## factors on the y-axis</span></span>
@@ -860,7 +861,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_total_var_explained_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span></span>
 <span>      <span class="va">mofa_trained</span>,</span>
 <span>      x <span class="op">=</span> <span class="st">"view"</span>,</span>
 <span>      y <span class="op">=</span> <span class="st">"factor"</span>,</span>
@@ -871,7 +872,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Plot of factors correlation with covariates</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mofa_factors_covariates_cor_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/mofa_plot_cor_covariates.html">mofa_plot_cor_covariates</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/mofa_plot_cor_covariates.html">mofa_plot_cor_covariates</a></span><span class="op">(</span><span class="va">mofa_trained</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -882,7 +883,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>DIABLO requires as input the matrices of omics measurements, all with the same samples, as well as a factor variable indicating the outcome group for each sample. While the omics datasets are automatically centred and scaled by DIABLO, proper preprocessing and normalisation is assumed to be carried out by the user. Although the DIABLO algorithm can handle the presence of missing features, it will prohibit the use of cross-validation. It is thus recommended to perform data imputation prior to running a DIABLO analysis. Importantly, DIABLO tends to perform better when the number of features in the datasets is not too large. Therefore, it is highly recommended to perform some prefiltering prior to using DIABLO.</p>
 </section><section id="creating-the-diablo-input" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="creating-the-diablo-input">
 <span class="header-section-number">11.2</span> Creating the DIABLO input</h2>
-<p>The first step is to transform the <code>MultiDataSet</code> object into a suitable format for the <code>mixOmics</code> package. This is done with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_mixomics_supervised.html">get_input_mixomics_supervised()</a></code> function, which takes as input:</p>
+<p>The first step is to transform the <code>MultiDataSet</code> object into a suitable format for the <code>mixOmics</code> package. This is done with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_mixomics_supervised.html">get_input_mixomics_supervised()</a></code> function, which takes as input:</p>
 <ul>
 <li><p>a <code>MultiDataSet</code> object,</p></li>
 <li><p>the name of the column in the samples metadata table that corresponds to the categorical outcome of interest,</p></li>
@@ -893,14 +894,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_input</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_mixomics_supervised.html">get_input_mixomics_supervised</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_mixomics_supervised.html">get_input_mixomics_supervised</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_presel_supervised</span>,</span>
 <span>    group <span class="op">=</span> <span class="st">"status"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>Importantly, the <code><a href="https://rdrr.io/pkg/moiraine/man/get_input_mixomics_supervised.html">get_input_mixomics_supervised()</a></code> function only retains samples that are present in all omics datasets to be analysed. It also makes sure that the column provided as categorical outcome does not contain numerical values, as DIABLO can only handle categorical outcome. If the column contains integers, they will be considered as levels of a factor.</p>
+<p>Importantly, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_mixomics_supervised.html">get_input_mixomics_supervised()</a></code> function only retains samples that are present in all omics datasets to be analysed. It also makes sure that the column provided as categorical outcome does not contain numerical values, as DIABLO can only handle categorical outcome. If the column contains integers, they will be considered as levels of a factor.</p>
 <p>The result of the function is a named list with one element per dataset to integrate, plus a <code>Y</code> element that contains the categorical outcome. The omics datasets are stored as matrices with samples as rows and features as columns; the categorical outcome is a named factor vector.</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span></span>
@@ -938,7 +939,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>if we want to strike a balance between the two objectives (recommended option), we’ll constructed a “weighted full” design matrix that looks like this:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_predefined_design_matrix.html">diablo_predefined_design_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span>, <span class="st">"weighted_full"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_predefined_design_matrix.html">diablo_predefined_design_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span>, <span class="st">"weighted_full"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;            snps rnaseq metabolome Y</span></span>
 <span><span class="co">#&gt; snps        0.0    0.1        0.1 1</span></span>
 <span><span class="co">#&gt; rnaseq      0.1    0.0        0.1 1</span></span>
@@ -949,7 +950,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>if we want to maximise the discrimination between the outcome categories, we’ll construct a “null” design matrix that looks like this:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_predefined_design_matrix.html">diablo_predefined_design_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span>, <span class="st">"null"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_predefined_design_matrix.html">diablo_predefined_design_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span>, <span class="st">"null"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;            snps rnaseq metabolome Y</span></span>
 <span><span class="co">#&gt; snps          0      0          0 1</span></span>
 <span><span class="co">#&gt; rnaseq        0      0          0 1</span></span>
@@ -960,7 +961,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>if we want only to maximise the covariance between the datasets, we’ll construct a “full” design matrix that looks like this:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_predefined_design_matrix.html">diablo_predefined_design_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span>, <span class="st">"full"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_predefined_design_matrix.html">diablo_predefined_design_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span>, <span class="st">"full"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;            snps rnaseq metabolome Y</span></span>
 <span><span class="co">#&gt; snps          0      1          1 1</span></span>
 <span><span class="co">#&gt; rnaseq        1      0          1 1</span></span>
@@ -975,10 +976,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>correlation coefficient of 0.8 or above between two datasets: assign a value of 1 in the corresponding cell of the design matrix;</p></li>
 <li><p>correlation coefficient below 0.8: assign a value of 0.1 in the corresponding cell of the design matrix.</p></li>
 </ul>
-<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory()</a></code> function automates this process. It takes as input the DIABLO input object that we constructed previously:</p>
+<p>The <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory()</a></code> function automates this process. It takes as input the DIABLO input object that we constructed previously:</p>
 <div class="targets-chunk">
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>The function works as follows:</p>
@@ -997,7 +998,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; [1] "rnaseq"     "metabolome"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>It uses dynamic branching to perform a PLS run on each pair of datasets, via the <code><a href="https://rdrr.io/pkg/moiraine/man/run_pairwise_pls.html">run_pairwise_pls()</a></code> function. The results are stored as a list in the <code>diablo_pls_runs_list</code> target. Each element of the list has a <code>datasets_name</code> attribute to indicate which datasets were analysed:</li>
+<li>It uses dynamic branching to perform a PLS run on each pair of datasets, via the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/run_pairwise_pls.html">run_pairwise_pls()</a></code> function. The results are stored as a list in the <code>diablo_pls_runs_list</code> target. Each element of the list has a <code>datasets_name</code> attribute to indicate which datasets were analysed:</li>
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">diablo_pls_runs_list</span><span class="op">)</span>, <span class="va">attr</span>, <span class="st">"datasets_name"</span><span class="op">)</span></span>
@@ -1011,7 +1012,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; [1] "rnaseq"     "metabolome"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>It constructs the estimated correlation matrix between the datasets, based on the results of the PLS runs, via the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_pairwise_pls_corr.html">diablo_get_pairwise_pls_corr()</a></code> function. The resulting matrix is available through the <code>diablo_pls_correlation_matrix</code> target:</li>
+<li>It constructs the estimated correlation matrix between the datasets, based on the results of the PLS runs, via the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_get_pairwise_pls_corr.html">diablo_get_pairwise_pls_corr()</a></code> function. The resulting matrix is available through the <code>diablo_pls_correlation_matrix</code> target:</li>
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">diablo_pls_correlation_matrix</span><span class="op">)</span></span>
@@ -1021,7 +1022,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; metabolome 0.6263349 0.8607195  1.0000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>It constructs the design matrix according to the datasets correlation matrix, through the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_generate_design_matrix.html">diablo_generate_design_matrix()</a></code> function. This function has parameters to customise how the correlation matrix should be translated into a design matrix, notably by setting the threshold to use on the correlation coefficients (default is 0.8, as recommended). These arguments can be customised in the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory()</a></code> function. The resulting design function is stored in the target <code>diablo_design_matrix</code>:</li>
+<li>It constructs the design matrix according to the datasets correlation matrix, through the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_generate_design_matrix.html">diablo_generate_design_matrix()</a></code> function. This function has parameters to customise how the correlation matrix should be translated into a design matrix, notably by setting the threshold to use on the correlation coefficients (default is 0.8, as recommended). These arguments can be customised in the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory()</a></code> function. The resulting design function is stored in the target <code>diablo_design_matrix</code>:</li>
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">diablo_design_matrix</span><span class="op">)</span></span>
@@ -1041,21 +1042,21 @@ Converting targets factory to R script
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">diablo_pls_runs_list</span> <span class="op">&lt;-</span> <span class="va">diablo_pairs_datasets</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/map.html">map</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/run_pairwise_pls.html">run_pairwise_pls</a></span><span class="op">(</span><span class="va">diablo_input</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/mixOmics/man/map.html">map</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/run_pairwise_pls.html">run_pairwise_pls</a></span><span class="op">(</span><span class="va">diablo_input</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">diablo_pls_correlation_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_pairwise_pls_corr.html">diablo_get_pairwise_pls_corr</a></span><span class="op">(</span><span class="va">diablo_pls_runs_list</span><span class="op">)</span></span>
+<span><span class="va">diablo_pls_correlation_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_get_pairwise_pls_corr.html">diablo_get_pairwise_pls_corr</a></span><span class="op">(</span><span class="va">diablo_pls_runs_list</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">diablo_design_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_generate_design_matrix.html">diablo_generate_design_matrix</a></span><span class="op">(</span><span class="va">diablo_pls_correlation_matrix</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">diablo_design_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_generate_design_matrix.html">diablo_generate_design_matrix</a></span><span class="op">(</span><span class="va">diablo_pls_correlation_matrix</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </details></section></section><section id="choosing-the-number-of-latent-components" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="choosing-the-number-of-latent-components">
 <span class="header-section-number">11.4</span> Choosing the number of latent components</h2>
 <p>One important parameter that must be set when performing a DIABLO analysis is the number of latent components to construct for each dataset. The optimal number of components can be estimated by cross-validation, implemented in the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function. This function assesses the classification performance (i.e.&nbsp;how well the different outcome groups are separated) achieved by DIABLO for different numbers of latent components.</p>
-<p>Choosing the optimal number of latent components to construct is a multi-step process. The first step is to run DIABLO without feature selection, setting the number of latent components to the maximum value we wish to test. We recommend to set this to the number of groups in the categorical outcome + 2, which in our case equals 4; however this can be further refined after checking the results. For this example, we will set the maximum to 7. This is done through the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run()</a></code> function, which is a wrapper for the <code><a href="https://rdrr.io/pkg/mixOmics/man/block.splsda.html">mixOmics::block.splsda()</a></code> function. The function also requires as input the design matrix to be used; here we will use the one constructed from the PLS runs:</p>
+<p>Choosing the optimal number of latent components to construct is a multi-step process. The first step is to run DIABLO without feature selection, setting the number of latent components to the maximum value we wish to test. We recommend to set this to the number of groups in the categorical outcome + 2, which in our case equals 4; however this can be further refined after checking the results. For this example, we will set the maximum to 7. This is done through the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_run.html">diablo_run()</a></code> function, which is a wrapper for the <code><a href="https://rdrr.io/pkg/mixOmics/man/block.splsda.html">mixOmics::block.splsda()</a></code> function. The function also requires as input the design matrix to be used; here we will use the one constructed from the PLS runs:</p>
 <div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_novarsel</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_input</span>, </span>
 <span>    <span class="va">diablo_design_matrix</span>, </span>
 <span>    ncomp <span class="op">=</span> <span class="fl">7</span></span>
@@ -1068,7 +1069,7 @@ Converting targets factory to R script
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_novarsel</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_input</span>, </span>
 <span>    <span class="st">"weighted_full"</span>, </span>
 <span>    ncomp <span class="op">=</span> <span class="fl">7</span></span>
@@ -1098,10 +1099,10 @@ Converting targets factory to R script
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>We can visualise the results of the cross-validation with the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_perf.html">diablo_plot_perf()</a></code> function:</p>
+<p>We can visualise the results of the cross-validation with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_perf.html">diablo_plot_perf()</a></code> function:</p>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_perf.html">diablo_plot_perf</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_perf.html">diablo_plot_perf</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="diablo_files/figure-html/plot-diablo-perf-res-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -1111,9 +1112,9 @@ Converting targets factory to R script
 <li><p>Distance: this refers to the prediction distance that is used to predict the samples group in the test set, based on the samples grouping in the training set. DIABLO tests the maximum, centroids and Mahalanobis distance. The authors of the package recommend using either the centroids or the Mahalanobis distance over the maximum distance when choosing the optimal number of components.</p></li>
 <li><p>Error rate: this refers to the method by which the performance of the produced model is computed. DIABLO uses both the overall misclassification error rate and the balanced error rate. The authors recommend the latter, as it is is less biased towards the majority group when there is an unbalanced number of samples per group.</p></li>
 </ul>
-<p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp()</a></code> extracts from the cross-validation results the optimal number of components to compute, given a chosen distance and error rate. The authors of the package recommend to use the results obtained with the centroids distance and the balanced error rate; these are used by default by the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp()</a></code> function. In our example, the optimal number of components is:</p>
+<p>The function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp()</a></code> extracts from the cross-validation results the optimal number of components to compute, given a chosen distance and error rate. The authors of the package recommend to use the results obtained with the centroids distance and the balanced error rate; these are used by default by the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp()</a></code> function. In our example, the optimal number of components is:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For ease of reuse we will save this value as a target in our analysis pipeline:</p>
@@ -1121,20 +1122,20 @@ Converting targets factory to R script
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_optim_ncomp</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section><section id="choosing-the-number-of-features-to-retain" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="choosing-the-number-of-features-to-retain">
 <span class="header-section-number">11.5</span> Choosing the number of features to retain</h2>
 <p>The next parameter to set is the number of features to retain from the different datasets for each latent component. This is usually chosen by performing cross-validation on a grid of possible values. The range of values to test depends on the type of question we are trying to answer: selecting a larger number of features might lead to a better discrimination of the outcome groups, but will be hard to manually inspect for further interpretation.</p>
-<p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_tune.html">diablo_tune()</a></code> provides a wrapper around the <code><a href="https://rdrr.io/pkg/mixOmics/man/tune.html">mixOmics::tune()</a></code> function that performs this cross-validation. Some of the arguments are similar to the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function, e.g.&nbsp;<code>validation</code>, <code>folds</code>, <code>nrepeats</code> or <code>cpus</code>. In addition, we recommend setting the <code>dist</code> argument, which corresponds to the prediction distance metric used for performance assessment, to <code>"centroids.dist"</code> (or <code>"mahalanobis.dist"</code>).</p>
+<p>The function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_tune.html">diablo_tune()</a></code> provides a wrapper around the <code><a href="https://rdrr.io/pkg/mixOmics/man/tune.html">mixOmics::tune()</a></code> function that performs this cross-validation. Some of the arguments are similar to the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function, e.g.&nbsp;<code>validation</code>, <code>folds</code>, <code>nrepeats</code> or <code>cpus</code>. In addition, we recommend setting the <code>dist</code> argument, which corresponds to the prediction distance metric used for performance assessment, to <code>"centroids.dist"</code> (or <code>"mahalanobis.dist"</code>).</p>
 <p>The <code>keepX_list</code> argument controls the grid of values to be tested as possible number of features to retain from each dataset. It should be in the form of a named list, with one element per dataset, and where each element is a vector of integers corresponding to the values to test. The names of the list should correspond to the names of the datasets in the <code>MultiDataSet</code> object. If no value is provided for <code>keepX_list</code>, six values ranging from 5 to 30 (by increments of 5) are tested for each dataset.</p>
 <div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_tune_res</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_tune.html">diablo_tune</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_tune.html">diablo_tune</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_input</span>,</span>
 <span>    <span class="va">diablo_design_matrix</span>,</span>
 <span>    ncomp <span class="op">=</span> <span class="va">diablo_optim_ncomp</span>,</span>
@@ -1148,10 +1149,10 @@ Converting targets factory to R script
 </div>
 </div>
 <p>This step can be very time-consuming, especially if the grid of values to test is very large. For this example, it takes around 50 minutes to run.</p>
-<p>The cross-validation results can be inspected with the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_tune.html">diablo_plot_tune()</a></code> function:</p>
+<p>The cross-validation results can be inspected with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_tune.html">diablo_plot_tune()</a></code> function:</p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_tune_res</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_tune.html">diablo_plot_tune</a></span><span class="op">(</span><span class="va">diablo_tune_res</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_tune.html">diablo_plot_tune</a></span><span class="op">(</span><span class="va">diablo_tune_res</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="diablo_files/figure-html/diablo-plot-tune-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -1169,9 +1170,9 @@ Converting targets factory to R script
 <span><span class="co">#&gt; $metabolome</span></span>
 <span><span class="co">#&gt; [1] 10 10  5  5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For reporting purposes, the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_table_optim_keepX.html">diablo_table_optim_keepX()</a></code> function displays the optimal <code>keepX</code> values in a table format:</p>
+<p>For reporting purposes, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_table_optim_keepX.html">diablo_table_optim_keepX()</a></code> function displays the optimal <code>keepX</code> values in a table format:</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_table_optim_keepX.html">diablo_table_optim_keepX</a></span><span class="op">(</span><span class="va">diablo_tune_res</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_table_optim_keepX.html">diablo_table_optim_keepX</a></span><span class="op">(</span><span class="va">diablo_tune_res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 6</span></span>
 <span><span class="co">#&gt;   Dataset    `Component 1` `Component 2` `Component 3` `Component 4` Total</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;</span></span>
@@ -1186,7 +1187,7 @@ Converting targets factory to R script
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_final_run</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_input</span>,</span>
 <span>    <span class="va">diablo_design_matrix</span>,</span>
 <span>    ncomp <span class="op">=</span> <span class="va">diablo_optim_ncomp</span>,</span>
@@ -1198,9 +1199,9 @@ Converting targets factory to R script
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">diablo_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To facilitate reporting, the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_params.html">diablo_get_params()</a></code> function extracts from the DIABLO result the parameters used (i.e.&nbsp;number of latent components computed and number of features retained from each dataset for each latent component), with HTML formatting:</p>
+<p>To facilitate reporting, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_get_params.html">diablo_get_params()</a></code> function extracts from the DIABLO result the parameters used (i.e.&nbsp;number of latent components computed and number of features retained from each dataset for each latent component), with HTML formatting:</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_params.html">diablo_get_params</a></span><span class="op">(</span><span class="va">diablo_final_run</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_get_params.html">diablo_get_params</a></span><span class="op">(</span><span class="va">diablo_final_run</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 3</span></span>
 <span><span class="co">#&gt;   Parameter Description                                                    Value</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                                                          &lt;chr&gt;</span></span>
@@ -1212,13 +1213,13 @@ Converting targets factory to R script
 <p>In <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>, we show the different functionalities implemented in the <code>moiraine</code> package that facilitate the interpretation of the results from an integration tool. In this section, we show some of the DIABLO-specific plots that can be generated to help interpret the results of a DIABLO run.</p>
 <section id="correlation-between-datasets" class="level3" data-number="11.7.1"><h3 data-number="11.7.1" class="anchored" data-anchor-id="correlation-between-datasets">
 <span class="header-section-number">11.7.1</span> Correlation between datasets</h3>
-<p>First, we can assess how well the latent components correlate across the datasets. The <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot.html">diablo_plot()</a></code> function is adapted from the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotDiablo.html">mixOmics::plotDiablo()</a></code> function, and displays, for a given latent component (specified with the <code>ncomp</code> argument), the correlation between the samples coordinates for this latent component across the datasets. Additionally, it allows to assess how well the latent components discriminate the outcome groups in each dataset.</p>
+<p>First, we can assess how well the latent components correlate across the datasets. The <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot.html">diablo_plot()</a></code> function is adapted from the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotDiablo.html">mixOmics::plotDiablo()</a></code> function, and displays, for a given latent component (specified with the <code>ncomp</code> argument), the correlation between the samples coordinates for this latent component across the datasets. Additionally, it allows to assess how well the latent components discriminate the outcome groups in each dataset.</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n_comp</span><span class="op">)</span>, </span>
 <span>  \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot.html">diablo_plot</a></span><span class="op">(</span><span class="va">diablo_final_run</span>, ncomp <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot.html">diablo_plot</a></span><span class="op">(</span><span class="va">diablo_final_run</span>, ncomp <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Latent component"</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1289,7 +1290,7 @@ Converting targets factory to R script
 <p>The <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar()</a></code> function offers the option to show the label of the features rather than representing them as points. However, it can be more informative to use information from the feature metadata as labels, rather than using the feature IDs. For example in the transcriptomics dataset, it would be more interesting to use the name of the genes. This information is available in the datasets’ features metadata:</p>
 <div class="cell">
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span><span class="op">[[</span><span class="st">"rnaseq"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_features_metadata.html">get_features_metadata</a></span><span class="op">(</span><span class="va">mo_set_de</span><span class="op">)</span><span class="op">[[</span><span class="st">"rnaseq"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    20335 obs. of  15 variables:</span></span>
 <span><span class="co">#&gt;  $ feature_id : chr  "ENSBTAG00000000005" "ENSBTAG00000000008" "ENSBTAG00000000009" "ENSBTAG00000000010" ...</span></span>
@@ -1308,9 +1309,9 @@ Converting targets factory to R script
 <span><span class="co">#&gt;  $ de_signif  : chr  "Not DE" "Not DE" "Not DE" "Not DE" ...</span></span>
 <span><span class="co">#&gt;  $ de_status  : chr  "Not DE" "Not DE" "Not DE" "Not DE" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_var.html">diablo_plot_var()</a></code> function is a variant of <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar()</a></code>, which uses columns from the features metadata to label features plot. It takes as an input the DIABLO result object as well as the <code>MultiDataSet</code> object, and a named list providing for each dataset the name of the column in the feature metadata data-frame to use as features label:</p>
+<p>The <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_var.html">diablo_plot_var()</a></code> function is a variant of <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar()</a></code>, which uses columns from the features metadata to label features plot. It takes as an input the DIABLO result object as well as the <code>MultiDataSet</code> object, and a named list providing for each dataset the name of the column in the feature metadata data-frame to use as features label:</p>
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_var.html">diablo_plot_var</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_var.html">diablo_plot_var</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_final_run</span>,</span>
 <span>  <span class="va">mo_set_de</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -1340,9 +1341,9 @@ Converting targets factory to R script
 <p><img src="diablo_files/figure-html/diablo-circosPlot-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>As for the correlation circle plot function, the <code><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_circos.html">diablo_plot_circos()</a></code> function generates the same plot, but allows us to use columns in the feature metadata of each dataset as feature labels:</p>
+<p>As for the correlation circle plot function, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_circos.html">diablo_plot_circos()</a></code> function generates the same plot, but allows us to use columns in the feature metadata of each dataset as feature labels:</p>
 <div class="cell">
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_circos.html">diablo_plot_circos</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_circos.html">diablo_plot_circos</a></span><span class="op">(</span></span>
 <span>  <span class="va">diablo_final_run</span>,</span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span>,</span>
 <span>  label_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -1369,19 +1370,19 @@ Targets list for DIABLO analysis
 <span>  <span class="co">## Creating the DIABLO input</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_input</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_input_mixomics_supervised.html">get_input_mixomics_supervised</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_mixomics_supervised.html">get_input_mixomics_supervised</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_presel_supervised</span>,</span>
 <span>      group <span class="op">=</span> <span class="st">"status"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Running sPLS on each dataset to construct the design matrix</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_pairwise_pls_factory.html">diablo_pairwise_pls_factory</a></span><span class="op">(</span><span class="va">diablo_input</span><span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Initial DIABLO run with no feature selection and large number of components</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_novarsel</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_input</span>,</span>
 <span>      <span class="va">diablo_design_matrix</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="fl">7</span></span>
@@ -1403,19 +1404,19 @@ Targets list for DIABLO analysis
 <span>  <span class="co">## Plotting cross-validation results (for number of components)</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_perf_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_perf.html">diablo_plot_perf</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_perf.html">diablo_plot_perf</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Selected value for ncomp</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_optim_ncomp</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_get_optim_ncomp.html">diablo_get_optim_ncomp</a></span><span class="op">(</span><span class="va">diablo_perf_res</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Cross-validation for number of features to retain</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_tune_res</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_tune.html">diablo_tune</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_tune.html">diablo_tune</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_input</span>,</span>
 <span>      <span class="va">diablo_design_matrix</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="va">diablo_optim_ncomp</span>,</span>
@@ -1430,13 +1431,13 @@ Targets list for DIABLO analysis
 <span>  <span class="co">## Plotting cross-validation results (for number of features)</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_tune_plot</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_plot_tune.html">diablo_plot_tune</a></span><span class="op">(</span><span class="va">diablo_tune_res</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_plot_tune.html">diablo_plot_tune</a></span><span class="op">(</span><span class="va">diablo_tune_res</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Final DIABLO run</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">diablo_final_run</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/diablo_run.html">diablo_run</a></span><span class="op">(</span></span>
 <span>      <span class="va">diablo_input</span>,</span>
 <span>      <span class="va">diablo_design_matrix</span>,</span>
 <span>      ncomp <span class="op">=</span> <span class="va">diablo_optim_ncomp</span>,</span>
@@ -1475,9 +1476,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1542,6 +1557,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

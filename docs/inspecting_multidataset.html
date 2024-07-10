@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>The moiraine R package user manual - 4&nbsp; Inspecting the MultiDataSet object</title>
 <style>
@@ -14,9 +14,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -43,43 +44,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -115,199 +86,229 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_import.html">Data preparation</a></li><li class="breadcrumb-item"><a href="./inspecting_multidataset.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the `MultiDataSet` object</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The <code>moiraine</code> R package user manual</a> 
         <div class="sidebar-tools-main">
-    <a href="" title="" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-github"></i></a>
-    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine-manual">
-          Manual source code
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine">
-          Package source code
-          </a>
-        </li>
-    </ul>
-<a href="https://twitter.com/intent/tweet?url=%7Curl%7C" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine-manual">
+            Manual source code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Plant-Food-Research-Open/moiraine">
+            Package source code
+            </a>
+          </li>
+      </ul>
+</div>
+    <a href="https://twitter.com/intent/tweet?url=%7Curl%7C" rel="" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./overview.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview of <code>moiraine</code></span></a>
+  <a href="./overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview of <code>moiraine</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></a>
+  <a href="./example_dataset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The example dataset</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data preparation</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Data preparation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></a>
+  <a href="./data_import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importing data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></a>
+  <a href="./inspecting_multidataset.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></a>
+  <a href="./modifying_multidataset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the <code>MultiDataSet</code> object</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></a>
+  <a href="./preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data pre-processing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></a>
+  <a href="./prefiltering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dataset pre-filtering</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Unsupervised integration</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Unsupervised integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></a>
+  <a href="./spls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Integration with sPLS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./so2pls.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></a>
+  <a href="./so2pls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Integration with sO2PLS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mofa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></a>
+  <a href="./mofa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Integration with MOFA</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Supervised integration</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Supervised integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diablo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></a>
+  <a href="./diablo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integration with DIABLO</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Results interpretation</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Results interpretation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interpretation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></a>
+  <a href="./interpretation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interpreting the integration results</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./evaluation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></a>
+  <a href="./evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Evaluating the integration results</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./comparison.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></a>
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Comparing the integration results</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
     </ul>
 </div>
-</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#querying-datasets-names-and-dimensions" id="toc-querying-datasets-names-and-dimensions" class="nav-link active" data-scroll-target="#querying-datasets-names-and-dimensions"><span class="toc-section-number">4.1</span>  Querying datasets names and dimensions</a></li>
-  <li><a href="#extracting-datasets-and-metadata" id="toc-extracting-datasets-and-metadata" class="nav-link" data-scroll-target="#extracting-datasets-and-metadata"><span class="toc-section-number">4.2</span>  Extracting datasets and metadata</a></li>
+<li><a href="#querying-datasets-names-and-dimensions" id="toc-querying-datasets-names-and-dimensions" class="nav-link active" data-scroll-target="#querying-datasets-names-and-dimensions"><span class="header-section-number">4.1</span> Querying datasets names and dimensions</a></li>
+  <li><a href="#extracting-datasets-and-metadata" id="toc-extracting-datasets-and-metadata" class="nav-link" data-scroll-target="#extracting-datasets-and-metadata"><span class="header-section-number">4.2</span> Extracting datasets and metadata</a></li>
   <li>
-<a href="#sec-inspecting-multidataset-summary-plots" id="toc-sec-inspecting-multidataset-summary-plots" class="nav-link" data-scroll-target="#sec-inspecting-multidataset-summary-plots"><span class="toc-section-number">4.3</span>  Summary plots</a>
+<a href="#sec-inspecting-multidataset-summary-plots" id="toc-sec-inspecting-multidataset-summary-plots" class="nav-link" data-scroll-target="#sec-inspecting-multidataset-summary-plots"><span class="header-section-number">4.3</span> Summary plots</a>
   <ul class="collapse">
-<li><a href="#samples-upset-plot" id="toc-samples-upset-plot" class="nav-link" data-scroll-target="#samples-upset-plot"><span class="toc-section-number">4.3.1</span>  Samples upset plot</a></li>
-  <li><a href="#datasets-density-plots" id="toc-datasets-density-plots" class="nav-link" data-scroll-target="#datasets-density-plots"><span class="toc-section-number">4.3.2</span>  Datasets density plots</a></li>
-  <li><a href="#datasets-mean-sd-plots" id="toc-datasets-mean-sd-plots" class="nav-link" data-scroll-target="#datasets-mean-sd-plots"><span class="toc-section-number">4.3.3</span>  Datasets mean-sd plots</a></li>
+<li><a href="#samples-upset-plot" id="toc-samples-upset-plot" class="nav-link" data-scroll-target="#samples-upset-plot"><span class="header-section-number">4.3.1</span> Samples upset plot</a></li>
+  <li><a href="#datasets-density-plots" id="toc-datasets-density-plots" class="nav-link" data-scroll-target="#datasets-density-plots"><span class="header-section-number">4.3.2</span> Datasets density plots</a></li>
+  <li><a href="#datasets-mean-sd-plots" id="toc-datasets-mean-sd-plots" class="nav-link" data-scroll-target="#datasets-mean-sd-plots"><span class="header-section-number">4.3.3</span> Datasets mean-sd plots</a></li>
   </ul>
 </li>
-  <li><a href="#assessing-missing-values" id="toc-assessing-missing-values" class="nav-link" data-scroll-target="#assessing-missing-values"><span class="toc-section-number">4.4</span>  Assessing missing values</a></li>
+  <li><a href="#assessing-missing-values" id="toc-assessing-missing-values" class="nav-link" data-scroll-target="#assessing-missing-values"><span class="header-section-number">4.4</span> Assessing missing values</a></li>
   <li>
-<a href="#sec-inspecting-plot-data" id="toc-sec-inspecting-plot-data" class="nav-link" data-scroll-target="#sec-inspecting-plot-data"><span class="toc-section-number">4.5</span>  Visualising the datasets</a>
+<a href="#sec-inspecting-plot-data" id="toc-sec-inspecting-plot-data" class="nav-link" data-scroll-target="#sec-inspecting-plot-data"><span class="header-section-number">4.5</span> Visualising the datasets</a>
   <ul class="collapse">
-<li><a href="#as-a-heatmap" id="toc-as-a-heatmap" class="nav-link" data-scroll-target="#as-a-heatmap"><span class="toc-section-number">4.5.1</span>  As a heatmap</a></li>
-  <li><a href="#against-samples-covariates" id="toc-against-samples-covariates" class="nav-link" data-scroll-target="#against-samples-covariates"><span class="toc-section-number">4.5.2</span>  Against samples covariates</a></li>
+<li><a href="#as-a-heatmap" id="toc-as-a-heatmap" class="nav-link" data-scroll-target="#as-a-heatmap"><span class="header-section-number">4.5.1</span> As a heatmap</a></li>
+  <li><a href="#against-samples-covariates" id="toc-against-samples-covariates" class="nav-link" data-scroll-target="#against-samples-covariates"><span class="header-section-number">4.5.2</span> Against samples covariates</a></li>
   </ul>
 </li>
-  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="toc-section-number">4.6</span>  Recap – targets list</a></li>
+  <li><a href="#recap-targets-list" id="toc-recap-targets-list" class="nav-link" data-scroll-target="#recap-targets-list"><span class="header-section-number">4.6</span> Recap – targets list</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-inspecting-multidataset" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></span></h1>
+<h1 class="title"><span id="sec-inspecting-multidataset" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inspecting the <code>MultiDataSet</code> object</span></span></h1>
 </div>
 
 
@@ -322,7 +323,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header><div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Plant-Food-Research-Open/moiraine">moiraine</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biobase">Biobase</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## For working with lists</span></span>
@@ -338,7 +339,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </summary><div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/">targets</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/tarchetypes/">tarchetypes</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PlantandFoodResearch/moiraine">moiraine</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Plant-Food-Research-Open/moiraine">moiraine</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_option_set.html">tar_option_set</a></span><span class="op">(</span></span>
 <span>  packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -358,7 +359,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co"># Importing data ---------------------------------------------------------------</span></span>
 <span></span>
 <span>  <span class="co">## Data import using a target factory</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_dataset_csv_factory.html">import_dataset_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/genomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/transcriptomics_dataset.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
@@ -379,7 +380,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Genomics features metadata import</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">fmetadata_geno</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv.html">import_fmetadata_csv</a></span><span class="op">(</span></span>
 <span>      <span class="va">fmetadata_file_geno</span>,</span>
 <span>      col_id <span class="op">=</span> <span class="st">"marker"</span>,</span>
 <span>      col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"chromosome"</span> <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span>
@@ -387,7 +388,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Metabolomics features metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_csv_factory.html">import_fmetadata_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/metabolomics_features_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
@@ -396,7 +397,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Transcriptomics features metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_fmetadata_gff_factory.html">import_fmetadata_gff_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/bos_taurus_gene_model.gff3"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>    feature_types <span class="op">=</span> <span class="st">"genes"</span>,</span>
 <span>    add_fieldss <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"description"</span><span class="op">)</span>,</span>
@@ -404,14 +405,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Samples metadata import</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/import_smetadata_csv_factory.html">import_smetadata_csv_factory</a></span><span class="op">(</span></span>
 <span>    files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/samples_info.csv"</span>, package <span class="op">=</span> <span class="st">"moiraine"</span><span class="op">)</span>,</span>
 <span>    col_ids <span class="op">=</span> <span class="st">"animal_id"</span>,</span>
 <span>    target_name_suffixes <span class="op">=</span> <span class="st">"all"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Creating omics sets for each dataset</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_omics_set_factory.html">create_omics_set_factory</a></span><span class="op">(</span></span>
 <span>    datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">data_geno</span>, <span class="va">data_transcripto</span>, <span class="va">data_metabo</span><span class="op">)</span>,</span>
 <span>    omics_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"genomics"</span>, <span class="st">"transcriptomics"</span>, <span class="st">"metabolomics"</span><span class="op">)</span>,</span>
 <span>    features_metadatas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">fmetadata_geno</span>, <span class="va">fmetadata_transcripto</span>, <span class="va">fmetadata_metabo</span><span class="op">)</span>,</span>
@@ -421,7 +422,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="co">## Creating the MultiDataSet object</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mo_set</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/create_multiomics_set.html">create_multiomics_set</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">set_geno</span>,</span>
 <span>           <span class="va">set_transcripto</span>,</span>
 <span>           <span class="va">set_metabo</span><span class="op">)</span></span>
@@ -459,27 +460,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "snps"       "rnaseq"     "metabolome"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>It is also possible to query the number of features and samples in each dataset via <code><a href="https://rdrr.io/pkg/moiraine/man/n_features.html">n_features()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/n_samples.html">n_samples()</a></code>. Both functions return a named integer vector:</p>
+<p>It is also possible to query the number of features and samples in each dataset via <code><a href="https://plant-food-research-open.github.io/moiraine/reference/n_features.html">n_features()</a></code> and <code><a href="https://plant-food-research-open.github.io/moiraine/reference/n_samples.html">n_samples()</a></code>. Both functions return a named integer vector:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_features.html">n_features</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/n_features.html">n_features</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
 <span><span class="co">#&gt;      23036      20335         55</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/n_samples.html">n_samples</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/n_samples.html">n_samples</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       snps     rnaseq metabolome </span></span>
 <span><span class="co">#&gt;        139        143        139</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The feature and sample IDs for each dataset can be extracted with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_features.html">get_features()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples.html">get_samples()</a></code> functions. Both functions return a named list of features or samples ID for each omics dataset:</p>
+<p>The feature and sample IDs for each dataset can be extracted with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_features.html">get_features()</a></code> and <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_samples.html">get_samples()</a></code> functions. Both functions return a named list of features or samples ID for each omics dataset:</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features.html">get_features</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_features.html">get_features</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ snps      : chr [1:23036] "1_41768691" "10-27008241-A-C-rs42918694" "10-37505419-T-C-rs136559242" "10-49904259-G-A-rs471723345" ...</span></span>
 <span><span class="co">#&gt;  $ rnaseq    : chr [1:20335] "ENSBTAG00000000005" "ENSBTAG00000000008" "ENSBTAG00000000009" "ENSBTAG00000000010" ...</span></span>
 <span><span class="co">#&gt;  $ metabolome: chr [1:55] "HMDB00001" "HMDB00008" "HMDB00042" "HMDB00043" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples.html">get_samples</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_samples.html">get_samples</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ snps      : chr [1:139] "R21" "Y3660" "Y3243" "R5764" ...</span></span>
 <span><span class="co">#&gt;  $ rnaseq    : chr [1:143] "R9497" "R5969" "R5327" "R5979" ...</span></span>
@@ -487,9 +488,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section><section id="extracting-datasets-and-metadata" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="extracting-datasets-and-metadata">
 <span class="header-section-number">4.2</span> Extracting datasets and metadata</h2>
-<p>We can extract the dataset matrices from a <code>MultiDataSet</code> object with the <code><a href="https://rdrr.io/pkg/moiraine/man/get_datasets.html">get_datasets()</a></code> function, which returns a named list of matrices, each with features as rows and samples as columns:</p>
+<p>We can extract the dataset matrices from a <code>MultiDataSet</code> object with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_datasets.html">get_datasets()</a></code> function, which returns a named list of matrices, each with features as rows and samples as columns:</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ snps      : num [1:23036, 1:139] 1 2 0 1 2 0 1 2 1 1 ...</span></span>
 <span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
@@ -505,7 +506,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;   .. ..$ : chr [1:139] "R21" "Y3660" "Y3243" "R5764" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span><span class="op">[[</span><span class="st">"snps"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span><span class="op">[[</span><span class="st">"snps"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="co">#&gt;                             R21 Y3660 Y3243 R5764 P4669</span></span>
 <span><span class="co">#&gt; 1_41768691                    1     0     2     2     1</span></span>
 <span><span class="co">#&gt; 10-27008241-A-C-rs42918694    2     2     2     1     2</span></span>
@@ -513,9 +514,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 10-49904259-G-A-rs471723345   1     2     2     2     2</span></span>
 <span><span class="co">#&gt; 1-109550832-G-A-rs209732846   2     2     1     2     2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To obtain the matrix for a single dataset from the <code>MultiDataSet</code> object, the <code><a href="https://rdrr.io/pkg/moiraine/man/get_dataset_matrix.html">get_dataset_matrix()</a></code> function can be used instead:</p>
+<p>To obtain the matrix for a single dataset from the <code>MultiDataSet</code> object, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_dataset_matrix.html">get_dataset_matrix()</a></code> function can be used instead:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_dataset_matrix.html">get_dataset_matrix</a></span><span class="op">(</span><span class="va">mo_set</span>, <span class="st">"snps"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_dataset_matrix.html">get_dataset_matrix</a></span><span class="op">(</span><span class="va">mo_set</span>, <span class="st">"snps"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="co">#&gt;                             R21 Y3660 Y3243 R5764 P4669</span></span>
 <span><span class="co">#&gt; 1_41768691                    1     0     2     2     1</span></span>
 <span><span class="co">#&gt; 10-27008241-A-C-rs42918694    2     2     2     1     2</span></span>
@@ -523,9 +524,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 10-49904259-G-A-rs471723345   1     2     2     2     2</span></span>
 <span><span class="co">#&gt; 1-109550832-G-A-rs209732846   2     2     1     2     2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Similarly, the functions <code><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata()</a></code> and <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata.html">get_samples_metadata()</a></code> each return a named list of feature or sample metadata data-frames, one per omics dataset:</p>
+<p>Similarly, the functions <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_features_metadata.html">get_features_metadata()</a></code> and <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_samples_metadata.html">get_samples_metadata()</a></code> each return a named list of feature or sample metadata data-frames, one per omics dataset:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features_metadata.html">get_features_metadata</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_features_metadata.html">get_features_metadata</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ snps      :'data.frame':  23036 obs. of  13 variables:</span></span>
 <span><span class="co">#&gt;   ..$ feature_id     : chr [1:23036] "1_41768691" "10-27008241-A-C-rs42918694" "10-37505419-T-C-rs136559242" "10-49904259-G-A-rs471723345" ...</span></span>
@@ -569,7 +570,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;   ..$ de_status                   : chr [1:55] "Not DE" "Not DE" "downregulated" "downregulated" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata.html">get_samples_metadata</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_samples_metadata.html">get_samples_metadata</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ snps      :'data.frame':  139 obs. of  10 variables:</span></span>
 <span><span class="co">#&gt;   ..$ id               : chr [1:139] "R21" "Y3660" "Y3243" "R5764" ...</span></span>
@@ -605,9 +606,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;   ..$ geno_comp_3      : num [1:139] 0.1715 0.0542 0.7656 0.1106 0.1071 ...</span></span>
 <span><span class="co">#&gt;   ..$ geno_comp_cluster: chr [1:139] "K3" "K2" "K1" "K3" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For the samples metadata, it is possible to extract a single data-frame that combines the metadata from the different datasets with the function <code><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata_combined.html">get_samples_metadata_combined()</a></code>. The <code>only_common_cols</code> argument controls whether only the columns that are common to the samples metadata of the different omics datasets should be returned. For this example, as the samples metadata is identical across the datasets, it makes no difference:</p>
+<p>For the samples metadata, it is possible to extract a single data-frame that combines the metadata from the different datasets with the function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_samples_metadata_combined.html">get_samples_metadata_combined()</a></code>. The <code>only_common_cols</code> argument controls whether only the columns that are common to the samples metadata of the different omics datasets should be returned. For this example, as the samples metadata is identical across the datasets, it makes no difference:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_samples_metadata_combined.html">get_samples_metadata_combined</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_samples_metadata_combined.html">get_samples_metadata_combined</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          id feedlot gender  status day_on_feed rnaseq_batch geno_comp_1</span></span>
 <span><span class="co">#&gt; R21     R21      F1 female Control          31           B2    0.007853</span></span>
 <span><span class="co">#&gt; Y3660 Y3660      F1   male Control          19           B2    0.852220</span></span>
@@ -628,9 +629,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A number of plotting functions have been implemented to obtain a quick overview of the omics datasets in a <code>MultiDataSet</code> object.</p>
 <section id="samples-upset-plot" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="samples-upset-plot">
 <span class="header-section-number">4.3.1</span> Samples upset plot</h3>
-<p>First, the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset()</a></code> function displays the number of common and unique samples across the datasets with an <a href="https://upset.app">UpSet plot</a>:</p>
+<p>First, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_upset.html">plot_samples_upset()</a></code> function displays the number of common and unique samples across the datasets with an <a href="https://upset.app">UpSet plot</a>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_samples_upset.html">plot_samples_upset</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_upset.html">plot_samples_upset</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="inspecting_multidataset_files/figure-html/plot-samples-upset-1.png" class="img-fluid" width="960"></p>
 </div>
@@ -638,16 +639,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As can be seen in the upset plot above, 135 samples have measurements across all three omics datasets. In addition, 4 samples have both transcriptomics and metabolomics measurements, but no transcriptomics information; 3 samples are present in the genomics and metabolomics datasets but not the transcriptomics dataset, and the genomics and transcriptomics datasets each have a unique sample not present in the other omics datasets.</p>
 </section><section id="datasets-density-plots" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="datasets-density-plots">
 <span class="header-section-number">4.3.2</span> Datasets density plots</h3>
-<p>Next, we can show the density plot of each omics dataset with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data()</a></code> function. By default, all datasets are plotted onto the same axes, which is not very useful if they have very different scales. We can change that by setting the <code>combined</code> argument to <code>FALSE</code>, which splits the plot into one facet per dataset, and by setting <code>scales</code> to <code>'free'</code> in order to give its own scale to each dataset:</p>
+<p>Next, we can show the density plot of each omics dataset with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data()</a></code> function. By default, all datasets are plotted onto the same axes, which is not very useful if they have very different scales. We can change that by setting the <code>combined</code> argument to <code>FALSE</code>, which splits the plot into one facet per dataset, and by setting <code>scales</code> to <code>'free'</code> in order to give its own scale to each dataset:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span><span class="va">mo_set</span>, combined <span class="op">=</span> <span class="cn">FALSE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data</a></span><span class="op">(</span><span class="va">mo_set</span>, combined <span class="op">=</span> <span class="cn">FALSE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="inspecting_multidataset_files/figure-html/plot-density-data-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
 <p>By default, all datasets are represented in the density plot, but it is possible to focus on one or a subset of them via the <code>datasets</code> argument. This is useful here as the plots for the transcriptomics and metabolomics could benefit from a log10 transformation for the x-axis:</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rnaseq"</span>, <span class="st">"metabolome"</span><span class="op">)</span>,</span>
 <span>  combined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -660,12 +661,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="inspecting_multidataset_files/figure-html/plot-density-data-xlog10-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>Note that as the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data()</a></code> function returns a ggplot, it can be further customised with other <code>ggplot2</code> functions as shown above.</p>
+<p>Note that as the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data()</a></code> function returns a ggplot, it can be further customised with other <code>ggplot2</code> functions as shown above.</p>
 </section><section id="datasets-mean-sd-plots" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="datasets-mean-sd-plots">
 <span class="header-section-number">4.3.3</span> Datasets mean-sd plots</h3>
-<p>It is also possible to assess for each dataset whether there exists a relationship between the features mean and standard deviation, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data()</a></code> function. The presence of such relationship indicates that the dataset should be transformed, via a log or variance-stabilising transformation. The function requires the <code>hexbin</code> package to be installed:</p>
+<p>It is also possible to assess for each dataset whether there exists a relationship between the features mean and standard deviation, with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_meansd_data.html">plot_meansd_data()</a></code> function. The presence of such relationship indicates that the dataset should be transformed, via a log or variance-stabilising transformation. The function requires the <code>hexbin</code> package to be installed:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="inspecting_multidataset_files/figure-html/plot-meansd-data-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -674,9 +675,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that the hexplots are only drawn for datasets with at least 30 features, and the trend curve (in pink) is only drawn for datasets with at least 10 features.</p>
 </section></section><section id="assessing-missing-values" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="assessing-missing-values">
 <span class="header-section-number">4.4</span> Assessing missing values</h2>
-<p>Finally, one very important aspect to check is the presence of missing values in the datasets. The function <code><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values()</a></code> provide a summary of the number of missing values in each dataset:</p>
+<p>Finally, one very important aspect to check is the presence of missing values in the datasets. The function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/check_missing_values.html">check_missing_values()</a></code> provide a summary of the number of missing values in each dataset:</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 9615 (0.3%) missing values in snps dataset, across 4093 features and 139 samples.</span></span>
 <span><span class="co">#&gt; No missing values in rnaseq dataset.</span></span>
 <span><span class="co">#&gt; 588 (7.69%) missing values in metabolome dataset, across 15 features and 45 samples.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -688,7 +689,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Once the omics datasets are stored in a <code>MultiDataSet</code> object, we can easily visualise the measurements for a set of features of interest. As an example, we will randomly select three features from each of the omics datasets:</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">32</span><span class="op">)</span></span>
-<span><span class="va">random_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/get_features.html">get_features</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">random_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/get_features.html">get_features</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span>, size <span class="op">=</span> <span class="fl">3</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -702,9 +703,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="as-a-heatmap" class="level3" data-number="4.5.1"><h3 data-number="4.5.1" class="anchored" data-anchor-id="as-a-heatmap">
 <span class="header-section-number">4.5.1</span> As a heatmap</h3>
-<p>The function <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> allows us to view the data for these features as a heatmap. It relies on the <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">ComplexHeatmap::Heatmap()</a></code> function, and can be customised by passing arguments to this function (for example to remove the column labels):</p>
+<p>The function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_heatmap.html">plot_data_heatmap()</a></code> allows us to view the data for these features as a heatmap. It relies on the <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">ComplexHeatmap::Heatmap()</a></code> function, and can be customised by passing arguments to this function (for example to remove the column labels):</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -720,7 +721,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that we specified that the data should be centred and scaled before plotting, to represent features from different datasets on a similar scale.</p>
 <p>By default, all samples all represented, including those that are only present in some of the omics datasets (hence the warning about columns clustering). We can instead restrict the plot to only samples that are present across all datasets (<code>only_common_samples</code> argument), or to specific samples by passing a list of samples ID to the <code>samples</code> argument:</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -734,7 +735,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>We can also add samples and/or features information to the sides of the heatmap through the <code>samples_info</code> and <code>features_info</code> arguments. These two arguments take a vector of column names from the samples or features metadata table, respectively. The <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">ComplexHeatmap::Heatmap()</a></code> picks random colours for these annotations, but we can set specific colour palettes by passing a list of colour palettes through the argument <code>colours_list</code>. For continuous annotations, the colour palette must be generated with <code><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">circlize::colorRamp2()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -754,7 +755,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>We can also use information from the features metadata tables to give a more meaningful label to the features. For example, we can use the column <code>Name</code> from the transcriptomics features metadata and the column <code>name</code> from the metabolomics features metadata to label the features. This is done by passing a named list through the <code>label_cols</code> argument, where each element is the name of the column to use and the name of the element gives the name of the dataset in the MultiDataSet object. If these labels are too long, we can truncate them through the <code>truncate</code> argument (see the function help).</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_heatmap.html">plot_data_heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -780,9 +781,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that because we didn’t include the <code>snps</code> dataset in the list passed through <code>label_cols</code>, the ID of the features are used as labels.</p>
 </section><section id="against-samples-covariates" class="level3" data-number="4.5.2"><h3 data-number="4.5.2" class="anchored" data-anchor-id="against-samples-covariates">
 <span class="header-section-number">4.5.2</span> Against samples covariates</h3>
-<p>Alternatively, we can display the features’ measurements against some samples covariate, with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate()</a></code> function. As for the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> function, the plot shows data from all samples, unless otherwise specified (through either the <code>common_samples_only</code> or <code>samples</code> arguments). The covariate is specified as a column name from the samples metadata (can be from any dataset’s samples metadata). If the covariate is categorical, the function generates violin plots. For example, we can represent the feature’s measurements against the animal disease status:</p>
+<p>Alternatively, we can display the features’ measurements against some samples covariate, with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_covariate.html">plot_data_covariate()</a></code> function. As for the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_heatmap.html">plot_data_heatmap()</a></code> function, the plot shows data from all samples, unless otherwise specified (through either the <code>common_samples_only</code> or <code>samples</code> arguments). The covariate is specified as a column name from the samples metadata (can be from any dataset’s samples metadata). If the covariate is categorical, the function generates violin plots. For example, we can represent the feature’s measurements against the animal disease status:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"status"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -794,7 +795,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>We can use other columns from the samples metadata to customise the points colour and shape. For the colour, the constructed plot will depend on whether the corresponding in categorical or numeric:</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"status"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -806,7 +807,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-categorical-colours-1.png" class="img-fluid" width="768"></p>
 </div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"status"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -820,7 +821,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>If instead the covariate is numerical, the function produces scatterplots with a loess curve for each feature:</p>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"day_on_feed"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -832,7 +833,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Again, we can use other samples information to specify the colour or shapes of the samples. Note that if the covariate used for points colour is discrete, a loess curve will be fitted for each category. If the covariate is continuous, or if changing the shape of the points, only one loess curve will be fitted for all data points.</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"day_on_feed"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -844,7 +845,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-colours-1.png" class="img-fluid" width="768"></p>
 </div>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"day_on_feed"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -856,9 +857,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-colours-2.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>The features can be renamed using features metadata through the <code>label_cols</code> argument in the same way that with the <code><a href="https://rdrr.io/pkg/moiraine/man/plot_data_heatmap.html">plot_data_heatmap()</a></code> function:</p>
+<p>The features can be renamed using features metadata through the <code>label_cols</code> argument in the same way that with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_heatmap.html">plot_data_heatmap()</a></code> function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set</span>,</span>
 <span>  <span class="st">"day_on_feed"</span>,</span>
 <span>  <span class="va">random_features</span>,</span>
@@ -883,7 +884,7 @@ Targets list for inspecting a MultiDataSet object
 <span>  <span class="co">## Creating a density plot for each dataset</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">density_plots</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data</a></span><span class="op">(</span></span>
 <span>      <span class="va">mo_set</span>,</span>
 <span>      combined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>      scales <span class="op">=</span> <span class="st">"free"</span></span>
@@ -894,13 +895,13 @@ Targets list for inspecting a MultiDataSet object
 <span>  <span class="co">## for each dataset</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">mean_sd_plots</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co">## Assessing missing values</span></span>
 <span>  <span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
 <span>    <span class="va">n_missing_values</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/moiraine/man/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/check_missing_values.html">check_missing_values</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -934,9 +935,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1001,6 +1016,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
