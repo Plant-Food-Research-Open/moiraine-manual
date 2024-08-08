@@ -8,6 +8,7 @@ book:
   search: true
   site-url: https://plant-food-research-open.github.io/moiraine-manual/
   sharing: [twitter]
+  favicon: "images/logo.png"
   sidebar:
     tools:
       - icon: github
