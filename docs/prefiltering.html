@@ -81,6 +81,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./spls.html" rel="next">
 <link href="./preprocessing.html" rel="prev">
+<link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -844,7 +845,7 @@ Converting targets factory to R script
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_feature_preselection_mad.html">plot_feature_preselection_mad</a></span><span class="op">(</span><span class="va">individual_mad_values</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="prefiltering_files/figure-html/plot-feature-preselection-mad-1.png" class="img-fluid" width="768"></p>
+<p><img src="prefiltering_files/figure-html/plot-feature-preselection-mad-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>If we instead wanted to retain 50% of all features both the genomics and transcriptomics datasets, we would write:</p>
@@ -868,14 +869,15 @@ Converting targets factory to R script
 <span class="header-section-number">7.3.2</span> Supervised features preselection</h3>
 <p>Another approach to features preselection can be preferred when we are trying to assess the features most relevant to an outcome of interest or to differences between sample groups. In this scenario, prior to integrating the datasets, it could be useful to reduce the size of the datasets by filtering out the features that are least associated with the outcome of interest. In this case, we can use some single-omics feature selection method to perform a first “crude” prefiltering.</p>
 <p><code>moiraine</code> relies on the sPLS-DA algorithm implemented in the <code>mixOmics</code> package for this. <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html">sparse Partial Least-Squares Discriminant Analysis</a> (or sPLS-DA for short) is a feature selection method that aims to detect, in a multivariate dataset, the variables or features that best discriminate a categorical outcome of interest in the observations. The advantages of sPLS-DA is that it can handle datasets in which there are more features than samples, which is typically the case in omics datasets. More information can be found in <span class="citation" data-cites="lêcao2011">Lê Cao, Boitard, and Besse (<a href="references.html#ref-l%C3%AAcao2011" role="doc-biblioref">2011</a>)</span> or in the <a href="https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html"><code>mixOmics</code> vignette</a>. By running an sPLS-DA analysis on each dataset separately, we can remove the features that are least informative with respect to the trait or outcome of interest. We refer to this approach as supervised preselection, as it relies on information about the samples to select the features of interest.</p>
-<p>The <code><a href="https://plant-food-research-open.github.io/moiraine/reference/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory()</a></code> function allows us to perform this supervised preselection for some or all datasets within a <code>MultiDataSet</code> object. It provides the option to set either the number or proportion of features to retain in each dataset, via the <code>to_keep_ns</code> and <code>to_keep_props</code> arguments. One additional argument that needs to be passed to the function is <code>group</code>, which gives the name of the column in the samples metadata information to be used as categorical outcome for the sPLS-DA run. This column must be present in the sample metadata of at least one of the datasets to be filtered. For this example, we will retain in each dataset 1,000 features that best discriminate the control and diseased animals. Warning: this function can take several minutes to run.</p>
+<p>The <code><a href="https://plant-food-research-open.github.io/moiraine/reference/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory()</a></code> function allows us to perform this supervised preselection for some or all datasets within a <code>MultiDataSet</code> object. It provides the option to set either the number or proportion of features to retain in each dataset, via the <code>to_keep_ns</code> and <code>to_keep_props</code> arguments. One additional argument that needs to be passed to the function is <code>group</code>, which gives the name of the column in the samples metadata information to be used as categorical outcome for the sPLS-DA run. This column must be present in the sample metadata of at least one of the datasets to be filtered. For this example, we will retain in each dataset 1,000 features that best discriminate the control and diseased animals. We can also specify the seed to use for the cross-validation step (through <code>seed_perf</code>) and for the final sPLS-DA run (through <code>seed_run</code>). Both arguments should be a named list, where each element is the seed to use for the corresponding dataset. Warning: this function can take several minutes to run.</p>
 <div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/feature_preselection_splsda_factory.html">feature_preselection_splsda_factory</a></span><span class="op">(</span></span>
 <span>  <span class="va">mo_set_complete</span>,</span>
 <span>  group <span class="op">=</span> <span class="st">"status"</span>,</span>
 <span>  to_keep_ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snps"</span> <span class="op">=</span> <span class="fl">1000</span>, <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>,</span>
-<span>  filtered_set_target_name <span class="op">=</span> <span class="st">"mo_presel_supervised"</span></span>
+<span>  filtered_set_target_name <span class="op">=</span> <span class="st">"mo_presel_supervised"</span>,</span>
+<span>  seed_perf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"snps"</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1591100874</span>, <span class="st">"rnaseq"</span> <span class="op">=</span> <span class="fl">1791752001</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -885,11 +887,11 @@ Converting targets factory to R script
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">splsda_spec</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 2 × 3</span></span>
-<span><span class="co">#&gt;   dsn      tkn tar_group</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dbl&gt;     &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 snps    1000         2</span></span>
-<span><span class="co">#&gt; 2 rnaseq  1000         1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # A tibble: 2 × 4</span></span>
+<span><span class="co">#&gt;   dsn      tkn          sp tar_group</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dbl&gt;       &lt;dbl&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 snps    1000 -1591100874         2</span></span>
+<span><span class="co">#&gt; 2 rnaseq  1000  1791752001         1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>it uses dynamic branching over the grouped tibble to generate for each omics dataset the necessary input for the <code>mixOmics</code> package, via the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/get_input_splsda.html">get_input_splsda()</a></code> function. The result, stored in the <code>individual_splsda_input</code> target, is a list of sPLS-DA inputs, i.e.&nbsp;a list itself containing the omics dataset as a matrix (with samples as rows and features as columns) and a vector indicating the grouping of the samples:</li>
@@ -898,18 +900,18 @@ Converting targets factory to R script
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">individual_splsda_input</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">individual_splsda_input</span>, <span class="va">names</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $individual_splsda_input_a82e0f4d</span></span>
+<span><span class="co">#&gt; $individual_splsda_input_dd9e4b34</span></span>
 <span><span class="co">#&gt; [1] "rnaseq" "Y"     </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $individual_splsda_input_de775b91</span></span>
+<span><span class="co">#&gt; $individual_splsda_input_0be22b09</span></span>
 <span><span class="co">#&gt; [1] "snps" "Y"</span></span>
 <span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">individual_splsda_input</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="st">"Y"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $individual_splsda_input_a82e0f4d</span></span>
+<span><span class="co">#&gt; $individual_splsda_input_dd9e4b34</span></span>
 <span><span class="co">#&gt; R9497 R5969 R5327 R5979 R9504 R5994 </span></span>
 <span><span class="co">#&gt;   BRD   BRD   BRD   BRD   BRD   BRD </span></span>
 <span><span class="co">#&gt; Levels: BRD Control</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $individual_splsda_input_de775b91</span></span>
+<span><span class="co">#&gt; $individual_splsda_input_0be22b09</span></span>
 <span><span class="co">#&gt;     R21   Y3660   Y3243   R5764   P4669   R5452 </span></span>
 <span><span class="co">#&gt; Control Control Control Control     BRD Control </span></span>
 <span><span class="co">#&gt; Levels: BRD Control</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -921,14 +923,14 @@ Converting targets factory to R script
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span>, <span class="va">attr</span>, <span class="st">"dataset_name"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; individual_splsda_perf_68d22d74 individual_splsda_perf_746586a5 </span></span>
+<span><span class="co">#&gt; individual_splsda_perf_41806a26 individual_splsda_perf_bd184f67 </span></span>
 <span><span class="co">#&gt;                        "rnaseq"                          "snps"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The cross-validation results be visualised with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_feature_preselection_splsda.html">plot_feature_preselection_splsda()</a></code> function, in which the chosen value for the number of components to compute for each dataset is highlighted in grey:</p>
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_feature_preselection_splsda.html">plot_feature_preselection_splsda</a></span><span class="op">(</span><span class="va">individual_splsda_perf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="prefiltering_files/figure-html/plot-feature-preselection-splsda-1.png" class="img-fluid" width="768"></p>
+<p><img src="prefiltering_files/figure-html/plot-feature-preselection-splsda-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <ul>
@@ -936,7 +938,7 @@ Converting targets factory to R script
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">individual_splsda_run</span><span class="op">)</span>, <span class="va">attr</span>, <span class="st">"dataset_name"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; individual_splsda_run_fe6f99fe individual_splsda_run_4a7ecf19 </span></span>
+<span><span class="co">#&gt; individual_splsda_run_0f0eee27 individual_splsda_run_c7a19125 </span></span>
 <span><span class="co">#&gt;                       "rnaseq"                         "snps"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>

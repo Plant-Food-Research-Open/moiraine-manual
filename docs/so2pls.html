@@ -81,6 +81,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./mofa.html" rel="next">
 <link href="./spls.html" rel="prev">
+<link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -764,7 +765,7 @@ Note
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_cv_adj.html">so2pls_plot_cv_adj</a></span><span class="op">(</span><span class="va">so2pls_cv_adj</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="so2pls_files/figure-html/plot-cv-adj-1.png" class="img-fluid" width="768"></p>
+<p><img src="so2pls_files/figure-html/plot-cv-adj-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>In the plot, The values of <span class="math inline">\(n_x\)</span> and <span class="math inline">\(n_y\)</span> chosen for each value of <span class="math inline">\(n\)</span> are displayed next to each point. We can see that the smallest prediction error is obtained with one joint component.</p>
@@ -799,7 +800,7 @@ Note
 <span></span>
 <span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_cv.html">so2pls_plot_cv</a></span><span class="op">(</span><span class="va">so2pls_cv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="so2pls_files/figure-html/plot-cv-1.png" class="img-fluid" width="768"></p>
+<p><img src="so2pls_files/figure-html/plot-cv-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>The plot displays, for each tested value of <span class="math inline">\(n\)</span> (facets), the prediction error (MSE – colour) obtained for the tested values of <span class="math inline">\(n_x\)</span> (x-axis) and <span class="math inline">\(n_y\)</span> (y-axis). The combination of values yielding the smallest prediction error is highlighted in red. This optimal combination can be extracted from the results with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_get_optim_ncomp.html">so2pls_get_optim_ncomp()</a></code> function:</p>
@@ -819,7 +820,7 @@ Note
 </div>
 </section></section><section id="choosing-the-number-of-features-to-retain-for-the-joint-components" class="level2" data-number="9.4"><h2 data-number="9.4" class="anchored" data-anchor-id="choosing-the-number-of-features-to-retain-for-the-joint-components">
 <span class="header-section-number">9.4</span> Choosing the number of features to retain for the joint components</h2>
-<p>Once the number of joint and specific components to compute has been decided, we need to estimate the optimal number of features to retain from each dataset for each of the joint components (no feature selection is performed for the specific components). This is done through cross-validation, where the aim is to maximise the covariance between the joint components of the two datasets. This step is performed via the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_crossval_sparsity.html">so2pls_crossval_sparsity()</a></code> function (which is identical to the <code><a href="https://rdrr.io/pkg/OmicsPLS/man/crossval_sparsity.html">OmicsPLS::crossval_sparsity()</a></code> function, except that all results from the cross-validation are returned, which is necessary for plotting purposes). The function takes as input the number of joint and specific components (<code>n</code>, <code>nx</code> and <code>ny</code> arguments), the number of folds to use for the cross-validation (<code>nr_folds</code>), and the values to test for each dataset (<code>keepx_seq</code> and <code>keepy_seq</code> arguments). For this example, we will test values between 5 and 100 for the rnaseq dataset, and between 5 and 40 for the metabolomics dataset:</p>
+<p>Once the number of joint and specific components to compute has been decided, we need to estimate the optimal number of features to retain from each dataset for each of the joint components (no feature selection is performed for the specific components). This is done through cross-validation, where the aim is to maximise the covariance between the joint components of the two datasets. This step is performed via the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_crossval_sparsity.html">so2pls_crossval_sparsity()</a></code> function (which is identical to the <code><a href="https://rdrr.io/pkg/OmicsPLS/man/crossval_sparsity.html">OmicsPLS::crossval_sparsity()</a></code> function, except that all results from the cross-validation are returned, which is necessary for plotting purposes). The function takes as input the number of joint and specific components (<code>n</code>, <code>nx</code> and <code>ny</code> arguments), the number of folds to use for the cross-validation (<code>nr_folds</code>), and the values to test for each dataset (<code>keepx_seq</code> and <code>keepy_seq</code> arguments). For this example, we will test values between 5 and 100 for the rnaseq dataset, and between 5 and 40 for the metabolomics dataset. We can also set the seed for the computations via the <code>seed</code> argument:</p>
 <div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
@@ -831,7 +832,8 @@ Note
 <span>    ny <span class="op">=</span> <span class="va">so2pls_cv_res</span><span class="op">[</span><span class="st">'ny'</span><span class="op">]</span>,</span>
 <span>    nr_folds <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>    keepx_seq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">30</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    keepy_seq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">40</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span>    keepy_seq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">40</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    seed <span class="op">=</span> <span class="op">-</span><span class="fl">1138855226</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -842,7 +844,7 @@ Note
 <span></span>
 <span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_cv_sparsity.html">so2pls_plot_cv_sparsity</a></span><span class="op">(</span><span class="va">so2pls_cv_sparsity</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="so2pls_files/figure-html/plot-cv-sparsity-1.png" class="img-fluid" width="768"></p>
+<p><img src="so2pls_files/figure-html/plot-cv-sparsity-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>The plot depicts, for each joint component (facets – in this case there is only one), the average (colour) and standard deviation (gray area) of the covariance between the datasets’ joint components obtained for different number of features retained from the first (x-axis) and second (y-axis) dataset. The <code>OmicsPLS</code> package offers two options to select the optimal values to select for each latent component:</p>
@@ -972,7 +974,7 @@ Note
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_summary.html">so2pls_plot_summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="so2pls_files/figure-html/plot-summary-final-run-1.png" class="img-fluid" width="768"></p>
+<p><img src="so2pls_files/figure-html/plot-summary-final-run-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>The plot on the left shows the percentage of variation explained by the joint, orthogonal/specific and residual parts for each dataset. In our example, the joint parts explain around 33% and 15% of the variation in the transcriptomics and metabolomics datasets, respectively, while the specific components explain around 12% and 33% of the variation in each dataset. Taken together, the joint and specific parts explain 45% of the variation present in the transcriptomics dataset and 48% in the metabolomics dataset. The plot on the right depicts the percentage of joint variation of a dataset explained by the joint variation of the other dataset, i.e.&nbsp;it gives an indication of how correlated the joint parts of the two datasets are. In our case, the joint part of each dataset explains between 80% of the joint variation in the other dataset, which is indicative of a good covariance between the datasets.</p>
@@ -980,7 +982,7 @@ Note
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_screeplot.html">so2pls_screeplot</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="so2pls_files/figure-html/screeplot-final-run-1.png" class="img-fluid" width="960"></p>
+<p><img src="so2pls_files/figure-html/screeplot-final-run-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section><section id="relationship-between-the-datasets-joint-components" class="level3" data-number="9.6.2"><h3 data-number="9.6.2" class="anchored" data-anchor-id="relationship-between-the-datasets-joint-components">
@@ -996,7 +998,7 @@ Note
 <span>  shape_by <span class="op">=</span> <span class="st">"feedlot"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="so2pls_files/figure-html/plot-compare-joint-comps-1.png" class="img-fluid" width="768"></p>
+<p><img src="so2pls_files/figure-html/plot-compare-joint-comps-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>It seems that joint component 1 is pretty consistent between the two datasets, except for one individual (an infected animal from feedlot 2 seen on the bottom-left of the plot). For both datasets, this joint component clearly separates the control and infected animals.</p>
@@ -1010,14 +1012,14 @@ Note
 <span><span class="op">)</span> <span class="op">&amp;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="so2pls_files/figure-html/plot-compare-joint-comps-colour-1.png" class="img-fluid" width="768"></p>
+<p><img src="so2pls_files/figure-html/plot-compare-joint-comps-colour-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>We can visualise precisely how the joint components from the two datasets are related. As it is possible to express each joint component of one dataset as a linear combination of the joint components of the other dataset, we can look at the coefficients of these linear combinations. This is the purpose of the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_joint_components_coefficients.html">so2pls_plot_joint_components_coefficients()</a></code> function. In this case, since there is only one joint component, the visualisation is not particularly useful:</p>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_joint_components_coefficients.html">so2pls_plot_joint_components_coefficients</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="so2pls_files/figure-html/plot-joint-comp-coeff-1.png" class="img-fluid" width="864"></p>
+<p><img src="so2pls_files/figure-html/plot-joint-comp-coeff-1.svg" class="img-fluid" width="864"></p>
 </div>
 </div>
 </section><section id="samples-plots" class="level3" data-number="9.6.3"><h3 data-number="9.6.3" class="anchored" data-anchor-id="samples-plots">
@@ -1034,7 +1036,7 @@ Note
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.box <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="so2pls_files/figure-html/plot-joint-comps-1.png" class="img-fluid" width="768"></p>
+<p><img src="so2pls_files/figure-html/plot-joint-comps-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>We can clearly see that joint component 1 separates most of the control from the infected animals. Note that the function returns a ggplot, which can be further customised.</p>
@@ -1055,12 +1057,12 @@ Note
 <span><span class="co">#&gt; argument will be ignored.</span></span>
 <span><span class="co">#&gt; $rnaseq</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="so2pls_files/figure-html/plot-specific-comp-1.png" class="img-fluid" width="768"></p>
+<p><img src="so2pls_files/figure-html/plot-specific-comp-1.svg" class="img-fluid" width="768"></p>
 </div>
 <pre><code>#&gt; 
 #&gt; $metabolome</code></pre>
 <div class="cell-output-display">
-<p><img src="so2pls_files/figure-html/plot-specific-comp-2.png" class="img-fluid" width="768"></p>
+<p><img src="so2pls_files/figure-html/plot-specific-comp-2.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>The transcriptomics specific components plots are harder to read as there are 8 of them, but it looks like for both datasets the specific components are not representing variation due to covariates such as gender or feedlot.</p>

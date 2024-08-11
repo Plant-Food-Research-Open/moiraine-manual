@@ -284,6 +284,8 @@ The function `diablo_tune()` provides a wrapper around the `mixOmics::tune()` fu
 
 The `keepX_list` argument controls the grid of values to be tested as possible number of features to retain from each dataset. It should be in the form of a named list, with one element per dataset, and where each element is a vector of integers corresponding to the values to test. The names of the list should correspond to the names of the datasets in the `MultiDataSet` object. If no value is provided for `keepX_list`, six values ranging from 5 to 30 (by increments of 5) are tested for each dataset.
 
+We can also set the seed for the computations via the `seed` argument.
+
 ::: {.targets-chunk}
 ```{targets diablo-tune-res}
 tar_target(
@@ -296,7 +298,8 @@ tar_target(
     folds = 10,
     nrepeat = 5,
     dist = "centroids.dist",
-    cpus = 3
+    cpus = 3,
+    seed = 1659021768
   )
 )
 ```

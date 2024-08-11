@@ -193,7 +193,7 @@ tar_target(
 
 ## Choosing the number of features to retain for the joint components
 
-Once the number of joint and specific components to compute has been decided, we need to estimate the optimal number of features to retain from each dataset for each of the joint components (no feature selection is performed for the specific components). This is done through cross-validation, where the aim is to maximise the covariance between the joint components of the two datasets. This step is performed via the `so2pls_crossval_sparsity()` function (which is identical to the `OmicsPLS::crossval_sparsity()` function, except that all results from the cross-validation are returned, which is necessary for plotting purposes). The function takes as input the number of joint and specific components (`n`, `nx` and `ny` arguments), the number of folds to use for the cross-validation (`nr_folds`), and the values to test for each dataset (`keepx_seq` and `keepy_seq` arguments). For this example, we will test values between 5 and 100 for the rnaseq dataset, and between 5 and 40 for the metabolomics dataset:
+Once the number of joint and specific components to compute has been decided, we need to estimate the optimal number of features to retain from each dataset for each of the joint components (no feature selection is performed for the specific components). This is done through cross-validation, where the aim is to maximise the covariance between the joint components of the two datasets. This step is performed via the `so2pls_crossval_sparsity()` function (which is identical to the `OmicsPLS::crossval_sparsity()` function, except that all results from the cross-validation are returned, which is necessary for plotting purposes). The function takes as input the number of joint and specific components (`n`, `nx` and `ny` arguments), the number of folds to use for the cross-validation (`nr_folds`), and the values to test for each dataset (`keepx_seq` and `keepy_seq` arguments). For this example, we will test values between 5 and 100 for the rnaseq dataset, and between 5 and 40 for the metabolomics dataset. We can also set the seed for the computations via the `seed` argument:
 
 ::: {.targets-chunk}
 ```{targets cv-sparsity}
@@ -206,7 +206,8 @@ tar_target(
     ny = so2pls_cv_res['ny'],
     nr_folds = 10,
     keepx_seq = c(seq(5, 30, 5), seq(40, 100, 10)),
-    keepy_seq = c(seq(5, 40, 5))
+    keepy_seq = c(seq(5, 40, 5)),
+    seed = -1138855226
   )
 )
 ```

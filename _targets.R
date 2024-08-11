@@ -198,7 +198,8 @@ list(
     mo_set_complete,
     group = "status",
     to_keep_ns = c("snps" = 1000, "rnaseq" = 1000),
-    filtered_set_target_name = "mo_presel_supervised"
+    filtered_set_target_name = "mo_presel_supervised",
+    seed_perf = c("snps" = -1591100874, "rnaseq" = 1791752001)
   ),
 
   ##=================##
@@ -262,7 +263,8 @@ list(
       folds = 10,
       nrepeat = 5,
       dist = "centroids.dist",
-      cpus = 3
+      cpus = 3,
+      seed = 1659021768
     )
   ),
 
@@ -384,7 +386,8 @@ list(
       folds = 10,
       nrepeat = 5,
       measure = "cor",
-      cpus = 3
+      cpus = 3,
+      seed = -584594170
     )
   ),
 
@@ -474,7 +477,8 @@ list(
       ny = so2pls_cv_res["ny"],
       nr_folds = 10,
       keepx_seq = c(seq(5, 30, 5), seq(40, 100, 10)),
-      keepy_seq = c(seq(5, 40, 5))
+      keepy_seq = c(seq(5, 40, 5)),
+      seed = -1138855226
     )
   ),
   tar_target(

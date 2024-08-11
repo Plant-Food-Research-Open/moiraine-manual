@@ -81,6 +81,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./so2pls.html" rel="next">
 <link href="./prefiltering.html" rel="prev">
+<link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -676,7 +677,7 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html">tar_read</a></span><span class="op">(</span><span class="va">spls_perf_res</span><span class="op">)</span>, criterion <span class="op">=</span> <span class="st">"Q2.total"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="spls_files/figure-html/spls-perf-res-plot-1.png" class="img-fluid" width="768"></p>
+<p><img src="spls_files/figure-html/spls-perf-res-plot-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>The plot generated displays the average <span class="math inline">\(Q^2_{total}\)</span> criterion across the different cross-validation folds obtained with different number of latent components. The authors of the <code>mixOmics</code> package recommend to select the number of latent components above which the Q2 criterion becomes smaller than 0.0975 (depicted as a black horizontal line in the plot). However, there are cases in which the Q2 values instead increases with the number of latent components. In these cases, it is recommended to select the number of latent components above which the Q2 values exceed the threshold of 0.0975. To facilitate the selection, the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_get_optim_ncomp.html">spls_get_optim_ncomp()</a></code> function can automatically select the optimal number of latent components to use based on the cross-validation results. However, its results should always be checked against the graphical representation of the <span class="math inline">\(Q^2_{total}\)</span> criterion. In our case, the function selects the optimal number of latent components to construct to be 1:</p>
@@ -702,6 +703,7 @@ div.csl-indent {
 <p>The next parameter to set is the number of features to retain from each of the omics datasets, for each latent component. Again, we can use cross-validation to select optimal values amongst a grid of values to test. The range of values to test depends on the type of question we are trying to answer: selecting a larger number of features might lead to a higher degree of agreement between the latent components of the two datasets, but will be hard to manually inspect for further characterisation.</p>
 <p>The function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_tune.html">spls_tune()</a></code> provides a wrapper around the <code><a href="https://rdrr.io/pkg/mixOmics/man/tune.html">mixOmics::tune()</a></code> function that performs this cross-validation. Some of the arguments are similar to the <code><a href="https://rdrr.io/pkg/mixOmics/man/perf.html">mixOmics::perf()</a></code> function, e.g.&nbsp;<code>validation</code>, <code>folds</code>, <code>nrepeats</code> or <code>cpus.</code> In addition, we recommend setting the <code>measure</code> argument, which corresponds to the metric used for performance assessment, to <code>"cor"</code> (i.e.&nbsp;the correlation between the latent components constructed). Alternatively, it is possible to set the <code>measure</code> argument to <code>"RSS"</code>.</p>
 <p>The <code>keepX</code> and <code>keepY</code> arguments control the grid of values to be tested as possible number of features to retain from the first and second dataset, respectively. Both arguments should be in the form of an integer vector of values to test. If no value is provided for either of these arguments, six values ranging from 5 to 30 (by increments of 5) are tested for the corresponding dataset. Here we will increase the maximum number of features that can be retained from each dataset to 100. Note that the metabolomics dataset has only 55 features, so the <code>spls_tune</code> function will remove all values to test above this number.</p>
+<p>We can also set the seed for the computations via the <code>seed</code> argument.</p>
 <div class="targets-chunk">
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_target.html">tar_target</a></span><span class="op">(</span></span>
@@ -715,7 +717,8 @@ div.csl-indent {
 <span>    folds <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>    nrepeat <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>    measure <span class="op">=</span> <span class="st">"cor"</span>,</span>
-<span>    cpus <span class="op">=</span> <span class="fl">3</span></span>
+<span>    cpus <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    seed <span class="op">=</span> <span class="op">-</span><span class="fl">584594170</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -725,7 +728,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html">tar_load</a></span><span class="op">(</span><span class="va">spls_tune_res</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/spls_plot_tune.html">spls_plot_tune</a></span><span class="op">(</span><span class="va">spls_tune_res</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="spls_files/figure-html/spls-plot-tune-1.png" class="img-fluid" width="768"></p>
+<p><img src="spls_files/figure-html/spls-plot-tune-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>In the plot, each point corresponds to a pair of values (<code>keepX</code>, <code>keepY</code>) tested. The colour of each point indicates the average correlation obtained across the cross-validation folds between the latent components constructed for the first dataset (left panel) or second dataset (right panel). The grey shadow around each point indicates the Coefficient of Variation (i.e.&nbsp;standard deviation divided by mean) of this correlation across the cross-validation folds (so a larger shadow indicates a larger relative variation across the folds). The point corresponding to the optimal pair of values for <code>keepX</code> and <code>keepY</code> is highlighted in red. It corresponds to the pair of values that maximises this average correlation for both datasets (according to a t-test of significance).</p>
@@ -783,7 +786,7 @@ div.csl-indent {
 <span>  comp <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="spls_files/figure-html/spls-plot-indiv-1.png" class="img-fluid" width="768"></p>
+<p><img src="spls_files/figure-html/spls-plot-indiv-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>Here, ‘Block X’ refers to the first dataset (i.e.&nbsp;the transcriptomics dataset in our case), and ‘Block Y’ to the second dataset (the metabolomics dataset). The agreement between the latent components computed for each dataset can be more easily visualised using an arrow plot, using the <code><a href="https://rdrr.io/pkg/mixOmics/man/plotArrow.html">mixOmics::plotArrow()</a></code> function:</p>
@@ -794,7 +797,7 @@ div.csl-indent {
 <span>  comp <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="spls_files/figure-html/spls-plot-arrow-1.png" class="img-fluid" width="768"></p>
+<p><img src="spls_files/figure-html/spls-plot-arrow-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>In the arrow plot, each sample is represented with two points, which are linked by an arrow. The point at the start of the arrow corresponds to the sample in the projection space of the first dataset (i.e.&nbsp;transcriptomics dataset), while the point at the end of the arrow shows the location of the sample in the projection space of the second dataset (i.e.&nbsp;the metabolomics dataset). In this plot, most of the arrows are large, which indicates that there is not a good agreement between the latent components of the two datasets.</p>
@@ -810,7 +813,7 @@ div.csl-indent {
 <span>  cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="spls_files/figure-html/spls-plotVar-1.png" class="img-fluid" width="768"></p>
+<p><img src="spls_files/figure-html/spls-plotVar-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>The <code><a href="https://rdrr.io/pkg/mixOmics/man/plotVar.html">plotVar()</a></code> function offers the option to show the label of the features rather than representing them as points. However, it can be more informative to use information from the feature metadata as labels, rather than using the feature IDs. For example in the transcriptomics dataset, it would be more interesting to use the name of the genes. This information is available in the datasets’ features metadata:</p>
@@ -849,7 +852,7 @@ div.csl-indent {
 <span>  comp <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="spls_files/figure-html/spls-plot-var-1.png" class="img-fluid" width="768"></p>
+<p><img src="spls_files/figure-html/spls-plot-var-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>Note that if a dataset is not present in the list passed to <code>label_cols</code>, the feature IDs will be used as labels.</p>

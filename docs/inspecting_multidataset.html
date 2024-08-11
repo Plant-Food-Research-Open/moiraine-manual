@@ -62,6 +62,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <link href="./modifying_multidataset.html" rel="next">
 <link href="./data_import.html" rel="prev">
+<link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -633,7 +634,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_upset.html">plot_samples_upset</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-samples-upset-1.png" class="img-fluid" width="960"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-samples-upset-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>As can be seen in the upset plot above, 135 samples have measurements across all three omics datasets. In addition, 4 samples have both transcriptomics and metabolomics measurements, but no transcriptomics information; 3 samples are present in the genomics and metabolomics datasets but not the transcriptomics dataset, and the genomics and transcriptomics datasets each have a unique sample not present in the other omics datasets.</p>
@@ -643,7 +644,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data</a></span><span class="op">(</span><span class="va">mo_set</span>, combined <span class="op">=</span> <span class="cn">FALSE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-density-data-1.png" class="img-fluid" width="864"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-density-data-1.svg" class="img-fluid" width="864"></p>
 </div>
 </div>
 <p>By default, all datasets are represented in the density plot, but it is possible to focus on one or a subset of them via the <code>datasets</code> argument. This is useful here as the plots for the transcriptomics and metabolomics could benefit from a log10 transformation for the x-axis:</p>
@@ -658,7 +659,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; Warning: Transformation introduced infinite values in continuous x-axis</span></span>
 <span><span class="co">#&gt; Warning: Removed 338138 rows containing non-finite values (`stat_density()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-density-data-xlog10-1.png" class="img-fluid" width="768"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-density-data-xlog10-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>Note that as the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data()</a></code> function returns a ggplot, it can be further customised with other <code>ggplot2</code> functions as shown above.</p>
@@ -668,7 +669,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_meansd_data.html">plot_meansd_data</a></span><span class="op">(</span><span class="va">mo_set</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-meansd-data-1.png" class="img-fluid" width="768"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-meansd-data-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>In our case, we can see a very strong relationship between features mean and standard deviation in both the transcriptomics and metabolomics datasets, which suggest that a log or variance-stabilising transformation will be necessary in both cases (datasets transformation are covered in <a href="preprocessing.html"><span>Chapter&nbsp;6</span></a>).</p>
@@ -715,7 +716,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; Warning: Not enough data to calculate distance between samples, disabling</span></span>
 <span><span class="co">#&gt; clustering of columns.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-1.png" class="img-fluid" width="960"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>Note that we specified that the data should be centred and scaled before plotting, to represent features from different datasets on a similar scale.</p>
@@ -730,7 +731,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  samples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"O4713"</span>, <span class="st">"Y3660"</span>, <span class="st">"R5979"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-samples-subset-1.png" class="img-fluid" width="576"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-samples-subset-1.svg" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>We can also add samples and/or features information to the sides of the heatmap through the <code>samples_info</code> and <code>features_info</code> arguments. These two arguments take a vector of column names from the samples or features metadata table, respectively. The <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">ComplexHeatmap::Heatmap()</a></code> picks random colours for these annotations, but we can set specific colour palettes by passing a list of colour palettes through the argument <code>colours_list</code>. For continuous annotations, the colour palette must be generated with <code><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html">circlize::colorRamp2()</a></code>.</p>
@@ -750,7 +751,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-annotations-1.png" class="img-fluid" width="960"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-annotations-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>We can also use information from the features metadata tables to give a more meaningful label to the features. For example, we can use the column <code>Name</code> from the transcriptomics features metadata and the column <code>name</code> from the metabolomics features metadata to label the features. This is done by passing a named list through the <code>label_cols</code> argument, where each element is the name of the column to use and the name of the element gives the name of the dataset in the MultiDataSet object. If these labels are too long, we can truncate them through the <code>truncate</code> argument (see the function help).</p>
@@ -775,7 +776,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  truncate <span class="op">=</span> <span class="fl">20</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-labels-1.png" class="img-fluid" width="960"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-heatmap-labels-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>Note that because we didn’t include the <code>snps</code> dataset in the list passed through <code>label_cols</code>, the ID of the features are used as labels.</p>
@@ -790,7 +791,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-categorical-1.png" class="img-fluid" width="768"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-categorical-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>We can use other columns from the samples metadata to customise the points colour and shape. For the colour, the constructed plot will depend on whether the corresponding in categorical or numeric:</p>
@@ -804,7 +805,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  shape_by <span class="op">=</span> <span class="st">"feedlot"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-categorical-colours-1.png" class="img-fluid" width="768"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-categorical-colours-1.svg" class="img-fluid" width="768"></p>
 </div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
@@ -816,7 +817,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  shape_by <span class="op">=</span> <span class="st">"feedlot"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-categorical-colours-2.png" class="img-fluid" width="768"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-categorical-colours-2.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>If instead the covariate is numerical, the function produces scatterplots with a loess curve for each feature:</p>
@@ -828,7 +829,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  only_common_samples <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-1.png" class="img-fluid" width="768"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>Again, we can use other samples information to specify the colour or shapes of the samples. Note that if the covariate used for points colour is discrete, a loess curve will be fitted for each category. If the covariate is continuous, or if changing the shape of the points, only one loess curve will be fitted for all data points.</p>
@@ -842,7 +843,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  shape_by <span class="op">=</span> <span class="st">"status"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-colours-1.png" class="img-fluid" width="768"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-colours-1.svg" class="img-fluid" width="768"></p>
 </div>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_covariate.html">plot_data_covariate</a></span><span class="op">(</span></span>
@@ -854,7 +855,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  shape_by <span class="op">=</span> <span class="st">"feedlot"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-colours-2.png" class="img-fluid" width="768"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-numeric-colours-2.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>The features can be renamed using features metadata through the <code>label_cols</code> argument in the same way that with the <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_data_heatmap.html">plot_data_heatmap()</a></code> function:</p>
@@ -870,7 +871,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-labels-1.png" class="img-fluid" width="768"></p>
+<p><img src="inspecting_multidataset_files/figure-html/plot-data-covariate-labels-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </section></section><section id="recap-targets-list" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="recap-targets-list">

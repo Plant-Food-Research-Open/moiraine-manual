@@ -81,6 +81,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./comparison.html" rel="next">
 <link href="./interpretation.html" rel="prev">
+<link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -1340,7 +1341,7 @@ div.csl-indent {
 <span><span class="co">#&gt; Groups with fewer than two data points have been dropped.</span></span>
 <span><span class="co">#&gt; Groups with fewer than two data points have been dropped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="evaluation_files/figure-html/plot-features-weight-covariate-all-1.png" class="img-fluid" width="768"></p>
+<p><img src="evaluation_files/figure-html/plot-features-weight-covariate-all-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>By default, the function plots on the y-axis the signed importance score of the features, that is, their importance score to which the sign of their weight was added. This can be controlled via the <code>features_metric</code> argument. We see that most of the points have an importance score of 0, because most of the features were not selected. We can focus on only those features with a non-null weight with the <code>remove_null_weight</code> argument:</p>
@@ -1361,7 +1362,7 @@ div.csl-indent {
 <span><span class="co">#&gt; Groups with fewer than two data points have been dropped.</span></span>
 <span><span class="co">#&gt; Groups with fewer than two data points have been dropped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="evaluation_files/figure-html/plot-features-weight-covariate-nonnull-1.png" class="img-fluid" width="768"></p>
+<p><img src="evaluation_files/figure-html/plot-features-weight-covariate-nonnull-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>Here, we see that for the first latent component, selected genes that were also found up-regulated were assigned on average a higher importance score that selected genes that were found non DE. Also, for the metabolomics dataset, selected compounds that were found up-regulated were assigned a positive weight while those found down-regulated were assigned a negative weight.</p>
@@ -1378,7 +1379,7 @@ div.csl-indent {
 <span><span class="co">#&gt; Warning: Removed 508 rows containing non-finite values (`stat_smooth()`).</span></span>
 <span><span class="co">#&gt; Warning: Removed 508 rows containing missing values (`geom_point()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="evaluation_files/figure-html/plot-features-weight-covariate-continuous-1.png" class="img-fluid" width="768"></p>
+<p><img src="evaluation_files/figure-html/plot-features-weight-covariate-continuous-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>We can see a nice trend between compounds’ t-value and their signed importance score in the differential expression analysis for the first latent component.</p>
@@ -1400,7 +1401,7 @@ div.csl-indent {
 <span><span class="co">#&gt; Warning: Removed 508 rows containing non-finite values (`stat_smooth()`).</span></span>
 <span><span class="co">#&gt; Warning: Removed 508 rows containing missing values (`geom_point()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="evaluation_files/figure-html/plot-features-weight-covariate-continuous-colour-1.png" class="img-fluid" width="768"></p>
+<p><img src="evaluation_files/figure-html/plot-features-weight-covariate-continuous-colour-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>Note that for continuous covariates, as with the function <code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_score_covariate.html">plot_samples_score_covariate()</a></code>, a loess curve is fit to summarise the trend between the covariates and the features weight. If <code>colour_by</code> is used, and the corresponding variables are categorical, a different loess curve is fitted for each category. If instead the <code>colour_by</code> variables are numeric, a single loess curve will be plotted for each latent dimension and dataset.</p>
@@ -1703,7 +1704,7 @@ div.csl-indent {
 <span>  point_alpha <span class="op">=</span> <span class="fl">0.2</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="evaluation_files/figure-html/plot-features-weight-set-1.png" class="img-fluid" width="768"></p>
+<p><img src="evaluation_files/figure-html/plot-features-weight-set-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>In the resulting plot, we can see for each dataset (in this case, we’re only looking at the transcriptomics dataset since we have gene sets) and latent dimensions (rows of the plot) the distribution of features importance for genes in the set vs not in the set. We can see that the GO term investigated contains 20 genes, and in total, 994 genes have been assigned a weight with MOFA (because we have performed some pre-filtering on the transcriptomics dataset prior to running MOFA). Therefore, out of all the genes in the set, 9 of them have no weight (they did not pass the pre-filtering step). We can add these features that did not make it into the MOFA input data in the same way as we did for the enrichment function, namely by setting the <code>add_missing_features</code> argument to TRUE and passing the non-filtering <code>MultiDataSet</code> object through <code>mo_data</code>:</p>
@@ -1720,7 +1721,7 @@ div.csl-indent {
 <span>  mo_data <span class="op">=</span> <span class="va">mo_set_complete</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="evaluation_files/figure-html/plot-features-weight-set-with-missing-1.png" class="img-fluid" width="768"></p>
+<p><img src="evaluation_files/figure-html/plot-features-weight-set-with-missing-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>This is the distribution of values that were used for the enrichment test, but it’s not very useful to look at since the vast majority of the genes have a weight of zero.</p>

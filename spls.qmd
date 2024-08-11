@@ -246,6 +246,8 @@ The function `spls_tune()` provides a wrapper around the `mixOmics::tune()` func
 
 The `keepX` and `keepY` arguments control the grid of values to be tested as possible number of features to retain from the first and second dataset, respectively. Both arguments should be in the form of an integer vector of values to test. If no value is provided for either of these arguments, six values ranging from 5 to 30 (by increments of 5) are tested for the corresponding dataset. Here we will increase the maximum number of features that can be retained from each dataset to 100. Note that the metabolomics dataset has only 55 features, so the `spls_tune` function will remove all values to test above this number.
 
+We can also set the seed for the computations via the `seed` argument.
+
 ::: {.targets-chunk}
 ```{targets spls-tune-res}
 tar_target(
@@ -259,7 +261,8 @@ tar_target(
     folds = 10,
     nrepeat = 5,
     measure = "cor",
-    cpus = 3
+    cpus = 3,
+    seed = -584594170
   )
 )
 ```

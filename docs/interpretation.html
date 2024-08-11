@@ -62,6 +62,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <link href="./evaluation.html" rel="next">
 <link href="./diablo.html" rel="prev">
+<link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -1439,7 +1440,7 @@ Other methods covered by <code>get_output</code>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/plot-variance-explained-spls-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/plot-variance-explained-spls-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1448,7 +1449,7 @@ Other methods covered by <code>get_output</code>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">so2pls_output</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">9</span>, angle <span class="op">=</span> <span class="fl">30</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/plot-variance-explained-so2pls-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/plot-variance-explained-so2pls-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1457,7 +1458,7 @@ Other methods covered by <code>get_output</code>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">mofa_output</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">9</span>, angle <span class="op">=</span> <span class="fl">30</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/plot-variance-explained-mofa-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/plot-variance-explained-mofa-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1465,7 +1466,7 @@ Other methods covered by <code>get_output</code>
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">diablo_output</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/plot-variance-explained-diablo-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/plot-variance-explained-diablo-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1514,7 +1515,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.box <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/spls-plot-samples-scores-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/spls-plot-samples-scores-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>Component 1 clearly splits the control and BRD animals, while component 2 seems to separate two samples from the rest. There is no clear separation of the samples by feedlot or gender.</p>
@@ -1536,7 +1537,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; component 1", : Only one latent dimension to plot; 'colour_diag',</span></span>
 <span><span class="co">#&gt; 'colour_lower' and 'shape_lower' argument will be ignored.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/so2pls-plot-samples-scores-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/so2pls-plot-samples-scores-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>Joint component 1 separates the BRD and control animals, although some of them overlap.</p>
@@ -1562,7 +1563,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; Removed 2 rows containing missing values (`geom_point()`).</span></span>
 <span><span class="co">#&gt; Removed 2 rows containing missing values (`geom_point()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/mofa-plot-samples-scores-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/mofa-plot-samples-scores-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>Factor 1 clearly separates the control and BRD animals. Factor 2 separates samples from the genomics composition cluster K1 from the other two clusters. None of the factors are separating the animals by gender, indicating that this covariate does not have a strong effect in the omics measurements.</p>
@@ -1580,7 +1581,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.box <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/diablo-plot-samples-scores-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/diablo-plot-samples-scores-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>As DIABLO is a supervised method, it is no surprise that the first component clearly separates the two disease status groups. The second latent component separates samples according to the RNAseq batch. From this plot it is not clear what components 3 and 4 represent.</p>
@@ -1609,7 +1610,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="va">palette_status</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/spls-plot-samples-score-pair-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/spls-plot-samples-score-pair-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>The two disease status groups are well separated in this space.</p>
@@ -1626,7 +1627,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="va">palette_status</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/so2pls-plot-samples-score-pair-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/so2pls-plot-samples-score-pair-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>These two specific components are not related to disease status or gender.</p>
@@ -1643,7 +1644,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="va">palette_status</span></span>
 <span><span class="co">#&gt; Warning: Removed 2 rows containing missing values (`geom_point()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/mofa-plot-samples-score-pair-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/mofa-plot-samples-score-pair-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>We see that these first two factors discriminate the disease status groups and the genomics composition clusters.</p>
@@ -1659,7 +1660,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="va">palette_status</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/diablo-plot-samples-score-pair-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/diablo-plot-samples-score-pair-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>We see that these first two components discriminate the disease status groups and the RNAseq batches.</p>
@@ -1688,7 +1689,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="va">palette_status_fill</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/spls-plot-samples-score-covariate-cat-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/spls-plot-samples-score-covariate-cat-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1704,7 +1705,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="va">palette_status_fill</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/so2pls-plot-samples-score-covariate-cat-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/so2pls-plot-samples-score-covariate-cat-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1722,7 +1723,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="va">palette_status_fill</span></span>
 <span><span class="co">#&gt; Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/mofa-plot-samples-score-covariate-cat-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/mofa-plot-samples-score-covariate-cat-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1739,7 +1740,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="va">palette_status_fill</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/diablo-plot-samples-score-covariate-cat-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/diablo-plot-samples-score-covariate-cat-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1764,7 +1765,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="va">palette_status_fill</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/spls-plot-samples-score-covariate-cont-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/spls-plot-samples-score-covariate-cont-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1780,7 +1781,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="va">palette_status_fill</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/so2pls-plot-samples-score-covariate-cont-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/so2pls-plot-samples-score-covariate-cont-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1799,7 +1800,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="co">#&gt; Warning: Removed 4 rows containing non-finite values (`stat_smooth()`).</span></span>
 <span><span class="co">#&gt; Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/mofa-plot-samples-score-covariate-cont-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/mofa-plot-samples-score-covariate-cont-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1816,7 +1817,7 @@ Other methods covered by <code>get_output</code>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="va">palette_status_fill</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/diablo-plot-samples-score-covariate-cont-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/diablo-plot-samples-score-covariate-cont-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -1840,7 +1841,7 @@ Other methods covered by <code>get_output</code>
 <div class="cell">
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_features_weight_distr.html">plot_features_weight_distr</a></span><span class="op">(</span><span class="va">spls_output</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/spls-plot-features-weight-distr-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/spls-plot-features-weight-distr-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>As sPLS performs feature selection, most of the weights are equal to 0.</p>
@@ -1851,7 +1852,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="co">## showing two plots per column (from patchwork package)</span></span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/so2pls-plot-features-weight-distr-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/so2pls-plot-features-weight-distr-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>As sO2PLS performs feature selection for the joint components, most of the weights are equal to 0 for joint component 1.</p>
@@ -1866,7 +1867,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="co">## showing one plot per column (from patchwork package)</span></span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/mofa-plot-features-weight-distr-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/mofa-plot-features-weight-distr-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>We can see for example for factor 1 that only a couple of metabolites have an importance score above 0.5, this small number of features are driving the variation captured by factor 1.</p>
@@ -1879,7 +1880,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="co">## showing one plot per column (from patchwork package)</span></span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/diablo-plot-features-weight-distr-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/diablo-plot-features-weight-distr-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>As DIABLO performs feature selection, most of the weights are equal to zero.</p>
@@ -1909,7 +1910,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/spls-features-weight-pair-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/spls-features-weight-pair-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>All genes and most metabolites selected for the two components are different.</p>
@@ -1926,7 +1927,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/so2pls-features-weight-pair-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/so2pls-features-weight-pair-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>The plot shows an interesting pattern: the weights of the compound for these two specific components are negatively correlated, except for a couple of outliers.</p>
@@ -1943,7 +1944,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/mofa-features-weight-pair-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/mofa-features-weight-pair-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>We can see that the genomic markers are mostly given weights of opposite signs for the first two MOFA factors (e.g.&nbsp;positive weight for factor 1 and negative weight for factor 2). For the transcriptomics and metabolomics datasets, the importance score are mostly uncorrelated between the first two factors.</p>
@@ -1960,7 +1961,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/diablo-features-weight-pair-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/diablo-features-weight-pair-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>We can see that different features were selected for the first two latent components from each omics dataset.</p>
@@ -1992,7 +1993,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/spls-plot-top-features-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/spls-plot-top-features-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>We can see that citric acid and D-mannose have an importance score close to 1 for component 1. Citric acid has a negative weight, meaning that its abundance is negatively correlated with component 1, while D-mannose has a positive weight, so its abundance is positively correlated with component 1. For the second component, only two genes have an importance score above 0.5.</p>
@@ -2010,7 +2011,7 @@ Other methods covered by <code>get_output</code>
 <span>  latent_dimensions <span class="op">=</span> <span class="st">"joint component 1"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/so2pls-plot-top-features-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/so2pls-plot-top-features-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>While all top 20 genes have an importance score above 0.5 for joint component 1, only citric acid is given a high importance score for joint component 1 in the metabolomics dataset.</p>
@@ -2028,7 +2029,7 @@ Other methods covered by <code>get_output</code>
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/mofa-plot-top-features-1.png" class="img-fluid" width="960"></p>
+<p><img src="interpretation_files/figure-html/mofa-plot-top-features-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>For factor 1, citric acid is the only metabolite with an importance score above 0.75, while in the genomics dataset four markers have a high importance score, and most of the top 20 genes have an importance score aroung 0.7 or higher.</p>
@@ -2046,7 +2047,7 @@ Other methods covered by <code>get_output</code>
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Component"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/diablo-plot-top-features-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/diablo-plot-top-features-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>For component 1, we can see three markers from the genomics dataset and three genes with a high importance score. From the metabolomics dataset, less than 20 features were retained.</p>
@@ -2411,7 +2412,7 @@ Other methods covered by <code>get_output</code>
 <span>  truncate <span class="op">=</span> <span class="fl">20</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/spls-plot-top-features-heatmap-1.png" class="img-fluid" width="960"></p>
+<p><img src="interpretation_files/figure-html/spls-plot-top-features-heatmap-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 </div>
@@ -2439,7 +2440,7 @@ Other methods covered by <code>get_output</code>
 <span>  truncate <span class="op">=</span> <span class="fl">20</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/so2pls-plot-top-features-heatmap-1.png" class="img-fluid" width="960"></p>
+<p><img src="interpretation_files/figure-html/so2pls-plot-top-features-heatmap-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 </div>
@@ -2467,7 +2468,7 @@ Other methods covered by <code>get_output</code>
 <span>  truncate <span class="op">=</span> <span class="fl">20</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/mofa-plot-top-features-heatmap-1.png" class="img-fluid" width="960"></p>
+<p><img src="interpretation_files/figure-html/mofa-plot-top-features-heatmap-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 </div>
@@ -2495,7 +2496,7 @@ Other methods covered by <code>get_output</code>
 <span>  truncate <span class="op">=</span> <span class="fl">20</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/diablo-plot-top-features-heatmap-1.png" class="img-fluid" width="960"></p>
+<p><img src="interpretation_files/figure-html/diablo-plot-top-features-heatmap-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 </div>
@@ -2523,7 +2524,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/spls-plot-top-features-covariate-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/spls-plot-top-features-covariate-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -2540,7 +2541,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/so2pls-plot-top-features-covariate-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/so2pls-plot-top-features-covariate-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -2557,7 +2558,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/mofa-plot-top-features-covariate-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/mofa-plot-top-features-covariate-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>
@@ -2574,7 +2575,7 @@ Other methods covered by <code>get_output</code>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="interpretation_files/figure-html/diablo-plot-top-features-covariate-1.png" class="img-fluid" width="768"></p>
+<p><img src="interpretation_files/figure-html/diablo-plot-top-features-covariate-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 </div>

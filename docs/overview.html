@@ -62,6 +62,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <link href="./example_dataset.html" rel="next">
 <link href="./index.html" rel="prev">
+<link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -387,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<p><img src="overview_files/figure-html/plot-data-heatmap-1.png" class="img-fluid" width="960"></p>
+<p><img src="overview_files/figure-html/plot-data-heatmap-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>Similarly, a number of functions allow to quickly summarise different aspects of the multi-omics dataset, such as creating an upset plot to compare the samples present in each omics dataset (<code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_samples_upset.html">plot_samples_upset()</a></code>), or generating a density plot for each omics dataset (<code><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_density_data.html">plot_density_data()</a></code>). See <a href="inspecting_multidataset.html"><span>Chapter&nbsp;4</span></a> for more details about the different visualisations and summary functions implemented.</p>
@@ -414,7 +415,7 @@ Code
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_screeplot_pca.html">plot_screeplot_pca</a></span><span class="op">(</span><span class="va">pca_runs_list</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<p><img src="overview_files/figure-html/pca-screeplot-1.png" class="img-fluid" width="768"></p>
+<p><img src="overview_files/figure-html/pca-screeplot-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <div class="cell">
@@ -430,7 +431,7 @@ Code
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.box <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span>              <span class="co"># Plot legend vertically</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<p><img src="overview_files/figure-html/show-pca-res-snps-1.png" class="img-fluid" width="768"></p>
+<p><img src="overview_files/figure-html/show-pca-res-snps-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>More information about data pre-processing can be found in <a href="preprocessing.html"><span>Chapter&nbsp;6</span></a>.</p>
@@ -529,7 +530,7 @@ Code
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/so2pls_plot_summary.html">so2pls_plot_summary</a></span><span class="op">(</span><span class="va">so2pls_final_run</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<p><img src="overview_files/figure-html/so2pls-plot-summary-1.png" class="img-fluid" width="768"></p>
+<p><img src="overview_files/figure-html/so2pls-plot-summary-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -551,7 +552,7 @@ Note
 <span>  comp <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<p><img src="overview_files/figure-html/diablo-circos-plot-1.png" class="img-fluid" width="576"></p>
+<p><img src="overview_files/figure-html/diablo-circos-plot-1.svg" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>to:</p>
@@ -568,7 +569,7 @@ Note
 <span>  comp <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<p><img src="overview_files/figure-html/moiraine-circos-plot-1.png" class="img-fluid" width="576"></p>
+<p><img src="overview_files/figure-html/moiraine-circos-plot-1.svg" class="img-fluid" width="576"></p>
 </div>
 </div>
 </div>
@@ -643,7 +644,7 @@ Note
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://plant-food-research-open.github.io/moiraine/reference/plot_variance_explained.html">plot_variance_explained</a></span><span class="op">(</span><span class="va">mofa_output</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<p><img src="overview_files/figure-html/mofa-variance-explained-1.png" class="img-fluid" width="768"></p>
+<p><img src="overview_files/figure-html/mofa-variance-explained-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <ul>
@@ -661,7 +662,7 @@ Note
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.box <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<p><img src="overview_files/figure-html/mofa-samples-score-ggpairs-1.png" class="img-fluid" width="768"></p>
+<p><img src="overview_files/figure-html/mofa-samples-score-ggpairs-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <ul>
@@ -677,7 +678,7 @@ Note
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span> <span class="co"># MOFA factors to display</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<p><img src="overview_files/figure-html/mofa-samples-score-covariate-1.png" class="img-fluid" width="768"></p>
+<p><img src="overview_files/figure-html/mofa-samples-score-covariate-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <ul>
@@ -695,7 +696,7 @@ Note
 <span>  latent_dimensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span> <span class="co"># MOFA factors to display</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<p><img src="overview_files/figure-html/mofa-top-features-1.png" class="img-fluid" width="960"></p>
+<p><img src="overview_files/figure-html/mofa-top-features-1.svg" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>More details can be found in <a href="interpretation.html"><span>Chapter&nbsp;12</span></a>.</p>
@@ -734,7 +735,7 @@ Note
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="overview_files/figure-html/show-comp-heatmap-1.png" class="img-fluid" width="768"></p>
+<p><img src="overview_files/figure-html/show-comp-heatmap-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>Or compare the samples score or features weight from two latent dimensions created by two integration methods:</p>
@@ -756,7 +757,7 @@ Note
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="overview_files/figure-html/show-features-weight-comp-1.png" class="img-fluid" width="768"></p>
+<p><img src="overview_files/figure-html/show-features-weight-comp-1.svg" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>It is also possible to compute a consensus importance score for each feature, which summarises the contribution of the feature to different latent dimensions, and thus assess which features are highlighted across several integration methods. More details are provided in <a href="comparison.html"><span>Chapter&nbsp;14</span></a>.</p>

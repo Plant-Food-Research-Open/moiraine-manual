@@ -307,7 +307,7 @@ Another approach to features preselection can be preferred when we are trying to
 
 `moiraine` relies on the sPLS-DA algorithm implemented in the `mixOmics` package for this. [sparse Partial Least-Squares Discriminant Analysis](https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html) (or sPLS-DA for short) is a feature selection method that aims to detect, in a multivariate dataset, the variables or features that best discriminate a categorical outcome of interest in the observations. The advantages of sPLS-DA is that it can handle datasets in which there are more features than samples, which is typically the case in omics datasets. More information can be found in @lêcao2011 or in the [`mixOmics` vignette](https://mixomicsteam.github.io/mixOmics-Vignette/id_05.html). By running an sPLS-DA analysis on each dataset separately, we can remove the features that are least informative with respect to the trait or outcome of interest. We refer to this approach as supervised preselection, as it relies on information about the samples to select the features of interest.
 
-The `feature_preselection_splsda_factory()` function allows us to perform this supervised preselection for some or all datasets within a `MultiDataSet` object. It provides the option to set either the number or proportion of features to retain in each dataset, via the `to_keep_ns` and `to_keep_props` arguments. One additional argument that needs to be passed to the function is `group`, which gives the name of the column in the samples metadata information to be used as categorical outcome for the sPLS-DA run. This column must be present in the sample metadata of at least one of the datasets to be filtered. For this example, we will retain in each dataset 1,000 features that best discriminate the control and diseased animals. Warning: this function can take several minutes to run.
+The `feature_preselection_splsda_factory()` function allows us to perform this supervised preselection for some or all datasets within a `MultiDataSet` object. It provides the option to set either the number or proportion of features to retain in each dataset, via the `to_keep_ns` and `to_keep_props` arguments. One additional argument that needs to be passed to the function is `group`, which gives the name of the column in the samples metadata information to be used as categorical outcome for the sPLS-DA run. This column must be present in the sample metadata of at least one of the datasets to be filtered. For this example, we will retain in each dataset 1,000 features that best discriminate the control and diseased animals. We can also specify the seed to use for the cross-validation step (through `seed_perf`) and for the final sPLS-DA run (through `seed_run`). Both arguments should be a named list, where each element is the seed to use for the corresponding dataset. Warning: this function can take several minutes to run.
 
 ::: {.targets-chunk}
 ```{targets feature-preselection-splsda-factory}
@@ -315,7 +315,8 @@ feature_preselection_splsda_factory(
   mo_set_complete,
   group = "status",
   to_keep_ns = c("snps" = 1000, "rnaseq" = 1000),
-  filtered_set_target_name = "mo_presel_supervised"
+  filtered_set_target_name = "mo_presel_supervised",
+  seed_perf = c("snps" = -1591100874, "rnaseq" = 1791752001)
 )
 ```
 :::
